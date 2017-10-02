@@ -1,16 +1,17 @@
-import React, { Component } from 'react';
-import {Header} from "./Header"
-import {WhatIsSS} from "./WhatIsSS";
-
-
+import React, { Component } from "react";
+import AppNavBar from "./components/Nav-bar";
+import SearchBar from "./components/SearchBar";
 
 class App extends Component {
   render() {
-
     return (
       <div className="App">
-          <Header/>
-          <WhatIsSS/>
+        <header className="App-header">
+          <AppNavBar />
+        </header>{" "}
+        <p className="App-intro">
+          <SearchBar />
+        </p>{" "}
       </div>
     );
   }
