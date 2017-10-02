@@ -7,7 +7,9 @@ import {
   FormControl
 } from "react-bootstrap";
 
-export default class AppNavbar extends Component {
+//this is now Home class
+
+export default class SearchBar extends Component {
   render() {
     return (
       <Row style={{ marginTop: "25%" }}>

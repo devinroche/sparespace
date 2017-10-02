@@ -1,5 +1,11 @@
 import React, { Component } from "react";
 import { Navbar, Nav, NavItem } from "react-bootstrap";
+import { LinkContainer } from 'react-router-bootstrap';
+import {Route, Redirect} from 'react-router-dom';
+import Login from "./Login";
+import Home from "./Home";
+
+
 
 export default class AppNavbar extends Component {
   render() {
@@ -7,17 +13,24 @@ export default class AppNavbar extends Component {
       <Navbar>
         <Navbar.Header>
           <Navbar.Brand>
-            <a href="#">SpareSpace</a>
+              <LinkContainer to="/">
+                  <a href="/home">sparespace</a>
+              </LinkContainer>
           </Navbar.Brand>
         </Navbar.Header>
-        <Nav className={"pull-right"}>
-          <NavItem eventKey={1} href="#">
-            Link
-          </NavItem>
-          <NavItem eventKey={2} href="#">
+        <Nav pullRight>
+            {/*here link container acts just like Link from react-router, but for react-router-bootstrap'*/}
+            <LinkContainer to="/login" activeClassName="none">
+                <NavItem eventKey={2}>Login</NavItem>
+            </LinkContainer>
+          <NavItem eventKey={3} href="#">
             Link
           </NavItem>
         </Nav>
+          {/*need to find a better way of storing these routes...*/}
+          <Route exact path="/" render={()=> <Redirect to='/home'/>}/>
+          <Route path="/login" component={Login}> </Route>
+          <Route path="/home" component={Home}> </Route>
       </Navbar>
     );
   }
