@@ -1,3 +1,3 @@
-Landing page for usesparespace.com
+## sparespace front-end
 
-First React app!
+### In progress stay tuned...
