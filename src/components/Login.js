@@ -41,7 +41,7 @@ class Login extends Component {
 
                          onSubmit={(values, actions) => {
                              //LoginToMyApp(values) make request to backend
-                                console.log("loggin in...")
+                                console.log(values)
                                     // .then(
                                     //     user => {
                                     //         console.log("you logged in!")
