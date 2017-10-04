@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Formik } from 'formik'
+import axios from 'axios'
 
 class Login extends Component {
     render() {
@@ -40,16 +41,14 @@ class Login extends Component {
                         }}
 
                          onSubmit={(values, actions) => {
-                             //LoginToMyApp(values) make request to backend
                                 console.log(values)
-                                    // .then(
-                                    //     user => {
-                                    //         console.log("you logged in!")
-                                    //     },
-                                    //     errors => {
-                                    //         console.log("BAD LOGIN!!")
-                                    //     }
-                                    // )
+                                axios.get('http://localhost:3001/login/'+ values.email+'/' +values.password)
+                                .then(function (response) {
+                                    console.log(response);
+                                  })
+                                  .catch(function (error) {
+                                    console.log('no user');
+                                  })
                          }}
 
                                 //render is actually rendering the form for the user to see
