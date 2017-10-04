@@ -42,7 +42,7 @@ class Login extends Component {
 
                          onSubmit={(values, actions) => {
                                 console.log(values)
-                                axios.get('http://localhost:3001/login/'+ values.email+'/' +values.password)
+                                axios.post('http://localhost:3001/login', values)
                                 .then(function (response) {
                                     console.log(response);
                                   })
