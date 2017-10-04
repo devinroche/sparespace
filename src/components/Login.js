@@ -44,9 +44,11 @@ class Login extends Component {
                                 console.log(values)
                                 axios.post('http://localhost:3001/login', values)
                                 .then(function (response) {
-                                    console.log(response);
+                                    console.log(response.data[0]);
+                                    var logged = true;
                                   })
                                   .catch(function (error) {
+                                    var logged = false; 
                                     console.log('no user');
                                   })
                          }}
