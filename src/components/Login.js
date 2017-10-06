@@ -1,3 +1,17 @@
+/**
+ * Creates Login Page
+ *
+ * @author George Kunthara
+ * @version v0.0.1 10/02/17
+ *
+ * @ChangeLog
+ *
+ * Initial 10/02/17 George Kunthara
+ * Validate User 10/05/17 Devin Roche
+ *
+ */
+
+
 import React, { Component } from "react";
 import { Formik } from 'formik'
 import axios from 'axios'
@@ -34,22 +48,27 @@ class Login extends Component {
                             let errors = {}
                             if (!values.email) {
                                 errors.email = 'Required'
-                            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+                            }
+                            else if (!values.password){
+                                errors.password = 'Required'
+                            }
+                            else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
                                 errors.email = 'Invalid email address'
                             }
                             return errors
                         }}
 
-                         onSubmit={(values, actions) => {
+                         onSubmit={(values) => {
                                 console.log(values)
                                 axios.post('http://localhost:3001/login', values)
                                 .then(function (response) {
                                     console.log(response.data[0]);
+                                    console.log("You're logged in!")
                                     var logged = true;
                                   })
                                   .catch(function (error) {
-                                    var logged = false; 
-                                    console.log('no user');
+                                    var logged = false;
+                                    console.log('Invalid log in!');
                                   })
                          }}
 

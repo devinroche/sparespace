@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import AppNavBar from "./components/Nav-bar";
+import Navbar from "./components/Nav-bar";
 import {BrowserRouter as Router} from 'react-router-dom';
 
 
@@ -11,7 +11,7 @@ class App extends Component {
         <Router>
           <div className="App">
             <header className="App-header">
-              <AppNavBar />
+              <Navbar/>
             </header>{" "}
           </div>
         </Router>

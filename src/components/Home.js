@@ -1,3 +1,15 @@
+/**
+ * Home Page
+ *
+ * @author David Hanany
+ * @version v0.0.1 10/01/17
+ *
+ * @ChangeLog
+ *
+ * Initial 10/01/17 David Hanany
+ *
+ */
+
 import React, { Component } from "react";
 import axios from 'axios';
 import {

@@ -4,6 +4,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 import {Route, Redirect} from 'react-router-dom';
 import Login from "./Login";
 import Home from "./Home";
+import SignUp from "./SignUp";
 
 
 
@@ -23,14 +24,15 @@ export default class AppNavbar extends Component {
             <LinkContainer to="/login" activeClassName="none">
                 <NavItem eventKey={2}>Login</NavItem>
             </LinkContainer>
-          <NavItem eventKey={3} href="#">
-            Link
-          </NavItem>
+            <LinkContainer to="/sign_up">
+                <NavItem eventKey={3}>Sign Up</NavItem>
+            </LinkContainer>
         </Nav>
           {/*need to find a better way of storing these routes...*/}
           <Route exact path="/" render={()=> <Redirect to='/home'/>}/>
           <Route path="/login" component={Login}> </Route>
           <Route path="/home" component={Home}> </Route>
+          <Route path="/sign_up" component={SignUp}> </Route>
       </Navbar>
     );
   }
