@@ -73,6 +73,7 @@ class SignUp extends Component {
                                 values.contact.email = values.email;
                                 values.contact.phone = values.phone;
 
+                                // TODO: validate if user is already in database
                                 axios.post('http://localhost:3001/users', {
                                     "fullname": values.fullname,
                                     "password": values.password,
