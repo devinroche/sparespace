@@ -15,8 +15,19 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { Formik } from "formik";
 import axios from "axios";
+import swal from 'sweetalert';
+
+
 
 class Login extends Component {
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            show: false,
+        };
+    }
+
   render() {
     console.log("inside render", this.context.router);
     const loginStyle = {
@@ -58,24 +69,31 @@ class Login extends Component {
               }
               return errors;
             }}
-            onSubmit={values => {
-              console.log(values);
+            onSubmit={(values, {setSubmitting}) => {
+              //add a little time delay
+                setTimeout(() => {
+                    setSubmitting(false);
+                }, 1000);
               axios
                 .post("http://localhost:3001/login", values)
                 .then(function (response) {
                   console.log(response.data[0]);
-
-                  //console.log(response.data[0].fullname);
                   console.log("You're logged in!");
                   //return this.context.router.history.replace("/logged_in");
                   window.location.href = "/users/" + response.data[0]._id
                   //return <Redirect to="/logged_in" />;
-                  //var logged = true;
                 })
                 .catch(function (error) {
-                  //var logged = false;
-                  console.log("Invalid log in!");
+                    console.log("Invalid log in!");
+                    //if incorrect login, add a JS alert (using sweetalert)
+                    swal({
+                        title: "Login Failed!",
+                        text: "Your email or password is incorrect!",
+                        icon: "warning",
+                        dangerMode: true,
+                    })
                 });
+
             }}
             //render is actually rendering the form for the user to see
             render={({
@@ -125,6 +143,7 @@ class Login extends Component {
     );
   }
 }
+
 
 Login.contextTypes = {
   router: React.PropTypes.func.isRequired
