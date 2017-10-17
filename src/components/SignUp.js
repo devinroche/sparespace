@@ -12,6 +12,8 @@
 import React, { Component } from "react";
 import { Formik } from 'formik'
 import axios from 'axios'
+import swal from 'sweetalert';
+import Yup from 'yup';
 
 class SignUp extends Component {
     render() {
@@ -44,28 +46,29 @@ class SignUp extends Component {
                         //formik is handling our forms. It will check for valid
                         //input, and then send info on click "Create Account" to our backend
 
-                        //makes sure valid email is entered
-                            validate={values => {
 
-                                let errors = {}
-                                if (!values.email) {
-                                    errors.email = 'Required'
-                                }
-                                else if (!values.fullname) {
-                                    errors.fullname = 'Required'
-                                }
-                                else if (!values.password) {
-                                    errors.password = 'Required'
-                                }
-                                else if (!values.phone){
-                                    errors.phone = 'Required'
-                                }
-                                //validate user has an email that ends with zagmail.gonzaga.edu
-                                else if (!/^[A-Z0-9._%+-]+@zagmail.gonzaga.edu$/i.test(values.email)) {
-                                    errors.email = 'Invalid email address (must end with zagmail.gonzaga.edu'
-                                }
-                                return errors
-                            }}
+                        //makes sure valid email is entered
+                             validate={values => {
+
+                                 let errors = {}
+                                 if (!values.email) {
+                                     errors.email = 'Required'
+                                 }
+                                 else if (!values.fullname) {
+                                     errors.fullname = 'Required'
+                                 }
+                                 else if (!values.password) {
+                                     errors.password = 'Required'
+                                 }
+                                 else if (!values.phone){
+                                     errors.phone = 'Required'
+                                 }
+                                 //validate user has an email that ends with zagmail.gonzaga.edu
+                                 else if (!/^[A-Z0-9._%+-]+@zagmail.gonzaga.edu$/i.test(values.email)) {
+                                     errors.email = 'Invalid email address (must end with zagmail.gonzaga.edu)'
+                                 }
+                                 return errors
+                             }}
 
                             onSubmit={(values) => {
                                 //right now only way for accessing contact object
@@ -83,20 +86,30 @@ class SignUp extends Component {
                                     },
                                     "userType": "renter"
                                 })
-                                console.log("Thanks for creating an account!")
+
+                                swal({
+                                    title: "Thanks for creating an account!",
+                                    content: "Let's Go!",
+                                    icon: "success"
+                                })
+                                    //wait for user to press button then re-direct
+                                    .then(name => {
+                                        window.location.href = "/users/" + values.fullname
+                                    })
+
                             }}
 
                         //render is actually rendering the form for the user to see
                             render={({ values, touched, errors, handleChange, handleSubmit, isSubmitting }) =>
                                 <form style={formStyle} onSubmit={handleSubmit}>
                                     <div className="form-group">
-                                        <label className="pull-left">Full Name</label>
+                                        <label className="pull-left">Name</label>
                                         <input
                                             id="fullname"
                                             className="form-control"
                                             type="fullname"
                                             name="fullname"
-                                            placeholder="Ex: Billy Bob"
+                                            placeholder="Ex: Billy"
                                             onChange={handleChange}
                                             value={values.fullname}
                                         />
@@ -150,6 +163,10 @@ class SignUp extends Component {
         );
     }
 }
+
+SignUp.contextTypes = {
+    router: React.PropTypes.func.isRequired
+};
 
 
 export default SignUp;

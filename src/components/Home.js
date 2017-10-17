@@ -60,12 +60,6 @@ class Home extends Component {
                         </FormGroup>
                     </Col>
                 </Row>
-                {/* This is a demo that gets all users name that are in the database and throws it on the screen */}
-                <ul>
-                    {this.state.dataArr.map(function(user) {
-                        return <li key={user._id}>name: {user.fullname}, password: {user.password}, email: {user.contact.email}</li>
-                    })}
-                </ul> 
             </div>
         );
     }
