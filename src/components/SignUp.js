@@ -93,8 +93,18 @@ class SignUp extends Component {
                                     icon: "success"
                                 })
                                     //wait for user to press button then re-direct
-                                    .then(name => {
-                                        window.location.href = "/users/" + values.fullname
+                                    .then(() => {
+                                        axios.post("http://localhost:3001/login", {
+                                            "email":values.contact.email,
+                                            "password": values.password
+                                        })
+                                        .then(function (response) {
+                                          console.log("You're logged in!");
+                                          //return this.context.router.history.replace("/logged_in");
+                                          console.log(response.data[0]._id)
+                                          window.location.href = "/users/" + response.data[0]._id
+                                          //return <Redirect to="/logged_in" />;
+                                        })
                                     })
 
                             }}
