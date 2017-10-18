@@ -8,7 +8,7 @@ class LoggedIn extends React.Component {
   }
 
   componentDidMount() {
-    axios.get(`http://localhost:3001/users/${this.props.match.params.id}`)
+    axios.get(`http://localhost:3001/user/${this.props.match.params.id}`)
       .then(res => this.setState({ user: res.data }))
       .catch(err => console.log('some err occured', err));
   }
