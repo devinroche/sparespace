@@ -6,6 +6,7 @@ import Login from "./Login";
 import LoggedIn from "./LoggedIn";
 import Home from "./Home";
 import SignUp from "./SignUp";
+import CreateListing from "./CreateListing";
 
 export default class AppNavbar extends Component {
   render() {
@@ -26,6 +27,9 @@ export default class AppNavbar extends Component {
           <LinkContainer to="/sign_up">
             <NavItem eventKey={3}>Sign Up</NavItem>
           </LinkContainer>
+            <LinkContainer to="/create_listing">
+                <NavItem eventKey={3}>Create a Listing!</NavItem>
+            </LinkContainer>
         </Nav>
         {/*need to find a better way of storing these routes...*/}
         <Route exact path="/" render={() => <Redirect to="/home" />} />
@@ -35,6 +39,9 @@ export default class AppNavbar extends Component {
         <Route path="/home" component={Home}>
           {" "}
         </Route>
+          <Route path="/create_listing" component={CreateListing}>
+              {" "}
+          </Route>
         <Route path="/users/:id" component={LoggedIn} />
         <Route path="/sign_up" component={SignUp}>
           {" "}
