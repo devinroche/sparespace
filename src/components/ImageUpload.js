@@ -9,7 +9,7 @@ const CLOUDINARY_UPLOAD_PRESET = process.env.cloudinary_preset;
 const CLOUDINARY_UPLOAD_URL = process.env.upload_url;
 
 
-class App extends Component {
+class ImageUpload extends Component {
 
   constructor(props) {
     super(props);
@@ -99,4 +99,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default ImageUpload;
