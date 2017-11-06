@@ -61,7 +61,7 @@ class CreateListing extends Component {
 
                             onSubmit={(values) => {
 
-                                axios.post('localhost:3001/u/listing', {
+                                axios.post('http://localhost:3001/listings', {
                                     hostid: "123455786",
                                     title: values.title,
                                     duration: values.duration,

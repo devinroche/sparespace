@@ -20,7 +20,7 @@ import {
     FormControl
 } from "react-bootstrap";
 
-//this is Search Bar class, renamed to be home
+//this was Search Bar class, renamed to be home
 
 class Home extends Component {
     constructor(props) {

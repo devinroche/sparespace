@@ -99,10 +99,9 @@ class SignUp extends Component {
                                             "password": values.password
                                         })
                                         .then(function (response) {
-                                          console.log("You're logged in!");
+                                          console.log(response)
                                           //return this.context.router.history.replace("/logged_in");
-                                          console.log(response.data[0]._id)
-                                          window.location.href = "/users/" + response.data[0]._id
+                                          //window.location.href = "/users/" + response.data[0]._id
                                           //return <Redirect to="/logged_in" />;
                                         })
                                     })
