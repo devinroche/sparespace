@@ -1,5 +1,8 @@
 import React from "react";
 import axios from 'axios';
+import {Image} from 'cloudinary-react';
+
+let publicId = ""
 
 class Listings extends React.Component {
     constructor() {
@@ -7,8 +10,9 @@ class Listings extends React.Component {
         this.state = {
             listings: {
                 title: [],
-                duration: [],
-                description: []
+                price: [],
+                description: [],
+                images: []
             }
         };
     }
@@ -16,51 +20,78 @@ class Listings extends React.Component {
     componentDidMount(){
         axios.get("http://localhost:3001/listings")
             .then(response => {
-                console.log(response.data)
                 let titles = []
-                let durations = []
+                let prices = []
                 let descriptions = []
+                let images = []
                 for(let listing of response.data){
                     titles.push(listing.title)
-                    durations.push(listing.duration)
+                    prices.push(listing.price)
                     descriptions.push(listing.description)
+                    images.push(listing.images)
 
 
                 }
-                console.log(titles, durations, descriptions)
-
                 this.setState({
                     listings:{
                         title:  titles,
-                        duration: durations,
-                        description: descriptions
+                        price: prices,
+                        description: descriptions,
+                        images: images
                     }
                 })
             })
             .catch(function (error) {
-                console.log("bad");
+                console.log(error);
             });
+
+
+
+
     }
+
+
+
 
     render() {
 
-
         console.log(this.state.listings)
-        // const listItems = this.state.listings.map((d) => <li key={this.state.listing.title}>{this.state.listing.duration}</li>);
+        console.log(this.state.listings.images[this.state.listings.images.length - 1])
+        publicId = this.state.listings.images[this.state.listings.images.length - 1]
+        // console.log(publicId[0])
+
+
+        // const listItems = this.state.listings.map((d) => <li key={this.state.listing.title}>{this.state.listing.price}</li>);
 
 
         return (
             <div>
                 <div className="container" style={{background: "transparent"}}>
-                    <div className="card" style={{marginTop: "250px", width: "20rem"}}>
-                        <img className="card-img-top" src="" alt="Card image cap"/>
+                    {/*{*/}
+                        {/*this.state.listings.map((listing, index)) => (*/}
+                        {/*<div className="card" style={{marginTop: "250px", width: "20rem", border: "solid"}}>*/}
+                        {/*/!*<img className="card-img-top" src="" alt="Card image cap"/>*!/*/}
+                            {/*<Image cloudName="dopxmkhbr" publicId="yvgbgwjsddazuoq7u09j" width="200"/>*/}
+                                {/*<div className="card-block">*/}
+                                {/*<h4 className="card-title">{this.state.listings.title}</h4>*/}
+                                {/*<p className="card-text">{this.state.listings.description}</p>*/}
+                                {/*<p className="card-text">{this.state.listings.price}</p>*/}
+                                {/*<a className="btn btn-primary">Go somewhere</a>*/}
+                                {/*</div>*/}
+                        {/*</div>*/}
+                        {/*)*/}
+                    {/*}*/}
+                    <div className="card" style={{marginTop: "250px", width: "20rem", border: "solid"}}>
+                        {/*<img className="card-img-top" src="" alt="Card image cap"/>*/}
+                        <Image cloudName="dopxmkhbr" publicId={publicId} width="200"/>
                         <div className="card-block">
                                 <h4 className="card-title">{this.state.listings.title}</h4>
                                 <p className="card-text">{this.state.listings.description}</p>
-                                <p className="card-text">{this.state.listings.duration}</p>
+                                <p className="card-text">{this.state.listings.price}</p>
                             <a className="btn btn-primary">Go somewhere</a>
                             </div>
                     </div>
+
                 </div>
             </div>
         )

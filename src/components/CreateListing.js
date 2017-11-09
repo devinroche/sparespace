@@ -6,6 +6,7 @@
  *
  * @ChangeLog
  * Initial 10/23/17 George Kunthara
+ * Photos 11/6/17 George Kunthara
  */
 
 
@@ -13,7 +14,10 @@ import React, { Component } from "react";
 import { Formik } from 'formik'
 import axios from 'axios'
 import swal from 'sweetalert';
-import Yup from 'yup';
+import {Switch, Link, Route} from 'react-router-dom';
+import ImageUpload from "./ImageUpload";
+import ImageWrapper from "./ImageWrapper";
+
 
 class CreateListing extends Component {
 
@@ -36,7 +40,7 @@ class CreateListing extends Component {
                 <div className="container text-center">
                     <Formik initialValues={{
                         title: '',
-                        duration: '',
+                        price: '',
                         description: ''
                     }}
                         //formik is handling our forms. It will check for valid
@@ -50,8 +54,8 @@ class CreateListing extends Component {
                                 if (!values.title) {
                                     errors.title = 'Required'
                                 }
-                                else if (!values.duration) {
-                                    errors.duration = 'Required'
+                                else if (!values.price) {
+                                    errors.price = 'Required'
                                 }
                                 else if (!values.description) {
                                     errors.description = 'Required'
@@ -59,12 +63,21 @@ class CreateListing extends Component {
                                 return errors
                             }}
 
+                            //doesn't seem to work when we include Link
                             onSubmit={(values) => {
+                                {/*<Route path="/add_photos" render={(props) =>*/}
+                                    {/*(<ImageWrapper hostid = "123456785"*/}
+                                                   {/*title = {values.title}*/}
+                                                   {/*price = {values.price}*/}
+                                                   {/*description={values.description}/>)}/>*/}
+
+                                //
+                                {/*<Route path="/add_photos" component={ImageUpload}/>*/}
 
                                 axios.post('http://localhost:3001/listings', {
                                     hostid: "123455786",
                                     title: values.title,
-                                    duration: values.duration,
+                                    price: values.price,
                                     description: values.description
                                 })
                                 swal({
@@ -91,17 +104,17 @@ class CreateListing extends Component {
                                         {touched.title && errors.title && <div>{errors.title}</div>}
                                     </div>
                                     <div className="form-group">
-                                        <label className="pull-left">Duration</label>
+                                        <label className="pull-left">price</label>
                                         <input
-                                            id="duration"
+                                            id="price"
                                             className="form-control"
-                                            type="duration"
-                                            name="duration"
+                                            type="price"
+                                            name="price"
                                             placeholder="summer"
                                             onChange={handleChange}
-                                            value={values.duration}
+                                            value={values.price}
                                         />
-                                        {touched.duration && errors.duration && <div>{errors.duration}</div>}
+                                        {touched.price && errors.price && <div>{errors.price}</div>}
                                     </div>
                                     <div className="form-group">
                                         <label className="pull-left">Description</label>
@@ -116,9 +129,11 @@ class CreateListing extends Component {
                                         />
                                         {touched.description && errors.description && <div>{errors.description}</div>}
                                     </div>
-                                    <button className="btn btn-default" type="submit">Create Listing!</button>
+                                    <Link to="/add_photos"><button className="btn btn-default" type="submit">Create Listing!</button></Link>
+                                    {/*<button className="btn btn-default" type="submit">Create Listing!</button>*/}
                                 </form>}
                     />
+
                 </div>
             </div>
 

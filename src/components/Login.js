@@ -79,12 +79,12 @@ class Login extends Component {
                 .then(function (response) {
                   console.log("You're logged in!");
                   //return this.context.router.history.replace("/logged_in");
-                  console.log(response.data[0]._id)
-                  window.location.href = "/users/" + response.data[0]._id
-                  //return <Redirect to="/logged_in" />;
+                  //console.log(response.data[0]._id)
+                  window.location.href = "/users/" + response.data._id
+                  return <Redirect to="/logged_in" />;
                 })
                 .catch(function (error) {
-                    console.log("Invalid log in!");
+                    console.log(error);
                     //if incorrect login, add a JS alert (using sweetalert)
                     swal({
                         title: "Login Failed!",

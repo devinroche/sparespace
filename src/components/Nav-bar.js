@@ -8,6 +8,8 @@ import Home from "./Home";
 import SignUp from "./SignUp";
 import CreateListing from "./CreateListing";
 import Listings from "./Listings"
+import ImageUpload from "./ImageUpload";
+import ImageWrapper from "./ImageWrapper";
 
 export default class AppNavbar extends Component {
   render() {
@@ -40,7 +42,7 @@ export default class AppNavbar extends Component {
         <Route path="/login" component={Login}>
           {" "}
         </Route>
-        <Route path="/home" component={Home}>
+          <Route path="/home" component={Home}>
           {" "}
         </Route>
           <Route path="/create_listing" component={CreateListing}>
@@ -49,10 +51,13 @@ export default class AppNavbar extends Component {
           <Route path="/listings" component={Listings}>
               {" "}
           </Route>
+
         <Route path="/users/:id" component={LoggedIn} />
         <Route path="/sign_up" component={SignUp}>
-          {" "}
+            {" "}
         </Route>
+          <Route path="/add_photos" component={ImageUpload}/>
+
       </Navbar>
     );
   }
