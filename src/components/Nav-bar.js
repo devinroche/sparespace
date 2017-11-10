@@ -9,7 +9,6 @@ import SignUp from "./SignUp";
 import CreateListing from "./CreateListing";
 import Listings from "./Listings"
 import ImageUpload from "./ImageUpload";
-import ImageWrapper from "./ImageWrapper";
 
 export default class AppNavbar extends Component {
   render() {

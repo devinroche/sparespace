@@ -8,37 +8,28 @@ class Listings extends React.Component {
     constructor() {
         super();
         this.state = {
-            listings: {
-                title: [],
-                price: [],
-                description: [],
-                images: []
-            }
+            listings:[]
         };
     }
 
     componentDidMount(){
         axios.get("http://localhost:3001/listings")
             .then(response => {
-                let titles = []
-                let prices = []
-                let descriptions = []
-                let images = []
-                for(let listing of response.data){
-                    titles.push(listing.title)
-                    prices.push(listing.price)
-                    descriptions.push(listing.description)
-                    images.push(listing.images)
+                // listings.push(response.data)
+                // let titles = []
+                // let prices = []
+                // let descriptions = []
+                // let images = []
+                // for(let listing of response.data){
+                //     titles.push(listing.title)
+                //     prices.push(listing.price)
+                //     descriptions.push(listing.description)
+                //     images.push(listing.images)
 
 
-                }
+                
                 this.setState({
-                    listings:{
-                        title:  titles,
-                        price: prices,
-                        description: descriptions,
-                        images: images
-                    }
+                    listings: response.data
                 })
             })
             .catch(function (error) {
@@ -56,8 +47,8 @@ class Listings extends React.Component {
     render() {
 
         console.log(this.state.listings)
-        console.log(this.state.listings.images[this.state.listings.images.length - 1])
-        publicId = this.state.listings.images[this.state.listings.images.length - 1]
+        // console.log(this.state.listings.images[this.state.listings.images.length - 1])
+        // publicId = this.state.listings.images[this.state.listings.images.length - 1]
         // console.log(publicId[0])
 
 
@@ -82,7 +73,7 @@ class Listings extends React.Component {
                         {/*)*/}
                     {/*}*/}
                     <div className="card" style={{marginTop: "250px", width: "20rem", border: "solid"}}>
-                        {/*<img className="card-img-top" src="" alt="Card image cap"/>*/}
+                        <img className="card-img-top" src="" alt="Card image cap"/>
                         <Image cloudName="dopxmkhbr" publicId={publicId} width="200"/>
                         <div className="card-block">
                                 <h4 className="card-title">{this.state.listings.title}</h4>
@@ -90,6 +81,12 @@ class Listings extends React.Component {
                                 <p className="card-text">{this.state.listings.price}</p>
                             <a className="btn btn-primary">Go somewhere</a>
                             </div>
+
+                        <ul>
+                        {this.state.listings.map(function(l, index){
+                            return <li key={ index }>{l.title}</li>;
+                        })}
+                        </ul>
                     </div>
 
                 </div>

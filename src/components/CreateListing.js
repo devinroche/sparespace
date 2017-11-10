@@ -16,7 +16,6 @@ import axios from 'axios'
 import swal from 'sweetalert';
 import {Switch, Link, Route} from 'react-router-dom';
 import ImageUpload from "./ImageUpload";
-import ImageWrapper from "./ImageWrapper";
 
 
 class CreateListing extends Component {
