@@ -45,8 +45,9 @@ export default class AppNavbar extends Component {
           {" "}
         </Route>
           <Route path="/create_listing" component={CreateListing}>
-              {" "}
           </Route>
+          <Route path="/add_photos" component={ImageUpload}/>
+
           <Route path="/listings" component={Listings}>
               {" "}
           </Route>
@@ -55,8 +56,6 @@ export default class AppNavbar extends Component {
         <Route path="/sign_up" component={SignUp}>
             {" "}
         </Route>
-          <Route path="/add_photos" component={ImageUpload}/>
-
       </Navbar>
     );
   }
