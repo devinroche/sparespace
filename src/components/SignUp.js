@@ -13,7 +13,6 @@ import React, { Component } from "react";
 import { Formik } from 'formik'
 import axios from 'axios'
 import swal from 'sweetalert';
-import Yup from 'yup';
 
 class SignUp extends Component {
     render() {

@@ -12,13 +12,37 @@
 
 import React, { Component } from "react";
 import { Formik } from 'formik'
-import axios from 'axios'
-import swal from 'sweetalert';
-import {Switch, Link, Route} from 'react-router-dom';
 import ImageUpload from "./ImageUpload";
 
 
+
+let title = ""
+let description = ""
+let price = ""
+
 class CreateListing extends Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            showAddPhotos : false,
+        };
+
+        this.enableAddPhotos  = this.enableAddPhotos.bind(this);
+    }
+
+
+    enableAddPhotos() {
+        return (
+        <ImageUpload title= {title}
+                     description= {description}
+                     price={price}
+        />
+
+        )
+    }
+
 
     render() {
 
@@ -34,6 +58,7 @@ class CreateListing extends Component {
 
 
         return (
+
             <div>
                 <h1 style={loginStyle} className="text-center"> Create a Listing!</h1>
                 <div className="container text-center">
@@ -63,27 +88,15 @@ class CreateListing extends Component {
                             }}
 
                             //doesn't seem to work when we include Link
-                            onSubmit={(values) => {
-                                {/*<Route path="/add_photos" render={(props) =>*/}
-                                    {/*(<ImageWrapper hostid = "123456785"*/}
-                                                   {/*title = {values.title}*/}
-                                                   {/*price = {values.price}*/}
-                                                   {/*description={values.description}/>)}/>*/}
+                            onSubmit={
+                                (values) => {
+                                    title = values.title
+                                    description = values.description
+                                    price = values.price
+                                    this.setState({
+                                        showAddPhotos : true,
+                                    });
 
-                                //
-                                {/*<Route path="/add_photos" component={ImageUpload}/>*/}
-
-                                axios.post('http://localhost:3001/listings', {
-                                    hostid: "123455786",
-                                    title: values.title,
-                                    price: values.price,
-                                    description: values.description
-                                })
-                                swal({
-                                    title: "You made a Listing!",
-                                    content: "Nice!!",
-                                    icon: "success"
-                                })
                             }}
 
                         //render is actually rendering the form for the user to see
@@ -109,7 +122,7 @@ class CreateListing extends Component {
                                             className="form-control"
                                             type="price"
                                             name="price"
-                                            placeholder="summer"
+                                            placeholder="$25"
                                             onChange={handleChange}
                                             value={values.price}
                                         />
@@ -128,21 +141,16 @@ class CreateListing extends Component {
                                         />
                                         {touched.description && errors.description && <div>{errors.description}</div>}
                                     </div>
-                                    <Link to="/add_photos"><button className="btn btn-default" type="submit">Create Listing!</button></Link>
-                                    {/*<button className="btn btn-default" type="submit">Create Listing!</button>*/}
+                                    {/*<Link to="/add_photos"><button className="btn btn-default" type="submit">Create Listing!</button></Link>*/}
+                                    <button className="btn btn-default" type="submit">Add Photos</button>
                                 </form>}
                     />
-
                 </div>
+                { this.state.showAddPhotos ? this.enableAddPhotos() : null }
             </div>
 
         );
     }
 }
-
-CreateListing.contextTypes = {
-    router: React.PropTypes.func.isRequired
-};
-
 
 export default CreateListing;

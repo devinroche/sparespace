@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
 import axios from 'axios';
+import swal from 'sweetalert';
+
 
 
 
@@ -12,7 +14,6 @@ import axios from 'axios';
 
 const CLOUDINARY_UPLOAD_PRESET = "apqnswzs";
 const CLOUDINARY_UPLOAD_URL = "https://api.cloudinary.com/v1_1/dopxmkhbr/image/upload";
-var image = "";
 
 
 class ImageUpload extends Component {
@@ -50,9 +51,9 @@ class ImageUpload extends Component {
         console.log(image)
         axios.post('http://localhost:3001/listings', {
             _host: "5a04df626fd08e0f6b690130",
-            title: "test2",
-            price: "test2",
-            description: "test2",
+            title: this.props.title,
+            price: this.props.price,
+            description: this.props.description,
             images: image
         })
 
@@ -62,22 +63,22 @@ class ImageUpload extends Component {
         this.setState(
             {uploadedFileCloudinaryUrl: newIds}) //set the new state
 
-        /*
-        this.setState({
-          uploadedFileCloudinaryUrl[i]: response.body.secure_url
-        });
-        */
 
       }
+        swal({
+            title: "You made a Listing!",
+            content: "Nice!!",
+            icon: "success"
+        })
 
     });
     }
 
-
   }
 
   render() {
-    
+
+    console.log(this.props.title)
     return (
     <div class = "container">
       <h1 class = "text-center"> Lets Add some photos </h1>
