@@ -1,8 +1,7 @@
 import Cookies from 'js-cookie';
 
 function loginUser(uid){
-    console.log(uid)
-    Cookies.set('id', uid);
+    Cookies.set('id', uid, {maxAge: 86400});
 }
 
 function isLoggedIn(){
