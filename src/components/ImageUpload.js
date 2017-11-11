@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
 import axios from 'axios';
+import Cookies from '../Cookies';
 import swal from 'sweetalert';
 
 
@@ -47,9 +48,8 @@ handleImageUpload() {
     }
       let image = []
       image.push(response.body.public_id);
-      console.log(image)
       axios.post('http://localhost:3001/listings', {
-          _host: "5a04df626fd08e0f6b690130",
+          _host: Cookies.getId(),
           title: this.props.title,
           price: this.props.price,
           description: this.props.description,

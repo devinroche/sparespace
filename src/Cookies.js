@@ -7,7 +7,13 @@ function loginUser(uid){
 function isLoggedIn(){
     return Boolean(Cookies.get("id"))
 }
+
+function getId(){
+    return Cookies.get('id')
+}
+
 export default {
     loginUser,
-    isLoggedIn 
+    isLoggedIn,
+    getId 
 };
