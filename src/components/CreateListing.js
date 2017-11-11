@@ -9,140 +9,190 @@
  * Photos 11/6/17 George Kunthara
  */
 
-
-import React, { Component } from "react";
-import { Formik } from 'formik'
-import axios from 'axios'
-import swal from 'sweetalert';
-import {Switch, Link, Route} from 'react-router-dom';
-import ImageUpload from "./ImageUpload";
-
+import React, { Component } from "react"
+import { Formik } from "formik"
+import axios from "axios"
+import swal from "sweetalert"
+import { Switch, Link, Route, Redirect } from "react-router-dom"
+import ImageUpload from "./ImageUpload"
+import Cookies from "../Cookies"
 
 class CreateListing extends Component {
+	constructor(props) {
+		super(props)
 
-    render() {
+		this.checkLogin = this.checkLogin.bind(this)
+	}
 
-        //adjust login header to be more down the screen
-        const loginStyle = {
-            marginTop: 100
-        }
+	componentDidMount() {
+		this.checkLogin()
+	}
 
-        //adjust forms to have more space against login header
-        const formStyle = {
-            marginTop: 25
-        }
+	checkLogin() {
+		if (Cookies.isLoggedIn() === false) {
+			swal("Woah you must be logged in to do this!" ,{buttons: {
+				return: {
+				  text: "Login",
+				  value: "login",
+				},
+				view: {
+					text: "View All Listings",
+					value: "viewall",
+				  }
+			  },
+			}).then((value) => {
+			  switch (value) {
+			 
+				case "login":
+					window.location.href = "/login"
+					return <Redirect to="/login" />
+					break;
 
+				case "viewall":
+					window.location.href = "/listings"
+					return <Redirect to="/listings" />
+					break;
 
-        return (
-            <div>
-                <h1 style={loginStyle} className="text-center"> Create a Listing!</h1>
-                <div className="container text-center">
-                    <Formik initialValues={{
-                        title: '',
-                        price: '',
-                        description: ''
-                    }}
-                        //formik is handling our forms. It will check for valid
-                        //input, and then send info on click "Create Account" to our backend
+				default:
+				  swal("Got away safely!");
+				  break;
+			  }
+			})
+		}
+	}
 
+	render() {
+		this.checkLogin()
 
-                        //makes sure valid email is entered
-                            validate={values => {
+		const loginStyle = {
+			marginTop: 100
+		}
 
-                                let errors = {}
-                                if (!values.title) {
-                                    errors.title = 'Required'
-                                }
-                                else if (!values.price) {
-                                    errors.price = 'Required'
-                                }
-                                else if (!values.description) {
-                                    errors.description = 'Required'
-                                }
-                                return errors
-                            }}
+		const formStyle = {
+			marginTop: 25
+		}
 
-                            //doesn't seem to work when we include Link
-                            onSubmit={(values) => {
-                                {/*<Route path="/add_photos" render={(props) =>*/}
-                                    {/*(<ImageWrapper hostid = "123456785"*/}
-                                                   {/*title = {values.title}*/}
-                                                   {/*price = {values.price}*/}
-                                                   {/*description={values.description}/>)}/>*/}
+		return (
+			<div>
+				<h1 style={loginStyle} className="text-center">
+					{" "}
+					Create a Listing!
+				</h1>
+				<div className="container text-center">
+					<Formik
+						initialValues={{
+							title: "",
+							price: "",
+							description: ""
+						}}
+						validate={values => {
+							let errors = {}
+							if (!values.title) {
+								errors.title = "Required"
+							} else if (!values.price) {
+								errors.price = "Required"
+							} else if (!values.description) {
+								errors.description = "Required"
+							}
+							return errors
+						}}
+						onSubmit={values => {
+							{
+								/*<Route path="/add_photos" render={(props) =>*/
+							}
+							{
+								/*(<ImageWrapper hostid = "123456785"*/
+							}
+							{
+								/*title = {values.title}*/
+							}
+							{
+								/*price = {values.price}*/
+							}
+							{
+								/*description={values.description}/>)}/>*/
+							}
 
-                                //
-                                {/*<Route path="/add_photos" component={ImageUpload}/>*/}
+							//
+							{
+								/*<Route path="/add_photos" component={ImageUpload}/>*/
+							}
 
-                                axios.post('http://localhost:3001/listings', {
-                                    hostid: "123455786",
-                                    title: values.title,
-                                    price: values.price,
-                                    description: values.description
-                                })
-                                swal({
-                                    title: "You made a Listing!",
-                                    content: "Nice!!",
-                                    icon: "success"
-                                })
-                            }}
-
-                        //render is actually rendering the form for the user to see
-                            render={({ values, touched, errors, handleChange, handleSubmit, isSubmitting }) =>
-                                <form style={formStyle} onSubmit={handleSubmit}>
-                                    <div className="form-group">
-                                        <label className="pull-left">Title</label>
-                                        <input
-                                            id="title"
-                                            className="form-control"
-                                            type="title"
-                                            name="title"
-                                            placeholder="Beautiful Basement"
-                                            onChange={handleChange}
-                                            value={values.title}
-                                        />
-                                        {touched.title && errors.title && <div>{errors.title}</div>}
-                                    </div>
-                                    <div className="form-group">
-                                        <label className="pull-left">price</label>
-                                        <input
-                                            id="price"
-                                            className="form-control"
-                                            type="price"
-                                            name="price"
-                                            placeholder="summer"
-                                            onChange={handleChange}
-                                            value={values.price}
-                                        />
-                                        {touched.price && errors.price && <div>{errors.price}</div>}
-                                    </div>
-                                    <div className="form-group">
-                                        <label className="pull-left">Description</label>
-                                        <input
-                                            id="description"
-                                            className="form-control"
-                                            type="description"
-                                            name="description"
-                                            placeholder="This place is awesome..."
-                                            onChange={handleChange}
-                                            value={values.description}
-                                        />
-                                        {touched.description && errors.description && <div>{errors.description}</div>}
-                                    </div>
-                                    <Link to="/add_photos"><button className="btn btn-default" type="submit">Create Listing!</button></Link>
-                                    {/*<button className="btn btn-default" type="submit">Create Listing!</button>*/}
-                                </form>}
-                    />
-
-                </div>
-            </div>
-
-        );
-    }
+							axios.post("http://localhost:3001/listings", {
+								hostid: "123455786",
+								title: values.title,
+								price: values.price,
+								description: values.description
+							})
+							swal({
+								title: "You made a Listing!",
+								content: "Nice!!",
+								icon: "success"
+							})
+						}}
+						//render is actually rendering the form for the user to see
+						render={({
+							values,
+							touched,
+							errors,
+							handleChange,
+							handleSubmit,
+							isSubmitting
+						}) => (
+							<form style={formStyle} onSubmit={handleSubmit}>
+								<div className="form-group">
+									<label className="pull-left">Title</label>
+									<input
+										id="title"
+										className="form-control"
+										type="title"
+										name="title"
+										placeholder="Beautiful Basement"
+										onChange={handleChange}
+										value={values.title}
+									/>
+									{touched.title && errors.title && <div>{errors.title}</div>}
+								</div>
+								<div className="form-group">
+									<label className="pull-left">price</label>
+									<input
+										id="price"
+										className="form-control"
+										type="price"
+										name="price"
+										placeholder="summer"
+										onChange={handleChange}
+										value={values.price}
+									/>
+									{touched.price && errors.price && <div>{errors.price}</div>}
+								</div>
+								<div className="form-group">
+									<label className="pull-left">Description</label>
+									<input
+										id="description"
+										className="form-control"
+										type="description"
+										name="description"
+										placeholder="This place is awesome..."
+										onChange={handleChange}
+										value={values.description}
+									/>
+									{touched.description &&
+										errors.description && <div>{errors.description}</div>}
+								</div>
+								<Link to="/add_photos">
+									<button className="btn btn-default" type="submit">
+										Create Listing!
+									</button>
+								</Link>
+								{/*<button className="btn btn-default" type="submit">Create Listing!</button>*/}
+							</form>
+						)}
+					/>
+				</div>
+			</div>
+		)
+	}
 }
 
-CreateListing.contextTypes = {
-    router: React.PropTypes.func.isRequired
-};
-
-
-export default CreateListing;
+export default CreateListing
