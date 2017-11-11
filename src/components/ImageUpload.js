@@ -111,7 +111,7 @@ render() {
  
         </div>
  
-      <button type="button" class="btn btn-primary" onClick = {this.handleImageUpload.bind(this)} >Add Photos</button>
+      <button type="button" className="btn btn-primary" onClick = {this.handleImageUpload.bind(this)} >Add Photos</button>
  
     </div>
  
