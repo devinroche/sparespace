@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
 import axios from 'axios';
+import { Switch, Link, Route, Redirect } from "react-router-dom"
 import Cookies from '../Cookies';
 import swal from 'sweetalert';
 
@@ -64,15 +65,24 @@ handleImageUpload() {
 
 
     }
-      swal({
-          title: "You made a Listing!",
-          content: "Nice!!",
-          icon: "success"
-      })
+    swal("Congrats you posted your space!" ,{buttons: {
+      return: {
+        text: "See your listing!",
+        value: "listing",
+      }
+      }
+    }).then((value) => {
+			  switch (value) {
+			 
+				case "listing":
+					window.location.href = "/listings"
+					return <Redirect to="/listings" />
+					break;
+			  }
 
   });
-  }
-
+  })
+}
 }
 
 render() {
@@ -103,15 +113,13 @@ render() {
                 </div>
               ))
             }
-
-            }
             </div>
           
           }
  
         </div>
  
-      <button type="button" className="btn btn-primary" onClick = {this.handleImageUpload.bind(this)} >Add Photos</button>
+      <button type="button" className="btn btn-primary" onClick = {this.handleImageUpload.bind(this)} >Submit</button>
  
     </div>
  

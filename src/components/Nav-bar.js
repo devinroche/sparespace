@@ -6,6 +6,7 @@ import Login from "./Login"
 import LoggedIn from "./LoggedIn"
 import Home from "./Home"
 import SignUp from "./SignUp"
+import Listing from './Listing'
 import CreateListing from "./CreateListing"
 import Listings from "./Listings"
 import ImageUpload from "./ImageUpload"
@@ -13,12 +14,16 @@ import ImageUpload from "./ImageUpload"
 export default class AppNavbar extends Component {
 	render() {
 		return (
+      
+
+      <div>
+
 			<Navbar>
 				<Navbar.Header>
 					<Navbar.Brand>
-						<LinkContainer to="/">
+						{/* <LinkContainer to="/"> */}
 							<a href="/home">sparespace</a>
-						</LinkContainer>
+						{/* </LinkContainer> */}
 					</Navbar.Brand>
 				</Navbar.Header>
 				<Nav pullRight>
@@ -36,14 +41,11 @@ export default class AppNavbar extends Component {
 						<NavItem eventKey={3}>View Listings</NavItem>
 					</LinkContainer>
 				</Nav>
-				{/*need to find a better way of storing these routes...*/}
+        </Navbar>
+
 				<Route exact path="/" render={() => <Redirect to="/home" />} />
-				<Route path="/login" component={Login}>
-					{" "}
-				</Route>
-				<Route path="/home" component={Home}>
-					{" "}
-				</Route>
+				<Route path="/login" component={Login}/>
+				<Route path="/home" component={Home}/>
 				<Route path="/create_listing" component={CreateListing} />
 				<Route path="/add_photos" component={ImageUpload} />
 
@@ -52,10 +54,11 @@ export default class AppNavbar extends Component {
 				</Route>
 
 				<Route path="/users/:id" component={LoggedIn} />
+        <Route path="/listing/:id" component={Listing} />
 				<Route path="/sign_up" component={SignUp}>
 					{" "}
 				</Route>
-			</Navbar>
+        </div>
 		)
 	}
 }

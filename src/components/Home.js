@@ -43,7 +43,7 @@ class Home extends Component {
 	render() {
 		return (
 			<div>
-				<Row style={{ marginTop: "25%" }}>
+				<Row style={{ marginTop: "15%" }}>
 					<Col sm={8} smdOffset={2} className={"text-center col-sm-offset-2"}>
 						<FormGroup controlId="formBasicText">
 							<ControlLabel style={{ fontSize: "22px", marginBottom: "20px" }}>

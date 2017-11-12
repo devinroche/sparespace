@@ -38,12 +38,14 @@ class Login extends Component {
 		}
 
 		return (
-			<div>
-				<h1 style={loginStyle} className="text-center">
+			<div className="card">
+			<div className="container text-center">
+				<h1 style={loginStyle} className="text-center card-title">
 					{" "}
 					Login{" "}
 				</h1>
-				<div className="container text-center">
+				<div className="row">
+					<div className="col-lg-6 col-lg-offset-3">
 					<Formik
 						initialValues={{
 							email: "",
@@ -125,12 +127,14 @@ class Login extends Component {
 									{touched.password &&
 										errors.password && <div>{errors.password}</div>}
 								</div>
-								<button className="btn btn-default" type="submit">
-									Login
+								<button className="btn btn-primary" type="submit">
+									Submit
 								</button>
 							</form>
 						)}
 					/>
+				</div>
+				</div>
 				</div>
 			</div>
 		)

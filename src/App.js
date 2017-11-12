@@ -5,16 +5,11 @@ import {BrowserRouter as Router} from 'react-router-dom';
 class App extends Component {
   render() {
     return (
-
-        //
+      <div>
         <Router>
-          <div className="App">
-            <header className="App-header">
-              <Navbar/>
-              {/*<ImageUpload/>*/}
-            </header>{" "}
-          </div>
+            <Navbar/>
         </Router>
+      </div>
     );
   }
 }

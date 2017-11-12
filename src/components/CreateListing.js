@@ -95,6 +95,7 @@ class CreateListing extends Component {
             <div> 
                 <h1 style={loginStyle} className="text-center"> Create a Listing!</h1> 
                 <div className="container text-center"> 
+                <div className="row">
                 <Formik initialValues={{
                         title: '',
                         price: '',
@@ -122,9 +123,9 @@ class CreateListing extends Component {
                             showAddPhotos : true,
                         });
                 }}
-
                         //render part of formik
                             render={({ values, touched, errors, handleChange, handleSubmit, isSubmitting }) =>
+                            <div className="col-lg-6 col-lg-offset-3">
                                 <form style={formStyle} onSubmit={handleSubmit}>
                                     <div className="form-group">
                                         <label className="pull-left">Title</label>
@@ -166,11 +167,14 @@ class CreateListing extends Component {
                                         {touched.description && errors.description && <div>{errors.description}</div>}
                                     </div>
                                     {/*<Link to="/add_photos"><button className="btn btn-default" type="submit">Create Listing!</button></Link>*/}
-                                    <button className="btn btn-default" type="submit">Submit</button>
-                                </form>}
+                                    <button className="btn btn-primary" type="submit">Add some pix!</button>
+                                </form>
+                                { this.state.showAddPhotos ? this.enableAddPhotos() : null }
+                                </div>
+                                }
                     />
                 </div>
-                { this.state.showAddPhotos ? this.enableAddPhotos() : null }
+                </div>
             </div>
         );
     }

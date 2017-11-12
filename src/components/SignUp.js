@@ -33,6 +33,8 @@ class SignUp extends Component {
 					Create Account{" "}
 				</h1>
 				<div className="container text-center">
+				<div className="row">
+				<div className="col-lg-6 col-lg-offset-3">
 					<Formik
 						initialValues={{
 							fullname: "",
@@ -56,8 +58,6 @@ class SignUp extends Component {
 								errors.fullname = "Required"
 							} else if (!values.password) {
 								errors.password = "Required"
-							} else if (!values.phone) {
-								errors.phone = "Required"
 							} else if (
 								!/^[A-Z0-9._%+-]+@zagmail.gonzaga.edu$/i.test(values.email)
 							) {
@@ -71,7 +71,6 @@ class SignUp extends Component {
 							//right now only way for accessing contact object
 							//for some reason getting errors when accessing within forms...
 							values.contact.email = values.email
-							values.contact.phone = values.phone
 
 							// TODO: validate if user is already in database
 							axios.post("http://localhost:3001/users", {
@@ -79,9 +78,7 @@ class SignUp extends Component {
 								password: values.password,
 								contact: {
 									email: values.contact.email,
-									phone: values.contact.phone
-								},
-								userType: "renter"
+								}
 							})
 
 							swal({
@@ -142,19 +139,6 @@ class SignUp extends Component {
 									{touched.email && errors.email && <div>{errors.email}</div>}
 								</div>
 								<div className="form-group">
-									<label className="pull-left">Phone</label>
-									<input
-										id="phone"
-										className="form-control"
-										type="phone"
-										name="phone"
-										placeholder="Phone Number"
-										onChange={handleChange}
-										value={values.phone}
-									/>
-									{touched.phone && errors.phone && <div>{errors.phone}</div>}
-								</div>
-								<div className="form-group">
 									<label className="pull-left">Password</label>
 									<input
 										id="password"
@@ -168,13 +152,15 @@ class SignUp extends Component {
 									{touched.password &&
 										errors.password && <div>{errors.password}</div>}
 								</div>
-								<button className="btn btn-default" type="submit">
+								<button className="btn btn-primary" type="submit">
 									Sign Up!
 								</button>
 							</form>
 						)}
 					/>
 				</div>
+			</div>
+			</div>
 			</div>
 		)
 	}
