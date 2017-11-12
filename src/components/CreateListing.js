@@ -73,7 +73,8 @@ class CreateListing extends Component {
 					break;
 
 				default:
-				  swal("Got away safely!");
+                    window.location.href = "/listings"
+                    return <Redirect to="/listings" />
 				  break;
 			  }
 			})

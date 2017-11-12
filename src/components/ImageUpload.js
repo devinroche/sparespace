@@ -86,8 +86,6 @@ handleImageUpload() {
 }
 
 render() {
-
-  console.log(this.props.title)
   return (
     <div class = "container">
     <h1 class = "text-center"> Lets Add some photos </h1>
