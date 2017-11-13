@@ -35,11 +35,11 @@ class Listings extends React.Component {
                         /*<div key={ index }></div>*/
                             <div className="card col-md-3 col-md-offset-1" style={{width: "20rem", padding:"15px"}}>
                                 <Image cloudName="dopxmkhbr" publicId={l.images[0]} width="200"/>
-                                <div className="card-block">
+                                <div className="card-block text-center">
                                     <h4 className="card-title">{l.title}</h4>
                                     <p className="card-text">{l.price}</p>
                                     <p className="card-text">{l.description}</p>
-                                    <Link to={`/listing/${l._id}`}>view me!</Link>
+                                    <Link to={`/listing/${l._id}`}><button className="btn btn-primary">view me!</button></Link>
                                 </div>
                         </div>
                         ))

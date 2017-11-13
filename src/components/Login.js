@@ -69,10 +69,7 @@ class Login extends Component {
 							return errors
 						}}
 						onSubmit={(values, { setSubmitting }) => {
-							//add a little time delay
-							setTimeout(() => {
-								setSubmitting(false)
-							}, 1000)
+							setSubmitting(false)
 							axios
 								.post("http://localhost:3001/login", values)
 								.then(function(response) {

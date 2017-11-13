@@ -49,15 +49,11 @@ export default class AppNavbar extends Component {
 				<Route path="/create_listing" component={CreateListing} />
 				<Route path="/add_photos" component={ImageUpload} />
 
-				<Route path="/listings" component={Listings}>
-					{" "}
-				</Route>
+			<Route path="/listings" component={Listings}>{" "}</Route>
 
-				<Route path="/users/:id" component={LoggedIn} />
-        <Route path="/listing/:id" component={Listing} />
-				<Route path="/sign_up" component={SignUp}>
-					{" "}
-				</Route>
+			<Route path="/users/:id" component={LoggedIn} />
+        	<Route path="/listing/:id" component={Listing} />
+			<Route path="/sign_up" component={SignUp}>{" "}</Route>
         </div>
 		)
 	}
