@@ -18,7 +18,6 @@ class LoggedIn extends React.Component {
 	}
 
 	render() {
-		console.log("some proppppppps", this.props)
 		const listing = this.state.listing ? this.state.listing : ""
 		const listingImages= listing.images ? listing.images: ""
 
