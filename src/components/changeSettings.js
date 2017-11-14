@@ -2,47 +2,85 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-class App extends Component {
+class changeSettings extends Component {
+
+    constructor(props) {
+    super(props);
+    this.state = {
+      name_input: '',
+      email_input: '',
+      phone_input: '',
+      address_input: '',
+      old_pass_input: '',
+      new_pass_input: '',
+      new_c_pass_input: '',
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(event) {
+    var change = {};
+    change[event.target.name] = event.target.value;
+    this.setState(
+      change
+      
+    );
+  }
+
+  handleSubmit(event) {
+    alert('A name was submitted: ' + this.state.name_input);
+    event.preventDefault();
+  }
+
+    
+      
+    
+
+  
+
+
   render() {
     return (
       <div className="App">
         <div class = 'container'>
           <h1 class = 'text-center'> Account : Evan Arends </h1>
-          <form>
+          <form onSubmit={this.handleSubmit}>
             <div class = 'form-group'>
-              <label for="exampleInputEmail1">Name</label>
-              <input type="text" class="form-control" id="name_input" aria-describedby="emailHelp" placeholder="Evan Arends"/>
-              <small id="emailHelp" class="form-text text-muted">We'll never share your name with anyone else.</small>
+              <label >Name</label>
+              <input  type = 'text' class="form-control" value={this.state.name_input} onChange={this.handleChange} placeholder="Evan Arends"/>
+              <small class="form-text text-muted">We'll never share your name with anyone else.</small>
             </div>
             <div class = 'form-group'>
-              <label for="exampleInputEmail1"></label>
-              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"/>
-              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+              <label ></label>
+              <input type = 'email' class="form-control" value={this.state.email_input} onChange={this.handleChange} placeholder="Enter email"/>
+              <small  class="form-text text-muted">We'll never share your email with anyone else.</small>
             </div>
             <div class = 'form-group'>
-              <label for="exampleInputEmail1"></label>
-              <input type="number" class="form-control" id="phone_input" aria-describedby="emailHelp" placeholder="206-000-0000"/>
-              <small id="emailHelp" class="form-text text-muted">We'll never share your phone number with anyone else.</small>
+              <label ></label>
+              <input type = 'phone' class="form-control" value={this.state.phone_input} onChange={this.handleChange} placeholder="206-000-0000"/>
+              <small class="form-text text-muted">We'll never share your phone number with anyone else.</small>
             </div>
             <div class = 'form-group'>
-              <label for="exampleInputEmail1"></label>
-              <input type="number" class="form-control" id="address_input" aria-describedby="emailHelp" placeholder="803 e ermina"/>
-              <small id="emailHelp" class="form-text text-muted">We'll never share your address with anyone else.</small>
+              <label ></label>
+              <input type = 'address' class="form-control" value={this.state.address_input} onChange={this.handleChange} placeholder="803 e ermina"/>
+              <small class="form-text text-muted">We'll never share your address with anyone else.</small>
             </div>
             <h2> Change Password </h2>
             <div class = 'form-group'>
-              <label for="exampleInputEmail1"></label>
-              <input type="password" class="form-control" id="old_pass_input" aria-describedby="emailHelp" placeholder="Old Password"/>
+              <label ></label>
+              <input  type="password" class="form-control" value={this.state.old_pass_input} onChange={this.handleChange} placeholder="Old Password"/>
             </div>
             <div class = 'form-group'>
-              <label for="exampleInputEmail1"></label>
-              <input type="password" class="form-control" id="new_pass_input" aria-describedby="emailHelp" placeholder="New Password"/>
+              <label ></label>
+              <input  type="password" class="form-control" value={this.state.new_pass_input} onChange={this.handleChange} placeholder="New Password"/>
             </div>
             <div class = 'form-group'>
-              <label for="exampleInputEmail1"></label>
-              <input type="password" class="form-control" id="new_c_password" aria-describedby="emailHelp" placeholder="Confirm Password"/>
+              <label ></label>
+              <input type="password" class="form-control" value={this.state.new_pass_input} onChange={this.handleChange} placeholder="Confirm Password"/>
             </div>
-            <button type="submit" class="btn btn-primary">Submit Changes</button>
+            <button type="submit" value = 'submit' class="btn btn-primary" >Submit Changes</button>
           </form>
         </div>
       </div>
@@ -50,4 +88,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default changeSettings;
