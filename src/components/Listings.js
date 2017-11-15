@@ -25,8 +25,6 @@ class Listings extends React.Component {
     }
 
     render() {
-
-        console.log(this.state.listings)
         return (
             <div>
                 <div className="container" style={{background: "transparent"}}>

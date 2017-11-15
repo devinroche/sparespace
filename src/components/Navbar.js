@@ -21,7 +21,6 @@ export default class AppNavbar extends Component {
 	  }
 	
 	logout(){
-		console.log("turd")
 		Cookies.removeCookie();
 	}
 	
@@ -36,7 +35,7 @@ export default class AppNavbar extends Component {
 		else{
 			const notValid = (
 				<Nav>
-				<LinkContainer to="/login" activeClassName="none">
+					<LinkContainer to="/login" activeClassName="none">
 						<NavItem eventKey={2}>Login</NavItem>
 					</LinkContainer>
 					<LinkContainer to="/sign_up">

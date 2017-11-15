@@ -138,8 +138,4 @@ class Login extends Component {
 	}
 }
 
-Login.contextTypes = {
-	router: React.PropTypes.func.isRequired
-}
-
 export default Login

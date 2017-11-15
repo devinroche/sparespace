@@ -15,7 +15,6 @@ class LoggedIn extends React.Component {
 	}
 
 	render() {
-		console.log("some proppppppps", this.props)
 		const user = this.state.user ? this.state.user : ""
 
 		return (
