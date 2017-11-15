@@ -9,26 +9,27 @@
  * Photos 11/6/17 George Kunthara
  */
 
-
-import React, { Component } from "react";
-import { Formik } from 'formik'
-import ImageUpload from "./ImageUpload";
-
-
+import React, {Component } from "react"
+import { Formik } from "formik"
+import axios from "axios"
+import swal from "sweetalert"
+import { Switch, Link, Route, Redirect } from "react-router-dom"
+import ImageUpload from "./ImageUpload"
+import Cookies from "../Cookies"
 
 let title = ""
 let description = ""
 let price = ""
 
 class CreateListing extends Component {
-
-    constructor(props) {
-        super(props);
-
+	constructor(props) {
+        super(props)
+        
         this.state = {
             showAddPhotos : false,
         };
 
+		this.checkLogin = this.checkLogin.bind(this)
         this.enableAddPhotos  = this.enableAddPhotos.bind(this);
     }
 
@@ -39,68 +40,93 @@ class CreateListing extends Component {
                      description= {description}
                      price={price}
         />
-
         )
     }
 
+	componentDidMount() {
+		this.checkLogin()
+	}
 
-    render() {
+	checkLogin() {
+		if (Cookies.isLoggedIn() === false) {
+			swal("Woah you must be logged in to do this!" ,{buttons: {
+				return: {
+				  text: "Login",
+				  value: "login",
+				},
+				view: {
+					text: "View All Listings",
+					value: "viewall",
+				  }
+			  },
+			}).then((value) => {
+			  switch (value) {
+			 
+				case "login":
+					window.location.href = "/login"
+					return <Redirect to="/login" />
+					break;
 
-        //adjust login header to be more down the screen
-        const loginStyle = {
-            marginTop: 100
+				case "viewall":
+					window.location.href = "/listings"
+					return <Redirect to="/listings" />
+					break;
+
+				default:
+                    window.location.href = "/listings"
+                    return <Redirect to="/listings" />
+				  break;
+			  }
+			})
+		}
+	}
+
+	render() {
+		this.checkLogin()
+
+		const loginStyle = {
+			marginTop: 100
+		}
+
+		const formStyle = {
+			marginTop: 25
         }
 
-        //adjust forms to have more space against login header
-        const formStyle = {
-            marginTop: 25
-        }
-
-
-        return (
-
-            <div>
-                <h1 style={loginStyle} className="text-center"> Create a Listing!</h1>
-                <div className="container text-center">
-                    <Formik initialValues={{
+        return(
+            <div> 
+                <h1 style={loginStyle} className="text-center"> Create a Listing!</h1> 
+                <div className="container text-center"> 
+                <div className="row">
+                <Formik initialValues={{
                         title: '',
                         price: '',
                         description: ''
                     }}
-                        //formik is handling our forms. It will check for valid
-                        //input, and then send info on click "Create Account" to our backend
-
-
-                        //makes sure valid email is entered
-                            validate={values => {
-
-                                let errors = {}
-                                if (!values.title) {
-                                    errors.title = 'Required'
-                                }
-                                else if (!values.price) {
-                                    errors.price = 'Required'
-                                }
-                                else if (!values.description) {
-                                    errors.description = 'Required'
-                                }
-                                return errors
-                            }}
-
-                            //doesn't seem to work when we include Link
-                            onSubmit={
-                                (values) => {
-                                    title = values.title
-                                    description = values.description
-                                    price = values.price
-                                    this.setState({
-                                        showAddPhotos : true,
-                                    });
-
-                            }}
-
-                        //render is actually rendering the form for the user to see
+                    validate={values => {    
+                        let errors = {}
+                        if (!values.title) {
+                            errors.title = 'Required'
+                        }
+                        else if (!values.price) {
+                            errors.price = 'Required'
+                        }
+                        else if (!values.description) {
+                            errors.description = 'Required'
+                        }
+                        return errors
+                    }}
+                onSubmit={
+                    (values) => {
+                        title = values.title
+                        description = values.description
+                        price = values.price
+                        this.setState({
+                            showAddPhotos : true,
+                        });
+                }}
+                        //render part of formik
                             render={({ values, touched, errors, handleChange, handleSubmit, isSubmitting }) =>
+                            <div className="col-lg-6 col-lg-offset-3">
                                 <form style={formStyle} onSubmit={handleSubmit}>
                                     <div className="form-group">
                                         <label className="pull-left">Title</label>
@@ -142,13 +168,15 @@ class CreateListing extends Component {
                                         {touched.description && errors.description && <div>{errors.description}</div>}
                                     </div>
                                     {/*<Link to="/add_photos"><button className="btn btn-default" type="submit">Create Listing!</button></Link>*/}
-                                    <button className="btn btn-default" type="submit">Add Photos</button>
-                                </form>}
+                                    <button className="btn btn-primary" type="submit">Add some pix!</button>
+                                </form>
+                                { this.state.showAddPhotos ? this.enableAddPhotos() : null }
+                                </div>
+                                }
                     />
                 </div>
-                { this.state.showAddPhotos ? this.enableAddPhotos() : null }
+                </div>
             </div>
-
         );
     }
 }

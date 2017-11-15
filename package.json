@@ -7,6 +7,7 @@
     "cloudinary": "^1.9.1",
     "cloudinary-react": "^1.0.4",
     "formik": "^0.9.4",
+    "js-cookie": "2.2.0",
     "react": "^15.6.2",
     "react-bootstrap": "^0.31.3",
     "react-dom": "^15.6.2",
@@ -20,6 +21,7 @@
     "superagent": "^3.8.0",
     "sweetalert": "^2.0.8",
     "sweetalert-react": "^0.4.10",
+    "universal-cookie": "2.1.0",
     "yup": "^0.23.0"
   },
   "scripts": {
@@ -27,7 +29,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "fmt": "./node_modules/.bin/prettier --write --no-semi src/**/*.js"
+    "fmt": "./node_modules/.bin/prettier --write --no-semi --use-tabs src/**/*.js"
   },
   "devDependencies": {
     "prettier": "^1.7.4"
