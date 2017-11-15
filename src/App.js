@@ -1,20 +1,15 @@
 import React, { Component } from "react";
-import Navbar from "./components/Nav-bar";
+import Navbar from "./components/Navbar";
 import {BrowserRouter as Router} from 'react-router-dom';
 
 class App extends Component {
   render() {
     return (
-
-        //
+      <div>
         <Router>
-          <div className="App">
-            <header className="App-header">
-              <Navbar/>
-              {/*<ImageUpload/>*/}
-            </header>{" "}
-          </div>
+            <Navbar/>
         </Router>
+      </div>
     );
   }
 }
