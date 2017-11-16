@@ -167,6 +167,7 @@ class CreateListing extends Component {
                                         />
                                         {touched.description && errors.description && <div>{errors.description}</div>}
                                     </div>
+
                                     {/*<Link to="/add_photos"><button className="btn btn-default" type="submit">Create Listing!</button></Link>*/}
                                     <button className="btn btn-primary" type="submit">Add some pix!</button>
                                 </form>
