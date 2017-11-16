@@ -2,7 +2,10 @@ import React from "react"
 import axios from "axios"
 import { Image } from "cloudinary-react"
 import {Link} from "react-router-dom"
-
+import MapComponent from "./MapComponent"
+import L from 'leaflet';
+import { Map, Marker, Popup, TileLayer,Circle } from 'react-leaflet';
+import './map.css';
 
 class Listings extends React.Component {
 	constructor() {
@@ -25,10 +28,17 @@ class Listings extends React.Component {
     }
 
     render() {
-        return (
-            <div>
-                <div className="container" style={{background: "transparent"}}>
 
+        
+        return (
+
+            <div class = 'row' >
+                <div className = 'col-sm-2'>
+                    filters
+                </div>
+
+                <div className="container col-sm-8" style={{background: "transparent"}}>
+                    
                     {this.state.listings.map((l, index) => (
                         /*<div key={ index }></div>*/
                             <div className="card col-md-3 col-md-offset-1" style={{width: "20rem", padding:"15px"}}>
@@ -43,6 +53,11 @@ class Listings extends React.Component {
                         ))
                     }
                 </div>
+
+                <div className = 'col-sm-2' >
+                    <MapComponent/>
+                </div>
+
             </div>
         )
     }
