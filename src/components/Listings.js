@@ -2,14 +2,12 @@ import React from "react"
 import axios from "axios"
 import { Image } from "cloudinary-react"
 import {Link} from "react-router-dom"
-<<<<<<< HEAD
+
 import MapComponent from "./MapComponent"
 import L from 'leaflet';
 import { Map, Marker, Popup, TileLayer,Circle } from 'react-leaflet';
 import './map.css';
-=======
 
->>>>>>> fd4af1e6ebf82eea476234471d0ca120ec9306da
 
 class Listings extends React.Component {
 	constructor() {
@@ -32,11 +30,7 @@ class Listings extends React.Component {
     }
 
     render() {
-<<<<<<< HEAD
 
-        
-=======
->>>>>>> fd4af1e6ebf82eea476234471d0ca120ec9306da
         return (
 
             <div class = 'row' >

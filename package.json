@@ -8,10 +8,7 @@
     "cloudinary-react": "^1.0.4",
     "formik": "^0.9.4",
     "js-cookie": "2.2.0",
-<<<<<<< HEAD
     "leaflet": "^1.2.0",
-=======
->>>>>>> fd4af1e6ebf82eea476234471d0ca120ec9306da
     "react": "^15.6.2",
     "react-bootstrap": "^0.31.3",
     "react-dom": "^15.6.2",
