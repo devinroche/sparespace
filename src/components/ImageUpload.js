@@ -24,13 +24,15 @@ class ImageUpload extends Component {
    super(props);
    this.state = {
      uploadedFileCloudinaryUrl: ["","","",""],
-     file: false
+     file: false,
+     latlng: {}
    };
  }
  onImageDrop(files) {
   this.setState({
     uploadedFiles: files,
     file:true
+
   });
 
   
@@ -49,11 +51,20 @@ handleImageUpload() {
     }
       let image = []
       image.push(response.body.public_id);
+      //start of convert location to cords
+      console.log('RIGHT BEFORE')
+      
+      //end of convert location to cords
+      console.log(this.state.latlng.lat);
+      
       axios.post('http://localhost:3001/listings', {
           _host: Cookies.getId(),
           title: this.props.title,
           price: this.props.price,
           description: this.props.description,
+          location: this.props.location,
+          lat: this.state.latlng.lat,
+          lng: this.state.latlng.lng,
           images: image
       })
 
@@ -83,6 +94,20 @@ handleImageUpload() {
   });
   })
 }
+}
+
+componentDidMount() {
+    const _this = this;
+    axios.post('http://localhost:3001/cordinates', {address: this.props.location})
+      .then(function(response) {
+        _this.setState({
+          latlng: response.data
+        });
+        
+      })
+      .catch(function(response) {
+        console.log(response);
+      });
 }
 
 render() {

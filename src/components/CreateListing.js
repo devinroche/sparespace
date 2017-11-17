@@ -20,6 +20,7 @@ import Cookies from "../Cookies"
 let title = ""
 let description = ""
 let price = ""
+let location = ""
 
 class CreateListing extends Component {
 	constructor(props) {
@@ -39,6 +40,7 @@ class CreateListing extends Component {
         <ImageUpload title= {title}
                      description= {description}
                      price={price}
+                     location = {location}
         />
         )
     }
@@ -100,7 +102,8 @@ class CreateListing extends Component {
                 <Formik initialValues={{
                         title: '',
                         price: '',
-                        description: ''
+                        description: '',
+                        location: ''
                     }}
                     validate={values => {    
                         let errors = {}
@@ -109,6 +112,9 @@ class CreateListing extends Component {
                         }
                         else if (!values.price) {
                             errors.price = 'Required'
+                        }
+                        else if (!values.location) {
+                            errors.location = 'Required'
                         }
                         else if (!values.description) {
                             errors.description = 'Required'
@@ -120,6 +126,7 @@ class CreateListing extends Component {
                         title = values.title
                         description = values.description
                         price = values.price
+                        location = values.location
                         this.setState({
                             showAddPhotos : true,
                         });
@@ -167,7 +174,19 @@ class CreateListing extends Component {
                                         />
                                         {touched.description && errors.description && <div>{errors.description}</div>}
                                     </div>
-
+                                    <div className="form-group">
+                                        <label className="pull-left">Location</label>
+                                        <input
+                                            id="location"
+                                            className="form-control"
+                                            type="text"
+                                            name="location"
+                                            placeholder="502 E BOONE AVE"
+                                            onChange={handleChange}
+                                            value={values.location}
+                                        />
+                                        {touched.description && errors.description && <div>{errors.description}</div>}
+                                    </div>
                                     {/*<Link to="/add_photos"><button className="btn btn-default" type="submit">Create Listing!</button></Link>*/}
                                     <button className="btn btn-primary" type="submit">Add some pix!</button>
                                 </form>
