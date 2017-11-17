@@ -16,6 +16,7 @@ import swal from "sweetalert"
 import { Switch, Link, Route, Redirect } from "react-router-dom"
 import ImageUpload from "./ImageUpload"
 import Cookies from "../Cookies"
+import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
 
 let title = ""
 let description = ""
@@ -28,8 +29,9 @@ class CreateListing extends Component {
         
         this.state = {
             showAddPhotos : false,
+            address: 'San Francisco, CA' //aded
         };
-
+        this.onChange = (address) => this.setState({ address }) //added
 		this.checkLogin = this.checkLogin.bind(this)
         this.enableAddPhotos  = this.enableAddPhotos.bind(this);
     }
@@ -84,6 +86,12 @@ class CreateListing extends Component {
 	}
 
 	render() {
+
+        const inputProps = {
+          value: this.state.address,
+          onChange: this.onChange,
+        }
+
 		this.checkLogin()
 
 		const loginStyle = {
@@ -113,9 +121,7 @@ class CreateListing extends Component {
                         else if (!values.price) {
                             errors.price = 'Required'
                         }
-                        else if (!values.location) {
-                            errors.location = 'Required'
-                        }
+                        
                         else if (!values.description) {
                             errors.description = 'Required'
                         }
@@ -126,7 +132,7 @@ class CreateListing extends Component {
                         title = values.title
                         description = values.description
                         price = values.price
-                        location = values.location
+                        location = this.state.address
                         this.setState({
                             showAddPhotos : true,
                         });
@@ -174,20 +180,13 @@ class CreateListing extends Component {
                                         />
                                         {touched.description && errors.description && <div>{errors.description}</div>}
                                     </div>
+
                                     <div className="form-group">
-                                        <label className="pull-left">Location</label>
-                                        <input
-                                            id="location"
-                                            className="form-control"
-                                            type="text"
-                                            name="location"
-                                            placeholder="502 E BOONE AVE"
-                                            onChange={handleChange}
-                                            value={values.location}
-                                        />
-                                        {touched.description && errors.description && <div>{errors.description}</div>}
+                                        <label className="pull-left">location</label>
+                                        <PlacesAutocomplete inputProps={inputProps}/>
                                     </div>
-                                    {/*<Link to="/add_photos"><button className="btn btn-default" type="submit">Create Listing!</button></Link>*/}
+
+                                    
                                     <button className="btn btn-primary" type="submit">Add some pix!</button>
                                 </form>
                                 { this.state.showAddPhotos ? this.enableAddPhotos() : null }
