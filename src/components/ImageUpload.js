@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-
+import Dotenv from 'dotenv';
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
 import axios from 'axios';
 import { Switch, Link, Route, Redirect } from "react-router-dom"
 import Cookies from '../Cookies';
 import swal from 'sweetalert';
-
+import { CLOUDINARY_UPLOAD_PRESETT, CLOUDINARY_UPLOAD_URLL } from 'react-native-dotenv'
 
 
 
@@ -14,8 +14,8 @@ import swal from 'sweetalert';
 // const CLOUDINARY_UPLOAD_URL = process.env.upload_url;
 
 
-const CLOUDINARY_UPLOAD_PRESET = "apqnswzs";
-const CLOUDINARY_UPLOAD_URL = "https://api.cloudinary.com/v1_1/dopxmkhbr/image/upload";
+const CLOUDINARY_UPLOAD_PRESET = 'apqnswzs';
+const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/dopxmkhbr/image/upload';
 
 
 class ImageUpload extends Component {
@@ -25,8 +25,9 @@ class ImageUpload extends Component {
    this.state = {
      uploadedFileCloudinaryUrl: ["","","",""],
      file: false,
-     latlng: {}
+     latlng: {},
    };
+
  }
  onImageDrop(files) {
   this.setState({
@@ -40,11 +41,14 @@ class ImageUpload extends Component {
 }
 
 handleImageUpload() {
+  
+  
+
   for (var i = 0; i < this.state.uploadedFiles.length; i ++) {
     let upload = request.post(CLOUDINARY_UPLOAD_URL)
                       .field('upload_preset', CLOUDINARY_UPLOAD_PRESET)
                       .field('file', this.state.uploadedFiles[i]); //changed
-
+  
   upload.end((err, response) => {
     if (err) {
       console.error(err);
