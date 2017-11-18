@@ -43,7 +43,16 @@ class ImageUpload extends Component {
 handleImageUpload() {
   
   
-
+  if (this.state.file == false) {
+    swal({
+                    title: "Please add a picture",
+                    text: "Please add a picture",
+                    icon: "warning",
+                    dangerMode: true
+        })
+    return;
+  }
+  
   for (var i = 0; i < this.state.uploadedFiles.length; i ++) {
     let upload = request.post(CLOUDINARY_UPLOAD_URL)
                       .field('upload_preset', CLOUDINARY_UPLOAD_PRESET)
@@ -116,7 +125,7 @@ componentDidMount() {
 
 render() {
   return (
-    <div class = "container">
+    <div className = "container">
     <h1 class = "text-center"> Lets Add some photos </h1>
     <div className="FileUpload"  >
       <Dropzone 
