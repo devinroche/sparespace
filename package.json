@@ -18,7 +18,7 @@
     "react-scroll": "^1.5.5",
     "react-typing-animation": "^1.1.5",
     "react-typist": "^1.1.1",
-    "superagent": "^3.8.0",
+    "superagent": "3.8.1",
     "sweetalert": "^2.0.8",
     "sweetalert-react": "^0.4.10",
     "universal-cookie": "2.1.0",

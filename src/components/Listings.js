@@ -30,8 +30,7 @@ class Listings extends React.Component {
                 <div className="container" style={{background: "transparent"}}>
 
                     {this.state.listings.map((l, index) => (
-                        /*<div key={ index }></div>*/
-                            <div className="card col-md-3 col-md-offset-1" style={{width: "20rem", padding:"15px"}}>
+                            <div className="card col-md-2 col-md-offset-1" style={{width: "20rem", padding:"15px"}}>
                                 <Image cloudName="dopxmkhbr" publicId={l.images[0]} width="200"/>
                                 <div className="card-block text-center">
                                     <h4 className="card-title">{l.title}</h4>

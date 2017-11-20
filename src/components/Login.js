@@ -73,7 +73,7 @@ class Login extends Component {
 							axios
 								.post("http://localhost:3001/login", values)
 								.then(function(response) {
-									Cookies.loginUser(response.data.id)
+									Cookies.loginUser(response.data.id, response.data.v)
 
 									window.location.href = "/users/" + response.data.id
 									return <Redirect to="/logged_in" />

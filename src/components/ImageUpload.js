@@ -7,13 +7,6 @@ import { Switch, Link, Route, Redirect } from "react-router-dom"
 import Cookies from '../Cookies';
 import swal from 'sweetalert';
 
-
-
-
-// const CLOUDINARY_UPLOAD_PRESET = process.env.cloudinary_preset;
-// const CLOUDINARY_UPLOAD_URL = process.env.upload_url;
-
-
 const CLOUDINARY_UPLOAD_PRESET = "apqnswzs";
 const CLOUDINARY_UPLOAD_URL = "https://api.cloudinary.com/v1_1/dopxmkhbr/image/upload";
 
@@ -38,6 +31,22 @@ class ImageUpload extends Component {
 }
 
 handleImageUpload() {
+  if(!Cookies.isVerified()){
+    swal("Uh Oh! You need to verify your account first!" ,{buttons: {
+      return: {
+        text: "Resend Verification Email",
+        value: "resend",
+      }
+      }
+    }).then((value) => {
+			  switch (value) {
+				case "resend":
+					// axios.post('http://localhost:3001/resend', {id: Cookies.getId()})
+					break;
+			  }
+
+  });
+  }
   for (var i = 0; i < this.state.uploadedFiles.length; i ++) {
     let upload = request.post(CLOUDINARY_UPLOAD_URL)
                       .field('upload_preset', CLOUDINARY_UPLOAD_PRESET)
@@ -54,7 +63,11 @@ handleImageUpload() {
           title: this.props.title,
           price: this.props.price,
           description: this.props.description,
-          images: image
+          location: "fart",
+          images: image,
+          interested: []
+      }).then((err, response) =>{
+        console.log("err: ",err , "response: ", response)
       })
 
     if (response.body.secure_url !== '') {
@@ -73,7 +86,6 @@ handleImageUpload() {
       }
     }).then((value) => {
 			  switch (value) {
-			 
 				case "listing":
 					window.location.href = "/listings"
 					return <Redirect to="/listings" />
@@ -87,8 +99,8 @@ handleImageUpload() {
 
 render() {
   return (
-    <div class = "container">
-    <h1 class = "text-center"> Lets Add some photos </h1>
+    <div className = "container">
+    <h1 className = "text-center"> Lets Add some photos </h1>
     <div className="FileUpload"  >
       <Dropzone 
         multiple={true} // only allow one image
