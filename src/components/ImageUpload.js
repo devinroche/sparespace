@@ -57,6 +57,7 @@ handleImageUpload() {
           icon: "warning",
           dangerMode: true
         })
+        return
       }
   for (var i = 0; i < this.state.uploadedFiles.length; i ++) {
     let upload = request.post(CLOUDINARY_UPLOAD_URL)
