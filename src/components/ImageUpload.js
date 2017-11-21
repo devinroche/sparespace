@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-
+import Dotenv from 'dotenv';
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
 import axios from 'axios';
-import { Switch, Link, Route, Redirect } from "react-router-dom"
+import {Route, Redirect } from "react-router-dom"
 import Cookies from '../Cookies';
 import swal from 'sweetalert';
+import { CLOUDINARY_UPLOAD_PRESETT, CLOUDINARY_UPLOAD_URLL } from 'react-native-dotenv'
 
 const CLOUDINARY_UPLOAD_PRESET = "apqnswzs";
 const CLOUDINARY_UPLOAD_URL = "https://api.cloudinary.com/v1_1/dopxmkhbr/image/upload";
@@ -17,13 +18,16 @@ class ImageUpload extends Component {
    super(props);
    this.state = {
      uploadedFileCloudinaryUrl: ["","","",""],
-     file: false
+     file: false,
+     latlng: {},
    };
+
  }
  onImageDrop(files) {
   this.setState({
     uploadedFiles: files,
     file:true
+
   });
 
   
@@ -47,28 +51,36 @@ handleImageUpload() {
 
   });
   }
+  if (this.state.file === false) {
+    swal({title: "Please add a picture",
+          text: "Please add a picture",
+          icon: "warning",
+          dangerMode: true
+        })
+      }
   for (var i = 0; i < this.state.uploadedFiles.length; i ++) {
     let upload = request.post(CLOUDINARY_UPLOAD_URL)
                       .field('upload_preset', CLOUDINARY_UPLOAD_PRESET)
                       .field('file', this.state.uploadedFiles[i]); //changed
-
+  
   upload.end((err, response) => {
     if (err) {
       console.error(err);
     }
-      let image = []
-      image.push(response.body.public_id);
-      axios.post('http://localhost:3001/listings', {
-          _host: Cookies.getId(),
-          title: this.props.title,
-          price: this.props.price,
-          description: this.props.description,
-          location: "fart",
-          images: image,
-          interested: []
-      }).then((err, response) =>{
-        console.log("err: ",err , "response: ", response)
-      })
+    let image = []
+    image.push(response.body.public_id);
+    
+    axios.post('http://localhost:3001/listings', {
+        _host: Cookies.getId(),
+        title: this.props.title,
+        price: this.props.price,
+        description: this.props.description,
+        interested: [],
+        location: this.props.location,
+        lat: this.state.latlng.lat,
+        lng: this.state.latlng.lng,
+        images: image
+    })
 
     if (response.body.secure_url !== '') {
       let newIds = this.state.uploadedFileCloudinaryUrl.slice() //copy the array
@@ -95,6 +107,20 @@ handleImageUpload() {
   });
   })
 }
+}
+
+componentDidMount() {
+    const _this = this;
+    axios.post('http://localhost:3001/cordinates', {address: this.props.location})
+      .then(function(response) {
+        _this.setState({
+          latlng: response.data
+        });
+        
+      })
+      .catch(function(response) {
+        console.log(response);
+      });
 }
 
 render() {
