@@ -3,19 +3,13 @@ import Dotenv from 'dotenv';
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
 import axios from 'axios';
-import { Switch, Link, Route, Redirect } from "react-router-dom"
+import {Route, Redirect } from "react-router-dom"
 import Cookies from '../Cookies';
 import swal from 'sweetalert';
 import { CLOUDINARY_UPLOAD_PRESETT, CLOUDINARY_UPLOAD_URLL } from 'react-native-dotenv'
 
-
-
-// const CLOUDINARY_UPLOAD_PRESET = process.env.cloudinary_preset;
-// const CLOUDINARY_UPLOAD_URL = process.env.upload_url;
-
-
-const CLOUDINARY_UPLOAD_PRESET = 'apqnswzs';
-const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/dopxmkhbr/image/upload';
+const CLOUDINARY_UPLOAD_PRESET = "apqnswzs";
+const CLOUDINARY_UPLOAD_URL = "https://api.cloudinary.com/v1_1/dopxmkhbr/image/upload";
 
 
 class ImageUpload extends Component {
@@ -41,18 +35,30 @@ class ImageUpload extends Component {
 }
 
 handleImageUpload() {
-  
-  
-  if (this.state.file == false) {
-    swal({
-                    title: "Please add a picture",
-                    text: "Please add a picture",
-                    icon: "warning",
-                    dangerMode: true
-        })
-    return;
+  if(!Cookies.isVerified()){
+    swal("Uh Oh! You need to verify your account first!" ,{buttons: {
+      return: {
+        text: "Resend Verification Email",
+        value: "resend",
+      }
+      }
+    }).then((value) => {
+			  switch (value) {
+				case "resend":
+					// axios.post('http://localhost:3001/resend', {id: Cookies.getId()})
+					break;
+			  }
+
+  });
   }
-  
+  if (this.state.file === false) {
+    swal({title: "Please add a picture",
+          text: "Please add a picture",
+          icon: "warning",
+          dangerMode: true
+        })
+        return
+      }
   for (var i = 0; i < this.state.uploadedFiles.length; i ++) {
     let upload = request.post(CLOUDINARY_UPLOAD_URL)
                       .field('upload_preset', CLOUDINARY_UPLOAD_PRESET)
@@ -62,24 +68,20 @@ handleImageUpload() {
     if (err) {
       console.error(err);
     }
-      let image = []
-      image.push(response.body.public_id);
-      //start of convert location to cords
-      console.log('RIGHT BEFORE')
-      
-      //end of convert location to cords
-      console.log(this.state.latlng.lat);
-      
-      axios.post('http://localhost:3001/listings', {
-          _host: Cookies.getId(),
-          title: this.props.title,
-          price: this.props.price,
-          description: this.props.description,
-          location: this.props.location,
-          lat: this.state.latlng.lat,
-          lng: this.state.latlng.lng,
-          images: image
-      })
+    let image = []
+    image.push(response.body.public_id);
+    
+    axios.post('http://localhost:3001/listings', {
+        _host: Cookies.getId(),
+        title: this.props.title,
+        price: this.props.price,
+        description: this.props.description,
+        interested: [],
+        location: this.props.location,
+        lat: this.state.latlng.lat,
+        lng: this.state.latlng.lng,
+        images: image
+    })
 
     if (response.body.secure_url !== '') {
       let newIds = this.state.uploadedFileCloudinaryUrl.slice() //copy the array
@@ -97,7 +99,6 @@ handleImageUpload() {
       }
     }).then((value) => {
 			  switch (value) {
-			 
 				case "listing":
 					window.location.href = "/listings"
 					return <Redirect to="/listings" />
@@ -126,7 +127,7 @@ componentDidMount() {
 render() {
   return (
     <div className = "container">
-    <h1 class = "text-center"> Lets Add some photos </h1>
+    <h1 className = "text-center"> Lets Add some photos </h1>
     <div className="FileUpload"  >
       <Dropzone 
         multiple={true} // only allow one image

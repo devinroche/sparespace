@@ -1,7 +1,8 @@
 import Cookies from 'js-cookie';
 
-function loginUser(uid){
+function loginUser(uid, v){
     Cookies.set('id', uid, {maxAge: 86400});
+    Cookies.set('v', v, {maxAge: 86400})
 }
 
 function isLoggedIn(){
@@ -12,13 +13,19 @@ function getId(){
     return Cookies.get('id')
 }
 
+function isVerified(){
+    return Boolean(Cookies.get('v'))
+}
+
 function removeCookie(){
     Cookies.remove('id', { path: '/'})
+    Cookies.remove('v', { path: '/'})
 }
 
 export default {
     loginUser,
     isLoggedIn,
     getId,
+    isVerified,
     removeCookie
 };
