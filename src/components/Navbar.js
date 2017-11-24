@@ -6,11 +6,12 @@ import Login from "./Login"
 import LoggedIn from "./LoggedIn"
 import Home from "./Home"
 import SignUp from "./SignUp"
-import Listing from './Listing'
+import ListingDetails from './ListingDetails'
 import CreateListing from "./CreateListing"
-import Listings from "./Listings"
+import { Listings } from "./Listings"
 import ImageUpload from "./ImageUpload"
 import Cookies from "../Cookies"
+
 
 export default class AppNavbar extends Component {
 	constructor(props){
@@ -83,7 +84,7 @@ export default class AppNavbar extends Component {
 			<Route path="/listings" component={Listings}>{" "}</Route>
 
 			<Route path="/users/:id" component={LoggedIn} />
-        	<Route path="/listing/:id" component={Listing} />
+        	<Route path="/listing/:id" component={ListingDetails} />
 			<Route path="/sign_up" component={SignUp}>{" "}</Route>
         </div>
 		)

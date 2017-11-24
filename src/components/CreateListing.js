@@ -11,17 +11,19 @@
 
 import React, {Component } from "react"
 import { Formik } from "formik"
-import axios from "axios"
 import swal from "sweetalert"
-import { Switch, Link, Route, Redirect } from "react-router-dom"
+import { Redirect } from "react-router-dom"
 import ImageUpload from "./ImageUpload"
 import Cookies from "../Cookies"
-import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
+import PlacesAutocomplete from 'react-places-autocomplete'
+import axios from 'axios';
+
 
 let title = ""
 let description = ""
 let price = ""
 let location = ""
+let name = ""
 
 class CreateListing extends Component {
 	constructor(props) {
@@ -29,7 +31,7 @@ class CreateListing extends Component {
         
         this.state = {
             showAddPhotos : false,
-            address: 'San Francisco, CA' //aded
+            address: 'Spokane, WA' //aded
         };
         this.onChange = (address) => this.setState({ address }) //added
 		this.checkLogin = this.checkLogin.bind(this)
@@ -43,12 +45,21 @@ class CreateListing extends Component {
                      description= {description}
                      price={price}
                      location = {location}
+                     name = {name}
         />
         )
     }
 
 	componentDidMount() {
 		this.checkLogin()
+
+        //get name from cookies ID storage
+        let id = Cookies.getId();
+        axios
+            .get(`http://localhost:3001/user/${id}`)
+            .then(response => {
+                name = response.data.fullname
+            })
 	}
 
 	checkLogin() {
@@ -69,17 +80,14 @@ class CreateListing extends Component {
 				case "login":
 					window.location.href = "/login"
 					return <Redirect to="/login" />
-					break;
 
 				case "viewall":
 					window.location.href = "/listings"
 					return <Redirect to="/listings" />
-					break;
 
 				default:
                     window.location.href = "/listings"
                     return <Redirect to="/listings" />
-				  break;
 			  }
 			})
 		}
@@ -159,7 +167,7 @@ class CreateListing extends Component {
                                         <input
                                             id="price"
                                             className="form-control"
-                                            type="price"
+                                            type="number"
                                             name="price"
                                             placeholder="$25"
                                             onChange={handleChange}
@@ -169,8 +177,9 @@ class CreateListing extends Component {
                                     </div>
                                     <div className="form-group">
                                         <label className="pull-left">Description</label>
-                                        <input
+                                        <textarea
                                             id="description"
+                                            rows="10"
                                             className="form-control"
                                             type="description"
                                             name="description"

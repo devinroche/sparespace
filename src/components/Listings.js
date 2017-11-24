@@ -7,19 +7,23 @@ import MapComponent from "./MapComponent"
 import L from 'leaflet';
 import { Map, Marker, Popup, TileLayer,Circle } from 'react-leaflet';
 import './map.css';
+import Radium from 'radium';
 
 
-class Listings extends React.Component {
+
+export class Listings extends React.Component {
 	constructor() {
 		super()
 		this.state = {
-			listings: []
+			listings: [],
 		}
 	}
+
 
     componentDidMount(){
         axios.get("http://localhost:3001/listings")
             .then(response => {
+                console.log(response.data)
                 this.setState({
                     listings: response.data
                 })
@@ -31,36 +35,72 @@ class Listings extends React.Component {
 
     render() {
 
+        const styles = {
+
+            cardStyle : {
+                width: 300,
+                height: 300,
+                marginTop: 25,
+                marginBottom: 15,
+                boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)"
+            },
+
+            imageSize : {
+                width: 250,
+                height: 200
+            },
+
+            mainStyle : {
+                fontFamily: "Roboto",
+                color: "#333",
+            },
+
+            secondStyle : {
+                fontFamily: "Roboto",
+                color: "#7F7F7F"
+            },
+
+            priceStyle : {
+                fontFamily : "Roboto",
+                color: "#333",
+                fontWeight: "bold"
+            }
+
+        }
+
+
         return (
 
-            <div class = 'row' >
-                <div className = 'col-sm-2'>
-                    filters
-                </div>
+                <div className = "row">
+                        <div className="col-sm-2" style={{backgroundColor: "#F7F7F7", height: "750"}} >
+                            <h3 style={styles.mainStyle} className="text-center">Filters</h3>
+                    </div>
 
-                <div className="container col-sm-8" style={{background: "transparent"}}>
-                    
-                    {this.state.listings.map((l, index) => (
-                            <div className="card col-md-2 col-md-offset-1" style={{width: "20rem", padding:"15px"}}>
-                                <Image cloudName="dopxmkhbr" publicId={l.images[0]} width="200"/>
-                                <div className="card-block text-center">
-                                    <h4 className="card-title">{l.title}</h4>
-                                    <p className="card-text">{l.price}</p>
-                                    <p className="card-text">{l.description}</p>
-                                    <Link to={`/listing/${l._id}`}><button className="btn btn-primary">view me!</button></Link>
-                                </div>
+                    <div className="container col-sm-7">
+                            {this.state.listings.map((l, index) => (
+                                <Link to={`/listing/${l._id}`}>
+                                    <div className= "card col-sm-2 col-sm-offset-1" style={styles.cardStyle}>
+                                        <Image cloudName="dopxmkhbr" publicId={l.images[0]} style={styles.imageSize}/>
+                                        <div className="card-block">
+                                            <h4 style={styles.mainStyle} className="card-title text-left">{l.title}</h4>
+                                            <h6 style={styles.secondStyle} className="card-text text-left">{l.name}</h6>
+                                            <h4 style={styles.priceStyle} className="card-text text-right">${l.price}</h4>
+                                        </div>
+                                    </div>
+                                </Link>
+                                ))
+                            }
                         </div>
-                        ))
-                    }
+
+                    <div className = "col-sm-3" >
+                        <MapComponent/>
+                    </div>
                 </div>
 
-                <div className = 'col-sm-2' >
-                    <MapComponent/>
-                </div>
-
-            </div>
         )
     }
 }
 
-export default Listings
+Listings = Radium(Listings);
+
+// export default Listings;

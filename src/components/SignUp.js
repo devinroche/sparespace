@@ -12,7 +12,8 @@ import React, { Component } from "react"
 import { Formik } from "formik"
 import axios from "axios"
 import swal from "sweetalert"
-import Yup from "yup"
+import { Redirect } from "react-router-dom"
+import Cookies from "../Cookies"
 
 class SignUp extends Component {
 	render() {
@@ -94,10 +95,9 @@ class SignUp extends Component {
 											password: values.password
 										})
 										.then(function(response) {
-											console.log(response)
-											//return this.context.router.history.replace("/logged_in");
-											//window.location.href = "/users/" + response.data[0]._id
-											//return <Redirect to="/logged_in" />;
+                                            Cookies.loginUser(response.data.id, response.data.v)
+                                            window.location.href = "/users/" + response.data.id
+                                            return <Redirect to="/logged_in" />
 										})
 								})
 						}}

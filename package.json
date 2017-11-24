@@ -10,6 +10,7 @@
     "formik": "^0.9.4",
     "js-cookie": "2.2.0",
     "leaflet": "^1.2.0",
+    "radium": "^0.19.6",
     "react": "^15.6.2",
     "react-bootstrap": "^0.31.3",
     "react-dom": "^15.6.2",

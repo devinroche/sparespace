@@ -1,14 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Switch, Link, Route, Redirect } from "react-router-dom"
 import Cookies from '../Cookies';
 import swal from 'sweetalert';
 
 class Interest extends Component {
-
- constructor(props) {
-   super(props);
- }
 
 render() {
   return (

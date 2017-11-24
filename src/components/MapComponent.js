@@ -32,10 +32,17 @@ class MapComponent extends Component {
     this.getCordinates();
   }
 
+
+
   
 
 
   render() {
+
+      const mapStyle = {
+          height: "100vh"
+
+      }
     
    
     const allCordinates = this.state.data.map((review) => {
@@ -50,7 +57,7 @@ class MapComponent extends Component {
 
     return (
         <div>
-          <Map center={[47.6672354,-117.4013339]} zoom={13}>
+          <Map style={mapStyle} center={[47.6672354,-117.4013339]} zoom={14}>
           <TileLayer attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors' url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'/>
           {allCordinates}
           </Map>
