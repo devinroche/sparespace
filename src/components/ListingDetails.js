@@ -4,19 +4,20 @@ import { Image } from "cloudinary-react"
 import Cookies from "../Cookies"
 import swal from "sweetalert"
 import Interest from './Interest'
+import Carousel from 'nuka-carousel'
 
 class ListingDetails extends React.Component {
 	constructor() {
 		super()
 		this.state = {
-			isHost: false
+			isHost: false,
 		}
 
 		this.canExpress = this.canExpress.bind(this)
 		this.canClick = this.canClick.bind(this)
 	}
 
-	componentDidMount() {
+	 componentDidMount() {
 		axios.get(`http://localhost:3001/listing/${this.props.match.params.id}`)
 			.then(res => {
 				this.setState({ listing: res.data })
@@ -40,6 +41,8 @@ class ListingDetails extends React.Component {
 	}
 
 	render() {
+
+
 		const listing = this.state.listing ? this.state.listing : ""
 		const listingImages = listing.images ? listing.images: ""
 
@@ -88,6 +91,7 @@ class ListingDetails extends React.Component {
 
         }
 
+
 		return (
 
 			<div className="container">
@@ -96,7 +100,18 @@ class ListingDetails extends React.Component {
 
 					<div className="col-sm-7 text-center" style={{ marginTop: 50}}>
 						<div className="card row" style={styles.cardStyle}>
-							<Image cloudName="dopxmkhbr" publicId={listingImages[0]} height="300" width="500" style={{}}/>
+							<Carousel>
+								{/*{*/}
+                                    {/*listingImages.map((l, index) => (*/}
+										{/*<Image cloudName="dopxmkhbr" publicId={l[index]} height="300" width="500" style={{}}/>*/}
+                                    {/*))*/}
+								{/*}*/}
+
+                                <Image cloudName="dopxmkhbr" publicId={listingImages[0]} height="300" width="500" style={{}}/>
+                                <Image cloudName="dopxmkhbr" publicId={listingImages[1]} height="300" width="500" style={{}}/>
+								<Image cloudName="dopxmkhbr" publicId={listingImages[2]} height="300" width="500" style={{}}/>
+
+							</Carousel>
 							<div className="card-block">
 								<h2 style={styles.mainStyle} className="card-title text-left">{listing.title}</h2>
 								<h4 style={styles.secondStyle} className="card-text text-left">{listing.location}</h4>

@@ -9,7 +9,7 @@ import { CLOUDINARY_UPLOAD_PRESETT, CLOUDINARY_UPLOAD_URLL } from 'react-native-
 
 const CLOUDINARY_UPLOAD_PRESET = "apqnswzs";
 const CLOUDINARY_UPLOAD_URL = "https://api.cloudinary.com/v1_1/dopxmkhbr/image/upload";
-
+let images = []
 
 class ImageUpload extends Component {
 
@@ -58,21 +58,21 @@ handleImageUpload() {
         })
         return
       }
-    let image = []
+
+        console.log(this.state.uploadedFiles.length)
   for (var i = 0; i < this.state.uploadedFiles.length; i ++) {
     let upload = request.post(CLOUDINARY_UPLOAD_URL)
                       .field('upload_preset', CLOUDINARY_UPLOAD_PRESET)
                       .field('file', this.state.uploadedFiles[i]); //changed
 
   
-  upload.end((err, response) => {
+   upload.end((err, response) => {
     if (err) {
       console.error(err);
     }
 
-    image.push(response.body.public_id);
-    console.log(this.state.uploadedFiles)
-    
+      images.push(response.body.public_id);
+
     axios.post('http://localhost:3001/listings', {
         _host: Cookies.getId(),
         title: this.props.title,
@@ -83,7 +83,7 @@ handleImageUpload() {
         name: this.props.name,
         lat: this.state.latlng.lat,
         lng: this.state.latlng.lng,
-        images: image
+        images: [images, "bqdv0na6g6grbty6ho02", "k99rnllc6lrygsojput6"]
     })
 
     if (response.body.secure_url !== '') {
@@ -91,27 +91,47 @@ handleImageUpload() {
       newIds[i] = response.body.secure_url //execute the manipulations
       this.setState(
           {uploadedFileCloudinaryUrl: newIds}) //set the new state
-
-
     }
-    swal("Congrats you posted your space!" ,{buttons: {
-      return: {
-        text: "See your listing!",
-        value: "listing",
-      }
-      }
-    }).then((value) => {
-			  switch (value) {
-				case "listing":
-					window.location.href = "/listings"
-					return <Redirect to="/listings" />
-					break;
-			  }
-
-  });
   })
 }
+
+// this.sendInformation()
+    swal("Congrats you posted your space!" ,{buttons: {
+        return: {
+            text: "See your listing!",
+            value: "listing",
+        }
+    }
+    }).then((value) => {
+        switch (value) {
+            case "listing":
+                window.location.href = "/listings"
+                return <Redirect to="/listings" />
+                break;
+        }
+
+    });
 }
+
+
+// sendInformation(){
+//
+//      console.log(images)
+//        axios.post('http://localhost:3001/listings', {
+//         _host: Cookies.getId(),
+//         title: this.props.title,
+//         price: this.props.price,
+//         description: this.props.description,
+//         interested: [],
+//         location: this.props.location,
+//         name: this.props.name,
+//         lat: this.state.latlng.lat,
+//         lng: this.state.latlng.lng,
+//         images: ["bqdv0na6g6grbty6ho02", "k99rnllc6lrygsojput6"]
+//     })
+//
+//
+// }
 
 componentDidMount() {
     const _this = this;
@@ -145,7 +165,6 @@ render() {
           this.state.file === false ? null :
 
           <div>
-
             {
               this.state.uploadedFiles.map((item, index) => (
                 <div className = 'border'>
@@ -154,13 +173,9 @@ render() {
               ))
             }
             </div>
-          
           }
- 
         </div>
- 
       <button type="button" className="btn btn-primary" onClick = {this.handleImageUpload.bind(this)} >Submit</button>
- 
     </div>
  
     

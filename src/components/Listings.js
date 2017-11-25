@@ -21,7 +21,7 @@ export class Listings extends React.Component {
 
 
     componentDidMount(){
-        axios.get("http://localhost:3001/listings")
+         axios.get("http://localhost:3001/listings")
             .then(response => {
                 console.log(response.data)
                 this.setState({
