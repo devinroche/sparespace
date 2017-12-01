@@ -25,6 +25,20 @@ class ImageUploadNew extends Component {
 
     }
 
+    componentDidMount() {
+        const _this = this;
+        axios.post('http://localhost:3001/cordinates', {address: this.props.location})
+            .then(function(response) {
+                _this.setState({
+                    latlng: response.data
+                });
+
+            })
+            .catch(function(response) {
+
+            });
+    }
+
     handleImageUpload() {
 
         if (this.state.fileDropped === false) {
@@ -33,52 +47,57 @@ class ImageUploadNew extends Component {
                 text: "Please add a picture",
                 icon: "warning",
                 dangerMode: true
-            })
+            });
             return;
         }
-        const uploaders = this.state.filePaths.map(file => {
+        const uploaders = this.state.filePaths.map((file) => {
             let upload = request.post(CLOUDINARY_UPLOAD_URL)
                 .field('upload_preset', CLOUDINARY_UPLOAD_PRESET)
                 .field('file', file); //changed
             upload.end((err, response) => {
 
+                var newArray = this.state.fileUrls.slice();
+                newArray.push(response.body.secure_url);
+                this.setState({fileUrls:newArray})
+                console.log('SUPER BEFORE');
 
-                //newArray.push(response.body.secure_url);
-                //this.setState({fileUrls:newArray})
-                fileUrls.push(response.body.secure_url);
-                console.log('SUPER BEFORE')
-            });
+            })
+
 
         });
 
-        this.pushUpload();
+
     }
 
     pushUpload() {
-        console.log('BEFORE');
-        console.log(fileUrls[0]);
-        axios.post('http://localhost:3001/listings', {
-            _host: Cookies.getId(),
-            title: this.props.title,
-            price: this.props.price,
-            description: this.props.description,
-            location: this.props.location,
-            lat: '',
-            lng: '',
-            images: fileUrls
-        });
-        console.log('AFTER')
 
-        swal("Congrats you posted your space!" ,{buttons: {
-                return: {
-                    text: "See your listing!",
-                    value: "listing",
+            console.log('BEFORE');
+
+            
+            axios.post('http://localhost:3001/listings', {
+                _host: Cookies.getId(),
+                title: this.props.title,
+                price: this.props.price,
+                description: this.props.description,
+                location: this.props.location,
+                lat: this.state.latlng.lat,
+                lng: this.state.latlng.lng,
+                images: this.state.fileUrls
+            });
+            console.log('AFTER');
+
+            swal("Congrats you posted your space!" ,{buttons: {
+                    return: {
+                        text: "See your listing!",
+                        value: "listing",
+                    }
                 }
-            }
-        }).then((value) => {
-            window.location.href = "/listings"
-            return <Redirect to="/listings" />
-        });
+            }).then((value) => {
+                window.location.href = "/listings"
+                return <Redirect to="/listings" />
+            });
+
+
     }
 
     onImageDrop(files) {
@@ -117,7 +136,8 @@ class ImageUploadNew extends Component {
 
                 }
             </div>
-            <button type="button" className="btn btn-primary" onClick = {this.handleImageUpload.bind(this)} >Submit</button>
+            <button type="button" className="btn btn-primary" onClick = {this.handleImageUpload.bind(this)} >Lock in Images</button>
+            <button type="button" className="btn btn-primary" onClick = {this.pushUpload.bind(this)} >Submit</button>
 
 
         </div>
