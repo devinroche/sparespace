@@ -18,6 +18,7 @@ class ImageUploadNew extends Component {
         super(props);
         this.state = {
             fileDropped: false,
+            imageLock: false,
             filePaths: [],
             fileUrls: []
         }
@@ -60,6 +61,7 @@ class ImageUploadNew extends Component {
                 newArray.push(response.body.secure_url);
                 this.setState({fileUrls:newArray})
                 console.log('SUPER BEFORE');
+                this.setState({imageLock:true})
 
             })
 
@@ -71,31 +73,50 @@ class ImageUploadNew extends Component {
 
     pushUpload() {
 
-            console.log('BEFORE');
-
-            
-            axios.post('http://localhost:3001/listings', {
-                _host: Cookies.getId(),
-                title: this.props.title,
-                price: this.props.price,
-                description: this.props.description,
-                location: this.props.location,
-                lat: this.state.latlng.lat,
-                lng: this.state.latlng.lng,
-                images: this.state.fileUrls
+        if (this.state.fileDropped === false) {
+            swal({
+                title: "Please add a picture",
+                text: "Please add a picture",
+                icon: "warning",
+                dangerMode: true
             });
-            console.log('AFTER');
+            return;
+        }
+            if (this.state.imageLock) {
+                axios.post('http://localhost:3001/listings', {
+                    _host: Cookies.getId(),
+                    title: this.props.title,
+                    price: this.props.price,
+                    description: this.props.description,
+                    location: this.props.location,
+                    lat: this.state.latlng.lat,
+                    lng: this.state.latlng.lng,
+                    images: this.state.fileUrls
+                });
+                console.log('AFTER');
 
-            swal("Congrats you posted your space!" ,{buttons: {
-                    return: {
-                        text: "See your listing!",
-                        value: "listing",
+                swal("Congrats you posted your space!" ,{buttons: {
+                        return: {
+                            text: "See your listing!",
+                            value: "listing",
+                        }
                     }
-                }
-            }).then((value) => {
-                window.location.href = "/listings"
-                return <Redirect to="/listings" />
-            });
+                }).then((value) => {
+                    window.location.href = "/listings"
+                    return <Redirect to="/listings" />
+                });
+            } else {
+                swal({
+                    title: "Please Lock in your images",
+                    text: "Please Lock in your images",
+                    icon: "warning",
+                    dangerMode: true
+                });
+                return;
+            }
+
+
+
 
 
     }
