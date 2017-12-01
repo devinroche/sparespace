@@ -9,6 +9,7 @@ render() {
   return (
     <button className="btn btn-success" onClick={() => {
         if(Cookies.isLoggedIn()){
+            console.log(this.props)
             axios.post('http://localhost:3001/p2p', {
                 host: this.props.host,
                 renter: this.props.renter,

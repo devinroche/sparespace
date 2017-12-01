@@ -23,7 +23,6 @@ export class Listings extends React.Component {
     componentDidMount(){
          axios.get("http://localhost:3001/listings")
             .then(response => {
-                console.log(response.data)
                 this.setState({
                     listings: response.data
                 })
@@ -83,7 +82,7 @@ export class Listings extends React.Component {
                                         <Image cloudName="dopxmkhbr" publicId={l.images[0]} style={styles.imageSize}/>
                                         <div className="card-block">
                                             <h4 style={styles.mainStyle} className="card-title text-left">{l.title}</h4>
-                                            <h6 style={styles.secondStyle} className="card-text text-left">{l.name}</h6>
+                                            <h6 style={styles.secondStyle} className="card-text text-left">{l._host.first}</h6>
                                             <h4 style={styles.priceStyle} className="card-text text-right">${l.price}</h4>
                                         </div>
                                     </div>

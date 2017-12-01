@@ -69,36 +69,33 @@ class SignUp extends Component {
 							return errors
 						}}
 						onSubmit={values => {
+                            console.log(values)
 							//right now only way for accessing contact object
 							//for some reason getting errors when accessing within forms...
-							values.contact.email = values.email
 
 							// TODO: validate if user is already in database
 							axios.post("http://localhost:3001/users", {
-								fullname: values.fullname,
+                                first: values.fullname,
+                                last: values.fullname,
 								password: values.password,
-								contact: {
-									email: values.contact.email,
-								}
+                                email: values.email,
 							})
 
 							swal({
 								title: "Thanks for creating an account!",
 								content: "Let's Go!",
 								icon: "success"
-							})
-								//wait for user to press button then re-direct
-								.then(() => {
-									axios
-										.post("http://localhost:3001/login", {
-											email: values.contact.email,
-											password: values.password
-										})
-										.then(function(response) {
-                                            Cookies.loginUser(response.data.id, response.data.v)
-                                            window.location.href = "/users/" + response.data.id
-                                            return <Redirect to="/logged_in" />
-										})
+							}).then(() => {
+                                axios
+                                    .post("http://localhost:3001/login", {
+                                        email: values.email,
+                                        password: values.password
+                                    })
+                                    .then(function(response) {
+                                        Cookies.loginUser(response.data.id, response.data.v)
+                                        window.location.href = "/users/" + response.data.id
+                                        return <Redirect to="/logged_in" />
+                                    })
 								})
 						}}
 						//render is actually rendering the form for the user to see

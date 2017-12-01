@@ -10,42 +10,46 @@ class ListingDetails extends React.Component {
 	constructor() {
 		super()
 		this.state = {
-			isHost: false,
+            expressInterest: true,
 		}
 
 		this.canExpress = this.canExpress.bind(this)
-		this.canClick = this.canClick.bind(this)
+        this.canClick = this.canClick.bind(this)
+        this.renderInterest = this.renderInterest.bind(this)
 	}
 
 	 componentDidMount() {
 		axios.get(`http://localhost:3001/listing/${this.props.match.params.id}`)
 			.then(res => {
 				this.setState({ listing: res.data })
-				this.canExpress(res.data._host, res.data.interested)
-			})
-			.catch(err => console.log("some err occured", err))
-
+				this.canExpress(res.data._host._id, res.data.interested)
+			}).catch(err => console.log("some err occured", err))
 	}
+
+    renderInterest(l_id, h_id){
+        console.log(l_id, h_id)
+        return <Interest listing={l_id} host={h_id} renter={Cookies.getId()}  callback={this.canClick}/>
+          
+    }
 
 	canExpress(host, interested){
 		if(Cookies.getId() === host)
-			this.setState({isHost: true})
+            this.setState({expressInterest: false})
 
 		if(interested.includes(Cookies.getId()))
-			this.setState({isHost: true})
+            this.setState({expressInterest: false})
 	}
 
 	canClick(){
-		this.setState({isHost: true})
+		this.setState({expressInterest: false})
 		this.forceUpdate();
 	}
 
 	render() {
-
-
 		const listing = this.state.listing ? this.state.listing : ""
-		const listingImages = listing.images ? listing.images: ""
-
+        const listingImages = listing.images ? listing.images: ""
+        const lid = listing._id ? listing._id : ""
+        const hid = listing._host ? listing._host._id : ""
         const styles = {
 
             cardStyle : {
@@ -101,11 +105,6 @@ class ListingDetails extends React.Component {
 					<div className="col-sm-7 text-center" style={{ marginTop: 50}}>
 						<div className="card row" style={styles.cardStyle}>
 							<Carousel>
-								{/*{*/}
-                                    {/*listingImages.map((l, index) => (*/}
-										{/*<Image cloudName="dopxmkhbr" publicId={l[index]} height="300" width="500" style={{}}/>*/}
-                                    {/*))*/}
-								{/*}*/}
 
                                 <Image cloudName="dopxmkhbr" publicId={listingImages[0]} height="300" width="500" style={{}}/>
                                 <Image cloudName="dopxmkhbr" publicId={listingImages[1]} height="300" width="500" style={{}}/>
@@ -125,10 +124,9 @@ class ListingDetails extends React.Component {
 
 					<div className="col-sm-3 text-center">
 						<h3 style={styles.priceStyle}>${listing.price}</h3>
-                        { !this.state.isHost ?
-							<Interest listing={listing._id} host={listing._host} renter={Cookies.getId()}  callback={this.canClick}/>
-                            : null
-                        }
+                            { 
+                                this.state.expressInterest ? this.renderInterest(lid, hid) : ""
+                            }
 					</div>
 
 				</div>

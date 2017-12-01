@@ -42,11 +42,11 @@ handleImageUpload() {
       }
       }
     }).then((value) => {
-			  switch (value) {
-				case "resend":
-					// axios.post('http://localhost:3001/resend', {id: Cookies.getId()})
-					break;
-			  }
+        switch (value) {
+            case "resend":
+                // axios.post('http://localhost:3001/resend', {id: Cookies.getId()})
+                break;
+        }
 
   });
   }
@@ -71,7 +71,7 @@ handleImageUpload() {
       console.error(err);
     }
 
-      images.push(response.body.public_id);
+    images.push(response.body.public_id);
 
     axios.post('http://localhost:3001/listings', {
         _host: Cookies.getId(),
@@ -80,7 +80,6 @@ handleImageUpload() {
         description: this.props.description,
         interested: [],
         location: this.props.location,
-        name: this.props.name,
         lat: this.state.latlng.lat,
         lng: this.state.latlng.lng,
         images: [images, "bqdv0na6g6grbty6ho02", "k99rnllc6lrygsojput6"]
@@ -95,7 +94,6 @@ handleImageUpload() {
   })
 }
 
-// this.sendInformation()
     swal("Congrats you posted your space!" ,{buttons: {
         return: {
             text: "See your listing!",
@@ -112,26 +110,6 @@ handleImageUpload() {
 
     });
 }
-
-
-// sendInformation(){
-//
-//      console.log(images)
-//        axios.post('http://localhost:3001/listings', {
-//         _host: Cookies.getId(),
-//         title: this.props.title,
-//         price: this.props.price,
-//         description: this.props.description,
-//         interested: [],
-//         location: this.props.location,
-//         name: this.props.name,
-//         lat: this.state.latlng.lat,
-//         lng: this.state.latlng.lng,
-//         images: ["bqdv0na6g6grbty6ho02", "k99rnllc6lrygsojput6"]
-//     })
-//
-//
-// }
 
 componentDidMount() {
     const _this = this;

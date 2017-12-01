@@ -19,7 +19,7 @@ class LoggedIn extends React.Component {
 
 		return (
 			<div className="text-center" style={{ marginTop: 100 }}>
-				<h1>Welcome {user.fullname}</h1>
+				<h1>Welcome {user.first}</h1>
 			</div>
 		)
 	}
