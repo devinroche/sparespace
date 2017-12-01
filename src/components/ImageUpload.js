@@ -41,8 +41,8 @@ class ImageUpload extends Component {
 }
 
 handleImageUpload() {
-  
-  
+
+
   if (this.state.file == false) {
     swal({
                     title: "Please add a picture",
@@ -52,12 +52,12 @@ handleImageUpload() {
         })
     return;
   }
-  
+
   for (var i = 0; i < this.state.uploadedFiles.length; i ++) {
     let upload = request.post(CLOUDINARY_UPLOAD_URL)
                       .field('upload_preset', CLOUDINARY_UPLOAD_PRESET)
                       .field('file', this.state.uploadedFiles[i]); //changed
-  
+
   upload.end((err, response) => {
     if (err) {
       console.error(err);
@@ -66,20 +66,11 @@ handleImageUpload() {
       image.push(response.body.public_id);
       //start of convert location to cords
       console.log('RIGHT BEFORE')
-      
+
       //end of convert location to cords
       console.log(this.state.latlng.lat);
-      
-      axios.post('http://localhost:3001/listings', {
-          _host: Cookies.getId(),
-          title: this.props.title,
-          price: this.props.price,
-          description: this.props.description,
-          location: this.props.location,
-          lat: this.state.latlng.lat,
-          lng: this.state.latlng.lng,
-          images: image
-      })
+
+
 
     if (response.body.secure_url !== '') {
       let newIds = this.state.uploadedFileCloudinaryUrl.slice() //copy the array
@@ -97,8 +88,18 @@ handleImageUpload() {
       }
     }).then((value) => {
 			  switch (value) {
-			 
+
 				case "listing":
+				    axios.post('http://localhost:3001/listings', {
+                    _host: Cookies.getId(),
+                    title: this.props.title,
+                    price: this.props.price,
+                    description: this.props.description,
+                    location: this.props.location,
+                    lat: this.state.latlng.lat,
+                    lng: this.state.latlng.lng,
+                    images: image
+                })
 					window.location.href = "/listings"
 					return <Redirect to="/listings" />
 					break;
