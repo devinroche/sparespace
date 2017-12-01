@@ -118,12 +118,8 @@ class ImageUploadNew extends Component {
                 return;
             }
 
-
-
-
-
     }
-    // change state once images are dropped 
+    // change state once images are dropped
     onImageDrop(files) {
         this.setState({
             filePaths: files,
@@ -131,12 +127,10 @@ class ImageUploadNew extends Component {
 
         });
     }
-
-
-
+    
     render() {
         return <div className='container'>
-            <h1 class="text-center"> Lets Add some photos </h1>
+            <h1 className="text-center"> Lets Add some photos </h1>
             <div className="FileUpload">
                 <Dropzone
                     multiple={true} // only allow one image
