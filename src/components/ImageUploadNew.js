@@ -13,19 +13,21 @@ const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/dopxmkhbr/image/u
 const fileUrls = [];
 class ImageUploadNew extends Component {
 
+
     constructor(props) {
         // no idea just stole this from crypto chart to demo axios.
         super(props);
         this.state = {
-            fileDropped: false,
-            imageLock: false,
-            filePaths: [],
-            fileUrls: []
+            fileDropped: false, //was images dropped in dropzone
+            imageLock: false,  // was image lock button pressed
+            filePaths: [],     // file paths computer
+            fileUrls: []       // file urls from cloudinary
         }
 
 
     }
 
+    // grab address once component loads convert into cordinates
     componentDidMount() {
         const _this = this;
         axios.post('http://localhost:3001/cordinates', {address: this.props.location})
@@ -39,7 +41,8 @@ class ImageUploadNew extends Component {
 
             });
     }
-
+    // upload images to cloudinary once image lock button pressed
+    // pass image urls into state
     handleImageUpload() {
 
         if (this.state.fileDropped === false) {
@@ -51,6 +54,7 @@ class ImageUploadNew extends Component {
             });
             return;
         }
+
         const uploaders = this.state.filePaths.map((file) => {
             let upload = request.post(CLOUDINARY_UPLOAD_URL)
                 .field('upload_preset', CLOUDINARY_UPLOAD_PRESET)
@@ -64,13 +68,12 @@ class ImageUploadNew extends Component {
                 this.setState({imageLock:true})
 
             })
-
-
         });
 
 
     }
-
+    // upload posting details to db
+    // once submit button is pressed
     pushUpload() {
 
         if (this.state.fileDropped === false) {
@@ -120,7 +123,7 @@ class ImageUploadNew extends Component {
 
 
     }
-
+    // change state once images are dropped 
     onImageDrop(files) {
         this.setState({
             filePaths: files,
