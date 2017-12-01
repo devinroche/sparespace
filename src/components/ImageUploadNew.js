@@ -139,18 +139,17 @@ class ImageUploadNew extends Component {
                     multiple={true} // only allow one image
                     accept="image/*" // must be image
                     onDrop={this.onImageDrop.bind(this)}
+
                 >
                     <p class="text-center">Drop an image or click to select a file to upload.</p>
                 </Dropzone>
                 {
                     this.state.fileDropped === false ? null :
-                        <div>
+                        <div >
 
                             {
                                 this.state.filePaths.map((item,index) => (
-                                    <div class = 'border'>
-
-                                    </div>
+                                    <img width="200" src={item.preview} alt = "responsive image" />
                                 ))
                             }
                         </div>
@@ -158,7 +157,11 @@ class ImageUploadNew extends Component {
                 }
             </div>
             <button type="button" className="btn btn-primary" onClick = {this.handleImageUpload.bind(this)} >Lock in Images</button>
-            <button type="button" className="btn btn-primary" onClick = {this.pushUpload.bind(this)} >Submit</button>
+            {
+                this.state.imageLock === false ? null:
+                    <button type="button" className="btn btn-primary" onClick = {this.pushUpload.bind(this)} >Submit</button>
+            }
+
 
 
         </div>
