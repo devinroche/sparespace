@@ -9,7 +9,7 @@ import SignUp from "./SignUp"
 import Listing from './Listing'
 import CreateListing from "./CreateListing"
 import Listings from "./Listings"
-import ImageUpload from "./ImageUpload"
+import ImageUploadNew from "./ImageUploadNew"
 import Cookies from "../Cookies"
 
 export default class AppNavbar extends Component {
@@ -78,7 +78,7 @@ export default class AppNavbar extends Component {
 				<Route path="/login" component={Login}/>
 				<Route path="/home" component={Home}/>
 				<Route path="/create_listing" component={CreateListing} />
-				<Route path="/add_photos" component={ImageUpload} />
+				<Route path="/add_photos" component={ImageUploadNew} />
 
 			<Route path="/listings" component={Listings}>{" "}</Route>
 

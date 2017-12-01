@@ -17,7 +17,7 @@ import { CLOUDINARY_UPLOAD_PRESETT, CLOUDINARY_UPLOAD_URLL } from 'react-native-
 const CLOUDINARY_UPLOAD_PRESET = 'apqnswzs';
 const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/dopxmkhbr/image/upload';
 
-
+/*
 class ImageUpload extends Component {
 
  constructor(props) {
@@ -53,10 +53,13 @@ handleImageUpload() {
     return;
   }
 
-  for (var i = 0; i < this.state.uploadedFiles.length; i ++) {
-    let upload = request.post(CLOUDINARY_UPLOAD_URL)
+  const listItems = this.state.uploadedFiles.map((number) => {
+
+
+
+   upload = request.post(CLOUDINARY_UPLOAD_URL)
                       .field('upload_preset', CLOUDINARY_UPLOAD_PRESET)
-                      .field('file', this.state.uploadedFiles[i]); //changed
+                      .field('file', this.state.uploadedFiles[number]); //changed
 
   upload.end((err, response) => {
     if (err) {
@@ -73,13 +76,16 @@ handleImageUpload() {
 
 
     if (response.body.secure_url !== '') {
-      let newIds = this.state.uploadedFileCloudinaryUrl.slice() //copy the array
+      let newIds = this.state.uploadedFiles.slice() //copy the array
       newIds[i] = response.body.secure_url //execute the manipulations
       this.setState(
           {uploadedFileCloudinaryUrl: newIds}) //set the new state
 
 
     }
+    console.log(image);
+    console.log(this.state.uploadedFileCloudinaryUrl);
+    console.log(this.state.uploadedFiles);
     swal("Congrats you posted your space!" ,{buttons: {
       return: {
         text: "See your listing!",
@@ -106,8 +112,8 @@ handleImageUpload() {
 			  }
 
   });
-  })
-}
+  });
+
 }
 
 componentDidMount() {
@@ -152,7 +158,7 @@ render() {
             }
             </div>
           
-          }
+        }
  
         </div>
  
@@ -166,3 +172,5 @@ render() {
 }
  
 export default ImageUpload;
+
+*/

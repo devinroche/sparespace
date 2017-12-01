@@ -14,7 +14,7 @@ import { Formik } from "formik"
 import axios from "axios"
 import swal from "sweetalert"
 import { Switch, Link, Route, Redirect } from "react-router-dom"
-import ImageUpload from "./ImageUpload"
+import ImageUploadNew from "./ImageUploadNew"
 import Cookies from "../Cookies"
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
 
@@ -39,11 +39,14 @@ class CreateListing extends Component {
 
     enableAddPhotos() {
         return (
-        <ImageUpload title= {title}
-                     description= {description}
-                     price={price}
-                     location = {location}
-        />
+            <div className= 'container'>
+                <ImageUploadNew title= {title}
+                                description= {description}
+                                price={price}
+                                location = {location}
+                />
+            </div>
+
         )
     }
 
