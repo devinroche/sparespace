@@ -15,11 +15,11 @@ class MapComponent extends Component {
   }
 
   getCordinates() {
-    const _this = this;
+
     axios.get('http://localhost:3001/cordinates')
       .then(function(response) {
-        _this.setState({
-          data: response.data
+        this.setState({
+            data: response.data
         });
         
       })
@@ -32,18 +32,11 @@ class MapComponent extends Component {
     this.getCordinates();
   }
 
-
-
-  
-
-
   render() {
 
-      const mapStyle = {
-          height: "100vh"
-
-      }
-    
+    const mapStyle = {
+        height: "100vh"
+    }
    
     const allCordinates = this.state.data.map((review) => {
        return (

@@ -27,7 +27,6 @@ class ListingDetails extends React.Component {
 	}
 
     renderInterest(l_id, h_id){
-        console.log(l_id, h_id)
         return <Interest listing={l_id} host={h_id} renter={Cookies.getId()}  callback={this.canClick}/>
           
     }
@@ -99,10 +98,10 @@ class ListingDetails extends React.Component {
 		return (
 
 			<div className="container">
-					<div className="col-sm-2">
+					<div className="col-sm-3">
 					</div>
 
-					<div className="col-sm-7 text-center" style={{ marginTop: 50}}>
+					<div className="col-sm-6 text-center" style={{ marginTop: 50}}>
 						<div className="card row" style={styles.cardStyle}>
 							<Carousel>
 

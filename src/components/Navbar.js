@@ -8,7 +8,7 @@ import Home from "./Home"
 import SignUp from "./SignUp"
 import ListingDetails from './ListingDetails'
 import CreateListing from "./CreateListing"
-import { Listings } from "./Listings"
+import Listings from "./Listings"
 import ImageUpload from "./ImageUpload"
 import Cookies from "../Cookies"
 

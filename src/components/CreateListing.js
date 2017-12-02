@@ -12,7 +12,7 @@
 import React, {Component } from "react"
 import { Formik } from "formik"
 import swal from "sweetalert"
-import { Redirect } from "react-router-dom"
+import { Switch, Link, Route, Redirect } from "react-router-dom"
 import ImageUpload from "./ImageUpload"
 import Cookies from "../Cookies"
 import PlacesAutocomplete from 'react-places-autocomplete'
@@ -41,12 +41,14 @@ class CreateListing extends Component {
 
     enableAddPhotos() {
         return (
-        <ImageUpload title= {title}
-                     description= {description}
-                     price={price}
-                     location = {location}
-                     name = {name}
-        />
+            <div className= 'container'>
+                <ImageUpload title= {title}
+                                description= {description}
+                                price={price}
+                                location = {location}
+                />
+            </div>
+
         )
     }
 

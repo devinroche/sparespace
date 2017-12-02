@@ -102,4 +102,4 @@ export class Listings extends React.Component {
 
 Listings = Radium(Listings);
 
-// export default Listings;
+export default Listings;
