@@ -12,14 +12,15 @@ class MapComponent extends Component {
     this.state = {
       data: []
     };
+
   }
-
+  
   getCordinates() {
-
+    const _this = this;
     axios.get('http://localhost:3001/cordinates')
       .then(function(response) {
-        this.setState({
-            data: response.data
+        _this.setState({
+          data: response.data
         });
         
       })

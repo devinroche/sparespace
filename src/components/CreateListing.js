@@ -65,6 +65,7 @@ class CreateListing extends Component {
 	}
 
 	checkLogin() {
+        console.log(Cookies.isVerified())
 		if (Cookies.isLoggedIn() === false) {
 			swal("Woah you must be logged in to do this!" ,{buttons: {
 				return: {
@@ -83,6 +84,26 @@ class CreateListing extends Component {
 					window.location.href = "/login"
 					return <Redirect to="/login" />
 
+				case "viewall":
+					window.location.href = "/listings"
+					return <Redirect to="/listings" />
+
+				default:
+                    window.location.href = "/listings"
+                    return <Redirect to="/listings" />
+			  }
+			})
+        }
+        
+        else if (Cookies.isVerified() === 'false') {
+			swal("Woah you must be verified to do this!" ,{buttons: {
+				view: {
+					text: "View All Listings",
+					value: "viewall",
+				  }
+			  },
+			}).then((value) => {
+			  switch (value) {
 				case "viewall":
 					window.location.href = "/listings"
 					return <Redirect to="/listings" />
