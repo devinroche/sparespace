@@ -6,4 +6,10 @@ function testCall () {
     socket.emit('join')
 }
 
-export {testCall}
+function postSpace(storageData){
+    socket.emit('new space', storageData)
+}
+export {
+    testCall,
+    postSpace
+}

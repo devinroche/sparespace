@@ -6,6 +6,7 @@ import axios from 'axios';
 import { Switch, Link, Route, Redirect } from "react-router-dom"
 import Cookies from '../Cookies';
 import swal from 'sweetalert';
+import {postSpace} from '../sock'
 
 const CLOUDINARY_UPLOAD_PRESET = 'apqnswzs';
 const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/dopxmkhbr/image/upload';
@@ -86,7 +87,7 @@ class ImageUpload extends Component {
             return;
         }
             if (this.state.imageLock) {
-                axios.post('http://localhost:3001/listings', {
+                let storageObj = {
                     _host: Cookies.getId(),
                     title: this.props.title,
                     price: this.props.price,
@@ -95,8 +96,12 @@ class ImageUpload extends Component {
                     lat: this.state.latlng.lat,
                     lng: this.state.latlng.lng,
                     images: this.state.fileUrls
-                });
+                }
 
+                axios.post('http://localhost:3001/listings', storageObj);
+                postSpace(storageObj)
+
+                postSpace()
                 swal("Congrats you posted your space!" ,{buttons: {
                         return: {
                             text: "See your listing!",
