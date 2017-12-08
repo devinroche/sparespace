@@ -2,6 +2,7 @@ import React from "react"
 import axios from "axios"
 import { Image } from "cloudinary-react"
 import {Link} from "react-router-dom"
+import {testCall} from "../sock"
 
 import MapComponent from "./MapComponent"
 import L from 'leaflet';
@@ -23,6 +24,7 @@ export class Listings extends React.Component {
     componentDidMount(){
          axios.get("http://localhost:3001/listings")
             .then(response => {
+                console.log(response)
                 this.setState({
                     listings: response.data
                 })
@@ -30,6 +32,7 @@ export class Listings extends React.Component {
             .catch(function (error) {
                 console.log(error);
             });
+        testCall()
     }
 
     render() {
