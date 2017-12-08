@@ -71,8 +71,8 @@ export class Listings extends React.Component {
         return (
 
                 <div className = "row">
-                        <div className="col-sm-2" style={{backgroundColor: "#F7F7F7", height: "750"}} >
-                            <h3 style={styles.mainStyle} className="text-center">Filters</h3>
+                    <div className="col-sm-2" style={{backgroundColor: "#F7F7F7", height: "750"}} >
+                        <h3 style={styles.mainStyle} className="text-center">Filters</h3>
                     </div>
 
                     <div className="container col-sm-7">

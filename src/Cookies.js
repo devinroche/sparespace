@@ -14,11 +14,14 @@ function getId(){
 }
 
 function isVerified(){
-    return Cookies.get('v')
+    if(Cookies.get('v') === 'true')
+        return true
+
+    return false
 }
 
 function isExpress(){
-    return Boolean(Cookies.get('id')) && Boolean(Cookies.get('v'))
+    return Boolean(Cookies.get('id') && isVerified())
 }
 
 function removeCookie(){

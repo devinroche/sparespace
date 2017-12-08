@@ -96,7 +96,6 @@ class ImageUpload extends Component {
                     lng: this.state.latlng.lng,
                     images: this.state.fileUrls
                 });
-                console.log('AFTER');
 
                 swal("Congrats you posted your space!" ,{buttons: {
                         return: {
@@ -110,7 +109,7 @@ class ImageUpload extends Component {
                 });
             } else {
                 swal({
-                    title: "Please Lock in your images",
+                    title: "Error",
                     text: "Please Lock in your images",
                     icon: "warning",
                     dangerMode: true
@@ -129,8 +128,7 @@ class ImageUpload extends Component {
     }
     
     render() {
-        return <div className='container'>
-            <h1 className="text-center"> Lets Add some photos </h1>
+        return <div className=''>
             <div className="FileUpload">
                 <Dropzone
                     multiple={true} // only allow one image
@@ -146,7 +144,7 @@ class ImageUpload extends Component {
 
                             {
                                 this.state.filePaths.map((item,index) => (
-                                    <img width="200" src={item.preview} alt = "responsive image" />
+                                    <img width="400" src={item.preview} alt = "responsive image" />
                                 ))
                             }
                         </div>

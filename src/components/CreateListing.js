@@ -31,7 +31,7 @@ class CreateListing extends Component {
         
         this.state = {
             showAddPhotos : false,
-            address: 'Spokane, WA' //aded
+            address: ""
         };
         this.onChange = (address) => this.setState({ address }) //added
 		this.checkLogin = this.checkLogin.bind(this)
@@ -41,13 +41,11 @@ class CreateListing extends Component {
 
     enableAddPhotos() {
         return (
-            <div className= 'container'>
                 <ImageUpload title= {title}
                                 description= {description}
                                 price={price}
                                 location = {location}
                 />
-            </div>
 
         )
     }
@@ -65,7 +63,6 @@ class CreateListing extends Component {
 	}
 
 	checkLogin() {
-        console.log(Cookies.isVerified())
 		if (Cookies.isLoggedIn() === false) {
 			swal("Woah you must be logged in to do this!" ,{buttons: {
 				return: {
@@ -79,7 +76,6 @@ class CreateListing extends Component {
 			  },
 			}).then((value) => {
 			  switch (value) {
-			 
 				case "login":
 					window.location.href = "/login"
 					return <Redirect to="/login" />
@@ -94,9 +90,13 @@ class CreateListing extends Component {
 			  }
 			})
         }
-        
-        else if (Cookies.isVerified() === 'false') {
-			swal("Woah you must be verified to do this!" ,{buttons: {
+
+        else if(Cookies.isVerified() === false){
+            swal("You need to verify your account first!" ,{buttons: {
+				return: {
+				  text: "Resend Verification Email",
+				  value: "rve",
+				},
 				view: {
 					text: "View All Listings",
 					value: "viewall",
@@ -104,6 +104,11 @@ class CreateListing extends Component {
 			  },
 			}).then((value) => {
 			  switch (value) {
+                case "rve":
+                    axios.post('http://localhost:3001/reverify', {id: Cookies.getId()})
+					window.location.href = "/listings"
+					return <Redirect to="/listings" />
+
 				case "viewall":
 					window.location.href = "/listings"
 					return <Redirect to="/listings" />
@@ -113,7 +118,7 @@ class CreateListing extends Component {
                     return <Redirect to="/listings" />
 			  }
 			})
-		}
+        }
 	}
 
 	render() {
@@ -121,6 +126,7 @@ class CreateListing extends Component {
         const inputProps = {
           value: this.state.address,
           onChange: this.onChange,
+          placeholder: "1317 N Astor St Spokane, WA",
         }
 
 		this.checkLogin()
@@ -186,7 +192,7 @@ class CreateListing extends Component {
                                         {touched.title && errors.title && <div>{errors.title}</div>}
                                     </div>
                                     <div className="form-group">
-                                        <label className="pull-left">price</label>
+                                        <label className="pull-left">Price</label>
                                         <input
                                             id="price"
                                             className="form-control"
@@ -214,15 +220,15 @@ class CreateListing extends Component {
                                     </div>
 
                                     <div className="form-group">
-                                        <label className="pull-left">location</label>
+                                        <label className="pull-left">Location</label>
                                         <PlacesAutocomplete inputProps={inputProps}/>
                                     </div>
 
                                     
-                                    <button className="btn btn-primary" type="submit">Add some pix!</button>
+                                    <button className="btn btn-primary" type="submit">Add some pictures!</button>
                                 </form>
                                 { this.state.showAddPhotos ? this.enableAddPhotos() : null }
-                                </div>
+                            </div>
                                 }
                     />
                 </div>
