@@ -6,4 +6,13 @@ function testCall () {
     socket.emit('join')
 }
 
-export {testCall}
+function newPost(storageObj){
+    socket.emit('new space', storageObj)
+}
+
+socket.on('refresh listings')
+
+export {
+    testCall,
+    newPost
+}

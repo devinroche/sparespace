@@ -11,18 +11,30 @@ import './map.css';
 import Radium from 'radium';
 
 
+import openSocket from 'socket.io-client';
+
+const socket = openSocket('http://localhost:3001');
+
+
 
 export class Listings extends React.Component {
 	constructor() {
 		super()
 		this.state = {
 			listings: [],
-		}
+        }
+        this.getListings = this.getListings.bind(this)
 	}
 
 
     componentDidMount(){
-         axios.get("http://localhost:3001/listings")
+        socket.on('refresh listings', this.getListings)
+        this.getListings()
+        testCall()
+    }
+
+    getListings(){
+        axios.get("http://localhost:3001/listings")
             .then(response => {
                 console.log(response)
                 this.setState({
@@ -32,7 +44,6 @@ export class Listings extends React.Component {
             .catch(function (error) {
                 console.log(error);
             });
-        testCall()
     }
 
     render() {
