@@ -2,6 +2,7 @@ import React from "react"
 import axios from "axios"
 import { Image } from "cloudinary-react"
 import {Link} from "react-router-dom"
+import {testCall} from "../sock"
 
 import MapComponent from "./MapComponent"
 import L from 'leaflet';
@@ -10,18 +11,32 @@ import './map.css';
 import Radium from 'radium';
 
 
+import openSocket from 'socket.io-client';
+
+const socket = openSocket('http://localhost:3001');
+
+
 
 export class Listings extends React.Component {
 	constructor() {
 		super()
 		this.state = {
 			listings: [],
-		}
+        }
+        
+        socket.on('refresh listings', () => {
+            this.getListings()
+        })
 	}
 
 
     componentDidMount(){
-         axios.get("http://localhost:3001/listings")
+        this.getListings()
+        testCall()
+    }
+
+    getListings(){
+        axios.get("http://localhost:3001/listings")
             .then(response => {
                 this.setState({
                     listings: response.data

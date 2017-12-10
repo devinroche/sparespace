@@ -11,7 +11,6 @@ export function fetchUser(values) {
 				dispatch(fetchUserSuccess(user))
 			})
 			.catch(function(error) {
-				console.log("Invalid log in!")
 				dispatch(fetchUserFailure(error))
 			})
 	}
