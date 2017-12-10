@@ -6,7 +6,7 @@ import axios from 'axios';
 import { Switch, Link, Route, Redirect } from "react-router-dom"
 import Cookies from '../Cookies';
 import swal from 'sweetalert';
-import { newPost} from '../sock'
+import { postSpace} from '../sock'
 
 const CLOUDINARY_UPLOAD_PRESET = 'apqnswzs';
 const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/dopxmkhbr/image/upload';
@@ -65,7 +65,6 @@ class ImageUpload extends Component {
                 var newArray = this.state.fileUrls.slice();
                 newArray.push(response.body.secure_url);
                 this.setState({fileUrls:newArray})
-                console.log('SUPER BEFORE');
                 this.setState({imageLock:true})
 
             })
@@ -99,9 +98,6 @@ class ImageUpload extends Component {
                 }
 
                 axios.post('http://localhost:3001/listings', storageObj);
-                postSpace(storageObj)
-
-                postSpace()
                 swal("Congrats you posted your space!" ,{buttons: {
                         return: {
                             text: "See your listing!",
@@ -109,7 +105,7 @@ class ImageUpload extends Component {
                         }
                     }
                 }).then((value) => {
-                    newPost(storageObj)
+                    postSpace(storageObj)
                     window.location.href = "/listings"
                     return <Redirect to="/listings" />
                 });

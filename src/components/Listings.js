@@ -25,7 +25,6 @@ export class Listings extends React.Component {
         }
         
         socket.on('refresh listings', () => {
-            console.log('refresh ur shit bro')
             this.getListings()
         })
 	}

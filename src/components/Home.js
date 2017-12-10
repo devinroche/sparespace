@@ -33,7 +33,6 @@ class Home extends Component {
 	getData() {
 		// This gets all the users in the database
 		axios.get("http://localhost:3001/users").then(response => {
-			console.log(response.data)
 			this.setState({
 				dataArr: response.data
 			})

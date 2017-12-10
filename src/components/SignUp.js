@@ -69,7 +69,6 @@ class SignUp extends Component {
 							return errors
 						}}
 						onSubmit={values => {
-                            console.log(values)
 							//right now only way for accessing contact object
 							//for some reason getting errors when accessing within forms...
 
