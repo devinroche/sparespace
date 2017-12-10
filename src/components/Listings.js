@@ -23,12 +23,15 @@ export class Listings extends React.Component {
 		this.state = {
 			listings: [],
         }
-        this.getListings = this.getListings.bind(this)
+        
+        socket.on('refresh listings', () => {
+            console.log('refresh ur shit bro')
+            this.getListings()
+        })
 	}
 
 
     componentDidMount(){
-        socket.on('refresh listings', this.getListings)
         this.getListings()
         testCall()
     }
@@ -36,7 +39,6 @@ export class Listings extends React.Component {
     getListings(){
         axios.get("http://localhost:3001/listings")
             .then(response => {
-                console.log(response)
                 this.setState({
                     listings: response.data
                 })

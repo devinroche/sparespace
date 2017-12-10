@@ -99,7 +99,6 @@ class ImageUpload extends Component {
                 }
 
                 axios.post('http://localhost:3001/listings', storageObj);
-                newPost(storageObj)
 
                 swal("Congrats you posted your space!" ,{buttons: {
                         return: {
@@ -108,6 +107,7 @@ class ImageUpload extends Component {
                         }
                     }
                 }).then((value) => {
+                    newPost(storageObj)
                     window.location.href = "/listings"
                     return <Redirect to="/listings" />
                 });

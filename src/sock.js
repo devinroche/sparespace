@@ -10,7 +10,10 @@ function newPost(storageObj){
     socket.emit('new space', storageObj)
 }
 
-socket.on('refresh listings')
+//***on refresh listings update all listings page for everyone connected
+socket.on('refresh listings', () => {
+    
+})
 
 export {
     testCall,
