@@ -6,7 +6,7 @@ import axios from 'axios';
 import { Switch, Link, Route, Redirect } from "react-router-dom"
 import Cookies from '../Cookies';
 import swal from 'sweetalert';
-import {postSpace} from '../sock'
+import { newPost} from '../sock'
 
 const CLOUDINARY_UPLOAD_PRESET = 'apqnswzs';
 const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/dopxmkhbr/image/upload';
@@ -109,6 +109,7 @@ class ImageUpload extends Component {
                         }
                     }
                 }).then((value) => {
+                    newPost(storageObj)
                     window.location.href = "/listings"
                     return <Redirect to="/listings" />
                 });
