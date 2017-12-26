@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import L from 'leaflet';
-import { Map,Marker, Popup, TileLayer, CircleMarker, Circle} from 'react-leaflet';
-import {Icon} from 'leaflet'
+import { Map, Popup, TileLayer, Circle} from 'react-leaflet';
 import axios from "axios";
 
 
@@ -36,18 +34,13 @@ class MapComponent extends Component {
         height: "100vh"
     }
    
-    const allCordinates = this.state.data.map((review) => {
+    const allCordinates = this.state.data.map((review, idx) => {
        return (
-      //   <Circle center={[review.lat,review.lng]} radius={150} >
-      //     <Popup>
-      //       <span>{review.title}</span>
-      //     </Popup> 
-      //  </Circle>
-         <CircleMarker center={[review.lat, review.lng]} color="red" radius={20}>
+         <Circle key={idx} center={[review.lat, review.lng]} color="red" radius={120}>
            <Popup>
              <span>Popup in CircleMarker</span>
            </Popup>
-         </CircleMarker>
+         </Circle>
 
        );
     })
@@ -58,11 +51,11 @@ class MapComponent extends Component {
           <TileLayer attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors' url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'/>
           {allCordinates}
 
-          <CircleMarker center={[47.6672354, -117.4013339]} radius={20}>
+          <Circle center={[47.6672354, -117.4013339]} radius={120}>
             <Popup>
               <span>A pretty CSS3 popup. <br /> Easily customizable.</span>
             </Popup>
-          </CircleMarker>
+          </Circle>
           </Map>
           
         </div>

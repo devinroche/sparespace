@@ -1,28 +1,25 @@
 import React, { Component } from 'react';
-import Dotenv from 'dotenv';
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
 import axios from 'axios';
-import { Switch, Link, Route, Redirect } from "react-router-dom"
-import Cookies from '../Cookies';
+import {Redirect } from "react-router-dom"
+import Cookies from '../../Cookies';
 import swal from 'sweetalert';
-import { postSpace} from '../sock'
+import { postSpace} from '../../sock'
 
 const CLOUDINARY_UPLOAD_PRESET = 'apqnswzs';
 const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/dopxmkhbr/image/upload';
 
-const fileUrls = [];
+
 class ImageUpload extends Component {
 
-
     constructor(props) {
-        // no idea just stole this from crypto chart to demo axios.
         super(props);
         this.state = {
-            fileDropped: false, //was images dropped in dropzone
-            imageLock: false,  // was image lock button pressed
-            filePaths: [],     // file paths computer
-            fileUrls: []       // file urls from cloudinary
+            fileDropped: false, 
+            imageLock: false, 
+            filePaths: [],    
+            fileUrls: []
         }
 
 
@@ -150,7 +147,6 @@ class ImageUpload extends Component {
                                 ))
                             }
                         </div>
-
                 }
             </div>
             <button type="button" className="btn btn-primary" onClick = {this.handleImageUpload.bind(this)} >Lock in Images</button>

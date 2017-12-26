@@ -1,8 +1,7 @@
 import React from "react"
 import axios from "axios"
 import { Image } from "cloudinary-react"
-import Cookies from "../Cookies"
-import swal from "sweetalert"
+import Cookies from "../../Cookies"
 import Interest from './Interest'
 import Carousel from 'nuka-carousel'
 
