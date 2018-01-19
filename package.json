@@ -3,21 +3,37 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "formik": "^0.9.3",
-    "react": "^15.6.1",
+    "axios": "^0.16.2",
+    "cloudinary-react": "^1.0.4",
+    "formik": "^0.9.4",
+    "js-cookie": "2.2.0",
+    "leaflet": "^1.2.0",
+    "mapbox-gl": "0.43.0",
+    "mapbox-gl-circle": "1.6.4",
+    "nuka-carousel": "^3.0.0",
+    "react": "^15.6.2",
     "react-bootstrap": "^0.31.3",
-    "react-dom": "^15.6.1",
+    "react-dom": "^15.6.2",
+    "react-dropzone": "^4.2.1",
+    "react-leaflet": "^1.7.4",
+    "react-mapbox-gl": "3.4.1",
+    "react-native-dotenv": "^0.1.0",
+    "react-places-autocomplete": "^5.4.3",
     "react-router-bootstrap": "^0.24.4",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.11",
-    "react-scroll": "^1.5.4",
-    "react-typing-animation": "^1.1.5",
-    "react-typist": "^1.1.1"
+    "socket.io-client": "^2.0.4",
+    "superagent": "3.8.1",
+    "sweetalert": "^2.0.8"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "fmt": "./node_modules/.bin/prettier --write --no-semi --use-tabs src/**/*.js"
+  },
+  "devDependencies": {
+    "prettier": "^1.7.4"
   }
 }
