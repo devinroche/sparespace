@@ -1,20 +1,9 @@
-/**
- * Creates CreateListing page
- *
- * @author George Kunthara
- * @version v0.0.1 10/23/17
- *
- * @ChangeLog
- * Initial 10/23/17 George Kunthara
- * Photos 11/6/17 George Kunthara
- */
-
 import React, {Component } from "react"
 import { Formik } from "formik"
 import swal from "sweetalert"
-import { Switch, Link, Route, Redirect } from "react-router-dom"
+import { Redirect } from "react-router-dom"
 import ImageUpload from "./ImageUpload"
-import Cookies from "../Cookies"
+import Cookies from "../../Cookies"
 import PlacesAutocomplete from 'react-places-autocomplete'
 import axios from 'axios';
 
@@ -23,7 +12,6 @@ let title = ""
 let description = ""
 let price = ""
 let location = ""
-let name = ""
 
 class CreateListing extends Component {
 	constructor(props) {
@@ -52,14 +40,6 @@ class CreateListing extends Component {
 
 	componentDidMount() {
 		this.checkLogin()
-
-        //get name from cookies ID storage
-        let id = Cookies.getId();
-        axios
-            .get(`http://localhost:3001/user/${id}`)
-            .then(response => {
-                name = response.data.fullname
-            })
 	}
 
 	checkLogin() {

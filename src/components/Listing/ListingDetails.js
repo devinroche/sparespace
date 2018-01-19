@@ -1,8 +1,7 @@
 import React from "react"
 import axios from "axios"
 import { Image } from "cloudinary-react"
-import Cookies from "../Cookies"
-import swal from "sweetalert"
+import Cookies from "../../Cookies"
 import Interest from './Interest'
 import Carousel from 'nuka-carousel'
 
@@ -50,7 +49,6 @@ class ListingDetails extends React.Component {
         const lid = listing._id ? listing._id : ""
         const hid = listing._host ? listing._host._id : ""
         const styles = {
-
             cardStyle : {
                 boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)"
             },

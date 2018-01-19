@@ -9,6 +9,9 @@ function testCall () {
 function postSpace(storageData){
     socket.emit('new space', storageData)
 }
+function postChat(){
+    socket.emit('peer-msg')
+}
 export {
     testCall,
     postSpace
