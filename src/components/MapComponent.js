@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import L from 'leaflet';
-import { Map,Marker, Popup, TileLayer,Circle } from 'react-leaflet';
-import {Icon} from 'leaflet'
+import { Map, Popup, TileLayer, Circle} from 'react-leaflet';
 import axios from "axios";
 
 
@@ -12,8 +10,9 @@ class MapComponent extends Component {
     this.state = {
       data: []
     };
-  }
 
+  }
+  
   getCordinates() {
     const _this = this;
     axios.get('http://localhost:3001/cordinates')
@@ -23,36 +22,40 @@ class MapComponent extends Component {
         });
         
       })
-      .catch(function(response) {
-        console.log(response);
-      });
   }
 
   componentDidMount() {
     this.getCordinates();
   }
 
-  
-
-
   render() {
-    
+
+    const mapStyle = {
+        height: "100vh"
+    }
    
-    const allCordinates = this.state.data.map((review) => {
+    const allCordinates = this.state.data.map((review, idx) => {
        return (
-        <Marker position={[review.lat,review.lng]}>
-        <Popup>
-          <span>{review.title}</span>
-        </Popup>
-      </Marker>
+         <Circle key={idx} center={[review.lat, review.lng]} color="red" radius={120}>
+           <Popup>
+             <span>Popup in CircleMarker</span>
+           </Popup>
+         </Circle>
+
        );
     })
 
     return (
         <div>
-          <Map center={[47.6672354,-117.4013339]} zoom={13}>
+          <Map style={mapStyle} center={[47.6672354,-117.4013339]} zoom={14}>
           <TileLayer attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors' url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'/>
           {allCordinates}
+
+          <Circle center={[47.6672354, -117.4013339]} radius={120}>
+            <Popup>
+              <span>A pretty CSS3 popup. <br /> Easily customizable.</span>
+            </Popup>
+          </Circle>
           </Map>
           
         </div>

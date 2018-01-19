@@ -1,22 +1,12 @@
-/**
- * Creates CreateListing page
- *
- * @author George Kunthara
- * @version v0.0.1 10/23/17
- *
- * @ChangeLog
- * Initial 10/23/17 George Kunthara
- * Photos 11/6/17 George Kunthara
- */
-
 import React, {Component } from "react"
 import { Formik } from "formik"
-import axios from "axios"
 import swal from "sweetalert"
-import { Switch, Link, Route, Redirect } from "react-router-dom"
+import { Redirect } from "react-router-dom"
 import ImageUpload from "./ImageUpload"
-import Cookies from "../Cookies"
-import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
+import Cookies from "../../Cookies"
+import PlacesAutocomplete from 'react-places-autocomplete'
+import axios from 'axios';
+
 
 let title = ""
 let description = ""
@@ -29,7 +19,7 @@ class CreateListing extends Component {
         
         this.state = {
             showAddPhotos : false,
-            address: 'San Francisco, CA' //aded
+            address: ""
         };
         this.onChange = (address) => this.setState({ address }) //added
 		this.checkLogin = this.checkLogin.bind(this)
@@ -39,11 +29,12 @@ class CreateListing extends Component {
 
     enableAddPhotos() {
         return (
-        <ImageUpload title= {title}
-                     description= {description}
-                     price={price}
-                     location = {location}
-        />
+                <ImageUpload title= {title}
+                                description= {description}
+                                price={price}
+                                location = {location}
+                />
+
         )
     }
 
@@ -65,24 +56,49 @@ class CreateListing extends Component {
 			  },
 			}).then((value) => {
 			  switch (value) {
-			 
 				case "login":
 					window.location.href = "/login"
 					return <Redirect to="/login" />
-					break;
 
 				case "viewall":
 					window.location.href = "/listings"
 					return <Redirect to="/listings" />
-					break;
 
 				default:
                     window.location.href = "/listings"
                     return <Redirect to="/listings" />
-				  break;
 			  }
 			})
-		}
+        }
+
+        else if(Cookies.isVerified() === false){
+            swal("You need to verify your account first!" ,{buttons: {
+				return: {
+				  text: "Resend Verification Email",
+				  value: "rve",
+				},
+				view: {
+					text: "View All Listings",
+					value: "viewall",
+				  }
+			  },
+			}).then((value) => {
+			  switch (value) {
+                case "rve":
+                    axios.post('http://localhost:3001/reverify', {id: Cookies.getId()})
+					window.location.href = "/listings"
+					return <Redirect to="/listings" />
+
+				case "viewall":
+					window.location.href = "/listings"
+					return <Redirect to="/listings" />
+
+				default:
+                    window.location.href = "/listings"
+                    return <Redirect to="/listings" />
+			  }
+			})
+        }
 	}
 
 	render() {
@@ -90,6 +106,7 @@ class CreateListing extends Component {
         const inputProps = {
           value: this.state.address,
           onChange: this.onChange,
+          placeholder: "1317 N Astor St Spokane, WA",
         }
 
 		this.checkLogin()
@@ -155,11 +172,11 @@ class CreateListing extends Component {
                                         {touched.title && errors.title && <div>{errors.title}</div>}
                                     </div>
                                     <div className="form-group">
-                                        <label className="pull-left">price</label>
+                                        <label className="pull-left">Price</label>
                                         <input
                                             id="price"
                                             className="form-control"
-                                            type="price"
+                                            type="number"
                                             name="price"
                                             placeholder="$25"
                                             onChange={handleChange}
@@ -169,8 +186,9 @@ class CreateListing extends Component {
                                     </div>
                                     <div className="form-group">
                                         <label className="pull-left">Description</label>
-                                        <input
+                                        <textarea
                                             id="description"
+                                            rows="10"
                                             className="form-control"
                                             type="description"
                                             name="description"
@@ -182,15 +200,15 @@ class CreateListing extends Component {
                                     </div>
 
                                     <div className="form-group">
-                                        <label className="pull-left">location</label>
+                                        <label className="pull-left">Location</label>
                                         <PlacesAutocomplete inputProps={inputProps}/>
                                     </div>
 
                                     
-                                    <button className="btn btn-primary" type="submit">Add some pix!</button>
+                                    <button className="btn btn-primary" type="submit">Add some pictures!</button>
                                 </form>
                                 { this.state.showAddPhotos ? this.enableAddPhotos() : null }
-                                </div>
+                            </div>
                                 }
                     />
                 </div>

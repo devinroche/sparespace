@@ -14,7 +14,14 @@ function getId(){
 }
 
 function isVerified(){
-    return Boolean(Cookies.get('v'))
+    if(Cookies.get('v') === 'true')
+        return true
+
+    return false
+}
+
+function isExpress(){
+    return Boolean(Cookies.get('id') && isVerified())
 }
 
 function removeCookie(){
@@ -27,5 +34,6 @@ export default {
     isLoggedIn,
     getId,
     isVerified,
-    removeCookie
+    removeCookie,
+    isExpress
 };
