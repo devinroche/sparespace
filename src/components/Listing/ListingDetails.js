@@ -49,7 +49,6 @@ class ListingDetails extends React.Component {
         const lid = listing._id ? listing._id : ""
         const hid = listing._host ? listing._host._id : ""
         const styles = {
-
             cardStyle : {
                 boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)"
             },

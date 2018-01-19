@@ -7,6 +7,7 @@ import SignUp from "../SignUp"
 import ListingDetails from '../Listing/ListingDetails'
 import CreateListing from "../CreateListing/CreateListing"
 import { Listings } from "../Listing/Listings"
+import Profile from "../Profile/Profile"
 import ImageUploadNew from "../CreateListing/ImageUpload"
 
 const Routes = () => {
@@ -18,7 +19,7 @@ const Routes = () => {
             <Route path="/create_listing" component={CreateListing} />
             <Route path="/add_photos" component={ImageUploadNew} />
             <Route path="/listings" component={Listings}>{" "}</Route>
-            <Route path="/users/:id" component={LoggedIn} />
+            <Route path="/users/:id" component={Profile} />
             <Route path="/listing/:id" component={ListingDetails} />
             <Route path="/sign_up" component={SignUp}>{" "}</Route>
         </div>

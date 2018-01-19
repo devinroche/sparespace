@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Message from '../Message'
 import axios from 'axios';
 import Cookies from '../../Cookies';
 import swal from 'sweetalert';
@@ -13,7 +12,6 @@ class Interest extends Component {
         super()
 
         this.state = {
-            messages: [],
             show: false
         }
 
@@ -23,29 +21,10 @@ class Interest extends Component {
         });
 
         this.toggleShow = this.toggleShow.bind(this)
-        this.getMsg = this.getMsg.bind(this)
-    }
-    componentDidMount(){
-        this.getMsg()
     }
 
     toggleShow(){
         this.setState({show: !this.state.show})
-    }
-    getMsg(){
-        axios.get("http://localhost:3001/message", {
-            params: {
-                renter: this.props.renter
-            }
-        }).then(response => {
-            this.setState({
-                messages: response.data
-            })
-            console.log(this.state.messages)
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
     }
 
 render() {
@@ -68,22 +47,6 @@ render() {
         this.props.callback()
         }}>Express Your Interest</button>
 
-
-            <ul>
-                {this.state.messages.map((m, i) => {
-                    return(<li>{m.text}</li>)
-                })}
-            </ul>
-        <button className="btn btn-info" onClick={() => {
-        if(Cookies.isExpress()){
-            this.toggleShow()
-        }else{
-            swal("You must be logged in to do this.")
-        } 
-        this.props.callback()
-        }}>Send Message</button>
-
-        {this.state.show && <Message/>}
       </div>
     
     );
