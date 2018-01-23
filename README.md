@@ -2,6 +2,8 @@
 
 P2P storage web application built by Gonzaga seniors. Allows students (soon to be global) to rent out storage spaces inside other students housing. This is the front end repository tied to [sparespace-services](https://github.com/devinroche/sparespace-services)
 
+![Alt Text](https://media.giphy.com/media/l0HlGTJmgaz2nVdHW/giphy.gif)
+
 ## Getting Started
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. 
 
