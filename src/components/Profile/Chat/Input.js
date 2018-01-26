@@ -18,20 +18,22 @@ class Input extends Component {
 
     render() {
         return (
-            <form onSubmit={this.handleFormSubmit}>
-                <div>
-                    <input
-                        type="text"
-                        ref={(node) => (this.input = node)}
-                        placeholder="Enter your message…"
-                    />
-                </div>
-                <div className="button-container">
-                    <button type="submit">
-                        Send
-          </button>
-                </div>
-            </form>
+            <div className='row'>
+                <form onSubmit={this.handleFormSubmit}>
+                    <div className='col-sm-10'>
+                        <input
+                            type="text"
+                            ref={(node) => (this.input = node)}
+                            placeholder="Enter your message…"
+                            />
+                    </div>
+                    <div className="col-sm-2">
+                        <button type="submit" className="btn btn-primary sendMsg">
+                            Send
+                        </button>
+                    </div>
+                </form>
+            </div>
         )
     }
 }

@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import './Chat.css'
+import Cookies from '../../../Cookies';
 
 class Messages extends Component {
     static propTypes = {
@@ -9,18 +11,20 @@ class Messages extends Component {
     static defaultProps = {
         messages: [],
     }
+
+    componentDidUpdate = () => {
+        this.node.scrollTop = this.node.scrollHeight
+    }
+
     render() {
         return (
-            <div>
-                {this.props.messages.map((message, i) => (
-                    <div>
-                        {message.author && (
-                            <span className="author">{message.author.first}:{message.text}</span>
-                        )}
-                        {message.body}
-                    </div>
+            <ul className='chats' id='chat-container' ref={(node) => (this.node = node)}>
+                {this.props.messages.map((message, i) =>  (
+                    <li className={`chat ${Cookies.getId() === message.author._id ? "right" : "left"}`}>
+                        <span>{message.author.first}:{message.text}</span>
+                    </li>
                 ))}
-            </div>
+            </ul>
         )
     }
 }

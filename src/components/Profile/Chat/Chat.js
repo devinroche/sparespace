@@ -7,6 +7,7 @@ import Messages from './Messages'
 import Input from './Input'
 import Cookies from "../../../Cookies";
 import openSocket from 'socket.io-client';
+import './Chat.css'
 const socket = openSocket('http://localhost:3001');
 
 class Chat extends React.Component {
@@ -25,6 +26,7 @@ class Chat extends React.Component {
                 })
         });
     }
+   
 
     handleNewMessage = (text) => {
         axios.post('http://localhost:3001/message', {
@@ -32,13 +34,14 @@ class Chat extends React.Component {
             renter: this.props.match.params.renter,
             author: Cookies.getId(),
             text: text
-        }).then(()=>{ postMsg(text)})
+        }).then(()=>{ 
+            postMsg(text)
+        })
     }
 
     componentDidMount() {
         axios.get(`http://localhost:3001/message/${this.props.match.params.host}/${this.props.match.params.renter}`)
             .then(res => {
-                console.log(res.data)
                 this.setState({
                     messages: res.data
                 })
@@ -48,7 +51,7 @@ class Chat extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className='chatroom col-lg-8 col-lg-offset-2'>
                 <Messages messages={this.state.messages} />
                 <Input onMessageSend={this.handleNewMessage} />
             </div>
