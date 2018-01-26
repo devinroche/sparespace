@@ -2,7 +2,7 @@ import React from "react"
 import axios from "axios"
 import { Image } from "cloudinary-react"
 import Cookies from "../../Cookies"
-import Interest from './Interest'
+import SendMessage from './SendMessage'
 import Carousel from 'nuka-carousel'
 
 class ListingDetails extends React.Component {
@@ -26,7 +26,7 @@ class ListingDetails extends React.Component {
 	}
 
     renderInterest(l_id, h_id){
-        return <Interest listing={l_id} host={h_id} renter={Cookies.getId()}  callback={this.canClick}/>
+        return <SendMessage host={h_id} renter={Cookies.getId()}  callback={this.canClick}/>
           
     }
 

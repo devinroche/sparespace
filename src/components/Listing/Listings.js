@@ -16,9 +16,6 @@ export class Listings extends React.Component {
             l: ''
         }
         
-        socket.on('refresh listings', () => {
-            this.getListings()
-        })
 
         this.toggleShow = this.toggleShow.bind(this)
         this.setListing = this.setListing.bind(this)
