@@ -68,7 +68,9 @@ class Profile extends React.Component {
                 otherName = chat.renter
             }
             return(<div>
+                <Link to={`/chat/${chat.host_id}/${chat.renter_id}`}>
                 <li>{otherName}</li>
+                </Link>
             </div>)
         }) : ''
 		return (
