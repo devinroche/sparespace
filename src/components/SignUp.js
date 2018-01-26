@@ -1,5 +1,5 @@
 /**
- * Creates SignUp page
+ * Creates Sign Up page
  *
  * @author George Kunthara
  * @version v0.0.1 10/06/17
@@ -38,14 +38,15 @@ class SignUp extends Component {
 				<div className="col-lg-6 col-lg-offset-3">
 					<Formik
 						initialValues={{
-							fullname: "",
+							first: "",
+							last: "",
 							password: "",
+							confirm: "",
 							contact: {
 								email: "",
 								phone: "",
 								address: ""
-							},
-							usertype: ""
+							}
 						}}
 						//formik is handling our forms. It will check for valid
 						//input, and then send info on click "Create Account" to our backend
@@ -55,9 +56,19 @@ class SignUp extends Component {
 							let errors = {}
 							if (!values.email) {
 								errors.email = "Required"
-							} else if (!values.fullname) {
-								errors.fullname = "Required"
-							} else if (!values.password) {
+							} else if (!values.first) {
+								errors.first = "Required"
+							}
+                            else if (!values.last) {
+                                errors.last = "Required"
+                            }
+                            else if (!values.confirm) {
+                                errors.confirm = "Required"
+                            }
+                            else if (values.confirm !== values.password){
+								errors.confirm = "Passwords do not match!!"
+							}
+							else if (!values.password) {
 								errors.password = "Required"
 							} else if (
 								!/^[A-Z0-9._%+-]+@zagmail.gonzaga.edu$/i.test(values.email)
@@ -74,8 +85,8 @@ class SignUp extends Component {
 
 							// TODO: validate if user is already in database
 							axios.post("http://localhost:3001/users", {
-                                first: values.fullname,
-                                last: values.fullname,
+                                first: values.first,
+                                last: values.last,
 								password: values.password,
                                 email: values.email,
 							})
@@ -103,24 +114,37 @@ class SignUp extends Component {
 							touched,
 							errors,
 							handleChange,
-							handleSubmit,
-							isSubmitting
+							handleSubmit
 						}) => (
 							<form style={formStyle} onSubmit={handleSubmit}>
 								<div className="form-group">
-									<label className="pull-left">Name</label>
+									<label className="pull-left">First Name</label>
 									<input
-										id="fullname"
+										id="first"
 										className="form-control"
-										type="fullname"
-										name="fullname"
-										placeholder="Ex: Billy"
+										type="first"
+										name="first"
+										placeholder="Ex: Satoshi"
 										onChange={handleChange}
-										value={values.fullname}
+										value={values.first}
 									/>
-									{touched.fullname &&
-										errors.fullname && <div>{errors.fullname}</div>}
+									{touched.first &&
+										errors.first && <div>{errors.first}</div>}
 								</div>
+                                <div className="form-group">
+                                    <label className="pull-left">Last Name</label>
+                                    <input
+                                        id="last"
+                                        className="form-control"
+                                        type="last"
+                                        name="last"
+                                        placeholder="Ex: Nakamoto"
+                                        onChange={handleChange}
+                                        value={values.last}
+                                    />
+                                    {touched.last &&
+                                    errors.last && <div>{errors.last}</div>}
+                                </div>
 								<div className="form-group">
 									<label className="pull-left">Email</label>
 									<input
@@ -148,6 +172,19 @@ class SignUp extends Component {
 									{touched.password &&
 										errors.password && <div>{errors.password}</div>}
 								</div>
+                                <div className="form-group">
+                                    <label className="pull-left">Confirm Password</label>
+                                    <input
+                                        id="confirm"
+                                        className="form-control"
+                                        type="password"
+                                        name="confirm"
+                                        onChange={handleChange}
+                                        value={values.confirm}
+                                    />
+                                    {touched.confirm &&
+                                    errors.confirm && <div>{errors.confirm}</div>}
+                                </div>
 								<button className="btn btn-primary" type="submit">
 									Sign Up!
 								</button>
