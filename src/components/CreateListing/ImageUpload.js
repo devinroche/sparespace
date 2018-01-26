@@ -30,6 +30,17 @@ class ImageUpload extends Component {
         const _this = this;
         axios.post('http://localhost:3001/cordinates', {address: this.props.location})
             .then(function(response) {
+            	//CHECK TO MAKE SURE VALID ADDRESS W/CORDS
+            	if (response.data == "bad") { 
+            		console.log('BAD INPUT');
+            		swal({
+                		title: "Please choose a valid address",
+                		text: "Please choose a valid address",
+                		icon: "warning",
+                		dangerMode: true
+            		});
+            		return;
+            	}
                 _this.setState({
                     latlng: response.data
                 });

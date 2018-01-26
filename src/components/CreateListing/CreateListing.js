@@ -20,6 +20,7 @@ class CreateListing extends Component {
         this.state = {
             showAddPhotos : false,
             address: ""
+            
         };
         this.onChange = (address) => this.setState({ address }) //added
 		this.checkLogin = this.checkLogin.bind(this)
@@ -41,6 +42,9 @@ class CreateListing extends Component {
 	componentDidMount() {
 		this.checkLogin()
 	}
+	
+	
+	
 
 	checkLogin() {
 		if (Cookies.isLoggedIn() === false) {
@@ -71,20 +75,25 @@ class CreateListing extends Component {
 			})
         }
 
-        else if(Cookies.isVerified() === false){
-            swal("You need to verify your account first!" ,{buttons: {
-				return: {
+        else if(Cookies.isVerified() === true){
+            swal("You need to verify your account first!" ,{buttons: 
+            	{
+				return: 
+					{
 				  text: "Resend Verification Email",
 				  value: "rve",
-				},
-				view: {
+					},
+				view: 
+					{
 					text: "View All Listings",
 					value: "viewall",
-				  }
-			  },
+				  	}
+			  	},
+			  	
 			}).then((value) => {
 			  switch (value) {
                 case "rve":
+                
                     axios.post('http://localhost:3001/reverify', {id: Cookies.getId()})
 					window.location.href = "/listings"
 					return <Redirect to="/listings" />
