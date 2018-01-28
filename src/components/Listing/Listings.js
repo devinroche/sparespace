@@ -15,13 +15,17 @@ export class Listings extends React.Component {
             show: false,
             l: ''
         }
-        
-        socket.on('refresh listings', () => {
-            this.getListings()
-        })
 
         this.toggleShow = this.toggleShow.bind(this)
         this.setListing = this.setListing.bind(this)
+        socket.on('refresh listings', ()=>{
+            axios.get("http://localhost:3001/listings")
+                .then(response => {
+                    this.setState({
+                        listings: response.data
+                    })
+                })
+        });
 	}
 
     toggleShow(){

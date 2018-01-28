@@ -8,18 +8,23 @@ class Profile extends React.Component {
 		super()
 		this.state = {
             user: "",
-            data: []
+            data: [],
+            msg: []
         }
 	}
 
 	componentDidMount() {
-		axios
-			.get(`http://localhost:3001/user/${this.props.match.params.id}`)
+        axios.get(`http://localhost:3001/user/${this.props.match.params.id}`)
 			.then(res => {
-                this.setState({ 
-                    user: res.data, 
-                    data:res.data.interested 
-                })})
+                axios.get(`http://localhost:3001/messages/${this.props.match.params.id}`).then(r => {
+                    console.log(r.data)
+                    this.setState({
+                        user: res.data,
+                        data: res.data.interested,
+                        msg: r.data
+                    })
+                })
+                })
 			.catch(err => console.log("some err occured", err))
 	}
 
@@ -52,9 +57,24 @@ class Profile extends React.Component {
         }
         const user = this.state.user ? this.state.user : ""
         const storage = user.interested ? user.interested: ""
-        console.log(user, this.state.data)
+        const activeChat = this.state.msg ? this.state.msg.map((chat) => {
+            let otherPart;
+            let otherName;
+            if(chat.renter_id === user._id){
+                otherPart = chat.host_id
+                otherName=chat.host
+            }else{
+                otherPart= chat.renter_id
+                otherName = chat.renter
+            }
+            return(<div>
+                <Link to={`/chat/${chat.host_id}/${chat.renter_id}`}>
+                <li>{otherName}</li>
+                </Link>
+            </div>)
+        }) : ''
 		return (
-            <div>
+            <div className="container">
 			<div className = "row">
                 <div className="col-sm-6 col-sm-offset-3" style={styles.containerStyle}>
                     <div style={styles.cardStyle}>
@@ -65,23 +85,13 @@ class Profile extends React.Component {
                     </div>
                 </div>
             </div>
-                    {this.state.data.map((l, i) => {
-                    return (
-                        <div className = "row">
-                        <div className="col-sm-6 col-sm-offset-3" style={styles.containerStyle}>
-                            <Link to={`/listing/${l._id}`}>
-                                <div style={styles.cardStyle}>
-                                    <Image className="col-sm-6" cloudName="dopxmkhbr" publicId={l.images[0]} style={styles.imageSize}/>
-                                    <div className="card-block">
-                                        <h4 style={styles.mainStyle} className="card-title text-left">{l.title}</h4>
-                                        <h6 style={styles.secondStyle} className="card-text text-left">{l._host.first}</h6>
-                                    </div>
-                                </div>
-                            </Link>
-                        </div>
-                    </div>
-                    )
-                })}
+                <div className='row'>
+                <div className='col-sm-6 col-sm-offset-3'>
+                    <hr/>
+                    <h3>active chats</h3>
+                    {activeChat}
+                </div>
+                </div>
             </div>
 		)
 	}
