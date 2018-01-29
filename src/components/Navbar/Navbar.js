@@ -68,7 +68,7 @@ export default class AppNavbar extends Component {
             	<div>
 					<Link to="/login" activeClassName="none">
 						<li className="nav-item" style={style}>
-							<a className="nav-link" href="#" style={style}>Login</a>
+							<a className="nav-link" href="#" style={style}>Log In</a>
 						</li>
 					</Link>
 					<Link to="/sign_up">

@@ -11,35 +11,8 @@
  */
 
 import React, { Component } from "react"
-import axios from "axios"
-import { Row, Col, FormGroup, ControlLabel, FormControl } from "react-bootstrap"
-
-//this was Search Bar class, renamed to be home
 
 class Home extends Component {
-	constructor(props) {
-		// no idea just stole this from crypto chart to demo axios.
-		super(props)
-		this.state = {
-			dataArr: []
-		}
-		// this.getData = this.getData.bind(this)
-	}
-
-	// componentDidMount() {
-	// 	this.getData()
-	// }
-
-	// getData() {
-	// 	// This gets all the users in the database
-	// 	axios.get("http://localhost:3001/users").then(response => {
-	// 		this.setState({
-	// 			dataArr: response.data
-	// 		})
-	// 	})
-	// }
-
-
 
 	render() {
 
