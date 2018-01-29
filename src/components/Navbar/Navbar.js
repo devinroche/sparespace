@@ -1,67 +1,176 @@
 import React, { Component } from "react"
-import { Navbar, Nav, NavItem } from "react-bootstrap"
-import { LinkContainer } from "react-router-bootstrap"
 import Cookies from "../../Cookies"
+import {Link} from "react-router-dom"
 
 
 export default class AppNavbar extends Component {
-	constructor(props){
-		super(props);
-	
-		this.renderLogout = this.renderLogout.bind(this);
-		this.logout = this.logout.bind(this);
-    }
-	
-	logout(){
-		Cookies.removeCookie();
-	}
-	
-	renderLogout(){
-		if(Cookies.isLoggedIn())
-			return (
-				<LinkContainer onClick={this.logout}  to="/login" activeClassName="none">
-					<NavItem eventKey={2}>Logout</NavItem>
-				</LinkContainer>
-			);
-		
-		else{
-			const notValid = (
-				<Nav>
-					<LinkContainer to="/login" activeClassName="none">
-						<NavItem eventKey={2}>Login</NavItem>
-					</LinkContainer>
-					<LinkContainer to="/sign_up">
-						<NavItem eventKey={3}>Sign Up</NavItem>
-					</LinkContainer>
-				</Nav>
-			)
-			return (notValid);
-		}
-	}
-	componentDidMount(){
-		this.renderLogout();
-	}
+    constructor(props){
+        super(props);
+    	this.state = {
+    		hover: false
+		};
 
-	render() {
-		return (
-      <div>
-		    <Navbar>
-				<Navbar.Header>
-					<Navbar.Brand>
-                        <a href="/home">sparespace</a>
-					</Navbar.Brand>
-				</Navbar.Header>
-				<Nav pullRight>
-					{this.renderLogout()}
-					<LinkContainer to="/create_listing">
-						<NavItem eventKey={3}>Create a Listing!</NavItem>
-					</LinkContainer>
-					<LinkContainer to="/listings">
-						<NavItem eventKey={3}>View Listings</NavItem>
-					</LinkContainer>
-				</Nav>
-            </Navbar>
-        </div>
-		)
-	}
+        this.renderLogout = this.renderLogout.bind(this);
+        this.logout = this.logout.bind(this);
+        this.toggleHover = this.toggleHover.bind(this);
+
+    }
+
+    logout(){
+        Cookies.removeCookie();
+    }
+
+
+    renderLogout(){
+        if(Cookies.isLoggedIn()) {
+
+            const style = {
+                color: "#333333",
+                listStyleType: "none",
+                fontFamily: "Rubik",
+                fontWeight: "400",
+                fontSize: 16,
+                float: "left",
+                marginRight: 30,
+                textDecoration: "none"
+            };
+
+            return (
+            	<div>
+                    <Link to="/home" activeClassName="none">
+                        <li className="nav-item" style={style}>
+                            <a className="nav-link" href="#" style={style}>Account</a>
+                        </li>
+                    </Link>
+					<Link onClick={this.logout} to="/login" activeClassName="none">
+						<li className="nav-item" style={style}>
+							<a className="nav-link" href="#" style={style}>Logout</a>
+						</li>
+					</Link>
+				</div>
+
+            );
+        }
+
+        else{
+
+            const style = {
+                color: "#333333",
+                listStyleType: "none",
+				fontFamily: "Rubik",
+				fontWeight: "400",
+				fontSize: 16,
+                float: "left",
+				marginRight: 30,
+                textDecoration: "none"
+            };
+            return (
+            	<div>
+					<Link to="/login" activeClassName="none">
+						<li className="nav-item" style={style}>
+							<a className="nav-link" href="#" style={style}>Login</a>
+						</li>
+					</Link>
+					<Link to="/sign_up">
+						<li className="nav-item" style={style}>
+							<a className="nav-link" href="#" style={style}>Sign Up</a>
+						</li>
+					</Link>
+				</div>
+            )
+        }
+    }
+    componentDidMount(){
+        this.renderLogout();
+    }
+
+    toggleHover()
+	{
+		this.setState({
+			hover: !this.state.hover
+		})
+    }
+
+
+    render() {
+
+    	const style = {
+    		fontFamily: "Helvetica",
+			color: "#FC5B45",
+			fontWeight: "bold",
+			fontSize: 30,
+			marginLeft: 40,
+			marginTop: 25,
+			textDecoration: "none"
+		};
+
+    	const itemStyles = {
+    		listStyleType: "none",
+			fontFamily: "Rubik",
+			fontSize: 16,
+			fontWeight: 400,
+			float: "left",
+			marginRight: 45,
+            textDecoration: "none"
+		};
+
+
+    	const ul = {
+    		width: 600,
+			marginTop: 40,
+		}
+
+    	const item = {
+            color: "#333333",
+            textDecoration: "none"
+		}
+
+		let yourSpace = {
+
+		}
+
+		if(this.state.hover){
+    		yourSpace = {
+    			color: "#FFFFFF",
+				backgroundColor: "#FC5B45",
+                borderWidth: "thin",
+				borderColor: "#FC5B45",
+				borderStyle: "solid",
+                padding: "7px 15px",
+                borderRadius: 3,
+                textDecoration: "none"
+			}
+		}
+		else{
+            yourSpace = {
+                color: "#FC5B45",
+				borderColor: "#FC5B45",
+				borderWidth: "thin",
+                borderStyle: "solid",
+                padding: "7px 15px",
+                borderRadius: 3,
+                textDecoration: "none"
+            }
+		}
+
+
+        return (
+				<nav className="navbar">
+                    <a className="navbar-brand" style={style} href="/home">sparespace</a>
+					<ul className="pull-right navbar-nav" style={ul}>
+						<Link to ="/create_listing">
+							<li className="nav-item" style={itemStyles}>
+								<a className="nav-link" href="#" onMouseEnter={this.toggleHover} onMouseLeave={this.toggleHover} style={yourSpace}>Post Your Space</a>
+							</li>
+						</Link>
+						<Link to ="/listings">
+							<li className="nav-item" style={itemStyles}>
+								<a className="nav-link" href="#" style={item}>Browse</a>
+							</li>
+						</Link>
+						{this.renderLogout()}
+					</ul>
+				</nav>
+        )
+    }
 }
