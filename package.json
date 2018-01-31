@@ -19,6 +19,7 @@
     "react-mapbox-gl": "3.4.1",
     "react-native-dotenv": "^0.1.0",
     "react-places-autocomplete": "^5.4.3",
+    "react-router": "^4.2.0",
     "react-router-bootstrap": "^0.24.4",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.11",

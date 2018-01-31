@@ -75,7 +75,7 @@ class CreateListing extends Component {
 			})
         }
 
-        else if(Cookies.isVerified() === true){
+        else if(Cookies.isVerified() === false){
             swal("You need to verify your account first!" ,{buttons: 
             	{
 				return: 
