@@ -11,17 +11,18 @@ class ListingDetails extends React.Component {
 		this.state = {
             expressInterest: true,
 			listingImages : [],
+			listing: [],
 			l: ''
 		}
 
 		this.canExpress = this.canExpress.bind(this)
         this.canClick = this.canClick.bind(this)
         this.renderInterest = this.renderInterest.bind(this)
-        this.getImages = this.getImages.bind(this)
+        this.getListingInfo = this.getListingInfo.bind(this)
     }
 
     componentDidMount() {
-		this.getImages()
+		this.getListingInfo()
 	}
 
     renderInterest(l_id, h_id){
@@ -42,10 +43,12 @@ class ListingDetails extends React.Component {
 		this.forceUpdate();
 	}
 
-	 getImages(){
+	 getListingInfo(){
+
          axios.get(`http://localhost:3001/listing/${this.props.match.params.id}`)
              .then(res => {
-                 this.setState({ listingImages: res.data.images })
+                 this.setState({ listingImages: res.data.images,
+				 				 listing: res.data })
                  this.canExpress(res.data._host._id, res.data.interested)
              }).catch(err => console.log("some err occured", err))
 
@@ -53,9 +56,13 @@ class ListingDetails extends React.Component {
 
 	render() {
 
-        const listing = this.state.listing ? this.state.listing : ""
-        const lid = listing._id ? listing._id : ""
-        const hid = listing._host ? listing._host._id : ""
+        // const listing = this.state.listing ? this.state.listing : ""
+        // const lid = listing._id ? listing._id : ""
+        // const hid = listing._host ? listing._host._id : ""
+		const listing = this.state.listing ? this.state.listing : ""
+		const lid = listing._id ? listing._id : ""
+		const hid = listing._host ? listing._host._id : ""
+
         const styles = {
             cardStyle : {
                 boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)"
@@ -100,7 +107,6 @@ class ListingDetails extends React.Component {
 
         }
 
-		console.log(this.state.listingImages)
 		return (
 
 			<div className="container">
@@ -110,7 +116,6 @@ class ListingDetails extends React.Component {
 					<div className="col-sm-6 text-center" style={{ marginTop: 50}}>
 						<div className="card row" style={styles.cardStyle}>
 							<Carousel>
-
 								{this.state.listingImages.map((l, index) => (
                                 <Image cloudName="dopxmkhbr" publicId={l} height="300" width="500" style={{}}/>
                                 ))
