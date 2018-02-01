@@ -26,7 +26,7 @@ class SignUp extends Component {
             fontFamily: 'Rubik',
             color: "#333",
             fontWeight: "400"
-		}
+		};
 
 		const formStyle = {
 			marginTop: 10,
