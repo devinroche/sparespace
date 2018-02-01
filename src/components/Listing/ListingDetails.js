@@ -56,9 +56,6 @@ class ListingDetails extends React.Component {
 
 	render() {
 
-        // const listing = this.state.listing ? this.state.listing : ""
-        // const lid = listing._id ? listing._id : ""
-        // const hid = listing._host ? listing._host._id : ""
 		const listing = this.state.listing ? this.state.listing : ""
 		const lid = listing._id ? listing._id : ""
 		const hid = listing._host ? listing._host._id : ""
