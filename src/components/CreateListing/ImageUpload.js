@@ -99,11 +99,13 @@ class ImageUpload extends Component {
                     title: this.props.title,
                     price: this.props.price,
                     description: this.props.description,
+                    duration: this.props.duration,
                     location: this.props.location,
                     lat: this.state.latlng.lat,
                     lng: this.state.latlng.lng,
+                    features: this.props.features,
                     images: this.state.fileUrls
-                }
+                };
 
                 axios.post('http://localhost:3001/listings', storageObj);
                 swal("Congrats you posted your space!" ,{buttons: {
