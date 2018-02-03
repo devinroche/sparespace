@@ -2,7 +2,6 @@ import React from "react"
 import axios from "axios"
 import { Image } from "cloudinary-react"
 import {Link} from "react-router-dom"
-import MapComponent from "../MapComponent"
 import Mapo from '../Map'
 import openSocket from 'socket.io-client';
 const socket = openSocket('http://localhost:3001');
