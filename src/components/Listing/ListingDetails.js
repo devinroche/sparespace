@@ -47,8 +47,7 @@ class ListingDetails extends React.Component {
 
          axios.get(`http://localhost:3001/listing/${this.props.match.params.id}`)
              .then(res => {
-                 this.setState({ listingImages: res.data.images,
-				 				 listing: res.data })
+                 this.setState({ listingImages: res.data.images, listing: res.data })
                  this.canExpress(res.data._host._id, res.data.interested)
              }).catch(err => console.log("some err occured", err))
 
