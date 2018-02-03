@@ -18,7 +18,7 @@ class Input extends Component {
 
     render() {
         return (
-            <div className='row'>
+            <div className='row chatForm'>
                 <form onSubmit={this.handleFormSubmit}>
                     <div className='col-sm-10'>
                         <input
