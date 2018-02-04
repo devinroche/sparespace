@@ -4,8 +4,11 @@ import { Image } from "cloudinary-react"
 import {Link} from "react-router-dom"
 import MapComponent from "../MapComponent"
 import Mapo from '../Map'
+import Filter from '../Filter'
 import openSocket from 'socket.io-client';
+import update from 'react-addons-update'; // ES6
 const socket = openSocket('http://localhost:3001');
+
 
 export class Listings extends React.Component {
 	constructor(props) {
@@ -13,11 +16,15 @@ export class Listings extends React.Component {
 		this.state = {
             listings: [],
             show: false,
+            showFilter: false,
             l: ''
         }
 
         this.toggleShow = this.toggleShow.bind(this)
         this.setListing = this.setListing.bind(this)
+        this.onFilterChange = this.onFilterChange.bind(this)
+        this.onSortChange = this.onSortChange.bind(this)
+        
         socket.on('refresh listings', ()=>{
             axios.get("http://localhost:3001/listings")
                 .then(response => {
@@ -31,11 +38,17 @@ export class Listings extends React.Component {
     toggleShow(){
         this.setState({show: !this.state.show})
     }
+
+    toggleFilters() {
+        this.setState({showFilter: !this.state.showFilter})
+    }
+
     setListing(l){
         this.setState({l:l})
     }
     componentDidMount(){
         this.getListings()
+
     }
 
     getListings(){
@@ -48,6 +61,44 @@ export class Listings extends React.Component {
             .catch(function (error) {
                 console.log(error);
             });
+    }
+
+    onFilterChange(plow,phigh,dlow,dhigh,sort) {
+        const _this = this;
+        axios.post('http://localHost:3001/range', {
+            cost_low:plow,
+            cost_high:phigh,
+            dur_low:dlow,
+            dur_high:dhigh
+        }).then(function(response) {
+                //console.log(response)
+                _this.setState({
+                    listings: response.data
+                });
+            })
+            .catch(function(response) {
+                console.log(response);
+            });
+    }
+    onSortChange(sortVal) {
+        if (sortVal == 'Filters') {
+            return;
+        } else {
+            const _this = this;
+        axios.get('http://localHost:3001/' + sortVal).then(function(response) {
+                //console.log(response)
+
+                _this.setState({
+                    listings: response.data
+                });
+
+
+            })
+            .catch(function(response) {
+                console.log(response);
+            });
+        }
+        
     }
 
     render() {
@@ -86,15 +137,16 @@ export class Listings extends React.Component {
             }
         }
         const toggleShow = this.state ? this.toggleShow : null;
-        const setListing = this.state ? this.setListing : null
+        const setListing = this.state ? this.setListing : null;
+        const setFilter = this.state ? this.onFilterChange : null;
 
         return (
-            <div className = "row">
-                <div className="col-sm-2" style={{backgroundColor: "#F7F7F7", height: "100vh"}} >
-                    <h3 style={styles.mainStyle} className="text-center">Filters</h3>
+            <div className = 'container'>
+                <div className='container'>
+                    <Filter onSortChange = {this.onSortChange} onFilterChange = {this.onFilterChange} />
                 </div>
-
-                <div className="col-sm-7" style={styles.containerStyle}>
+            <div className = "row">
+                <div className="col-sm-9" style={styles.containerStyle}>
                         {this.state.listings.map((l, index) => (
                             <Link to={`/listing/${l._id}`}>
                                 <div className= "card col-sm-2 col-sm-offset-1" style={styles.cardStyle}>
@@ -110,9 +162,10 @@ export class Listings extends React.Component {
                         }
                     </div>
 
-                <div className = "col-sm-3" >
+                <div className = "col-sm-2" >
                     <Mapo toggle={toggleShow} setListing={setListing}/>
                 </div>
+            </div>
             </div>
         )
     }

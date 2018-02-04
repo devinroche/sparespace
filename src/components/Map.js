@@ -34,7 +34,7 @@ class Mapo extends React.Component {
     }
 
     handleClick = (id) => {
-        console.log(id)
+        
         // this.props.setListing(id)
     }
 
