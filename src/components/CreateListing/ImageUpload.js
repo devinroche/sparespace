@@ -98,13 +98,14 @@ class ImageUpload extends Component {
                     _host: Cookies.getId(),
                     title: this.props.title,
                     price: Number(this.props.price),
-                    duration: Math.floor(Math.random() * 10) + 1,
+                    duration: Number(this.props.duration),
                     description: this.props.description,
                     location: this.props.location,
                     lat: this.state.latlng.lat,
                     lng: this.state.latlng.lng,
                     images: this.state.fileUrls,
-                    timestamp: Date.now()
+                    timestamp: Date.now(),
+                    features:this.props.features
                 }
 
                 axios.post('http://localhost:3001/listings', storageObj).then(response => {

@@ -13,6 +13,7 @@ class Mapo extends React.Component {
         super(props);
         this.state = {
           geo: [],
+          l: ''
         };
      }
 
@@ -35,7 +36,8 @@ class Mapo extends React.Component {
 
     handleClick = (id) => {
         
-        // this.props.setListing(id)
+       console.log(id);
+       this.setState({l:id})
     }
 
   
