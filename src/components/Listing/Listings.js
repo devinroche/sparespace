@@ -85,6 +85,7 @@ export class Listings extends React.Component {
                 height: '90vh'
             }
         }
+
         const toggleShow = this.state ? this.toggleShow : null;
         const setListing = this.state ? this.setListing : null
 
