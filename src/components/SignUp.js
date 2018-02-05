@@ -1,13 +1,3 @@
-/**
- * Creates Sign Up page
- *
- * @author George Kunthara
- * @version v0.0.1 10/06/17
- *
- * @ChangeLog
- * Initial 10/06/17 George Kunthara
- */
-
 import React, { Component } from "react"
 import { Formik } from "formik"
 import axios from "axios"
@@ -17,22 +7,52 @@ import Cookies from "../Cookies"
 
 class SignUp extends Component {
 	render() {
-		//adjust login header to be more down the screen
-		const loginStyle = {
-			marginTop: 100
-		}
 
-		//adjust forms to have more space against login header
+		const SignUpHeader = {
+			marginTop: 50,
+			fontFamily: 'Rubik',
+			color: "#FC5B45",
+			fontWeight: "400"
+		};
+
+		const subHeader = {
+            fontFamily: 'Rubik',
+            color: "#747272",
+            fontWeight: "300",
+			fontSize: 20
+		};
+
+		const labels = {
+            fontFamily: 'Rubik',
+            color: "#333",
+            fontWeight: "400"
+		};
+
 		const formStyle = {
-			marginTop: 25
-		}
+			marginTop: 10,
+			marginLeft: 75
+		};
+
+		const submitStyle = {
+            color: "#FFF",
+			backgroundColor: "#FC5B45",
+			border: "none",
+			borderRadius: 6,
+			fontFamily: 'Rubik',
+			fontWeight: "300",
+			width: 200,
+			marginTop: 25,
+			marginLeft: 20,
+			padding: 10
+
+		};
 
 		return (
 			<div>
-				<h1 style={loginStyle} className="text-center">
-					{" "}
-					Create Account{" "}
+				<h1 style={SignUpHeader} className="text-center">
+					Create Your Account
 				</h1>
+				<h3 className="text-center" style={subHeader}>First we need to know a little bit about you</h3>
 				<div className="container text-center">
 				<div className="row">
 				<div className="col-lg-6 col-lg-offset-3">
@@ -80,10 +100,7 @@ class SignUp extends Component {
 							return errors
 						}}
 						onSubmit={values => {
-							//right now only way for accessing contact object
-							//for some reason getting errors when accessing within forms...
 
-							// TODO: validate if user is already in database
 							axios.post("http://localhost:3001/users", {
                                 first: values.first,
                                 last: values.last,
@@ -117,77 +134,88 @@ class SignUp extends Component {
 							handleSubmit
 						}) => (
 							<form style={formStyle} onSubmit={handleSubmit}>
-								<div className="form-group">
-									<label className="pull-left">First Name</label>
-									<input
-										id="first"
-										className="form-control"
-										type="first"
-										name="first"
-										placeholder="Ex: Satoshi"
-										onChange={handleChange}
-										value={values.first}
-									/>
-									{touched.first &&
-										errors.first && <div>{errors.first}</div>}
+								<div className="row">
+									<div className="col-sm-6" style={formStyle}>
+										<label className="pull-left" style={labels}>First Name</label>
+										<input
+											id="first"
+											className="form-control"
+											type="text"
+											name="first"
+											onChange={handleChange}
+											value={values.first}
+										/>
+										{touched.first &&
+											errors.first && <div>{errors.first}</div>}
+									</div>
 								</div>
-                                <div className="form-group">
-                                    <label className="pull-left">Last Name</label>
-                                    <input
-                                        id="last"
-                                        className="form-control"
-                                        type="last"
-                                        name="last"
-                                        placeholder="Ex: Nakamoto"
-                                        onChange={handleChange}
-                                        value={values.last}
-                                    />
-                                    {touched.last &&
-                                    errors.last && <div>{errors.last}</div>}
+                                <div className="row">
+									<div className="col-sm-6" style={formStyle}>
+										<label className="pull-left" style={labels}>Last Name</label>
+										<input
+											id="last"
+											className="form-control"
+											type="text"
+											name="last"
+											onChange={handleChange}
+											value={values.last}
+										/>
+										{touched.last &&
+										errors.last && <div>{errors.last}</div>}
+                                    </div>
                                 </div>
-								<div className="form-group">
-									<label className="pull-left">Email</label>
-									<input
-										id="email"
-										className="form-control"
-										type="email"
-										name="email"
-										placeholder="Email"
-										onChange={handleChange}
-										value={values.email}
-									/>
-									{touched.email && errors.email && <div>{errors.email}</div>}
+								<div className="row">
+									<div className="col-sm-6" style={formStyle}>
+										<label className="pull-left" style={labels}>Email</label>
+										<input
+											id="email"
+											className="form-control"
+											type="email"
+											name="email"
+											onChange={handleChange}
+											value={values.email}
+										/>
+										{touched.email && errors.email && <div>{errors.email}</div>}
+										</div>
 								</div>
-								<div className="form-group">
-									<label className="pull-left">Password</label>
-									<input
-										id="password"
-										className="form-control"
-										type="password"
-										name="password"
-										placeholder="Password"
-										onChange={handleChange}
-										value={values.password}
-									/>
-									{touched.password &&
-										errors.password && <div>{errors.password}</div>}
+								<div className="row">
+									<div className="col-sm-6" style={formStyle}>
+										<label className="pull-left" style={labels}>Password</label>
+										<input
+											id="password"
+											className="form-control"
+											type="password"
+											name="password"
+											onChange={handleChange}
+											value={values.password}
+										/>
+										{touched.password &&
+											errors.password && <div>{errors.password}</div>}
+									</div>
 								</div>
-                                <div className="form-group">
-                                    <label className="pull-left">Confirm Password</label>
-                                    <input
-                                        id="confirm"
-                                        className="form-control"
-                                        type="password"
-                                        name="confirm"
-                                        onChange={handleChange}
-                                        value={values.confirm}
-                                    />
-                                    {touched.confirm &&
-                                    errors.confirm && <div>{errors.confirm}</div>}
+                                <div className="row">
+									<div className="col-sm-6" style={formStyle}>
+										<label className="pull-left" style={labels}>Confirm Password</label>
+										<input
+											id="confirm"
+											className="form-control"
+											type="password"
+											name="confirm"
+											onChange={handleChange}
+											value={values.confirm}
+										/>
+										{touched.confirm &&
+										errors.confirm && <div>{errors.confirm}</div>}
+									</div>
                                 </div>
-								<button className="btn btn-primary" type="submit">
-									Sign Up!
-								</button>
+								<div className="row">
+									<div className="col-sm-9">
+									<button className="btn" type="submit" style={submitStyle}>
+										Confirm
+									</button>
+									</div>
+								</div>
+
 							</form>
 						)}
 					/>

@@ -99,11 +99,13 @@ class ImageUpload extends Component {
                     title: this.props.title,
                     price: this.props.price,
                     description: this.props.description,
+                    duration: this.props.duration,
                     location: this.props.location,
                     lat: this.state.latlng.lat,
                     lng: this.state.latlng.lng,
+                    features: this.props.features,
                     images: this.state.fileUrls
-                }
+                };
 
                 axios.post('http://localhost:3001/listings', storageObj);
                 swal("Congrats you posted your space!" ,{buttons: {
@@ -146,12 +148,11 @@ class ImageUpload extends Component {
                     onDrop={this.onImageDrop.bind(this)}
 
                 >
-                    <p class="text-center">Drop an image or click to select a file to upload.</p>
+                    <p className="text-center">Drop an image or click to select a file to upload.</p>
                 </Dropzone>
                 {
                     this.state.fileDropped === false ? null :
                         <div >
-
                             {
                                 this.state.filePaths.map((item,index) => (
                                     <img width="400" src={item.preview} alt = "responsive image" />

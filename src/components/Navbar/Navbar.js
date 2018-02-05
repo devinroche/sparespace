@@ -37,7 +37,7 @@ export default class AppNavbar extends Component {
 
             return (
             	<div>
-                    <Link to="/home" activeClassName="none">
+                    <Link to={"/users/"+Cookies.getId()} activeClassName="none">
                         <li className="nav-item" style={style}>
                             <a className="nav-link" href="#" style={style}>Account</a>
                         </li>

@@ -8,23 +8,87 @@ import PlacesAutocomplete from 'react-places-autocomplete'
 import axios from 'axios';
 
 
-let title = ""
-let description = ""
-let price = ""
-let location = ""
+let title = "";
+let description = "";
+let price = "";
+let location = "";
+let duration = "";
+let features = [];
+
+
 
 class CreateListing extends Component {
 	constructor(props) {
         super(props)
-        
+
         this.state = {
             showAddPhotos : false,
-            address: ""
-            
+            address: "",
+            selectedDuration: '',
+            heatChecked: false,
+            coverChecked: false,
+            accessChecked: false,
+            outletChecked: false
+
         };
-        this.onChange = (address) => this.setState({ address }) //added
+        this.onChange = (address) => this.setState({ address })
 		this.checkLogin = this.checkLogin.bind(this)
         this.enableAddPhotos  = this.enableAddPhotos.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.handleHeat = this.handleHeat.bind(this);
+        this.handleCover = this.handleCover.bind(this);
+        this.handleAccess = this.handleAccess.bind(this);
+        this.handleOutlet = this.handleOutlet.bind(this);
+
+    }
+
+    handleChange(e) {
+
+        this.setState({selectedDuration: e.target.value});
+    }
+
+    handleHeat(e) {
+
+        this.setState({
+            heatChecked: !this.state.heatChecked
+        });
+
+	    if(!this.state.heatChecked){
+	        features.push(e.target.value)
+        }
+    }
+
+    handleCover(e) {
+
+        this.setState({
+            coverChecked: !this.state.coverChecked
+        });
+
+        if(!this.state.coverChecked){
+            features.push(e.target.value)
+        }
+    }
+
+    handleAccess(e) {
+
+        this.setState({
+            accessChecked: !this.state.accessChecked
+        });
+
+        if(!this.state.accessChecked){
+            features.push(e.target.value)
+        }
+    }
+
+    handleOutlet(e) {
+
+        this.setState({
+            outletChecked: !this.state.outletChecked
+        });
+
+        if(!this.state.outletChecked){
+            features.push(e.target.value)
+        }
     }
 
 
@@ -34,6 +98,8 @@ class CreateListing extends Component {
                                 description= {description}
                                 price={price}
                                 location = {location}
+                                duration = {duration}
+                                features = {features}
                 />
 
         )
@@ -42,9 +108,8 @@ class CreateListing extends Component {
 	componentDidMount() {
 		this.checkLogin()
 	}
-	
-	
-	
+
+
 
 	checkLogin() {
 		if (Cookies.isLoggedIn() === false) {
@@ -76,24 +141,24 @@ class CreateListing extends Component {
         }
 
         else if(Cookies.isVerified() === false){
-            swal("You need to verify your account first!" ,{buttons: 
+            swal("You need to verify your account first!" ,{buttons:
             	{
-				return: 
+				return:
 					{
 				  text: "Resend Verification Email",
 				  value: "rve",
 					},
-				view: 
+				view:
 					{
 					text: "View All Listings",
 					value: "viewall",
 				  	}
 			  	},
-			  	
+
 			}).then((value) => {
 			  switch (value) {
                 case "rve":
-                
+
                     axios.post('http://localhost:3001/reverify', {id: Cookies.getId()})
 					window.location.href = "/listings"
 					return <Redirect to="/listings" />
@@ -112,34 +177,92 @@ class CreateListing extends Component {
 
 	render() {
 
+
+        const titleStyle = {
+            fontFamily: "Rubik",
+            color: "#333",
+            fontWeight: "300",
+            fontSize: 20,
+        };
+
+	    const checkboxStyle = {
+	        marginLeft: 25,
+            fontFamily: "Rubik",
+            color: "#333",
+            fontWeight: "300",
+            marginTop: 15
+        };
+	    const labels = {
+	        fontFamily: "Rubik",
+            color: "#333",
+            fontWeight: "300",
+            fontSize: 20,
+            marginTop: 40
+
+        };
+
+	    const featuresStyles = {
+            fontFamily: "Rubik",
+            color: "#333",
+            fontWeight: "300",
+            fontSize: 20,
+            marginTop: 50
+        };
+
         const inputProps = {
           value: this.state.address,
           onChange: this.onChange,
           placeholder: "1317 N Astor St Spokane, WA",
-        }
+        };
 
 		this.checkLogin()
 
-		const loginStyle = {
-			marginTop: 100
-		}
+        const descriptionStyle = {
+
+		    borderRadius: 5,
+            borderColor: "#CCCCCC"
+        };
+
 
 		const formStyle = {
-			marginTop: 25
-        }
+			marginTop: 25,
+            border: "none",
+            boxShadow: "none",
+            borderBottom: "1px solid #CCCCCC"
+		};
+
+        const autoCompleteStyle = {
+            input: {
+                border: "none",
+                boxShadow: "none",
+                borderBottom: "1px solid #CCCCCC" },
+        };
+
+
+        const submitStyle = {
+            color: "#FC5B45",
+            backgroundColor: "#FFF",
+            borderRadius: 4,
+            fontFamily: 'Rubik',
+            fontWeight: "400",
+            width: 150,
+            marginTop: 200,
+            padding: 10,
+            borderColor: "#FC5B45"
+        };
 
         return(
-            <div> 
-                <h1 style={loginStyle} className="text-center"> Create a Listing!</h1> 
-                <div className="container text-center"> 
-                <div className="row">
+                <div className="container text-center">
+                    <div className="row">
+                        <div className="col-sm-9 col-sm-offset-3">
                 <Formik initialValues={{
                         title: '',
                         price: '',
                         description: '',
+                        duration: '',
                         location: ''
                     }}
-                    validate={values => {    
+                    validate={values => {
                         let errors = {}
                         if (!values.title) {
                             errors.title = 'Required'
@@ -147,7 +270,6 @@ class CreateListing extends Component {
                         else if (!values.price) {
                             errors.price = 'Required'
                         }
-                        
                         else if (!values.description) {
                             errors.description = 'Required'
                         }
@@ -158,71 +280,141 @@ class CreateListing extends Component {
                         title = values.title
                         description = values.description
                         price = values.price
+                        duration = this.state.selectedDuration
                         location = this.state.address
                         this.setState({
                             showAddPhotos : true,
                         });
                 }}
                         //render part of formik
-                            render={({ values, touched, errors, handleChange, handleSubmit, isSubmitting }) =>
-                            <div className="col-lg-6 col-lg-offset-3">
-                                <form style={formStyle} onSubmit={handleSubmit}>
-                                    <div className="form-group">
-                                        <label className="pull-left">Title</label>
+                            render={({ values, touched, errors, handleChange, handleSubmit}) => (
+
+                                <form onSubmit={handleSubmit}>
+
+                                    <div className="row">
+                                        <div className="col-sm-7">
+                                        <label className="pull-left" style={titleStyle}>Title</label>
                                         <input
                                             id="title"
+                                            style={formStyle}
                                             className="form-control"
-                                            type="title"
+                                            type="text"
                                             name="title"
-                                            placeholder="Beautiful Basement"
+                                            placeholder="Spacious Basement"
                                             onChange={handleChange}
                                             value={values.title}
                                         />
                                         {touched.title && errors.title && <div>{errors.title}</div>}
                                     </div>
-                                    <div className="form-group">
-                                        <label className="pull-left">Price</label>
-                                        <input
-                                            id="price"
-                                            className="form-control"
-                                            type="number"
-                                            name="price"
-                                            placeholder="$25"
-                                            onChange={handleChange}
-                                            value={values.price}
-                                        />
-                                        {touched.price && errors.price && <div>{errors.price}</div>}
                                     </div>
-                                    <div className="form-group">
-                                        <label className="pull-left">Description</label>
+
+
+                                    <div className="row">
+                                        <div className="col-sm-7">
+                                        <label className="pull-left" style={labels}>Description</label>
                                         <textarea
                                             id="description"
-                                            rows="10"
                                             className="form-control"
-                                            type="description"
+                                            rows="6"
+                                            style={descriptionStyle}
                                             name="description"
-                                            placeholder="This place is awesome..."
+                                            placeholder="Tell us why your basement is the best and why tons of people are gonna wanna start getting in contact with you about your space."
                                             onChange={handleChange}
                                             value={values.description}
                                         />
                                         {touched.description && errors.description && <div>{errors.description}</div>}
+                                        </div>
                                     </div>
 
-                                    <div className="form-group">
-                                        <label className="pull-left">Location</label>
-                                        <PlacesAutocomplete inputProps={inputProps}/>
+
+                                    <div className="row">
+                                        <div className="col-sm-3">
+                                            <label className="pull-left" style={labels}>Price</label>
+                                            <input
+                                                id="price"
+                                                className="form-control"
+                                                type="number"
+                                                name="price"
+                                                placeholder="Enter a price"
+                                                style={formStyle}
+                                                onChange={handleChange}
+                                                value={values.price}
+                                            />
+                                            {touched.price && errors.price && <div>{errors.price}</div>}
+                                        </div>
+
+                                        <div className="col-sm-3 col-sm-offset-1">
+                                            <label className="pull-left" style={labels}>Duration</label>
+                                            <select required value={this.state.selectedDuration}
+                                                    onChange={this.handleChange}
+                                                    className="form-control" id="duration">
+                                                <option value="" selected disabled hidden>Select...</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                            </select>
+                                        </div>
                                     </div>
 
-                                    
-                                    <button className="btn btn-primary" type="submit">Add some pictures!</button>
+
+                                    <div className="row">
+                                        <div className="col-sm-7">
+                                            <label className="pull-left" style={featuresStyles}>Features</label>
+                                        </div>
+                                    </div>
+
+                                    <div className="row">
+                                        <div className="col-sm-7">
+                                            <label className="checkbox-inline pull-left" style={{fontFamily: "Rubik",
+                                                color: "#333",
+                                                fontWeight: "300", marginTop: 15}}>
+                                                <input type="checkbox"
+                                                  value="heated"
+                                                  checked={this.state.isChecked}
+                                                  onChange={this.handleHeat}
+                                            />Heated</label>
+                                            <label className="checkbox-inline pull-left" style={checkboxStyle}><input
+                                                   type="checkbox"
+                                                   value="covered"
+                                                   checked={this.state.isChecked}
+                                                    onChange={this.handleCover}/>Covered</label>
+                                            <label className="checkbox-inline pull-left" style={checkboxStyle}>
+                                                <input type="checkbox" value="access"
+                                                      checked={this.state.isChecked}
+                                                      onChange={this.handleAccess}
+                                                />24/7 Access</label>
+                                            <label className="checkbox-inline pull-left" style={checkboxStyle}>
+                                                <input type="checkbox" value="outlet"
+                                                      checked={this.state.isChecked}
+                                                      onChange={this.handleOutlet}
+                                            />Power Outlet</label>
+                                        </div>
+                                    </div>
+
+
+                                    <div className="row">
+                                        <div className="col-sm-7">
+                                            <label className="pull-left" style={labels}>Address</label>
+                                            <PlacesAutocomplete styles={autoCompleteStyle} inputProps={inputProps}/>
+                                        </div>
+                                    </div>
+
+
+                                    <div className="row">
+                                        <div className="col-sm-7">
+                                            <button className="btn text-center" type="submit" style={submitStyle}>Continue</button>
+                                        </div>
+                                    </div>
                                 </form>
-                                { this.state.showAddPhotos ? this.enableAddPhotos() : null }
-                            </div>
-                                }
-                    />
+
+                                )}
+                                />
+                </div>
+                        { this.state.showAddPhotos ? this.enableAddPhotos() : null }
+
                 </div>
                 </div>
-            </div>
         );
     }
 }

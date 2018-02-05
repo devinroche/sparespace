@@ -1,22 +1,10 @@
-/**
- * Creates Login Page
- *
- * @author George Kunthara
- * @version v0.0.1 10/02/17
- *
- * @ChangeLog
- *
- * Initial 10/02/17 George Kunthara
- * Validate User 10/05/17 Devin Roche
- *
- */
-
 import React, { Component } from "react"
 import { Redirect } from "react-router-dom"
 import { Formik } from "formik"
 import axios from "axios"
 import swal from "sweetalert"
 import Cookies from "../Cookies"
+
 
 class Login extends Component {
 	constructor(props) {
@@ -28,22 +16,51 @@ class Login extends Component {
 
 	render() {
 		const loginStyle = {
-			marginTop: 100
-			//adjust login header to be more down the screen
-		}
+			marginTop: 50,
+            fontFamily: 'Rubik',
+            color: "#FC5B45",
+            fontWeight: "400"
+		};
 
-		//adjust forms to have more space against login header
+        const subHeader = {
+            fontFamily: 'Rubik',
+            color: "#747272",
+            fontWeight: "300",
+            fontSize: 20
+        };
+
+        const labels = {
+            fontFamily: 'Rubik',
+            color: "#333",
+            fontWeight: "400"
+        };
+
 		const formStyle = {
-			marginTop: 25
-		}
+			marginTop: 15,
+            marginLeft: 75
+		};
+
+        const submitStyle = {
+            color: "#FC5B45",
+            backgroundColor: "#FFF",
+            borderRadius: 6,
+            fontFamily: 'Rubik',
+            fontWeight: "400",
+            width: 200,
+            marginTop: 35,
+            marginLeft: 25,
+            padding: 10,
+			borderColor: "#FC5B45",
+
+        };
 
 		return (
 			<div className="card">
 			<div className="container text-center">
 				<h1 style={loginStyle} className="text-center card-title">
-					{" "}
-					Login{" "}
+					Login
 				</h1>
+                <h3 className="text-center" style={subHeader}>Welcome back, we missed you</h3>
 				<div className="row">
 					<div className="col-lg-6 col-lg-offset-3">
 					<Formik
@@ -93,15 +110,15 @@ class Login extends Component {
 							errors,
 							handleChange,
 							handleSubmit,
-							isSubmitting
 						}) => (
 							<form style={formStyle} onSubmit={handleSubmit}>
-								<div className="form-group">
-									<label className="pull-left">Email address</label>
+								<div className="row">
+									<div className="col-sm-7" style={formStyle}>
+									<label className="pull-left" style={labels}>Email address</label>
 									<input
 										id="email"
 										className="form-control"
-										type="email"
+										type="text"
 										name="email"
 										placeholder="Email"
 										onChange={handleChange}
@@ -109,8 +126,10 @@ class Login extends Component {
 									/>
 									{touched.email && errors.email && <div>{errors.email}</div>}
 								</div>
-								<div className="form-group">
-									<label className="pull-left">Password</label>
+								</div>
+								<div className="row">
+									<div className="col-sm-7" style={formStyle}>
+									<label className="pull-left" style={labels}>Password</label>
 									<input
 										id="password"
 										className="form-control"
@@ -123,9 +142,14 @@ class Login extends Component {
 									{touched.password &&
 										errors.password && <div>{errors.password}</div>}
 								</div>
-								<button className="btn btn-primary" type="submit">
-									Submit
-								</button>
+								</div>
+                                <div className="row">
+                                    <div className="col-sm-10">
+                                        <button className="btn" type="submit" style={submitStyle}>
+                                            Log In
+                                        </button>
+                                    </div>
+                                </div>
 							</form>
 						)}
 					/>
