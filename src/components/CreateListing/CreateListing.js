@@ -8,12 +8,12 @@ import PlacesAutocomplete from 'react-places-autocomplete'
 import axios from 'axios';
 
 
-let title = ""
-let description = ""
-let price = ""
-let location = ""
-let duration = ""
-let features = []
+let title = "";
+let description = "";
+let price = "";
+let location = "";
+let duration = "";
+let features = [];
 
 
 
