@@ -97,17 +97,21 @@ class ImageUpload extends Component {
                 let storageObj = {
                     _host: Cookies.getId(),
                     title: this.props.title,
-                    price: this.props.price,
+                    price: Number(this.props.price),
+                    duration: Number(this.props.duration),
                     description: this.props.description,
                     duration: this.props.duration,
                     location: this.props.location,
                     lat: this.state.latlng.lat,
                     lng: this.state.latlng.lng,
+                    timestamp: Date.now(),
                     features: this.props.features,
                     images: this.state.fileUrls
                 };
 
-                axios.post('http://localhost:3001/listings', storageObj);
+                axios.post('http://localhost:3001/listings', storageObj).then(response => {
+                    console.log(response);
+                });
                 swal("Congrats you posted your space!" ,{buttons: {
                         return: {
                             text: "See your listing!",
