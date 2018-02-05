@@ -12,6 +12,7 @@ import Profile from "../Profile/Profile"
 import ImageUploadNew from "../CreateListing/ImageUpload"
 
 const Routes = () => {
+
     return (
         <div>
             <Route exact path="/" render={() => <Redirect to="/home" />} />

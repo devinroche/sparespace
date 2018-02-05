@@ -1,6 +1,6 @@
 import React from "react"
 import axios from "axios"
-import { Image } from "cloudinary-react"
+import { Image, Transformation } from "cloudinary-react"
 import Cookies from "../../Cookies"
 import SendMessage from './SendMessage'
 import Carousel from 'nuka-carousel'
@@ -12,7 +12,8 @@ class ListingDetails extends React.Component {
             expressInterest: true,
 			listingImages : [],
 			listing: [],
-			l: ''
+			l: '',
+			features: []
 		}
 
 		this.canExpress = this.canExpress.bind(this)
@@ -48,7 +49,8 @@ class ListingDetails extends React.Component {
          axios.get(`http://localhost:3001/listing/${this.props.match.params.id}`)
              .then(res => {
                  this.setState({ listingImages: res.data.images,
-				 				 listing: res.data })
+				 				 listing: res.data,
+				 				 features: res.data.features})
                  this.canExpress(res.data._host._id, res.data.interested)
              }).catch(err => console.log("some err occured", err))
 
@@ -59,72 +61,111 @@ class ListingDetails extends React.Component {
 		const listing = this.state.listing ? this.state.listing : ""
 		const lid = listing._id ? listing._id : ""
 		const hid = listing._host ? listing._host._id : ""
+		const host = listing._host ? listing._host : "";
 
         const styles = {
             cardStyle : {
-                boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)"
+                boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
             },
 
-            imageSize : {
-                width: 250,
-                height: 200
-            },
+			imageSize : {
+            	width: 700,
+				height: 200
+			},
 
             mainStyle : {
-                fontFamily: "Roboto",
+                fontFamily: "Rubik",
                 color: "#333",
-				marginLeft: 15
+				fontWeight: "600",
+				marginLeft: 15,
+				fontSize: 25
             },
 
             secondStyle : {
-                fontFamily: "Roboto",
+                fontFamily: "Rubik",
                 color: "#7F7F7F",
-				marginLeft: 15
+				marginLeft: 15,
+				fontSize: 17
             },
 
             priceStyle : {
-                fontFamily : "Roboto",
+                fontFamily : "Rubik",
                 color: "#333",
                 fontWeight: "bold",
 				marginTop: 250
             },
 
 			descriptionStyle : {
-            	fontFamily: "Roboto",
-            	color: "#4B4B4B",
+            	fontFamily: "Rubik",
+            	color: "#818181",
 				lineHeight: 2,
+				fontSize: 15
 
 			},
 
-			descriptionHeaderStyle : {
-            	fontFamily: "Roboto",
+			descriptionLabel : {
+            	fontFamily: "Rubik",
 				color: "#333",
-				marginTop: 50
-			}
+				marginTop: 50,
+                fontWeight: "400",
+                fontSize: 20
+			},
 
-        }
+			featuresLabel : {
+                fontFamily: "Rubik",
+                color: "#333",
+                marginTop: 50,
+				fontWeight: "400",
+				fontSize: 20
+			},
+
+			featuresStyle : {
+                fontFamily: "Rubik",
+				color: "#666666",
+				marginTop: 10,
+				fontSize: 18,
+				marginLeft: 10
+            }
+
+
+
+        };
 
 		return (
 
 			<div className="container">
-					<div className="col-sm-3">
+					<div className="col-sm-2">
 					</div>
 
-					<div className="col-sm-6 text-center" style={{ marginTop: 50}}>
+					<div className="col-sm-6 text-center" style={{ marginTop: 25}}>
 						<div className="card row" style={styles.cardStyle}>
 							<Carousel>
 								{this.state.listingImages.map((l, index) => (
-                                <Image cloudName="dopxmkhbr" publicId={l} height="300" width="500" style={{}}/>
+                                    <Image cloudName="dopxmkhbr" publicId={l} height="100" width="500">
+                                        <Transformation width="550" crop="scale" />
+									</Image>
                                 ))
                                 }
 							</Carousel>
 							<div className="card-block">
 								<h2 style={styles.mainStyle} className="card-title text-left">{listing.title}</h2>
-								<h4 style={styles.secondStyle} className="card-text text-left">{listing.location}</h4>
+								<h4 style={styles.secondStyle} className="card-text text-left">{host.first}</h4>
 							</div>
 						</div>
+
+                        <div className="row">
+                            <h4 className="text-left" style={styles.featuresLabel}>Features</h4>
+							<ul className="list-inline">
+								{
+									this.state.features.map((l, index) => (
+									<li className="list-inline-item pull-left" style={styles.featuresStyle}>&bull; {l}</li>
+									))
+								}
+							</ul>
+                        </div>
+
 						<div className="row">
-							<h4 className="text-left" style={styles.descriptionHeaderStyle}>Description</h4>
+							<h4 className="text-left" style={styles.descriptionLabel}>Description</h4>
 							<p className="text-left" style={styles.descriptionStyle}>{listing.description}</p>
 						</div>
 					</div>

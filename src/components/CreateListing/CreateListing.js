@@ -6,6 +6,7 @@ import ImageUpload from "./ImageUpload"
 import Cookies from "../../Cookies"
 import PlacesAutocomplete from 'react-places-autocomplete'
 import axios from 'axios';
+import {Link, Route, Switch} from "react-router-dom";
 
 
 let title = "";
@@ -28,12 +29,11 @@ class CreateListing extends Component {
             heatChecked: false,
             coverChecked: false,
             accessChecked: false,
-            outletChecked: false
-
+            outletChecked: false,
+            redirectPhotos: false,
         };
         this.onChange = (address) => this.setState({ address })
 		this.checkLogin = this.checkLogin.bind(this)
-        this.enableAddPhotos  = this.enableAddPhotos.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleHeat = this.handleHeat.bind(this);
         this.handleCover = this.handleCover.bind(this);
@@ -56,6 +56,7 @@ class CreateListing extends Component {
 	    if(!this.state.heatChecked){
 	        features.push(e.target.value)
         }
+
     }
 
     handleCover(e) {
@@ -91,19 +92,6 @@ class CreateListing extends Component {
         }
     }
 
-
-    enableAddPhotos() {
-        return (
-                <ImageUpload title= {title}
-                                description= {description}
-                                price={price}
-                                location = {location}
-                                duration = {duration}
-                                features = {features}
-                />
-
-        )
-    }
 
 	componentDidMount() {
 		this.checkLogin()
@@ -176,6 +164,20 @@ class CreateListing extends Component {
 	}
 
 	render() {
+
+        const ImageUploadPage = (props) => {
+            return (
+                <ImageUpload
+                    title= {title}
+                    description= {description}
+                    price={price}
+                    location = {location}
+                    duration = {duration}
+                    features = {features}
+                    {...props}
+                />
+            );
+        };
 
 
         const titleStyle = {
@@ -251,8 +253,33 @@ class CreateListing extends Component {
             borderColor: "#FC5B45"
         };
 
+        if(this.state.redirectPhotos){
+            return <Redirect to={{
+                pathname: "/add_photos", query: {
+                    title: {title},
+                    description: {description},
+                    price: {price},
+                    location: {location},
+                    duration: {duration},
+                    features: {features}
+                }
+            }}/>
+        }
         return(
+
+
                 <div className="container text-center">
+                    {/*<Switch>*/}
+                        {/*<Route path="/add_photos" render={props => <ImageUpload*/}
+                            {/*{...props}*/}
+                            {/*title= {title}*/}
+                            {/*description= {description}*/}
+                            {/*price={price}*/}
+                            {/*location = {location}*/}
+                            {/*duration = {duration}*/}
+                            {/*features = {features}*/}
+                             {/*/>} />*/}
+                    {/*</Switch>*/}
                     <div className="row">
                         <div className="col-sm-9 col-sm-offset-3">
                 <Formik initialValues={{
@@ -283,14 +310,13 @@ class CreateListing extends Component {
                         duration = this.state.selectedDuration
                         location = this.state.address
                         this.setState({
-                            showAddPhotos : true,
+                            redirectPhotos : true,
                         });
                 }}
                         //render part of formik
                             render={({ values, touched, errors, handleChange, handleSubmit}) => (
 
                                 <form onSubmit={handleSubmit}>
-
                                     <div className="row">
                                         <div className="col-sm-7">
                                         <label className="pull-left" style={titleStyle}>Title</label>
@@ -370,22 +396,22 @@ class CreateListing extends Component {
                                                 color: "#333",
                                                 fontWeight: "300", marginTop: 15}}>
                                                 <input type="checkbox"
-                                                  value="heated"
+                                                  value="Heated"
                                                   checked={this.state.isChecked}
                                                   onChange={this.handleHeat}
                                             />Heated</label>
                                             <label className="checkbox-inline pull-left" style={checkboxStyle}><input
                                                    type="checkbox"
-                                                   value="covered"
+                                                   value="Covered"
                                                    checked={this.state.isChecked}
                                                     onChange={this.handleCover}/>Covered</label>
                                             <label className="checkbox-inline pull-left" style={checkboxStyle}>
-                                                <input type="checkbox" value="access"
+                                                <input type="checkbox" value="Access"
                                                       checked={this.state.isChecked}
                                                       onChange={this.handleAccess}
                                                 />24/7 Access</label>
                                             <label className="checkbox-inline pull-left" style={checkboxStyle}>
-                                                <input type="checkbox" value="outlet"
+                                                <input type="checkbox" value="Outlet"
                                                       checked={this.state.isChecked}
                                                       onChange={this.handleOutlet}
                                             />Power Outlet</label>
@@ -411,9 +437,7 @@ class CreateListing extends Component {
                                 )}
                                 />
                 </div>
-                        { this.state.showAddPhotos ? this.enableAddPhotos() : null }
-
-                </div>
+                    </div>
                 </div>
         );
     }
