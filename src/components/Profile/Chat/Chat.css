@@ -61,7 +61,7 @@
   background-color:#FC5B45;
   border: 1px solid #FC5B45;
 }
-input[type="text"]:focus { 
+.chatroom input[type="text"]:focus { 
     border-color: #FC5B45;
     outline: 0 none;
 }
