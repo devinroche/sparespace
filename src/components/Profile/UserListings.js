@@ -18,32 +18,40 @@ class UserListings extends React.Component {
             msgCard: {
                 marginTop: 25,
                 marginBottom: 25,
-                padding: 15,
+                paddingBottom: 15,
+                paddingTop: 15,
                 textAlign: 'left',
-                border: '1px solid black'
+                border: '1px solid #ddd',
+                overflow: 'hidden',
+                borderRadius: 3,
+                boxShadow: "0 0 3px rgba(0,0,0,0.15)"
             },
             nameStyle: {
                 marginBottom: 0,
                 fontWeight: 'bold',
+                color: '#000'
             },
             imageSize: {
-                width: '20%'
+                maxWidth: '100%'
             }
         }
       
         const activeListings = this.props.listings ? this.props.listings.map((listing) => {
             return (
             <Link to={`/listing/${listing._id}`}>
-                <div style={styles.msgCard} className='row'>
-                    <Image cloudName="dopxmkhbr" publicId={listing.images[0]} style={styles.imageSize}/>
-                    <p style={styles.nameStyle}>{listing.title}</p>
+                <div style={styles.msgCard}>
+                    <div className="col-sm-3">
+                        <Image cloudName="dopxmkhbr" publicId={listing.images[0]} style={styles.imageSize}/>
+                    </div>
+                    <div className="col-sm-9">
+                        <p style={styles.nameStyle}>{listing.title}</p>
+                    </div>
                 </div>
             </Link>)
         }) : ''
         return (
             <div className='row'>
                 <div className='col-sm-6 col-sm-offset-3'>
-                    <hr />
                     <h3>Your Listings</h3>
                     {activeListings}
                 </div>

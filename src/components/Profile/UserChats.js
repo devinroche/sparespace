@@ -25,14 +25,21 @@ class UserChats extends React.Component {
         const styles = {
             msgCard: {
                 marginTop: 25,
-                marginBottom: 25,
+                marginBottom: 70,
                 padding: 15,
                 textAlign: 'left',
-                border: '1px solid black'
+                border: '1px solid #ddd',
+                borderRadius: 3,
+                boxShadow: "0 0 3px rgba(0,0,0,0.15)"
             },
             nameStyle: {
                 marginBottom: 0,
                 fontWeight: 'bold',
+                color: '#000'
+            },
+            avatarStyle: {
+                width: 15,
+                marginRight: 10
             }
         }
 
@@ -48,9 +55,12 @@ class UserChats extends React.Component {
             }
             return (
             <Link to={`/chat/${chat.host_id}/${chat.renter_id}`}>
-                <div style={styles.msgCard} className="row">
-                    <div className="col-sm-2"><img src="http://www.clker.com/cliparts/8/0/i/u/v/L/woman-headshot-silhouette-grey-hi.png" width="55%"/></div>
-                    <div className="col-sm-10"><p style={styles.nameStyle}>{otherName}</p></div>
+                <div style={styles.msgCard}>
+                    
+                    <p style={styles.nameStyle}>
+                        <img src="http://www.clker.com/cliparts/8/0/i/u/v/L/woman-headshot-silhouette-grey-hi.png" width="15" style={styles.avatarStyle} />
+                        {otherName}
+                    </p>
                 </div>
             </Link>)
         }) : ''
