@@ -26,15 +26,23 @@ class CreateListing extends Component {
 
         this.state = {
             showAddPhotos : false,
+            valid_addr: true,
             address: "",
             selectedDuration: '',
             redirectPhotos: false
         };
-
-        this.onChange = (address) => this.setState({ address })
+        //this.onChange = (address) => this.setState({ address })
+        this.handleAddressChange = this.handleAddressChange.bind(this)
 		this.checkLogin = this.checkLogin.bind(this)
         this.handleChange = this.handleChange.bind(this);
         this.handleCheckbox = this.handleCheckbox.bind(this);
+    }
+
+    handleAddressChange(e) {
+        this.setState({
+            address:e,
+            valid_addr:true
+        })
     }
 
     handleChange(e) {
@@ -120,6 +128,11 @@ class CreateListing extends Component {
 
 	render() {
 
+        const onError = (status, clearSuggestions) => {
+            console.log('Google Maps API returned error with status: ', status)
+            this.setState({valid_addr:false});
+        }
+
 
         const titleStyle = {
             fontFamily: "Rubik",
@@ -154,7 +167,7 @@ class CreateListing extends Component {
 
         const inputProps = {
           value: this.state.address,
-          onChange: this.onChange,
+          onChange: this.handleAddressChange,
           placeholder: "1317 N Astor St Spokane, WA",
         };
 
@@ -234,6 +247,9 @@ class CreateListing extends Component {
                     }}
                 onSubmit={
                     (values) => {
+                        if (this.state.valid_addr == false) {
+                            return;
+                        }
                         title = values.title
                         description = values.description
                         price = values.price
@@ -334,9 +350,15 @@ class CreateListing extends Component {
                                     <div className="row">
                                         <div className="col-sm-7">
                                             <label className="pull-left" style={labels}>Address</label>
-                                            <PlacesAutocomplete styles={autoCompleteStyle} inputProps={inputProps}/>
+                                            <PlacesAutocomplete styles={autoCompleteStyle} inputProps={inputProps} onError={onError}/>
+                                            {
+                                            this.state.valid_addr == true ? null:
+                                            <div className="alert alert-danger">Please input a valid address!</div> 
+                                            }
                                         </div>
+                                        
                                     </div>
+                                    
 
 
                                     <div className="row">
