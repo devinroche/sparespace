@@ -2,7 +2,6 @@ import React from "react"
 import axios from "axios"
 import { Image } from "cloudinary-react"
 import {Link} from "react-router-dom"
-import MapComponent from "../MapComponent"
 import Mapo from '../Map'
 import Filter from '../Filter'
 import openSocket from 'socket.io-client';
@@ -15,16 +14,11 @@ export class Listings extends React.Component {
 		super(props)
 		this.state = {
             listings: [],
-            show: false,
             showFilter: false,
-            l: ''
         }
 
-        this.toggleShow = this.toggleShow.bind(this)
-        this.setListing = this.setListing.bind(this)
-        this.onFilterChange = this.onFilterChange.bind(this)
         this.onSortChange = this.onSortChange.bind(this)
-        
+        this.onFilterChange = this.onFilterChange.bind(this)
         socket.on('refresh listings', ()=>{
             axios.get("http://localhost:3001/listings")
                 .then(response => {
@@ -35,16 +29,8 @@ export class Listings extends React.Component {
         });
 	}
 
-    toggleShow(){
-        this.setState({show: !this.state.show})
-    }
-
     toggleFilters() {
         this.setState({showFilter: !this.state.showFilter})
-    }
-
-    setListing(l){
-        this.setState({l:l})
     }
     componentDidMount(){
         this.getListings()
@@ -135,9 +121,6 @@ export class Listings extends React.Component {
                 height: '90vh'
             }
         }
-
-        const toggleShow = this.state ? this.toggleShow : null;
-        const setListing = this.state ? this.setListing : null;
         const setFilter = this.state ? this.onFilterChange : null;
 
         return (
@@ -146,7 +129,7 @@ export class Listings extends React.Component {
                     <Filter onSortChange = {this.onSortChange} onFilterChange = {this.onFilterChange} />
                 </div>
             <div className = "row">
-                <div className="col-sm-9" style={styles.containerStyle}>
+                <div className="col-sm-7 col-sm-offset-1" style={styles.containerStyle}>
                         {this.state.listings.map((l, index) => (
                             <Link to={`/listing/${l._id}`}>
                                 <div className= "card col-sm-2 col-sm-offset-1" style={styles.cardStyle}>
@@ -162,8 +145,8 @@ export class Listings extends React.Component {
                         }
                     </div>
 
-                <div className = "col-sm-2" >
-                    <Mapo toggle={toggleShow} setListing={setListing}/>
+                <div className = "col-sm-4" >
+                    <Mapo />
                 </div>
             </div>
             </div>

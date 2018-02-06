@@ -2,6 +2,7 @@ import React from "react"
 import axios from "axios"
 import { Image, Transformation } from "cloudinary-react"
 import Cookies from "../../Cookies"
+import SubMap from '../ListingMap'
 import SendMessage from './SendMessage'
 import Carousel from 'nuka-carousel'
 
@@ -138,6 +139,7 @@ class ListingDetails extends React.Component {
 					</div>
 
 					<div className="col-sm-6 text-center" style={{ marginTop: 25}}>
+					<div className="col-sm-6 text-center col-sm-offset-3" style={{ marginTop: 50}}>
 						<div className="card row" style={styles.cardStyle}>
 							<Carousel>
 								{this.state.listingImages.map((l, index) => (
@@ -171,6 +173,7 @@ class ListingDetails extends React.Component {
 					</div>
 
 					<div className="col-sm-3 text-center">
+                        <SubMap l={this.state.listing} />
 						<h3 style={styles.priceStyle}>${listing.price}</h3>
                             { 
                                 this.state.expressInterest ? this.renderInterest(lid, hid) : ""
