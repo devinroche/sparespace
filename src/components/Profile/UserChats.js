@@ -28,11 +28,15 @@ class UserChats extends React.Component {
                 marginBottom: 25,
                 padding: 15,
                 textAlign: 'left',
-                border: '1px solid black'
+                border: '1px solid rgba(0, 0, 0, .2)',
+                boxShadow: "0 4px 12px 0 rgba(0,0,0,0.2)",
+                borderRadius: 5
             },
             nameStyle: {
                 marginBottom: 0,
                 fontWeight: 'bold',
+                fontSize: 18,
+                color: '#2f3542',
             }
         }
 

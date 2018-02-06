@@ -20,14 +20,19 @@ class UserListings extends React.Component {
                 marginBottom: 25,
                 padding: 15,
                 textAlign: 'left',
-                border: '1px solid black'
+                border: '1px solid rgba(0, 0, 0, .2)',
+                boxShadow: "0 4px 12px 0 rgba(0,0,0,0.2)",
+                borderRadius: 5
             },
             nameStyle: {
                 marginBottom: 0,
                 fontWeight: 'bold',
+                fontSize: 18,
+                color: '#2f3542',
             },
             imageSize: {
-                width: '20%'
+                width: '80%',
+                height: 90
             }
         }
       
@@ -35,8 +40,8 @@ class UserListings extends React.Component {
             return (
             <Link to={`/listing/${listing._id}`}>
                 <div style={styles.msgCard} className='row'>
-                    <Image cloudName="dopxmkhbr" publicId={listing.images[0]} style={styles.imageSize}/>
-                    <p style={styles.nameStyle}>{listing.title}</p>
+                    <div className="col-sm-4"><Image cloudName="dopxmkhbr" publicId={listing.images[0]} style={styles.imageSize}/></div>
+                    <div className="col-sm-8"><p style={styles.nameStyle}>{listing.title}</p></div>
                 </div>
             </Link>)
         }) : ''
