@@ -22,7 +22,6 @@ class ImageUpload extends Component {
             fileUrls: []
         }
 
-
     }
 
     // grab address once component loads convert into cordinates
