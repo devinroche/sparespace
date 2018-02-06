@@ -93,6 +93,7 @@ export class Listings extends React.Component {
                 height: 300,
                 marginTop: 25,
                 marginBottom: 15,
+                marginLeft: 25,
                 boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)"
             },
 
@@ -102,37 +103,42 @@ export class Listings extends React.Component {
             },
 
             mainStyle : {
-                fontFamily: "Roboto",
+                fontFamily: "Rubik",
                 color: "#333",
             },
 
             secondStyle : {
-                fontFamily: "Roboto",
+                fontFamily: "Rubik",
                 color: "#7F7F7F"
             },
 
             priceStyle : {
-                fontFamily : "Roboto",
+                fontFamily : "Rubik",
                 color: "#333",
                 fontWeight: "bold"
             },
             containerStyle: {
                 overflowY: 'scroll',
                 height: '90vh'
+            },
+
+            filtersStyle: {
             }
-        }
-        const setFilter = this.state ? this.onFilterChange : null;
+
+        };
 
         return (
-            <div className = 'container'>
-                <div className='container'>
-                    <Filter onSortChange = {this.onSortChange} onFilterChange = {this.onFilterChange} />
+            <div className = "container">
+                <div className="row" style={styles.filtersStyle}>
+                    <div className="col-sm-6">
+                        <Filter onSortChange = {this.onSortChange} onFilterChange = {this.onFilterChange} />
+                     </div>
                 </div>
             <div className = "row">
-                <div className="col-sm-7 col-sm-offset-1" style={styles.containerStyle}>
+                <div className="col-md-7" style={styles.containerStyle}>
                         {this.state.listings.map((l, index) => (
                             <Link to={`/listing/${l._id}`}>
-                                <div className= "card col-sm-2 col-sm-offset-1" style={styles.cardStyle}>
+                                <div className= "card col-md-2" style={styles.cardStyle}>
                                     <Image cloudName="dopxmkhbr" publicId={l.images[0]} style={styles.imageSize}/>
                                     <div className="card-block">
                                         <h4 style={styles.mainStyle} className="card-title text-left">{l.title}</h4>
@@ -145,8 +151,8 @@ export class Listings extends React.Component {
                         }
                     </div>
 
-                <div className = "col-sm-4" >
-                    <Mapo />
+                <div className = "col-md-5 offset-md-7" >
+                    <Mapo/>
                 </div>
             </div>
             </div>
