@@ -2,7 +2,6 @@ import React from "react"
 import axios from "axios"
 import { Image } from "cloudinary-react"
 import {Link} from "react-router-dom"
-import MapComponent from "../MapComponent"
 import Mapo from '../Map'
 import Filter from '../Filter'
 import openSocket from 'socket.io-client';
@@ -15,16 +14,11 @@ export class Listings extends React.Component {
 		super(props)
 		this.state = {
             listings: [],
-            show: false,
             showFilter: false,
-            l: ''
         }
 
-        this.toggleShow = this.toggleShow.bind(this)
-        this.setListing = this.setListing.bind(this)
-        this.onFilterChange = this.onFilterChange.bind(this)
         this.onSortChange = this.onSortChange.bind(this)
-        
+        this.onFilterChange = this.onFilterChange.bind(this)
         socket.on('refresh listings', ()=>{
             axios.get("http://localhost:3001/listings")
                 .then(response => {
@@ -35,16 +29,8 @@ export class Listings extends React.Component {
         });
 	}
 
-    toggleShow(){
-        this.setState({show: !this.state.show})
-    }
-
     toggleFilters() {
         this.setState({showFilter: !this.state.showFilter})
-    }
-
-    setListing(l){
-        this.setState({l:l})
     }
     componentDidMount(){
         this.getListings()
@@ -107,6 +93,7 @@ export class Listings extends React.Component {
                 height: 300,
                 marginTop: 25,
                 marginBottom: 15,
+                marginLeft: 25,
                 boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)"
             },
 
@@ -116,40 +103,42 @@ export class Listings extends React.Component {
             },
 
             mainStyle : {
-                fontFamily: "Roboto",
+                fontFamily: "Rubik",
                 color: "#333",
             },
 
             secondStyle : {
-                fontFamily: "Roboto",
+                fontFamily: "Rubik",
                 color: "#7F7F7F"
             },
 
             priceStyle : {
-                fontFamily : "Roboto",
+                fontFamily : "Rubik",
                 color: "#333",
                 fontWeight: "bold"
             },
             containerStyle: {
                 overflowY: 'scroll',
                 height: '90vh'
-            }
-        }
+            },
 
-        const toggleShow = this.state ? this.toggleShow : null;
-        const setListing = this.state ? this.setListing : null;
-        const setFilter = this.state ? this.onFilterChange : null;
+            filtersStyle: {
+            }
+
+        };
 
         return (
-            <div className = 'container'>
-                <div className='container'>
-                    <Filter onSortChange = {this.onSortChange} onFilterChange = {this.onFilterChange} />
+            <div className = "container">
+                <div className="row" style={styles.filtersStyle}>
+                    <div className="col-sm-6">
+                        <Filter onSortChange = {this.onSortChange} onFilterChange = {this.onFilterChange} />
+                     </div>
                 </div>
             <div className = "row">
-                <div className="col-sm-9" style={styles.containerStyle}>
+                <div className="col-md-7" style={styles.containerStyle}>
                         {this.state.listings.map((l, index) => (
                             <Link to={`/listing/${l._id}`}>
-                                <div className= "card col-sm-2 col-sm-offset-1" style={styles.cardStyle}>
+                                <div className= "card col-md-2" style={styles.cardStyle}>
                                     <Image cloudName="dopxmkhbr" publicId={l.images[0]} style={styles.imageSize}/>
                                     <div className="card-block">
                                         <h4 style={styles.mainStyle} className="card-title text-left">{l.title}</h4>
@@ -162,8 +151,8 @@ export class Listings extends React.Component {
                         }
                     </div>
 
-                <div className = "col-sm-2" >
-                    <Mapo toggle={toggleShow} setListing={setListing}/>
+                <div className = "col-md-5 offset-md-7" >
+                    <Mapo/>
                 </div>
             </div>
             </div>

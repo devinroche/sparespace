@@ -21,7 +21,8 @@ class Messages extends Component {
             <ul className='chats' id='chat-container' ref={(node) => (this.node = node)}>
                 {this.props.messages.map((message, i) =>  (
                     <li className={`chat ${Cookies.getId() === message.author._id ? "right" : "left"}`}>
-                        <span>{message.author.first}:{message.text}</span>
+                        <span>{message.author.first}: </span>
+                        <span>{message.text}</span>
                     </li>
                 ))}
             </ul>

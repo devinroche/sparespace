@@ -8,31 +8,9 @@ const Map = ReactMapboxGl({
     accessToken: 'pk.eyJ1IjoiZGV2aW5yb2NoZSIsImEiOiJjamJvNjc1aTYzbWg3MzJxeTJ2ejBkcGE4In0.jYTHkOOzGtxzn8VcaZnN6w'
 });
 
-class Mapo extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            geo: [],
-            l: ''
-        };
-    }
-
-    componentDidMount() {
-        this.getCordinates()
-    }
-    getCordinates = () => {
-        var self = this;
-        axios.get('http://localhost:3001/cordinates')
-            .then(function (response) {
-                self.setState({ geo: response.data });
-            })
-    }
-
+class SubMap extends React.Component {
     handleClick = (id) => {
         console.log(id)
-        this.setState({
-            l: id
-        })
     }
 
 
@@ -42,7 +20,7 @@ class Mapo extends React.Component {
             top: 0,
             bottom: 0,
             width: '100%',
-            height: '90vh'
+            height: '45vh'
         };
 
         return (
@@ -86,23 +64,14 @@ class Mapo extends React.Component {
                         "circle-opacity": 0.2
                     }}>
                     {
-                        this.state.geo.map((l, idx) => (
-                            <Feature
-                                key={idx}
-                                coordinates={[l.lng, l.lat]}
-                                onClick={this.handleClick.bind(this, l)}
-                            />
-                        ))
+                        <Feature
+                            coordinates={[this.props.l.lng, this.props.l.lat]}
+                        />
                     }
                 </Layer>
-                {this.state.l &&
-                    <Popup coordinates={[this.state.l.lng, this.state.l.lat]}>
-                        <Link to={`/listing/${this.state.l._id}`}><p>{this.state.l.title}</p></Link>
-                    </Popup>
-                }
             </Map>
         );
     }
 }
 
-export default Mapo
+export default SubMap
