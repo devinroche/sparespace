@@ -92,9 +92,23 @@ class ListingDetails extends React.Component {
             priceStyle : {
                 fontFamily : "Rubik",
                 color: "#333",
-                fontWeight: "bold",
-				marginTop: 250
+                fontWeight: "700",
+				marginTop: 350
             },
+
+            monthStyle : {
+                fontFamily : "Rubik",
+                color: "#666",
+                fontWeight: "400",
+                marginTop: 350
+            },
+
+			durationStyle : {
+                fontFamily : "Rubik",
+                color: "#666",
+                fontWeight: "300",
+                marginTop: 350
+			},
 
 			descriptionStyle : {
             	fontFamily: "Rubik",
@@ -135,11 +149,7 @@ class ListingDetails extends React.Component {
 		return (
 
 			<div className="container">
-					<div className="col-sm-2">
-					</div>
-
-					<div className="col-sm-6 text-center" style={{ marginTop: 25}}>
-					<div className="col-sm-6 text-center col-sm-offset-3" style={{ marginTop: 50}}>
+					<div className="col-sm-8 offset-sm-4 text-center" style={{ marginTop: 50}}>
 						<div className="card row" style={styles.cardStyle}>
 							<Carousel>
 								{this.state.listingImages.map((l, index) => (
@@ -160,7 +170,8 @@ class ListingDetails extends React.Component {
 							<ul className="list-inline">
 								{
 									this.state.features.map((l, index) => (
-									<li className="list-inline-item pull-left" style={styles.featuresStyle}>&bull; {l}</li>
+									<li className="list-inline-item pull-left" style={styles.featuresStyle}>
+										<span style={{color: "#FC5B45"}}>&bull;</span> {l}</li>
 									))
 								}
 							</ul>
@@ -172,10 +183,13 @@ class ListingDetails extends React.Component {
 						</div>
 					</div>
 
-					<div className="col-sm-3 text-center">
+					<div className="col-sm-3 text-center" style={{marginTop: 50, marginLeft: 25}}>
                         <SubMap l={this.state.listing} />
-						<h3 style={styles.priceStyle}>${listing.price}</h3>
-                            { 
+						<h3 className="pull-left" style={styles.priceStyle}>${listing.price}</h3>
+						<h3 className="pull-left" style={styles.monthStyle}>/mo</h3>
+                        <h3 className="pull-right" style={styles.durationStyle}>{listing.duration} months</h3>
+
+						{
                                 this.state.expressInterest ? this.renderInterest(lid, hid) : ""
                             }
 					</div>

@@ -72,7 +72,7 @@ class Filter extends Component {
                             </div>
                         </div>
                         <div className = 'form-group border' style ={{marginLeft:'10px', width:'150px'}}>
-                            Duration (Days) :
+                            Duration (Months) :
                             <div className='slider'>
                                 <Slider
                                 min={0}
