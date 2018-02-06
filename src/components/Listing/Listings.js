@@ -11,12 +11,8 @@ export class Listings extends React.Component {
 		super(props)
 		this.state = {
             listings: [],
-            show: false,
-            l: ''
         }
 
-        this.toggleShow = this.toggleShow.bind(this)
-        this.setListing = this.setListing.bind(this)
         socket.on('refresh listings', ()=>{
             axios.get("http://localhost:3001/listings")
                 .then(response => {
@@ -27,12 +23,6 @@ export class Listings extends React.Component {
         });
 	}
 
-    toggleShow(){
-        this.setState({show: !this.state.show})
-    }
-    setListing(l){
-        this.setState({l:l})
-    }
     componentDidMount(){
         this.getListings()
     }
@@ -84,8 +74,6 @@ export class Listings extends React.Component {
                 height: '90vh'
             }
         }
-        const toggleShow = this.state ? this.toggleShow : null;
-        const setListing = this.state ? this.setListing : null
 
         return (
             <div className = "row">
@@ -110,7 +98,7 @@ export class Listings extends React.Component {
                     </div>
 
                 <div className = "col-sm-3" >
-                    <Mapo toggle={toggleShow} setListing={setListing}/>
+                    <Mapo />
                 </div>
             </div>
         )
