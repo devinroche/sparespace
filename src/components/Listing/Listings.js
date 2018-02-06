@@ -54,6 +54,7 @@ export class Listings extends React.Component {
     getListings(){
         axios.get("http://localhost:3001/listings")
             .then(response => {
+                console.log(response)
                 this.setState({
                     listings: response.data
                 })
@@ -63,15 +64,13 @@ export class Listings extends React.Component {
             });
     }
 
-    onFilterChange(plow,phigh,dlow,dhigh,sort) {
+    onFilterChange(cost,duration) {
         const _this = this;
         axios.post('http://localHost:3001/range', {
-            cost_low:plow,
-            cost_high:phigh,
-            dur_low:dlow,
-            dur_high:dhigh
+            cost:cost,
+            duration:duration
         }).then(function(response) {
-                //console.log(response)
+                console.log(response)
                 _this.setState({
                     listings: response.data
                 });

@@ -12,10 +12,8 @@ class Filter extends Component {
         super(props);
         this.state = {
             data: [],
-            valuePriceLow:0,
-            valuePriceHigh:0,
-            valueDurationLow:0,
-            valueDurationHigh:0
+            valuePrice:0,
+            valueDuration:0
 
         };
         this.handleSortChange = this.handleSortChange.bind(this);
@@ -24,7 +22,7 @@ class Filter extends Component {
     }
 
     handleChangeComplete() {
-        this.props.onFilterChange(this.state.valuePriceLow,this.state.valuePriceHigh,this.state.valueDurationLow,this.state.valueDurationHigh,this.state.sort)
+        this.props.onFilterChange(this.state.valuePrice,this.state.valueDuration)
     }
 
     
@@ -61,55 +59,31 @@ class Filter extends Component {
                             </div>
                         
                         
-                        <div className = 'form-group border' style ={{marginLeft:'10px'}}>
-                            Pricing High:
+                        <div className = 'form-group border' style ={{marginLeft:'10px', width:'150px'}}>
+                            Pricing $ :
                             <div className='slider'>
                                 <Slider
                                 min={0}
-                                max={100}
-                                value={this.state.valuePriceHigh}
-                                onChange={ e => this.setState({ valuePriceHigh : e }) }
+                                max={300}
+                                value={this.state.valuePrice}
+                                onChange={ e => this.setState({ valuePrice : e }) }
                                 onChangeComplete={this.handleChangeComplete}
                                 />
                             </div>
                         </div>
-                        <div className = 'form-group border' style = {{marginLeft:'10px'}}>
-                            Pricing Low:
+                        <div className = 'form-group border' style ={{marginLeft:'10px', width:'150px'}}>
+                            Duration (Days) :
                             <div className='slider'>
                                 <Slider
                                 min={0}
-                                max={100}
-                                value={this.state.valuePriceLow}
-                                onChange={ e => this.setState({ valuePriceLow : e }) }
-                                onChangeComplete={this.handleChangeComplete}
-
-                                />
-                            </div>
-                        </div>
-                        <div className = 'form-group border' style ={{marginLeft:'10px'}}>
-                            Duration High:
-                            <div className='slider'>
-                                <Slider
-                                min={0}
-                                max={100}
-                                value={this.state.valueDurationHigh}
-                                onChange={ e => this.setState({ valueDurationHigh : e }) }
+                                max={4}
+                                value={this.state.valueDuration}
+                                onChange={ e => this.setState({ valueDuration : e }) }
                                 onChangeComplete={this.handleChangeComplete}
                                 />
                             </div>
                         </div>
-                        <div className = 'form-group border' style = {{marginLeft:'10px'}}>
-                            Duration Low:
-                            <div className='slider'>
-                                <Slider
-                                min={0}
-                                max={100}
-                                value={this.state.valueDurationLow}
-                                onChange={ e => this.setState({ valueDurationLow : e }) }
-                                onChangeComplete={this.handleChangeComplete}
-                                />
-                            </div>
-                        </div>
+                        
                         
                     </div>
 						

@@ -27,9 +27,10 @@ class ImageUpload extends Component {
 
     // grab address once component loads convert into cordinates
     componentDidMount() {
-        console.log(this.props)
+        console.log('ENTERING IMAGEUPLOAD')
+        console.log(this.props.location.query)
         const _this = this;
-        axios.post('http://localhost:3001/cordinates', {address: this.props.location})
+        axios.post('http://localhost:3001/cordinates', {address: this.props.location.query.location.location})
             .then(function(response) {
             	//CHECK TO MAKE SURE VALID ADDRESS W/CORDS
             	if (response.data == "bad") { 
@@ -97,16 +98,16 @@ class ImageUpload extends Component {
             if (this.state.imageLock) {
                 let storageObj = {
                     _host: Cookies.getId(),
-                    title: this.props.title,
-                    price: Number(this.props.price),
-                    duration: Number(this.props.duration),
-                    description: this.props.description,
-                    duration: this.props.duration,
-                    location: this.props.location,
+                    title: this.props.location.query.title.title,
+                    price: Number(this.props.location.query.price.price),
+                    duration: Number(this.props.location.query.duration.duration),
+                    description: this.props.location.query.description.description,
+                    duration: this.props.location.query.duration.duration,
+                    location: this.props.location.query.location.location,
                     lat: this.state.latlng.lat,
                     lng: this.state.latlng.lng,
                     timestamp: Date.now(),
-                    features: this.props.features,
+                    features: this.props.location.query.features.features,
                     images: this.state.fileUrls
                 };
 
