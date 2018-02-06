@@ -23,18 +23,7 @@ export class Listings extends React.Component {
             endDate: moment().add(1, 'years')
         }
 
-        socket.on('refresh listings', () => {
-            axios.get("http://localhost:3001/listings")
-                .then(response => {
-                    let calcMax = Math.max.apply(Math, response.data.map(function (o) { return o.price; }))
-                    this.setState({
-                        listings: response.data,
-                        value: {
-                            max: calcMax,
-                        }
-                    })
-                })
-        });
+        socket.on('refresh listings', this.getListings());
     }
 
     componentDidMount() {
@@ -103,7 +92,7 @@ export class Listings extends React.Component {
                             </div>
                             <div className='col-sm-4'>
                                 <InputRange
-                                    maxValue={Math.max.apply(Math, this.state.listings.map(function (o) { return o.price; }))}
+                                    maxValue={Math.max.apply(Math, this.state.listings.map(o => o.price))}
                                     minValue={0}
                                     value={this.state.value}
                                     onChange={value => { this.setState({ value }) }} />

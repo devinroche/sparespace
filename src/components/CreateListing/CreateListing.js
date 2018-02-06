@@ -176,39 +176,6 @@ class CreateListing extends Component {
 	}
 
 	render() {
-
-
-        const titleStyle = {
-            fontFamily: "Rubik",
-            color: "#333",
-            fontWeight: "300",
-            fontSize: 20,
-        };
-
-	    const checkboxStyle = {
-	        marginLeft: 25,
-            fontFamily: "Rubik",
-            color: "#333",
-            fontWeight: "300",
-            marginTop: 15
-        };
-	    const labels = {
-	        fontFamily: "Rubik",
-            color: "#333",
-            fontWeight: "300",
-            fontSize: 20,
-            marginTop: 40
-
-        };
-
-	    const featuresStyles = {
-            fontFamily: "Rubik",
-            color: "#333",
-            fontWeight: "300",
-            fontSize: 20,
-            marginTop: 50
-        };
-
         const inputProps = {
           value: this.state.address,
           onChange: this.onChange,
@@ -216,40 +183,6 @@ class CreateListing extends Component {
         };
 
 		this.checkLogin()
-
-        const descriptionStyle = {
-
-		    borderRadius: 5,
-            borderColor: "#CCCCCC"
-        };
-
-
-		const formStyle = {
-			marginTop: 25,
-            border: "none",
-            boxShadow: "none",
-            borderBottom: "1px solid #CCCCCC"
-		};
-
-        const autoCompleteStyle = {
-            input: {
-                border: "none",
-                boxShadow: "none",
-                borderBottom: "1px solid #CCCCCC" },
-        };
-
-
-        const submitStyle = {
-            color: "#FC5B45",
-            backgroundColor: "#FFF",
-            borderRadius: 4,
-            fontFamily: 'Rubik',
-            fontWeight: "400",
-            width: 150,
-            marginTop: 200,
-            padding: 10,
-            borderColor: "#FC5B45"
-        };
 
         return(
                 <div className="container text-center">
@@ -420,3 +353,66 @@ class CreateListing extends Component {
 }
 
 export default CreateListing;
+const titleStyle = {
+    fontFamily: "Rubik",
+    color: "#333",
+    fontWeight: "300",
+    fontSize: 20,
+};
+
+const checkboxStyle = {
+    marginLeft: 25,
+    fontFamily: "Rubik",
+    color: "#333",
+    fontWeight: "300",
+    marginTop: 15
+};
+const labels = {
+    fontFamily: "Rubik",
+    color: "#333",
+    fontWeight: "300",
+    fontSize: 20,
+    marginTop: 40
+
+};
+
+const featuresStyles = {
+    fontFamily: "Rubik",
+    color: "#333",
+    fontWeight: "300",
+    fontSize: 20,
+    marginTop: 50
+};
+const descriptionStyle = {
+
+    borderRadius: 5,
+    borderColor: "#CCCCCC"
+};
+
+
+const formStyle = {
+    marginTop: 25,
+    border: "none",
+    boxShadow: "none",
+    borderBottom: "1px solid #CCCCCC"
+};
+
+const autoCompleteStyle = {
+    input: {
+        border: "none",
+        boxShadow: "none",
+        borderBottom: "1px solid #CCCCCC" },
+};
+
+
+const submitStyle = {
+    color: "#FC5B45",
+    backgroundColor: "#FFF",
+    borderRadius: 4,
+    fontFamily: 'Rubik',
+    fontWeight: "400",
+    width: 150,
+    marginTop: 200,
+    padding: 10,
+    borderColor: "#FC5B45"
+};
