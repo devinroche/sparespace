@@ -77,11 +77,7 @@ export class Listings extends React.Component {
 
         return (
             <div className = "row">
-                <div className="col-sm-2" style={{backgroundColor: "#F7F7F7", height: "100vh"}} >
-                    <h3 style={styles.mainStyle} className="text-center">Filters</h3>
-                </div>
-
-                <div className="col-sm-7" style={styles.containerStyle}>
+                <div className="col-sm-7 col-sm-offset-1" style={styles.containerStyle}>
                         {this.state.listings.map((l, index) => (
                             <Link to={`/listing/${l._id}`}>
                                 <div className= "card col-sm-2 col-sm-offset-1" style={styles.cardStyle}>
@@ -97,7 +93,7 @@ export class Listings extends React.Component {
                         }
                     </div>
 
-                <div className = "col-sm-3" >
+                <div className = "col-sm-4" >
                     <Mapo />
                 </div>
             </div>
