@@ -22,8 +22,8 @@ class UserListings extends React.Component {
                 paddingTop: 15,
                 textAlign: 'left',
                 border: '1px solid rgba(0, 0, 0, .2)',
-                boxShadow: "0 0 3px rgba(0,0,0,0.15)"
-                borderRadius: 3,
+                boxShadow: "0 0 3px rgba(0,0,0,0.15)",
+                borderRadius: 3
             },
             nameStyle: {
                 marginBottom: 0,
@@ -32,7 +32,7 @@ class UserListings extends React.Component {
                 fontSize: 18,
             },
             imageSize: {
-                maxWidth: '100%'
+                maxWidth: '100%',
                 height: 90
             }
         }
