@@ -22,13 +22,14 @@ class ImageUpload extends Component {
             fileUrls: []
         }
 
-
     }
 
     // grab address once component loads convert into cordinates
     componentDidMount() {
+        console.log('ENTERING IMAGEUPLOAD')
+        console.log(this.props.location.query)
         const _this = this;
-        axios.post('http://localhost:3001/cordinates', {address: this.props.location})
+        axios.post('http://localhost:3001/cordinates', {address: this.props.location.query.location.location})
             .then(function(response) {
             	//CHECK TO MAKE SURE VALID ADDRESS W/CORDS
             	if (response.data == "bad") { 
@@ -94,20 +95,23 @@ class ImageUpload extends Component {
             return;
         }
             if (this.state.imageLock) {
+                let prevPage = this.props.location.query
                 let storageObj = {
                     _host: Cookies.getId(),
-                    title: this.props.title,
-                    price: this.props.price,
-                    description: this.props.description,
-                    duration: this.props.duration,
-                    location: this.props.location,
+                    title: prevPage.title.title,
+                    price: Number(prevPage.price.price),
+                    description: prevPage.description.description,
+                    dates: [prevPage.dates.dates.start, prevPage.dates.dates.end ],
+                    location: prevPage.location.location,
                     lat: this.state.latlng.lat,
                     lng: this.state.latlng.lng,
-                    features: this.props.features,
+                    features: this.props.location.query.features.features,
                     images: this.state.fileUrls
                 };
-
-                axios.post('http://localhost:3001/listings', storageObj);
+                
+                axios.post('http://localhost:3001/listings', storageObj).then(response => {
+                    console.log(response);
+                });
                 swal("Congrats you posted your space!" ,{buttons: {
                         return: {
                             text: "See your listing!",
@@ -140,19 +144,76 @@ class ImageUpload extends Component {
     }
     
     render() {
-        return <div className=''>
-            <div className="FileUpload">
-                <Dropzone
-                    multiple={true} // only allow one image
-                    accept="image/*" // must be image
-                    onDrop={this.onImageDrop.bind(this)}
 
-                >
-                    <p className="text-center">Drop an image or click to select a file to upload.</p>
-                </Dropzone>
+        const dropzoneStyle = {
+            border: "none",
+            height: 250,
+            backgroundColor: "#E0E6ED",
+            padding: "18px 35px",
+            borderRadius: 5,
+            boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
+            marginBottom: 25
+        };
+
+        const headerStyle = {
+            fontFamily : "Rubik",
+            fontWeight: "400",
+            color: "#333",
+            marginBottom: 25
+        };
+
+        const textStyle = {
+            fontFamily : "Rubik",
+            color: "#5E85B2",
+            fontWeight: "400",
+            marginTop: 100,
+            fontSize: 18
+        };
+
+        const lockImagesStyle = {
+            padding: "12px 35px",
+            borderRadius: 5,
+            backgroundColor: "#FFF",
+            color: "#333",
+            borderColor: "#333",
+            borderWidth: "2",
+            fontFamily : "Rubik",
+        };
+
+        const submitStyle = {
+            padding: "12px 35px",
+            borderRadius: 5,
+            backgroundColor: "#FFF",
+            color: "#FC5B45",
+            borderColor: "#FC5B45",
+            borderWidth: "2",
+            fontFamily : "Rubik",
+            marginLeft: 25
+        };
+
+        return (
+        <div className='container'>
+            <div className="row">
+                <div className="col-sm-6 col-sm-offset-2">
+                    <h3 style={headerStyle}>Photos</h3>
+                </div>
+            </div>
+
+            <div className="row">
+                <div className="col-sm-6 col-sm-offset-2">
+                    <Dropzone
+                        multiple={true} // only allow one image
+                        accept="image/*" // must be image
+                        onDrop={this.onImageDrop.bind(this)}
+                        style={dropzoneStyle}
+
+                    >
+                        <p className="text-center" style={textStyle}>Drag and drop here</p>
+                    </Dropzone>
+                </div>
                 {
                     this.state.fileDropped === false ? null :
-                        <div >
+                        <div>
                             {
                                 this.state.filePaths.map((item,index) => (
                                     <img width="400" src={item.preview} alt = "responsive image" />
@@ -161,15 +222,18 @@ class ImageUpload extends Component {
                         </div>
                 }
             </div>
-            <button type="button" className="btn btn-primary" onClick = {this.handleImageUpload.bind(this)} >Lock in Images</button>
-            {
-                this.state.imageLock === false ? null:
-                    <button type="button" className="btn btn-primary" onClick = {this.pushUpload.bind(this)} >Submit</button>
-            }
-
-
+            <div className="row">
+                <div className="col-sm-6 col-sm-offset-3" style={{marginTop: 100}}>
+                <button type="button" className="btn" style={lockImagesStyle} onClick = {this.handleImageUpload.bind(this)} >Lock in Images</button>
+                {
+                    this.state.imageLock === false ? null:
+                        <button type="button" style={submitStyle} className="btn" onClick = {this.pushUpload.bind(this)} >Finish</button>
+                }
+                </div>
+            </div>
 
         </div>
+        )
     }
 }
 

@@ -3,12 +3,13 @@ import axios from "axios"
 import { Image } from "cloudinary-react"
 import { Link } from "react-router-dom"
 import moment from 'moment'
+import './Listing.css'
 import Mapo from '../Map'
 import InputRange from 'react-input-range';
 import 'react-input-range/lib/css/index.css';
 import { DateRange } from 'react-date-range';
+import { ListingCard } from "./ListingCard";
 import openSocket from 'socket.io-client';
-import map from "react-mapbox-gl/lib/map";
 const socket = openSocket('http://localhost:3001');
 
 export class Listings extends React.Component {
@@ -17,114 +18,93 @@ export class Listings extends React.Component {
         this.state = {
             listings: [],
             value: { min: 0, max: 100 },
+            range: { start: moment(), end: moment().add(1, 'Y') },
             search: '',
-            showCal: false,
-            startDate: moment(),
-            endDate: moment().add(1, 'years')
+            max: 100,
+            showCalendar: false
         }
 
-        socket.on('refresh listings', this.getListings());
+        this.getListings = this.getListings.bind(this) 
     }
 
     componentDidMount() {
         this.getListings()
+        socket.on('refresh listings', this.getListings);
     }
 
     getListings() {
         axios.get("http://localhost:3001/listings")
             .then(response => {
-                let calcMax = Math.max.apply(Math, response.data.map(function (o) { return o.price; }))
+                let datesArr = response.data.map(l => moment(l.dates[0])).sort((a, b) => {return b - a});
+                let findMax = Math.max.apply(Math, response.data.map(o => { return o.price }))
+                let calcMax = findMax === Number.NEGATIVE_INFINITY ? 100 : findMax;
                 this.setState({
                     listings: response.data,
-                    value: {
-                        max: calcMax,
-                        min: 0
-                    }
+                    value: { max: calcMax, min: 0 },
+                    max: calcMax,
+                    range: {start: datesArr[0]}
                 })
             })
-            .catch(function (error) {
-                console.log(error);
-            });
     }
 
     updateSearch(e) {
         this.setState({ search: e.target.value })
     }
-    handleInit(date) {
+    handleSelect(range) {
+        console.log(range)
         this.setState({
-            startDate: date.startDate._d,
-            endDate: date.endDate._d,
-            
+            range: {
+                start: range.startDate,
+                end: range.endDate._d
+            }
         })
+        console.log(this.state.range)
     }
-    handleSelect(date) {
+    toggleCalendar() {
         this.setState({
-            startDate: date.startDate._d,
-            endDate: date.endDate._d,
-        })
-    }
-    toggleCal() {
-        this.setState({ showCal: !this.state.showCal });
-    }
-    clearDates(){
-        this.setState({
-            startDate: moment(),
-            endDate: moment().add(1, 'years')
+            showCalendar: !this.state.showCalendar
         })
     }
     render() {
         let filteredListings = this.state.listings.filter((listing) => {
+            console.log({state: this.state.range.start, listing: moment(listing.dates[0]), valid: moment(listing.dates[0]._d).isSameOrBefore(this.state.range.start)})
             return (
                 (listing.title.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
-                || listing.description.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1)
+                    || listing.description.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1)
                 && (listing.price >= this.state.value.min && listing.price <= this.state.value.max)
-                && (moment(listing.dateAvailable[0]).isSameOrAfter(this.state.startDate))
+                && (moment(listing.dates[0]).isSameOrBefore(this.state.range.start))
             )
         })
-
+        console.log(filteredListings)
         return (
             <div className="row">
-                <div className="col-sm-8 col-sm-offset-1" style={styles.containerStyle}>
+                <div className="col-sm-7 col-sm-offset-1" style={styles.containerStyle}>
                     <div className="row" >
-                        <div className='row'>
-                            <div className='col-sm-4'>
-                                <input type='text' value={this.state.search} onChange={this.updateSearch.bind(this)} placeholder="Search" />
-                            </div>
-                            <div className='col-sm-4'>
-                                <InputRange
-                                    maxValue={Math.max.apply(Math, this.state.listings.map(o => o.price))}
-                                    minValue={0}
-                                    value={this.state.value}
-                                    onChange={value => { this.setState({ value }) }} />
-                            </div>
-                            <div className='col-sm-4'>
-                                <button onClick={this.toggleCal.bind(this)}>date range</button>
-                                <button onClick={this.clearDates.bind(this)}>clear dates</button>
-                                {this.state.showCal && <DateRange
-                                    onInit={this.handleInit.bind(this)}
-                                    onChange={this.handleSelect.bind(this)}
-                                />}
-                            </div>
+                        <div className='col-sm-4'>
+                            <input className="searchBar" type='text' value={this.state.search} onChange={this.updateSearch.bind(this)} style={styles.formStyle} placeholder="Search Listings" />
+                        </div>
+                        <div className='col-sm-4' id="input-range">
+                            <InputRange
+                                maxValue={this.state.max}
+                                minValue={0}
+                                value={this.state.value}
+                                onChange={value => { this.setState({ value }) }} />
+                        </div>
+                        <div className="col-sm-4">
+                            <button onClick={this.toggleCalendar.bind(this)}>Date Range</button>
                         </div>
                     </div>
-                    {filteredListings.map((l, index) => (
-                        <Link to={`/listing/${l._id}`}>
-                            <div className="card col-sm-2 col-sm-offset-1" style={styles.cardStyle}>
-                                <Image cloudName="dopxmkhbr" publicId={l.images[0]} style={styles.imageSize} />
-                                <div className="card-block">
-                                    <h4 style={styles.mainStyle} className="card-title text-left">{l.title}</h4>
-                                    <h6 style={styles.secondStyle} className="card-text text-left">{l._host.first}</h6>
-                                    <h4 style={styles.priceStyle} className="card-text text-right">${l.price}</h4>
-                                </div>
-                            </div>
-                        </Link>
-                    ))
-                    }
+                    <div className="row">
+                        {this.state.showCalendar ? <DateRange
+                            onInit={this.handleSelect.bind(this)}
+                            onChange={this.handleSelect.bind(this)}
+                        /> : null}
+                    </div>
+                    <div className="row">
+                        {filteredListings.map((l, index) => (<ListingCard listing={l} />))}
+                    </div>
                 </div>
-
-                <div className="col-sm-3" >
-                    <Mapo />
-                </div>
+                <div className="col-sm-4" ><Mapo /></div>
             </div>
         )
     }
@@ -164,5 +144,11 @@ const styles = {
     containerStyle: {
         overflowY: 'scroll',
         height: '90vh',
-    }
+    },
+    formStyle: {
+        border: "none",
+        boxShadow: "none",
+        width: 200,
+        borderBottom: "1px solid #CCCCCC",
+    },
 }
