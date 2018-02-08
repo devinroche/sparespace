@@ -1,7 +1,5 @@
 import React from "react"
 import axios from "axios"
-import { Image } from "cloudinary-react"
-import { Link } from "react-router-dom"
 import UserChats from "./UserChats";
 import UserListings from "./UserListings";
 
@@ -18,12 +16,10 @@ class Profile extends React.Component {
     componentDidMount() {
         axios.get(`http://localhost:3001/user/${this.props.match.params.id}`)
             .then(res => {
-                console.log(res.data)
                 this.setState({
                     user: res.data,
                 })
             })
-            .catch(err => console.log("some err occured", err))
     }
 
     render() {

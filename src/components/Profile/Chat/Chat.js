@@ -1,8 +1,7 @@
 import React from "react"
 import axios from "axios"
-import { Image } from "cloudinary-react"
-import { Link } from "react-router-dom"
 import { postMsg } from '../../../sock'
+import { Redirect } from 'react-router-dom'
 import Messages from './Messages'
 import Input from './Input'
 import Cookies from "../../../Cookies";
@@ -17,6 +16,8 @@ class Chat extends React.Component {
             messages: []
         }
 
+        this.backToProfile = this.backToProfile.bind(this)
+
         socket.on('update msg', () => {
             axios.get(`http://localhost:3001/message/${this.props.match.params.host}/${this.props.match.params.renter}`)
                 .then(response => {
@@ -26,7 +27,7 @@ class Chat extends React.Component {
                 })
         });
     }
-   
+
 
     handleNewMessage = (text) => {
         axios.post('http://localhost:3001/message', {
@@ -34,11 +35,15 @@ class Chat extends React.Component {
             renter: this.props.match.params.renter,
             author: Cookies.getId(),
             text: text
-        }).then(()=>{ 
+        }).then(() => {
             postMsg(text)
         })
     }
 
+    backToProfile() {
+        window.location.href = `/users/${Cookies.getId()}`
+        return <Redirect to={"/users/" + Cookies.getId()} />
+    }
     componentDidMount() {
         axios.get(`http://localhost:3001/message/${this.props.match.params.host}/${this.props.match.params.renter}`)
             .then(res => {
@@ -46,17 +51,32 @@ class Chat extends React.Component {
                     messages: res.data
                 })
             })
-            .catch(err => console.log("some err occured", err))
     }
 
     render() {
         return (
-            <div className='chatroom col-lg-8 col-lg-offset-2'>
-                <Messages messages={this.state.messages} />
-                <Input onMessageSend={this.handleNewMessage} />
+            <div className="row">
+                <div className="col-sm-2 col-sm-offset-1">
+                    <button style={btnStyle} onClick={this.backToProfile}>Back</button>
+                </div>
+                <div className='chatroom col-sm-7'>
+                    <Messages messages={this.state.messages} />
+                    <Input onMessageSend={this.handleNewMessage} />
+                </div>
             </div>
         )
     }
 }
 
 export default Chat
+
+const btnStyle = {
+    fontFamily: "Rubik",
+    color: "#FFF",
+    fontWeight: "400",
+    width: 150,
+    height: 50,
+    fontSize: 20,
+    background: "linear-gradient(to right, #FE947B, #FC5B45)",
+    border: "none"
+}

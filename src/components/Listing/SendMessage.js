@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Cookies from '../../Cookies';
-import swal from 'sweetalert';
-
+import swal from 'sweetalert2';
+import {Redirect } from 'react-router-dom'
 import openSocket from 'socket.io-client';
 
 const socket = openSocket('http://localhost:3001');
@@ -16,7 +16,6 @@ class SendMessage extends Component {
         }
 
         socket.on('peer-msg', () => {
-            console.log('foo')
             this.getMsg()
         });
 
@@ -31,8 +30,7 @@ class SendMessage extends Component {
 
 
         const messageStyle = {
-
-            fontFamily : "Rubik",
+            fontFamily: "Rubik",
             color: "#FFF",
             fontWeight: "400",
             width: 250,
@@ -45,36 +43,26 @@ class SendMessage extends Component {
         return (
             <div>
                 <button className="btn btn-success" style={messageStyle} onClick={() => {
-                    if (Cookies.isExpress()) {
-                        swal({
-                            text: 'Message Info',
-                            content: "input",
-                            button: {
-                                text: "Send",
-                                closeModal: true,
-                            },
-                        })
-                            .then(message => {
-                                if (!message) throw null;
-
+                    swal({
+                        title: 'What is your name?',
+                        input: 'text',
+                        inputPlaceholder: 'Enter your name or nickname',
+                        showCancelButton: true,
+                        inputValidator: (value) => {
+                            return !value && 'You need to write something!'
+                        }
+                    }).then((value) => {
+                        if (value) {
+                            swal({ type: 'success', title: 'Your message has been sent!' }).then(() => {
                                 axios.post('http://localhost:3001/message', {
                                     host: this.props.host,
                                     renter: this.props.renter,
                                     author: this.props.renter,
-                                    text: message
+                                    text: value.value
                                 })
                             })
-                           
-                            .then(() => {
-                                swal({
-                                    title: "Your message has been sent!",
-                                    icon: "success"
-                                })
-
-                            })
-                    } else {
-                        swal("You must be logged in to do this.")
-                    }
+                        }
+                    })
                     this.props.callback()
                 }}>Message</button>
 

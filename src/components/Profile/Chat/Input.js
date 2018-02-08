@@ -28,9 +28,7 @@ class Input extends Component {
                             />
                     </div>
                     <div className="col-sm-2">
-                        <button type="submit" className="btn btn-primary sendMsg">
-                            Send
-                        </button>
+                        <button type="submit" className="btn btn-primary">Send</button>
                     </div>
                 </form>
             </div>

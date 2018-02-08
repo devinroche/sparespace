@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
 import axios from 'axios';
-import {Redirect } from "react-router-dom"
+import { Redirect } from "react-router-dom"
 import Cookies from '../../Cookies';
-import swal from 'sweetalert';
-import { postSpace} from '../../sock'
+import swal from 'sweetalert2';
+import { postSpace } from '../../sock'
 
 const CLOUDINARY_UPLOAD_PRESET = 'apqnswzs';
 const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/dopxmkhbr/image/upload';
@@ -16,9 +16,9 @@ class ImageUpload extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            fileDropped: false, 
-            imageLock: false, 
-            filePaths: [],    
+            fileDropped: false,
+            imageLock: false,
+            filePaths: [],
             fileUrls: []
         }
 
@@ -29,25 +29,23 @@ class ImageUpload extends Component {
         console.log('ENTERING IMAGEUPLOAD')
         console.log(this.props.location.query)
         const _this = this;
-        axios.post('http://localhost:3001/cordinates', {address: this.props.location.query.location.location})
-            .then(function(response) {
-            	//CHECK TO MAKE SURE VALID ADDRESS W/CORDS
-            	if (response.data == "bad") { 
-            		console.log('BAD INPUT');
-            		swal({
-                		title: "Please choose a valid address",
-                		text: "Please choose a valid address",
-                		icon: "warning",
-                		dangerMode: true
-            		});
-            		return;
-            	}
+        axios.post('http://localhost:3001/cordinates', { address: this.props.location.query.location.location })
+            .then(function (response) {
+                //CHECK TO MAKE SURE VALID ADDRESS W/CORDS
+                if (response.data == "bad") {
+                    swal(
+                        'Invalid Address',
+                        'Please choose a valid address',
+                        'danger'
+                    )
+                    return;
+                }
                 _this.setState({
                     latlng: response.data
                 });
 
             })
-            .catch(function(response) {
+            .catch(function (response) {
 
             });
     }
@@ -56,12 +54,11 @@ class ImageUpload extends Component {
     handleImageUpload() {
 
         if (this.state.fileDropped === false) {
-            swal({
-                title: "Please add a picture",
-                text: "Please add a picture",
-                icon: "warning",
-                dangerMode: true
-            });
+            swal(
+                'No Pictures!',
+                'Please add a picture',
+                'warning'
+            )
             return;
         }
 
@@ -73,8 +70,8 @@ class ImageUpload extends Component {
 
                 var newArray = this.state.fileUrls.slice();
                 newArray.push(response.body.secure_url);
-                this.setState({fileUrls:newArray})
-                this.setState({imageLock:true})
+                this.setState({ fileUrls: newArray })
+                this.setState({ imageLock: true })
 
             })
         });
@@ -86,64 +83,58 @@ class ImageUpload extends Component {
     pushUpload() {
 
         if (this.state.fileDropped === false) {
-            swal({
-                title: "Please add a picture",
-                text: "Please add a picture",
-                icon: "warning",
-                dangerMode: true
-            });
+            swal(
+                'No Pictures!',
+                'Please add a picture',
+                'warning'
+            )
             return;
         }
-            if (this.state.imageLock) {
-                let storageObj = {
-                    _host: Cookies.getId(),
-                    title: this.props.location.query.title.title,
-                    price: Number(this.props.location.query.price.price),
-                    duration: Number(this.props.location.query.duration.duration),
-                    description: this.props.location.query.description.description,
-                    duration: this.props.location.query.duration.duration,
-                    location: this.props.location.query.location.location,
-                    lat: this.state.latlng.lat,
-                    lng: this.state.latlng.lng,
-                    timestamp: Date.now(),
-                    features: this.props.location.query.features.features,
-                    images: this.state.fileUrls
-                };
+        if (this.state.imageLock) {
+            let prevPage = this.props.location.query
+            let storageObj = {
+                _host: Cookies.getId(),
+                title: prevPage.title.title,
+                price: Number(prevPage.price.price),
+                description: prevPage.description.description,
+                dates: [prevPage.dates.dates.start, prevPage.dates.dates.end],
+                location: prevPage.location.location,
+                lat: this.state.latlng.lat,
+                lng: this.state.latlng.lng,
+                features: this.props.location.query.features.features,
+                images: this.state.fileUrls
+            };
 
-                axios.post('http://localhost:3001/listings', storageObj).then(response => {
-                    console.log(response);
-                });
-                swal("Congrats you posted your space!" ,{buttons: {
-                        return: {
-                            text: "See your listing!",
-                            value: "listing",
-                        }
-                    }
-                }).then((value) => {
+            axios.post('http://localhost:3001/listings', storageObj)
+            swal(
+                'Good job!',
+                'You clicked the button!',
+                'success'
+                  ).then((value) => {
                     postSpace(storageObj)
                     window.location.href = "/listings"
                     return <Redirect to="/listings" />
                 });
-            } else {
-                swal({
-                    title: "Error",
-                    text: "Please Lock in your images",
-                    icon: "warning",
-                    dangerMode: true
-                });
-                return;
-            }
+        } else {
+            swal({
+                type: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!',
+                footer: '<a href>Why do I have this issue?</a>',
+            })
+            return;
+        }
 
     }
     // change state once images are dropped
     onImageDrop(files) {
         this.setState({
             filePaths: files,
-            fileDropped:true
+            fileDropped: true
 
         });
     }
-    
+
     render() {
 
         const dropzoneStyle = {
@@ -157,14 +148,14 @@ class ImageUpload extends Component {
         };
 
         const headerStyle = {
-            fontFamily : "Rubik",
+            fontFamily: "Rubik",
             fontWeight: "400",
             color: "#333",
             marginBottom: 25
         };
 
         const textStyle = {
-            fontFamily : "Rubik",
+            fontFamily: "Rubik",
             color: "#5E85B2",
             fontWeight: "400",
             marginTop: 100,
@@ -178,7 +169,7 @@ class ImageUpload extends Component {
             color: "#333",
             borderColor: "#333",
             borderWidth: "2",
-            fontFamily : "Rubik",
+            fontFamily: "Rubik",
         };
 
         const submitStyle = {
@@ -188,52 +179,52 @@ class ImageUpload extends Component {
             color: "#FC5B45",
             borderColor: "#FC5B45",
             borderWidth: "2",
-            fontFamily : "Rubik",
+            fontFamily: "Rubik",
             marginLeft: 25
         };
 
         return (
-        <div className='container'>
-            <div className="row">
-                <div className="col-sm-6 col-sm-offset-2">
-                    <h3 style={headerStyle}>Photos</h3>
+            <div className='container'>
+                <div className="row">
+                    <div className="col-sm-6 col-sm-offset-2">
+                        <h3 style={headerStyle}>Photos</h3>
+                    </div>
                 </div>
-            </div>
 
-            <div className="row">
-                <div className="col-sm-6 col-sm-offset-2">
-                    <Dropzone
-                        multiple={true} // only allow one image
-                        accept="image/*" // must be image
-                        onDrop={this.onImageDrop.bind(this)}
-                        style={dropzoneStyle}
+                <div className="row">
+                    <div className="col-sm-6 col-sm-offset-2">
+                        <Dropzone
+                            multiple={true} // only allow one image
+                            accept="image/*" // must be image
+                            onDrop={this.onImageDrop.bind(this)}
+                            style={dropzoneStyle}
 
-                    >
-                        <p className="text-center" style={textStyle}>Drag and drop here</p>
-                    </Dropzone>
+                        >
+                            <p className="text-center" style={textStyle}>Drag and drop here</p>
+                        </Dropzone>
+                    </div>
+                    {
+                        this.state.fileDropped === false ? null :
+                            <div>
+                                {
+                                    this.state.filePaths.map((item, index) => (
+                                        <img width="400" src={item.preview} alt="responsive image" />
+                                    ))
+                                }
+                            </div>
+                    }
                 </div>
-                {
-                    this.state.fileDropped === false ? null :
-                        <div>
-                            {
-                                this.state.filePaths.map((item,index) => (
-                                    <img width="400" src={item.preview} alt = "responsive image" />
-                                ))
-                            }
-                        </div>
-                }
-            </div>
-            <div className="row">
-                <div className="col-sm-6 col-sm-offset-3" style={{marginTop: 100}}>
-                <button type="button" className="btn" style={lockImagesStyle} onClick = {this.handleImageUpload.bind(this)} >Lock in Images</button>
-                {
-                    this.state.imageLock === false ? null:
-                        <button type="button" style={submitStyle} className="btn" onClick = {this.pushUpload.bind(this)} >Finish</button>
-                }
+                <div className="row">
+                    <div className="col-sm-6 col-sm-offset-3" style={{ marginTop: 100 }}>
+                        <button type="button" className="btn" style={lockImagesStyle} onClick={this.handleImageUpload.bind(this)} >Lock in Images</button>
+                        {
+                            this.state.imageLock === false ? null :
+                                <button type="button" style={submitStyle} className="btn" onClick={this.pushUpload.bind(this)} >Finish</button>
+                        }
+                    </div>
                 </div>
-            </div>
 
-        </div>
+            </div>
         )
     }
 }

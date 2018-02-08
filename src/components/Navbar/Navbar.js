@@ -37,14 +37,14 @@ export default class AppNavbar extends Component {
 
             return (
             	<div>
-                    <Link to={"/users/" + Cookies.getId()} activeClassName="none">
+                    <Link to={"/users/" + Cookies.getId()}>
                         <li className="nav-item" style={style}>
-                            <a className="nav-link" href="#" style={style}>Account</a>
+                            <a className="nav-link" style={style}>Account</a>
                         </li>
                     </Link>
-					<Link onClick={this.logout} to="/login" activeClassName="none">
+					<Link onClick={this.logout} to="/login" >
 						<li className="nav-item" style={style}>
-							<a className="nav-link" href="#" style={style}>Logout</a>
+							<a className="nav-link" style={style}>Logout</a>
 						</li>
 					</Link>
 				</div>
@@ -53,7 +53,6 @@ export default class AppNavbar extends Component {
         }
 
         else{
-
             const style = {
                 color: "#333333",
                 listStyleType: "none",
@@ -66,14 +65,14 @@ export default class AppNavbar extends Component {
             };
             return (
             	<div>
-					<Link to="/login" activeClassName="none">
+					<Link to="/login">
 						<li className="nav-item" style={style}>
-							<a className="nav-link" href="#" style={style}>Log In</a>
+							<a className="nav-link" style={style}>Log In</a>
 						</li>
 					</Link>
 					<Link to="/sign_up">
 						<li className="nav-item" style={style}>
-							<a className="nav-link" href="#" style={style}>Sign Up</a>
+							<a className="nav-link" style={style}>Sign Up</a>
 						</li>
 					</Link>
 				</div>
@@ -160,12 +159,12 @@ export default class AppNavbar extends Component {
 					<ul className="pull-right navbar-nav" style={ul}>
 						<Link to ="/create_listing">
 							<li className="nav-item" style={itemStyles}>
-								<a className="nav-link" href="#" onMouseEnter={this.toggleHover} onMouseLeave={this.toggleHover} style={yourSpace}>Post Your Space</a>
+								<a className="nav-link" onMouseEnter={this.toggleHover} onMouseLeave={this.toggleHover} style={yourSpace}>Post Your Space</a>
 							</li>
 						</Link>
 						<Link to ="/listings">
 							<li className="nav-item" style={itemStyles}>
-								<a className="nav-link" href="#" style={item}>Browse</a>
+								<a className="nav-link" style={item}>Browse</a>
 							</li>
 						</Link>
 						{this.renderLogout()}

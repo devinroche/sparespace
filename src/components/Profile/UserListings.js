@@ -1,17 +1,56 @@
 import React from "react"
 import axios from "axios"
+import Cookies from '../../Cookies';
+import swal from 'sweetalert2';
 import { Image } from "cloudinary-react"
-import { Link } from "react-router-dom"
+import { Link, Redirect } from "react-router-dom"
+import EditListing from "./EditListing"
+import DeleteListing from './DeleteListing'
 
 class UserListings extends React.Component {
     constructor() {
         super()
         this.state = {
-            user: "",
-            data: [],
-            msg: []
+            showEdit: false,
+            showDelete: false
         }
+
+        this.toggleEdit = this.toggleEdit.bind(this)
+        this.toggleDelete = this.toggleDelete.bind(this)
     }
+
+    toggleEdit(lid) {
+        this.setState({
+            list_id: lid,
+        }, () => {
+            this.setState({
+                showEdit: !this.state.showEdit,
+                showDelete: false
+            })
+        })
+    }
+    handler(e) {
+        e.preventDefault()
+        this.setState({
+            showDelete: false
+        })
+    }
+
+    toggleDelete(lid) {
+        this.setState({
+            list_id: lid,
+        }, () => {
+            this.setState({
+                showDelete: !this.state.showDelete,
+                showEdit: false
+            })
+        })
+    }
+
+    handleDelete(event) {
+        this.setState({showDelete: false})
+    }
+
 
     render() {
         const styles = {
@@ -36,21 +75,32 @@ class UserListings extends React.Component {
                 height: 90
             }
         }
-      
-        const activeListings = this.props.listings ? this.props.listings.map((listing) => {
+
+        let activeListings = this.props.listings ? this.props.listings.map((listing) => {
             return (
-            <Link to={`/listing/${listing._id}`}>
-                <div style={styles.msgCard} className='row'>
-                    <div className="col-sm-4"><Image cloudName="dopxmkhbr" publicId={listing.images[0]} style={styles.imageSize}/></div>
-                    <div className="col-sm-8"><p style={styles.nameStyle}>{listing.title}</p></div>
+                <div key={listing._id} style={styles.msgCard}>
+                    <Link to={`/listing/${listing._id}`}>
+                        <div className='row'>
+                            <div className="col-sm-4"><Image cloudName="dopxmkhbr" publicId={listing.images[0]} style={styles.imageSize} /></div>
+                            <div className="col-sm-8"><p style={styles.nameStyle}>{listing.title}</p></div>
+                        </div>
+                    </Link>
+                    <button onClick={(e) => { this.toggleEdit(listing._id, e) }} >Edit</button>
+                    <button onClick={(e) => { this.toggleDelete(listing._id, e) }} >Delete</button>
                 </div>
-            </Link>)
-        }) : ''
+            )
+        }) : ""
+
+        activeListings = activeListings.length != 0 ? activeListings : "no listings :(" 
         return (
             <div className='row'>
                 <div className='col-sm-6 col-sm-offset-3'>
                     <h3>Your Listings</h3>
                     {activeListings}
+                </div>
+                <div className='col-sm-3'>
+                    {this.state.showEdit && <EditListing list_id={this.state.list_id} />}
+                    {this.state.showDelete && <DeleteListing list_id={this.state.list_id} toggle={this.handleDelete()}/> }
                 </div>
             </div>
         )

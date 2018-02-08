@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import { Redirect } from "react-router-dom"
 import { Formik } from "formik"
 import axios from "axios"
-import swal from "sweetalert"
+import swal from "sweetalert2"
 import Cookies from "../Cookies"
 
 
