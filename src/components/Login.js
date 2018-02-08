@@ -1,5 +1,4 @@
 import React, { Component } from "react"
-import { Redirect } from "react-router-dom"
 import { Formik } from "formik"
 import axios from "axios"
 import swal from "sweetalert"
@@ -7,14 +6,15 @@ import Cookies from "../Cookies"
 
 
 class Login extends Component {
-	constructor(props) {
-		super(props)
+	constructor() {
+		super();
 		this.state = {
 			show: false
 		}
 	}
 
 	render() {
+
 		const loginStyle = {
 			marginTop: 50,
             fontFamily: 'Rubik',
@@ -55,6 +55,7 @@ class Login extends Component {
         };
 
 		return (
+
 			<div className="card">
 			<div className="container text-center">
 				<h1 style={loginStyle} className="text-center card-title">
@@ -68,10 +69,7 @@ class Login extends Component {
 							email: "",
 							password: ""
 						}}
-						//formik is handling our forms. It will check for valid
-						//input, and then send info on click "Login" to our backend
 
-						//makes sure valid email is entered
 						validate={values => {
 							let errors = {}
 							if (!values.email) {
@@ -86,15 +84,15 @@ class Login extends Component {
 							return errors
 						}}
 						onSubmit={(values, { setSubmitting }) => {
-							setSubmitting(false)
+
+							setSubmitting(false);
 							axios
 								.post("http://localhost:3001/login", values)
 								.then(function(response) {
-									Cookies.loginUser(response.data.id, response.data.v)
-									window.location.href = "/users/" + response.data.id
-									return <Redirect to="/logged_in" />
+									Cookies.loginUser(response.data.id, response.data.v);
+									window.location.href = "/users/" + response.data.id; //maybe use react router instead
 								})
-								.catch(function(error) {
+								.catch(function() {
 									swal({
 										title: "Login Failed!",
 										text: "Your email or password is incorrect!",
@@ -103,6 +101,7 @@ class Login extends Component {
 									})
 								})
 						}}
+
 						//render is actually rendering the form for the user to see
 						render={({
 							values,

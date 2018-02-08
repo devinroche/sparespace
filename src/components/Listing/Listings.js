@@ -11,11 +11,11 @@ const socket = openSocket('http://localhost:3001');
 
 export class Listings extends React.Component {
 	constructor(props) {
-		super(props)
+		super(props);
 		this.state = {
             listings: [],
             showFilter: false,
-        }
+        };
 
         this.onSortChange = this.onSortChange.bind(this)
         this.onFilterChange = this.onFilterChange.bind(this)
@@ -29,9 +29,7 @@ export class Listings extends React.Component {
         });
 	}
 
-    toggleFilters() {
-        this.setState({showFilter: !this.state.showFilter})
-    }
+
     componentDidMount(){
         this.getListings()
 

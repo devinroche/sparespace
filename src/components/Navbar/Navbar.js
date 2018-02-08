@@ -1,9 +1,12 @@
 import React, { Component } from "react"
 import Cookies from "../../Cookies"
 import {Link} from "react-router-dom"
+import styled from "styled-components";
+
 
 
 export default class AppNavbar extends Component {
+
     constructor(props){
         super(props);
     	this.state = {
@@ -12,8 +15,8 @@ export default class AppNavbar extends Component {
 
         this.renderLogout = this.renderLogout.bind(this);
         this.logout = this.logout.bind(this);
-        this.toggleHover = this.toggleHover.bind(this);
-
+        this.renderSignUp = this.renderSignUp.bind(this);
+        this.renderSignOut = this.renderSignOut.bind(this);
     }
 
     logout(){
@@ -24,153 +27,126 @@ export default class AppNavbar extends Component {
     renderLogout(){
         if(Cookies.isLoggedIn()) {
 
-            const style = {
-                color: "#333333",
-                listStyleType: "none",
-                fontFamily: "Rubik",
-                fontWeight: "400",
-                fontSize: 16,
-                float: "left",
-                marginRight: 30,
-                textDecoration: "none"
-            };
-
             return (
-            	<div>
-                    <Link to={"/users/" + Cookies.getId()} activeClassName="none">
-                        <li className="nav-item" style={style}>
-                            <a className="nav-link" href="#" style={style}>Account</a>
-                        </li>
-                    </Link>
-					<Link onClick={this.logout} to="/login" activeClassName="none">
-						<li className="nav-item" style={style}>
-							<a className="nav-link" href="#" style={style}>Logout</a>
-						</li>
-					</Link>
-				</div>
-
+					<li className= "col-sm-2">
+						<Link to={"/users/" + Cookies.getId()} activeClassName="none"><NavItem className="" href="#">Account</NavItem></Link>
+					</li>
             );
         }
 
         else{
-
-            const style = {
-                color: "#333333",
-                listStyleType: "none",
-				fontFamily: "Rubik",
-				fontWeight: "400",
-				fontSize: 16,
-                float: "left",
-				marginRight: 30,
-                textDecoration: "none"
-            };
             return (
-            	<div>
-					<Link to="/login" activeClassName="none">
-						<li className="nav-item" style={style}>
-							<a className="nav-link" href="#" style={style}>Log In</a>
-						</li>
-					</Link>
-					<Link to="/sign_up">
-						<li className="nav-item" style={style}>
-							<a className="nav-link" href="#" style={style}>Sign Up</a>
-						</li>
-					</Link>
-				</div>
+	            	<li className= "col-sm-2">
+						<Link to="/login" activeClassName="none"><NavItem className="" href="#">Log In</NavItem></Link>
+					</li>
             )
         }
     }
+
+    renderSignUp(){
+        if(!Cookies.isLoggedIn()) {
+
+            return (
+                <li className= "col-sm-2">
+					<Link to="/sign_up"><NavItem href="#">Sign Up</NavItem></Link>
+                </li>
+            )
+        }
+
+    }
+
+    renderSignOut(){
+    	if(Cookies.isLoggedIn()){
+    		return (
+
+            <li className= "col-sm-2">
+                <Link onClick={this.logout} to="/login" activeClassName="none"><NavItem href="#">Logout</NavItem></Link>
+            </li>
+			)
+		}
+	}
+
     componentDidMount(){
         this.renderLogout();
     }
 
-    toggleHover()
-	{
-		this.setState({
-			hover: !this.state.hover
-		})
-    }
-
-
     render() {
 
-    	const style = {
-    		fontFamily: "Helvetica",
-			color: "#FC5B45",
-			fontWeight: "bold",
-			fontSize: 30,
-			marginLeft: 40,
-			marginTop: 25,
-			textDecoration: "none"
-		};
-
-    	const itemStyles = {
-    		listStyleType: "none",
-			fontFamily: "Rubik",
-			fontSize: 16,
-			fontWeight: 400,
-			float: "left",
-			marginRight: 45,
-            textDecoration: "none"
-		};
-
-
-    	const ul = {
-    		width: 600,
-			marginTop: 40,
-		}
-
-    	const item = {
-            color: "#333333",
-            textDecoration: "none"
-		}
-
-		let yourSpace = {
-
-		}
-
-		if(this.state.hover){
-    		yourSpace = {
-    			color: "#FFFFFF",
-				backgroundColor: "#FC5B45",
-                borderWidth: "thin",
-				borderColor: "#FC5B45",
-				borderStyle: "solid",
-                padding: "7px 15px",
-                borderRadius: 3,
-                textDecoration: "none"
-			}
-		}
-		else{
-            yourSpace = {
-                color: "#FC5B45",
-				borderColor: "#FC5B45",
-				borderWidth: "thin",
-                borderStyle: "solid",
-                padding: "7px 15px",
-                borderRadius: 3,
-                textDecoration: "none"
-            }
-		}
-
-
         return (
-				<nav className="navbar">
-                    <a className="navbar-brand" style={style} href="/home">sparespace</a>
-					<ul className="pull-right navbar-nav" style={ul}>
-						<Link to ="/create_listing">
-							<li className="nav-item" style={itemStyles}>
-								<a className="nav-link" href="#" onMouseEnter={this.toggleHover} onMouseLeave={this.toggleHover} style={yourSpace}>Post Your Space</a>
-							</li>
-						</Link>
-						<Link to ="/listings">
-							<li className="nav-item" style={itemStyles}>
-								<a className="nav-link" href="#" style={item}>Browse</a>
-							</li>
-						</Link>
-						{this.renderLogout()}
-					</ul>
-				</nav>
+        	<div className="container">
+				<div className="row">
+					<div className="col-sm-5">
+						<Logo className="navbar-brand" href="/home">sparespace</Logo>
+					</div>
+					<div className="col-sm-7">
+							<ul className="list-inline" style={{marginTop: "40"}}>
+								<li className="col-sm-4">
+									<Link to ="/create_listing"><PostSpace className="" href="#">Post Your Space</PostSpace></Link>
+								</li>
+								<li className= "col-sm-2">
+									<Link to ="/listings"><NavItem className="" href="#">Browse</NavItem></Link>
+								</li>
+                                {this.renderLogout()}
+								{this.renderSignUp()}
+								{this.renderSignOut()}
+							</ul>
+					</div>
+				</div>
+			</div>
         )
     }
 }
+
+
+
+
+const Logo = styled.a`
+	font-family: "Helvetica", "Arial", "sans-serif";
+	color: #FC5B45;
+	font-weight: bold;
+	font-size: 30px;
+	margin-left: 40px;
+	margin-top: 25px;
+	text-decoration: none;	
+	:hover{
+			color: #FC5B45;
+			text-decoration: #FC5B45;
+		}
+
+`;
+
+const NavItem = styled.a`
+
+	font-family: "Helvetica", "Arial", "sans-serif";
+	font-size: 16px;
+	font-weight: 400;
+	text-decoration: none;
+	color: #333333;
+	:hover{
+
+			color: #333333;
+			text-decoration: #333;
+		}
+`;
+
+const PostSpace = styled.a`
+
+	color: #FC5B45;
+	background-color: #FFF;
+	border-width: thin;
+	border-style: solid;
+	border-color: #FC5B45;
+	padding: 7px 15px;
+	text-decoration: none;
+	border-radius: 3px;
+	:hover{
+			background-color: #FC5B45;
+			color: #FFF;
+			text-decoration: #FC5B45;
+		}
+	
+	@media(max-width: 768px) {
+				padding: 4px 10px;
+				font-size: 11px;
+  			}
+`;

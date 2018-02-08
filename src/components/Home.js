@@ -5,7 +5,7 @@ class Home extends Component {
 
 	render() {
 
-		return (
+		return(
 			<div className="container">
 				<Row className="row">
 					<div className="col-md-5 col-sm-6">
@@ -21,6 +21,7 @@ class Home extends Component {
 
 export default Home
 
+
 const Header = styled.h1`
         	font-family: 'Rubik', 'Arial', 'sans-serif';
         	font-size: 55px;
@@ -29,6 +30,9 @@ const Header = styled.h1`
         	
         	@media(min-width: 1440px) {
 				font-size: 65px;
+  			}
+  			@media(max-width: 320px) {
+				font-size: 45px;
   			}
 		`;
 
@@ -43,6 +47,9 @@ const SubHeader = styled.h2`
         	@media(min-width: 1440px) {
 				font-size: 30px;
 				margin-bottom: 50px;
+  			}
+  			@media(max-width: 320px) {
+				font-size: 18px;
   			}
         `;
 
@@ -63,6 +70,9 @@ const Link = styled.a`
 			
 			@media(min-width: 1440px) {
 				font-size: 27px;
+  			}
+  			@media(max-width: 991px) {
+				font-size: 16px;
   			}
 			
 			@media(max-width: 768px) {
