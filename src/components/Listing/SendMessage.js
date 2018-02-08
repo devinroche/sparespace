@@ -44,15 +44,15 @@ class SendMessage extends Component {
             <div>
                 <button className="btn btn-success" style={messageStyle} onClick={() => {
                     swal({
-                        title: 'What is your name?',
+                        title: 'Send a Message!',
                         input: 'text',
-                        inputPlaceholder: 'Enter your name or nickname',
+                        inputPlaceholder: 'Questions, Comments, or Concerns',
                         showCancelButton: true,
                         inputValidator: (value) => {
                             return !value && 'You need to write something!'
                         }
                     }).then((value) => {
-                        if (value) {
+                        if (value.value) {
                             swal({ type: 'success', title: 'Your message has been sent!' }).then(() => {
                                 axios.post('http://localhost:3001/message', {
                                     host: this.props.host,
@@ -60,10 +60,16 @@ class SendMessage extends Component {
                                     author: this.props.renter,
                                     text: value.value
                                 })
+                                this.props.callback()
                             })
-                        }
+                        } else if (value.dismiss === swal.DismissReason.cancel) {
+                            swal(
+                              'Cancelled',
+                              "Your message wasn't sent",
+                              'error'
+                            )
+                          }
                     })
-                    this.props.callback()
                 }}>Message</button>
 
             </div>

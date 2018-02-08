@@ -2,6 +2,7 @@ import React from "react"
 import axios from "axios"
 import { Image } from "cloudinary-react"
 import { Link } from "react-router-dom"
+import Cookies from '../../Cookies'
 
 class UserChats extends React.Component {
     constructor() {
@@ -42,7 +43,7 @@ class UserChats extends React.Component {
         const activeChat = this.state.msg.length != 0 ? this.state.msg.map((chat) => {
             let otherPart;
             let otherName;
-            if (chat.renter_id === this.props.user._id) {
+            if (chat.renter_id === Cookies.getId()) {
                 otherPart = chat.host_id
                 otherName = chat.host
             } else {
@@ -52,7 +53,6 @@ class UserChats extends React.Component {
             return (
             <Link to={`/chat/${chat.host_id}/${chat.renter_id}`}>
                 <div style={styles.msgCard}>
-                    
                     <p style={styles.nameStyle}>
                         <img src="http://www.clker.com/cliparts/8/0/i/u/v/L/woman-headshot-silhouette-grey-hi.png" width="15" style={styles.avatarStyle} />
                         {otherName}
