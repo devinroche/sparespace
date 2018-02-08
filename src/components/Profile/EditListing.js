@@ -15,7 +15,6 @@ class EditListing extends Component {
             price: '',
             listing_id: this.props.list_id
         }
-        console.log(this.props)
     }
 
     handleTitleChange(e) {
@@ -37,11 +36,12 @@ class EditListing extends Component {
     }
 
     handleSubmit(event) {
-        axios.put(`http://localhost:3001/listing/${this.state.listing_id}`, {
-            title: this.state.title,
-            price: this.state.price,
-            description: this.state.description
-        })
+        let editedObj = {}
+        this.state.title === '' ? '' : editedObj.title = this.state.title
+        this.state.description === '' ? '' : editedObj.description = this.state.description
+        this.state.price === '' ? '' : editedObj.price = Number(this.state.price)
+
+        axios.put(`http://localhost:3001/listing/${this.state.listing_id}`,  editedObj)
     }
     
 
