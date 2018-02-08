@@ -10,6 +10,7 @@ import { Checkbox, CheckboxGroup } from 'react-checkbox-group';
 import { DateRange } from 'react-date-range';
 
 
+
 let title = "";
 let description = "";
 let price = "";
@@ -308,6 +309,7 @@ class CreateListing extends Component {
                                         </div>
 
                                     </div>
+                                    
 
 
 

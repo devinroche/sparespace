@@ -26,6 +26,8 @@ class ImageUpload extends Component {
 
     // grab address once component loads convert into cordinates
     componentDidMount() {
+        console.log('ENTERING IMAGEUPLOAD')
+        console.log(this.props.location.query)
         const _this = this;
         axios.post('http://localhost:3001/cordinates', { address: this.props.location.query.location.location })
             .then(function (response) {

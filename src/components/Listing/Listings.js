@@ -9,6 +9,7 @@ import { ListingCard } from "./ListingCard";
 import openSocket from 'socket.io-client';
 const socket = openSocket('http://localhost:3001');
 
+
 export class Listings extends React.Component {
     constructor(props) {
         super(props)

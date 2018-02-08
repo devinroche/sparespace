@@ -12,13 +12,12 @@ class SubMap extends React.Component {
             top: 0,
             bottom: 0,
             width: '100%',
-            height: '50vh'
+            height: '45vh'
         };
         console.log(this.props)
         return (
             <Map
-                style={"mapbox://styles/mapbox/streets-v9"}
-                // center={[this.props.l.lng, this.props.l.lat]}
+                style="mapbox://styles/mapbox/light-v9"
                 center={[-117.4029896, 47.6698996]}
                 zoom={[13]}
                 maxZoom={13}
