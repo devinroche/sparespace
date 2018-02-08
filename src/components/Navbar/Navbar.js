@@ -7,12 +7,8 @@ import styled from "styled-components";
 
 export default class AppNavbar extends Component {
 
-    constructor(props){
-        super(props);
-    	this.state = {
-    		hover: false
-		};
-
+    constructor(){
+        super();
         this.renderLogout = this.renderLogout.bind(this);
         this.logout = this.logout.bind(this);
         this.renderSignUp = this.renderSignUp.bind(this);
@@ -28,17 +24,17 @@ export default class AppNavbar extends Component {
         if(Cookies.isLoggedIn()) {
 
             return (
-					<li className= "col-sm-2">
-						<Link to={"/users/" + Cookies.getId()} activeClassName="none"><NavItem className="" href="#">Account</NavItem></Link>
-					</li>
+                <li className= "col-sm-2">
+                    <Link to={"/users/" + Cookies.getId()} activeClassName="none"><NavItem className="" href="#">Account</NavItem></Link>
+                </li>
             );
         }
 
         else{
             return (
-	            	<li className= "col-sm-2">
-						<Link to="/login" activeClassName="none"><NavItem className="" href="#">Log In</NavItem></Link>
-					</li>
+                <li className= "col-sm-2">
+                    <Link to="/login" activeClassName="none"><NavItem className="" href="#">Log In</NavItem></Link>
+                </li>
             )
         }
     }
@@ -58,10 +54,9 @@ export default class AppNavbar extends Component {
     renderSignOut(){
     	if(Cookies.isLoggedIn()){
     		return (
-
-            <li className= "col-sm-2">
-                <Link onClick={this.logout} to="/login" activeClassName="none"><NavItem href="#">Logout</NavItem></Link>
-            </li>
+                <li className= "col-sm-2">
+                    <Link onClick={this.logout} to="/login" activeClassName="none"><NavItem href="#">Logout</NavItem></Link>
+                </li>
 			)
 		}
 	}
@@ -99,7 +94,7 @@ export default class AppNavbar extends Component {
 
 
 
-
+//styles
 const Logo = styled.a`
 	font-family: "Helvetica", "Arial", "sans-serif";
 	color: #FC5B45;
