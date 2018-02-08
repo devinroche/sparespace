@@ -12,13 +12,11 @@ class UserChats extends React.Component {
     }
 
     componentDidMount() {
-        console.log(this.props)
         axios.get(`http://localhost:3001/messages/${this.props.user}`).then(r => {
-            console.log(r.data)
             this.setState({
                 msg: r.data
             })
-        }).catch(err => console.log("some err occured", err))
+        })
     }
 
     render() {

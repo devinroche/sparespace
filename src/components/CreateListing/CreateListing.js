@@ -1,6 +1,5 @@
 import React, { Component } from "react"
-import swal from "sweetalert"
-import ImageUpload from "./ImageUpload"
+import swal from "sweetalert2"
 import Cookies from "../../Cookies"
 import PlacesAutocomplete from 'react-places-autocomplete'
 import axios from 'axios';
@@ -15,7 +14,6 @@ let title = "";
 let description = "";
 let price = "";
 let location = "";
-let duration = "";
 let features = [];
 
 
@@ -29,7 +27,6 @@ class CreateListing extends Component {
             showAddPhotos: false,
             valid_addr: true,
             address: "",
-            selectedDuration: '',
             redirectPhotos: false,
             dates: {
                 start: null,
@@ -48,10 +45,6 @@ class CreateListing extends Component {
             address: e,
             valid_addr: true
         })
-    }
-
-    handleChange(e) {
-        this.setState({ selectedDuration: e.target.value });
     }
 
     handleCheckbox(e) {
@@ -135,8 +128,6 @@ class CreateListing extends Component {
                 end: moment(date.endDate._d).toISOString()
             }
         })
-
-        console.log(this.state.dates)
 	}
 
     render() {
@@ -240,7 +231,6 @@ class CreateListing extends Component {
                             title: '',
                             price: '',
                             description: '',
-                            duration: '',
                             location: ''
                         }}
                             validate={values => {
@@ -258,13 +248,12 @@ class CreateListing extends Component {
                             }}
                             onSubmit={
                                 (values) => {
-                                    if (this.state.valid_addr == false) {
+                                    if (this.state.valid_addr === false) {
                                         return;
                                     }
                                     title = values.title
                                     description = values.description
                                     price = values.price
-                                    duration = this.state.selectedDuration
                                     location = this.state.address
                                     this.setState({
                                         redirectPhotos: true,
@@ -351,7 +340,7 @@ class CreateListing extends Component {
                                             <label className="pull-left" style={labels}>Address</label>
                                             <PlacesAutocomplete styles={autoCompleteStyle} inputProps={inputProps} onError={onError} />
                                             {
-                                                this.state.valid_addr == true ? null :
+                                                this.state.valid_addr === true ? null :
                                                     <div className="alert alert-danger">Please input a valid address!</div>
                                             }
                                         </div>

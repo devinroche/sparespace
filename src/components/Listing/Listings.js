@@ -1,9 +1,6 @@
 import React from "react"
 import axios from "axios"
-import { Image } from "cloudinary-react"
-import { Link } from "react-router-dom"
 import moment from 'moment'
-import './Listing.css'
 import Mapo from '../Map'
 import InputRange from 'react-input-range';
 import 'react-input-range/lib/css/index.css';
@@ -51,14 +48,12 @@ export class Listings extends React.Component {
         this.setState({ search: e.target.value })
     }
     handleSelect(range) {
-        console.log(range)
         this.setState({
             range: {
                 start: range.startDate,
                 end: range.endDate._d
             }
         })
-        console.log(this.state.range)
     }
     toggleCalendar() {
         this.setState({
@@ -67,7 +62,6 @@ export class Listings extends React.Component {
     }
     render() {
         let filteredListings = this.state.listings.filter((listing) => {
-            console.log({state: this.state.range.start, listing: moment(listing.dates[0]), valid: moment(listing.dates[0]._d).isSameOrBefore(this.state.range.start)})
             return (
                 (listing.title.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
                     || listing.description.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1)
@@ -75,7 +69,6 @@ export class Listings extends React.Component {
                 && (moment(listing.dates[0]).isSameOrBefore(this.state.range.start))
             )
         })
-        console.log(filteredListings)
         return (
             <div className="row">
                 <div className="col-sm-7 col-sm-offset-1" style={styles.containerStyle}>
@@ -83,7 +76,7 @@ export class Listings extends React.Component {
                         <div className='col-sm-4'>
                             <input className="searchBar" type='text' value={this.state.search} onChange={this.updateSearch.bind(this)} style={styles.formStyle} placeholder="Search Listings" />
                         </div>
-                        <div className='col-sm-4' id="input-range">
+                        <div className='col-sm-4'>
                             <InputRange
                                 maxValue={this.state.max}
                                 minValue={0}
@@ -101,10 +94,10 @@ export class Listings extends React.Component {
                         /> : null}
                     </div>
                     <div className="row">
-                        {filteredListings.map((l, index) => (<ListingCard listing={l} />))}
+                        {filteredListings.map((l, index) => (<ListingCard key={index} listing={l} />))}
                     </div>
                 </div>
-                <div className="col-sm-4" ><Mapo /></div>
+                <div className="col-sm-4"><Mapo /></div>
             </div>
         )
     }

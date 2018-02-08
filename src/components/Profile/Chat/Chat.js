@@ -1,7 +1,5 @@
 import React from "react"
 import axios from "axios"
-import { Image } from "cloudinary-react"
-import { Link } from "react-router-dom"
 import { postMsg } from '../../../sock'
 import Messages from './Messages'
 import Input from './Input'
@@ -46,7 +44,6 @@ class Chat extends React.Component {
                     messages: res.data
                 })
             })
-            .catch(err => console.log("some err occured", err))
     }
 
     render() {

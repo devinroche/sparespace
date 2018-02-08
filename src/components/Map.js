@@ -29,7 +29,6 @@ class Mapo extends React.Component {
     }
 
     handleClick = (id) => {
-        console.log(id)
         this.setState({
             l: id
         })

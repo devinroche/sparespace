@@ -4,7 +4,7 @@ import request from 'superagent';
 import axios from 'axios';
 import {Redirect } from "react-router-dom"
 import Cookies from '../../Cookies';
-import swal from 'sweetalert';
+import swal from 'sweetalert2';
 import { postSpace} from '../../sock'
 
 const CLOUDINARY_UPLOAD_PRESET = 'apqnswzs';
@@ -26,14 +26,11 @@ class ImageUpload extends Component {
 
     // grab address once component loads convert into cordinates
     componentDidMount() {
-        console.log('ENTERING IMAGEUPLOAD')
-        console.log(this.props.location.query)
         const _this = this;
         axios.post('http://localhost:3001/cordinates', {address: this.props.location.query.location.location})
             .then(function(response) {
             	//CHECK TO MAKE SURE VALID ADDRESS W/CORDS
             	if (response.data == "bad") { 
-            		console.log('BAD INPUT');
             		swal({
                 		title: "Please choose a valid address",
                 		text: "Please choose a valid address",
@@ -109,9 +106,7 @@ class ImageUpload extends Component {
                     images: this.state.fileUrls
                 };
                 
-                axios.post('http://localhost:3001/listings', storageObj).then(response => {
-                    console.log(response);
-                });
+                axios.post('http://localhost:3001/listings', storageObj)
                 swal("Congrats you posted your space!" ,{buttons: {
                         return: {
                             text: "See your listing!",

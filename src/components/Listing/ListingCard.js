@@ -6,7 +6,12 @@ export class ListingCard extends React.Component {
     render() {
         let l = this.props.listing
         return (
-            <Link to={`/listing/${l._id}`}>
+            <Link to={{
+                pathname: `/listing/${l._id}`,
+                state: {
+                    listing: l
+                }
+            }}>
                 <div className="card col-sm-2 col-sm-offset-1" style={styles.cardStyle}>
                     <Image cloudName="dopxmkhbr" publicId={l.images[0]} style={styles.imageSize} />
                     <div className="card-block">

@@ -20,11 +20,19 @@ class ListingDetails extends React.Component {
         this.canExpress = this.canExpress.bind(this)
         this.canClick = this.canClick.bind(this)
         this.renderInterest = this.renderInterest.bind(this)
-        this.getListingInfo = this.getListingInfo.bind(this)
     }
 
     componentDidMount() {
-        this.getListingInfo()
+        axios.get(`http://localhost:3001/listing/${this.props.match.params.id}`)
+            .then(res => {
+                console.log(res.data)
+                this.setState({
+                    listingImages: res.data.images,
+                    listing: res.data,
+                    features: res.data.features
+                })
+                this.canExpress(res.data._host._id, res.data.interested)
+            }).catch(err => console.log("some err occured", err))
     }
 
     renderInterest(l_id, h_id) {
@@ -42,21 +50,6 @@ class ListingDetails extends React.Component {
 
     canClick() {
         this.setState({ expressInterest: false })
-        this.forceUpdate();
-    }
-
-    getListingInfo() {
-
-        axios.get(`http://localhost:3001/listing/${this.props.match.params.id}`)
-            .then(res => {
-                this.setState({
-                    listingImages: res.data.images,
-                    listing: res.data,
-                    features: res.data.features
-                })
-                this.canExpress(res.data._host._id, res.data.interested)
-            }).catch(err => console.log("some err occured", err))
-
     }
 
     render() {
@@ -65,7 +58,7 @@ class ListingDetails extends React.Component {
         const lid = listing._id ? listing._id : ""
         const hid = listing._host ? listing._host._id : ""
         const host = listing._host ? listing._host : "";
-
+        console.log(listing)
         const styles = {
             cardStyle: {
                 boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
@@ -74,7 +67,9 @@ class ListingDetails extends React.Component {
             imageSize: {
                 width: 700,
                 height: 200
-            }, mainStyle: {
+            },
+
+            mainStyle: {
                 fontFamily: "Rubik",
                 color: "#333",
                 fontWeight: "600",
@@ -111,7 +106,8 @@ class ListingDetails extends React.Component {
             },
 
             descriptionStyle: {
-                fontFamily: "Rubik", color: "#818181",
+                fontFamily: "Rubik",
+                color: "#818181",
                 lineHeight: 2,
                 fontSize: 15
 
@@ -146,8 +142,9 @@ class ListingDetails extends React.Component {
         };
 
         return (
+
             <div className="container">
-                <div className="col-sm-8 offset-sm-4 text-center" style={{ marginTop: 50 }}>
+                <div className="col-sm-8 offset-sm-4 text-center" >
                     <div className="card row" style={styles.cardStyle}>
                         <Carousel>
                             {this.state.listingImages.map((l, index) => (
@@ -178,17 +175,16 @@ class ListingDetails extends React.Component {
                     <div className="row">
                         <h4 className="text-left" style={styles.descriptionLabel}>Description</h4>
                         <p className="text-left" style={styles.descriptionStyle}>{listing.description}</p>
-                    </div></div>
+                    </div>
+                </div>
 
-                <div className="col-sm-3 text-center" style={{ marginTop: 50, marginLeft: 25 }}>
-                    <SubMap l={this.state.listing} />
+                <div className="col-sm-3 text-center">
+                    <SubMap l={listing} />
                     <h3 className="pull-left" style={styles.priceStyle}>${listing.price}</h3>
                     <h3 className="pull-left" style={styles.monthStyle}>/mo</h3>
                     <h3 className="pull-right" style={styles.durationStyle}>{listing.duration} months</h3>
 
-                    {
-                        this.state.expressInterest ? this.renderInterest(lid, hid) : ""
-                    }
+                    {this.state.expressInterest ? this.renderInterest(lid, hid) : ""}
                 </div>
 
             </div>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Cookies from '../../Cookies';
-import swal from 'sweetalert';
+import swal from 'sweetalert2';
 
 import openSocket from 'socket.io-client';
 
@@ -16,7 +16,6 @@ class SendMessage extends Component {
         }
 
         socket.on('peer-msg', () => {
-            console.log('foo')
             this.getMsg()
         });
 
@@ -28,9 +27,23 @@ class SendMessage extends Component {
     }
 
     render() {
+
+
+        const messageStyle = {
+
+            fontFamily : "Rubik",
+            color: "#FFF",
+            fontWeight: "400",
+            width: 250,
+            height: 50,
+            fontSize: 20,
+            background: "linear-gradient(to right, #FE947B, #FC5B45)",
+            border: "none"
+        };
+
         return (
             <div>
-                <button className="btn btn-success" onClick={() => {
+                <button className="btn btn-success" style={messageStyle} onClick={() => {
                     if (Cookies.isExpress()) {
                         swal({
                             text: 'Message Info',
@@ -62,7 +75,7 @@ class SendMessage extends Component {
                         swal("You must be logged in to do this.")
                     }
                     this.props.callback()
-                }}>Express Your Interest</button>
+                }}>Message</button>
 
             </div>
 

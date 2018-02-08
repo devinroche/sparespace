@@ -1,31 +1,24 @@
 import React from 'react'
-import mapboxgl from 'mapbox-gl'
-import axios from 'axios'
-import { Link } from "react-router-dom"
-import ReactMapboxGl, { Layer, Feature, Popup } from "react-mapbox-gl";
+import ReactMapboxGl, { Layer, Feature } from "react-mapbox-gl";
 
 const Map = ReactMapboxGl({
     accessToken: 'pk.eyJ1IjoiZGV2aW5yb2NoZSIsImEiOiJjamJvNjc1aTYzbWg3MzJxeTJ2ejBkcGE4In0.jYTHkOOzGtxzn8VcaZnN6w'
 });
 
 class SubMap extends React.Component {
-    handleClick = (id) => {
-        console.log(id)
-    }
-
-
     render() {
         const mapStyle = {
             position: 'absolute',
             top: 0,
             bottom: 0,
             width: '100%',
-            height: '30vh'
+            height: '50vh'
         };
-
+        console.log(this.props)
         return (
             <Map
-                style="mapbox://styles/mapbox/streets-v9"
+                style={"mapbox://styles/mapbox/streets-v9"}
+                // center={[this.props.l.lng, this.props.l.lat]}
                 center={[-117.4029896, 47.6698996]}
                 zoom={[13]}
                 maxZoom={13}
