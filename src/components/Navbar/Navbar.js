@@ -53,7 +53,6 @@ export default class AppNavbar extends Component {
         }
 
         else{
-
             const style = {
                 color: "#333333",
                 listStyleType: "none",
