@@ -1,13 +1,13 @@
 import React, { Component } from "react"
 import Cookies from "../../Cookies"
 import {Link} from "react-router-dom"
-import styled from "styled-components";
-
+import  {Logo, NavItem, PostSpace} from "../Styles";
 
 
 export default class AppNavbar extends Component {
 
     constructor(){
+
         super();
         this.renderLogout = this.renderLogout.bind(this);
         this.logout = this.logout.bind(this);
@@ -16,6 +16,7 @@ export default class AppNavbar extends Component {
     }
 
     logout(){
+
         Cookies.removeCookie();
     }
 
@@ -91,57 +92,3 @@ export default class AppNavbar extends Component {
         )
     }
 }
-
-
-
-//styles
-const Logo = styled.a`
-	font-family: "Helvetica", "Arial", "sans-serif";
-	color: #FC5B45;
-	font-weight: bold;
-	font-size: 30px;
-	margin-left: 40px;
-	margin-top: 25px;
-	text-decoration: none;	
-	:hover{
-			color: #FC5B45;
-			text-decoration: #FC5B45;
-		}
-
-`;
-
-const NavItem = styled.a`
-
-	font-family: "Helvetica", "Arial", "sans-serif";
-	font-size: 16px;
-	font-weight: 400;
-	text-decoration: none;
-	color: #333333;
-	:hover{
-
-			color: #333333;
-			text-decoration: #333;
-		}
-`;
-
-const PostSpace = styled.a`
-
-	color: #FC5B45;
-	background-color: #FFF;
-	border-width: thin;
-	border-style: solid;
-	border-color: #FC5B45;
-	padding: 7px 15px;
-	text-decoration: none;
-	border-radius: 3px;
-	:hover{
-			background-color: #FC5B45;
-			color: #FFF;
-			text-decoration: #FC5B45;
-		}
-	
-	@media(max-width: 768px) {
-				padding: 4px 10px;
-				font-size: 11px;
-  			}
-`;
