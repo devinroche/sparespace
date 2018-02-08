@@ -38,7 +38,8 @@ class UserChats extends React.Component {
             }
         }
 
-        const activeChat = this.state.msg ? this.state.msg.map((chat) => {
+
+        const activeChat = this.state.msg.length != 0 ? this.state.msg.map((chat) => {
             let otherPart;
             let otherName;
             if (chat.renter_id === this.props.user._id) {
@@ -55,7 +56,7 @@ class UserChats extends React.Component {
                     <div className="col-sm-10"><p style={styles.nameStyle}>{otherName}</p></div>
                 </div>
             </Link>)
-        }) : ''
+        }) : "No Messages :("
         return (
             <div className='row'>
                 <div className='col-sm-6 col-sm-offset-3'>

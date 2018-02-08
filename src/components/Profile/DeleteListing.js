@@ -3,6 +3,7 @@ import axios from 'axios';
 import Cookies from '../../Cookies';
 import swal from 'sweetalert2';
 import openSocket from 'socket.io-client';
+import { Redirect } from 'react-router-dom'
 
 const socket = openSocket('http://localhost:3001');
 
@@ -36,7 +37,7 @@ class DeleteListing extends Component {
             border: "none"
         };
 
-        return (
+        let alert = (
             swal({
                 title: 'Are you sure?',
                 text: 'Your listing will be removed!',
@@ -46,20 +47,29 @@ class DeleteListing extends Component {
                 cancelButtonText: 'No, keep it'
             }).then((result) => {
                 if (result.value) {
-                    this.handleSubmit()
                     swal(
                         'Deleted!',
                         'Your imaginary file has been deleted.',
                         'success'
                     )
+                    this.handleSubmit()
+                    window.location.href = `/users/${Cookies.getId()}`
+                    return <Redirect to={"/users/" + Cookies.getId()} />
+
                 } else if (result.dismiss === swal.DismissReason.cancel) {
                     swal(
                         'Cancelled',
                         'Your listing lives to die another day!',
                         'error'
                     )
+                    this.props.toggle
                 }
             })
+        )
+        return (
+            <div>
+                
+            </div>
         );
     }
 }

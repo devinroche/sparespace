@@ -1,7 +1,9 @@
 import React from "react"
 import axios from "axios"
+import Cookies from '../../Cookies';
+import swal from 'sweetalert2';
 import { Image } from "cloudinary-react"
-import { Link } from "react-router-dom"
+import { Link, Redirect } from "react-router-dom"
 import EditListing from "./EditListing"
 import DeleteListing from './DeleteListing'
 
@@ -13,15 +15,24 @@ class UserListings extends React.Component {
             showDelete: false
         }
 
-        this.toggleEditForm = this.toggleEditForm.bind(this)
+        this.toggleEdit = this.toggleEdit.bind(this)
         this.toggleDelete = this.toggleDelete.bind(this)
     }
 
-    toggleEditForm(lid){
+    toggleEdit(lid) {
         this.setState({
             list_id: lid,
         }, () => {
-            this.setState({showEdit: true})
+            this.setState({
+                showEdit: !this.state.showEdit,
+                showDelete: false
+            })
+        })
+    }
+    handler(e) {
+        e.preventDefault()
+        this.setState({
+            showDelete: false
         })
     }
 
@@ -29,9 +40,17 @@ class UserListings extends React.Component {
         this.setState({
             list_id: lid,
         }, () => {
-            this.setState({showDelete: true})
+            this.setState({
+                showDelete: !this.state.showDelete,
+                showEdit: false
+            })
         })
     }
+
+    handleDelete(event) {
+        this.setState({showDelete: false})
+    }
+
 
     render() {
         const styles = {
@@ -56,7 +75,7 @@ class UserListings extends React.Component {
             }
         }
 
-        const activeListings = this.props.listings ? this.props.listings.map((listing) => {
+        let activeListings = this.props.listings ? this.props.listings.map((listing) => {
             return (
                 <div key={listing._id} style={styles.msgCard}>
                     <Link to={`/listing/${listing._id}`}>
@@ -65,11 +84,13 @@ class UserListings extends React.Component {
                             <div className="col-sm-8"><p style={styles.nameStyle}>{listing.title}</p></div>
                         </div>
                     </Link>
-                    <button onClick={(e)=>{this.toggleEditForm(listing._id, e)}} >Edit</button>
-                    <button onClick={(e)=>{this.toggleDelete(listing._id, e)}} >Delete</button>
+                    <button onClick={(e) => { this.toggleEdit(listing._id, e) }} >Edit</button>
+                    <button onClick={(e) => { this.toggleDelete(listing._id, e) }} >Delete</button>
                 </div>
             )
-        }) : ''
+        }) : ""
+
+        activeListings = activeListings.length != 0 ? activeListings : "no listings :(" 
         return (
             <div className='row'>
                 <div className='col-sm-6 col-sm-offset-3'>
@@ -78,8 +99,8 @@ class UserListings extends React.Component {
                     {activeListings}
                 </div>
                 <div className='col-sm-3'>
-                    {this.state.showEdit && <EditListing list_id={this.state.list_id}/>}
-                    {this.state.showDelete && <DeleteListing list_id={this.state.list_id}/>}
+                    {this.state.showEdit && <EditListing list_id={this.state.list_id} />}
+                    {this.state.showDelete && <DeleteListing list_id={this.state.list_id} toggle={this.handleDelete()}/> }
                 </div>
             </div>
         )

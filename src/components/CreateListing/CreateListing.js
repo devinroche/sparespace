@@ -57,67 +57,29 @@ class CreateListing extends Component {
 
     checkLogin() {
         if (Cookies.isLoggedIn() === false) {
-            swal("Woah you must be logged in to do this!", {
-                buttons: {
-                    return: {
-                        text: "Login",
-                        value: "login",
-                    },
-                    view: {
-                        text: "View All Listings",
-                        value: "viewall",
-                    }
-                },
-            }).then((value) => {
-                switch (value) {
-                    case "login":
-                        window.location.href = "/login"
-                        return <Redirect to="/login" />
-
-                    case "viewall":
-                        window.location.href = "/listings"
-                        return <Redirect to="/listings" />
-
-                    default:
-                        window.location.href = "/listings"
-                        return <Redirect to="/listings" />
+            swal({
+                title: 'Not logged in',
+                text: "You must be logged in to create a listing!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Login',
+                cancelButtonText: 'View Listings',
+                confirmButtonClass: 'btn btn-success',
+                cancelButtonClass: 'btn btn-danger',
+                buttonsStyling: false,
+                reverseButtons: true
+              }).then((result) => {
+                if (result.value) {
+                    window.location.href = "/login"
+					return <Redirect to="/login" />
+                    
+                } else if (result.dismiss === swal.DismissReason.cancel) {
+                    window.location.href = "/listings"
+					return <Redirect to="/listings" />
                 }
-            })
-        }
-
-        else if (Cookies.isVerified() === false) {
-            swal("You need to verify your account first!", {
-                buttons:
-                    {
-                        return:
-                            {
-                                text: "Resend Verification Email",
-                                value: "rve",
-                            },
-                        view:
-                            {
-                                text: "View All Listings",
-                                value: "viewall",
-                            }
-                    },
-
-            }).then((value) => {
-                switch (value) {
-                    case "rve":
-
-                        axios.post('http://localhost:3001/reverify', { id: Cookies.getId() })
-                        window.location.href = "/listings"
-                        return <Redirect to="/listings" />
-
-                    case "viewall":
-                        window.location.href = "/listings"
-                        return <Redirect to="/listings" />
-
-                    default:
-                        window.location.href = "/listings"
-                        return <Redirect to="/listings" />
-                }
-            })
+              })   
         }
     }
 
