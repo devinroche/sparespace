@@ -3,25 +3,36 @@ import axios from "axios"
 import { Image } from "cloudinary-react"
 import { Link } from "react-router-dom"
 import EditListing from "./EditListing"
+import DeleteListing from './DeleteListing'
 
 class UserListings extends React.Component {
     constructor() {
         super()
         this.state = {
-            showEdit: false
+            showEdit: false,
+            showDelete: false
         }
 
         this.toggleEditForm = this.toggleEditForm.bind(this)
+        this.toggleDelete = this.toggleDelete.bind(this)
     }
 
     toggleEditForm(lid){
         this.setState({
             list_id: lid,
         }, () => {
-            console.log(this.state)
             this.setState({showEdit: true})
         })
     }
+
+    toggleDelete(lid) {
+        this.setState({
+            list_id: lid,
+        }, () => {
+            this.setState({showDelete: true})
+        })
+    }
+
     render() {
         const styles = {
             msgCard: {
@@ -55,6 +66,7 @@ class UserListings extends React.Component {
                         </div>
                     </Link>
                     <button onClick={(e)=>{this.toggleEditForm(listing._id, e)}} >Edit</button>
+                    <button onClick={(e)=>{this.toggleDelete(listing._id, e)}} >Delete</button>
                 </div>
             )
         }) : ''
@@ -67,6 +79,7 @@ class UserListings extends React.Component {
                 </div>
                 <div className='col-sm-3'>
                     {this.state.showEdit && <EditListing list_id={this.state.list_id}/>}
+                    {this.state.showDelete && <DeleteListing list_id={this.state.list_id}/>}
                 </div>
             </div>
         )

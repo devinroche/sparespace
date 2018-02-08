@@ -31,12 +31,11 @@ class ImageUpload extends Component {
             .then(function(response) {
             	//CHECK TO MAKE SURE VALID ADDRESS W/CORDS
             	if (response.data == "bad") { 
-            		swal({
-                		title: "Please choose a valid address",
-                		text: "Please choose a valid address",
-                		icon: "warning",
-                		dangerMode: true
-            		});
+                    swal(
+                        'Invalid Address',
+                        'Please choose a valid address',
+                        'danger'
+                      )
             		return;
             	}
                 _this.setState({
@@ -53,12 +52,11 @@ class ImageUpload extends Component {
     handleImageUpload() {
 
         if (this.state.fileDropped === false) {
-            swal({
-                title: "Please add a picture",
-                text: "Please add a picture",
-                icon: "warning",
-                dangerMode: true
-            });
+            swal(
+                'No Pictures!',
+                'Please add a picture',
+                'warning'
+              )
             return;
         }
 
@@ -83,12 +81,11 @@ class ImageUpload extends Component {
     pushUpload() {
 
         if (this.state.fileDropped === false) {
-            swal({
-                title: "Please add a picture",
-                text: "Please add a picture",
-                icon: "warning",
-                dangerMode: true
-            });
+            swal(
+                'No Pictures!',
+                'Please add a picture',
+                'warning'
+              )
             return;
         }
             if (this.state.imageLock) {
@@ -107,24 +104,23 @@ class ImageUpload extends Component {
                 };
                 
                 axios.post('http://localhost:3001/listings', storageObj)
-                swal("Congrats you posted your space!" ,{buttons: {
-                        return: {
-                            text: "See your listing!",
-                            value: "listing",
-                        }
-                    }
-                }).then((value) => {
+                swal({
+                    type: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!',
+                    footer: '<a href>Why do I have this issue?</a>',
+                  }).then((value) => {
                     postSpace(storageObj)
                     window.location.href = "/listings"
                     return <Redirect to="/listings" />
                 });
             } else {
                 swal({
-                    title: "Error",
-                    text: "Please Lock in your images",
-                    icon: "warning",
-                    dangerMode: true
-                });
+                    type: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!',
+                    footer: '<a href>Why do I have this issue?</a>',
+                  })
                 return;
             }
 

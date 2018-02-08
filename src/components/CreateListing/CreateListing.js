@@ -36,7 +36,7 @@ class CreateListing extends Component {
 
         this.handleAddressChange = this.handleAddressChange.bind(this)
         this.checkLogin = this.checkLogin.bind(this)
-        this.handleChange = this.handleChange.bind(this);
+        // this.handleChange = this.handleChange.bind(this);
         this.handleCheckbox = this.handleCheckbox.bind(this);
     }
 
