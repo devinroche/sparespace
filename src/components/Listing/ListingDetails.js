@@ -5,6 +5,7 @@ import Cookies from "../../Cookies"
 import SubMap from '../ListingMap'
 import SendMessage from './SendMessage'
 import Carousel from 'nuka-carousel'
+import { RingLoader, FadeLoader, ClimbingBoxLoader } from 'react-spinners'
 
 class ListingDetails extends React.Component {
     constructor() {
@@ -14,7 +15,8 @@ class ListingDetails extends React.Component {
             listingImages: [],
             listing: [],
             l: '',
-            features: []
+            features: [],
+            loading:true // loading icon state 
         }
 
         this.canExpress = this.canExpress.bind(this)
@@ -29,7 +31,8 @@ class ListingDetails extends React.Component {
                 this.setState({
                     listingImages: res.data.images,
                     listing: res.data,
-                    features: res.data.features
+                    features: res.data.features,
+                    loading:false // stop loading icon 
                 })
                 this.canExpress(res.data._host._id, res.data.interested)
             }).catch(err => console.log("some err occured", err))
@@ -137,10 +140,20 @@ class ListingDetails extends React.Component {
                 marginLeft: 10
             }
 
-
+            
 
         };
-
+        const { loading } = this.state; // variable for loading icon 
+        if(loading) { // if component is loading add loader icon
+            return (
+                <div className = 'mx-auto' style={{width:'200px'}} >
+                        <ClimbingBoxLoader
+                        color={'#123abc'} 
+                        loading={this.state.loading} 
+                        />
+                    </div>
+            ); // render null when app is not ready
+        }
         return (
 
             <div className="container">
@@ -159,6 +172,7 @@ class ListingDetails extends React.Component {
                             <h4 style={styles.secondStyle} className="card-text text-left">{host.first}</h4>
                         </div>
                     </div>
+                    
 
                     <div className="row">
                         <h4 className="text-left" style={styles.featuresLabel}>Features</h4>
