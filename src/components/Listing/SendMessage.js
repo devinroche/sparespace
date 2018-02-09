@@ -33,15 +33,18 @@ class SendMessage extends Component {
             fontFamily: "Rubik",
             color: "#FFF",
             fontWeight: "400",
-            width: 250,
-            height: 50,
+            marginTop: 10,
+            paddingBottom: "10",
+            paddingRight: "60",
+            paddingLeft: "60",
+            paddingTop: "10",
             fontSize: 20,
             background: "linear-gradient(to right, #FE947B, #FC5B45)",
             border: "none"
         };
 
         return (
-            <div>
+
                 <button className="btn btn-success" style={messageStyle} onClick={() => {
                     swal({
                         title: 'Send a Message!',
@@ -70,9 +73,9 @@ class SendMessage extends Component {
                             )
                           }
                     })
-                }}>Message</button>
+                }}>Message
+                </button>
 
-            </div>
 
         );
     }

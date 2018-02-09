@@ -8,11 +8,8 @@ const Map = ReactMapboxGl({
 class SubMap extends React.Component {
     render() {
         const mapStyle = {
-            position: 'absolute',
-            top: 0,
-            bottom: 0,
             width: '100%',
-            height: '45vh'
+            height: '40vh'
         };
         console.log(this.props)
         return (
@@ -52,8 +49,8 @@ class SubMap extends React.Component {
                                 [22, 500]
                             ]
                         },
-                        'circle-color': "#34495e",
-                        "circle-opacity": 0.2
+                        'circle-color': "#FC5B45",
+                        "circle-opacity": 0.7
                     }}>
                     {
                         <Feature
