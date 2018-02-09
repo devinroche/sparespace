@@ -4,58 +4,21 @@ import axios from "axios"
 import swal from "sweetalert2"
 import { Redirect } from "react-router-dom"
 import Cookies from "../Cookies"
+import {LoginHeader, SupportText, FormFormat, FormInput, FormLabel, SignUpButton} from "./Styles";
+
 
 class SignUp extends Component {
+
 	render() {
 
-		const SignUpHeader = {
-			marginTop: 50,
-			fontFamily: 'Rubik',
-			color: "#FC5B45",
-			fontWeight: "400"
-		};
-
-		const subHeader = {
-            fontFamily: 'Rubik',
-            color: "#747272",
-            fontWeight: "300",
-			fontSize: 20
-		};
-
-		const labels = {
-            fontFamily: 'Rubik',
-            color: "#333",
-            fontWeight: "400"
-		};
-
-		const formStyle = {
-			marginTop: 10,
-			marginLeft: 75
-		};
-
-		const submitStyle = {
-            color: "#FFF",
-			backgroundColor: "#FC5B45",
-			border: "none",
-			borderRadius: 6,
-			fontFamily: 'Rubik',
-			fontWeight: "300",
-			width: 200,
-			marginTop: 25,
-			marginLeft: 20,
-			padding: 10
-
-		};
-
 		return (
-			<div>
-				<h1 style={SignUpHeader} className="text-center">
-					Create Your Account
-				</h1>
-				<h3 className="text-center" style={subHeader}>First we need to know a little bit about you</h3>
-				<div className="container text-center">
+			<div className="container text-center">
+                <div className="row">
+					<LoginHeader className="text-center">Create Your Account</LoginHeader>
+					<SupportText className="text-center">First we need to know a little bit about you</SupportText>
+				</div>
 				<div className="row">
-				<div className="col-lg-6 col-lg-offset-3">
+					<div className="col-sm-4 col-sm-offset-4">
 					<Formik
 						initialValues={{
 							first: "",
@@ -68,12 +31,8 @@ class SignUp extends Component {
 								address: ""
 							}
 						}}
-						//formik is handling our forms. It will check for valid
-						//input, and then send info on click "Create Account" to our backend
-
-						//makes sure valid email is entered
 						validate={values => {
-							let errors = {}
+							let errors = {};
 							if (!values.email) {
 								errors.email = "Required"
 							} else if (!values.first) {
@@ -106,7 +65,7 @@ class SignUp extends Component {
                                 last: values.last,
 								password: values.password,
                                 email: values.email,
-							})
+							});
 
 							swal({
 								title: "Thanks for creating an account!",
@@ -133,11 +92,9 @@ class SignUp extends Component {
 							handleChange,
 							handleSubmit
 						}) => (
-							<form style={formStyle} onSubmit={handleSubmit}>
-								<div className="row">
-									<div className="col-sm-6" style={formStyle}>
-										<label className="pull-left" style={labels}>First Name</label>
-										<input
+							<FormFormat onSubmit={handleSubmit}>
+										<FormLabel className="pull-left">First Name</FormLabel>
+										<FormInput
 											id="first"
 											className="form-control"
 											type="text"
@@ -145,14 +102,9 @@ class SignUp extends Component {
 											onChange={handleChange}
 											value={values.first}
 										/>
-										{touched.first &&
-											errors.first && <div>{errors.first}</div>}
-									</div>
-								</div>
-                                <div className="row">
-									<div className="col-sm-6" style={formStyle}>
-										<label className="pull-left" style={labels}>Last Name</label>
-										<input
+										{touched.first && errors.first && <div>{errors.first}</div>}
+										<FormLabel className="pull-left">Last Name</FormLabel>
+										<FormInput
 											id="last"
 											className="form-control"
 											type="text"
@@ -160,14 +112,9 @@ class SignUp extends Component {
 											onChange={handleChange}
 											value={values.last}
 										/>
-										{touched.last &&
-										errors.last && <div>{errors.last}</div>}
-                                    </div>
-                                </div>
-								<div className="row">
-									<div className="col-sm-6" style={formStyle}>
-										<label className="pull-left" style={labels}>Email</label>
-										<input
+										{touched.last && errors.last && <div>{errors.last}</div>}
+										<FormLabel className="pull-left">Email</FormLabel>
+										<FormInput
 											id="email"
 											className="form-control"
 											type="email"
@@ -176,12 +123,8 @@ class SignUp extends Component {
 											value={values.email}
 										/>
 										{touched.email && errors.email && <div>{errors.email}</div>}
-										</div>
-								</div>
-								<div className="row">
-									<div className="col-sm-6" style={formStyle}>
-										<label className="pull-left" style={labels}>Password</label>
-										<input
+										<FormLabel className="pull-left">Password</FormLabel>
+										<FormInput
 											id="password"
 											className="form-control"
 											type="password"
@@ -189,14 +132,9 @@ class SignUp extends Component {
 											onChange={handleChange}
 											value={values.password}
 										/>
-										{touched.password &&
-											errors.password && <div>{errors.password}</div>}
-									</div>
-								</div>
-                                <div className="row">
-									<div className="col-sm-6" style={formStyle}>
-										<label className="pull-left" style={labels}>Confirm Password</label>
-										<input
+										{touched.password && errors.password && <div>{errors.password}</div>}
+										<FormLabel className="pull-left">Confirm Password</FormLabel>
+										<FormInput
 											id="confirm"
 											className="form-control"
 											type="password"
@@ -204,24 +142,13 @@ class SignUp extends Component {
 											onChange={handleChange}
 											value={values.confirm}
 										/>
-										{touched.confirm &&
-										errors.confirm && <div>{errors.confirm}</div>}
-									</div>
-                                </div>
-								<div className="row">
-									<div className="col-sm-9">
-									<button className="btn" type="submit" style={submitStyle}>
-										Confirm
-									</button>
-									</div>
-								</div>
-
-							</form>
+										{touched.confirm && errors.confirm && <div>{errors.confirm}</div>}
+									<SignUpButton className="btn" type="submit">Confirm</SignUpButton>
+							</FormFormat>
 						)}
 					/>
+					</div>
 				</div>
-			</div>
-			</div>
 			</div>
 		)
 	}

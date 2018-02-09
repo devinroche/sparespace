@@ -19,13 +19,13 @@ const Routes = () => {
             <Route path="/home" component={Home} />
             <Route path="/create_listing" component={CreateListing} />
             <Route path="/add_photos" component={ImageUploadNew} />
-            <Route path="/listings" component={Listings}>{" "}</Route>
-            <Route path="/users/:id" component={Profile} />
+            <Route path="/listings" component={Listings}/>
+            <Route path="/users/:id" component={Profile}/>
             <Route path="/listing/:id" component={ListingDetails} />
-            <Route path="/sign_up" component={SignUp}>{" "}</Route>
-            <Route path="/chat/:host/:renter" component={Chat}>{" "}</Route>
+            <Route path="/sign_up" component={SignUp}/>
+            <Route path="/chat/:host/:renter" component={Chat}/>
         </div>
     )
-}
+};
 
 export default Routes;
