@@ -69,7 +69,7 @@ export default class AppNavbar extends Component {
     render() {
 
         return (
-        	<div className="container">
+        	<div className="container-fluid">
 				<div className="row">
 					<div className="col-sm-5">
 						<Logo className="navbar-brand" href="/home">sparespace</Logo>

@@ -79,4 +79,4 @@ const btnStyle = {
     fontSize: 20,
     background: "linear-gradient(to right, #FE947B, #FC5B45)",
     border: "none"
-}
+};

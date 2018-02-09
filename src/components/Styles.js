@@ -202,3 +202,179 @@ export const SignUpButton = styled.button`
 		}
 `;
 
+//listing details page
+export const CardStyle = styled.div`
+   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+`;
+
+export const CardTitle = styled.h2`
+
+  font-family: "Rubik", "Arial", "sans-serif";
+  color: #333;
+  font-weight: 600;
+  margin-left: 15px;
+  font-size: 25px;
+`;
+
+export const CardHost = styled.h2`
+
+  font-family: "Rubik", "Arial", "sans-serif";
+  color: #7F7F7F;
+  font-weight: 400;
+  margin-left: 15px;
+  font-size: 17px;
+  padding-bottom: 15px;
+  margin-top: -5px;
+`;
+
+export const Label = styled.h3`
+   font-family: "Rubik", "Arial", "sans-serif";
+   font-weight: 300;
+   color: #666;
+   @media(min-width: 1440px) {
+				font-size: 30px;
+				
+		}
+`;
+
+export const Price = styled.h3`
+   font-family: "Rubik", "Arial", "sans-serif";
+   color: #333;
+   font-weight: 600;
+   font-size: 30px;
+   margin-top: -5px;
+
+`;
+
+export const Duration = styled.h3`
+   font-family: "Rubik", "Arial", "sans-serif";
+   color: #333;
+   font-weight: 600;
+   font-weight: 600;
+   font-size: 16px;
+   margin-top: -5px;
+   @media(max-width: 768px) {
+			font-size: 13px;
+		}
+	@media(min-width: 1440px) {
+				font-size: 16px;
+				
+		}
+`;
+
+export const ListingLabel = styled.h4`
+   font-family: "Rubik", "Arial", "sans-serif";
+   font-weight: 400;
+   color: #333;
+   margin-top: 25px;
+   margin-left: 15px;
+   font-size: 20px;
+   @media(min-width: 1440px) {
+				font-size: 25px;
+				
+		}
+`;
+
+export const Features = styled.li`
+   font-family: "Rubik", "Arial", "sans-serif";
+   font-weight: 400;
+   color: #666666;
+   margin-top: 10px;
+   margin-left: 15px;
+   font-size: 18px;
+   @media(min-width: 1440px) {
+				font-size: 22px;
+				
+		}
+`;
+
+export const Description = styled.p`
+   font-family: "Rubik", "Arial", "sans-serif";
+   font-weight: 400;
+   color: #666666;
+   margin-left: 15px;
+   font-size: 15px;
+   line-height: 2;
+   @media(min-width: 1440px) {
+				font-size: 22px;
+				
+		}
+`;
+
+export const Message = styled.button`
+
+	font-family: Rubik, Arial, sans-serif;
+	color: #ffffff;
+	margin-top: 10px;
+	padding: 10px 60px;
+	font-size: 20px;
+	background: linear-gradient(to right, #FE947B, #FC5B45);
+	border: none;
+`;
+
+
+
+//create listing page
+export const FormStyle = styled.input`
+	font-family: Rubik, Arial, sans-serif;
+	color: #333;
+	font-weight: 300;
+	font-size: 20px;
+	margin-top: 50px;
+	border: none;
+	box-shadow: none;
+	border-bottom: 1px solid #CCCCCC;
+	::placeholder{
+		font-family: Rubik, Arial, sans-serif;
+		color: #C1C1C1;
+		font-size: 15px;
+	}
+`;
+
+export const WhiteButton = styled.button`
+
+	color: #FC5B45;
+	background-color: #ffffff;
+	font-family: Rubik, Arial, sans-serif;
+	font-weight: 400;
+	margin-top: 200px;
+	padding: 10px 35px;
+	border-color: #FC5B45;	
+`;
+
+export const PriceInput = styled.input`
+
+	margin-top: 25px;
+	border: none;
+	box-shadow: none;
+	border-bottom: 1px solid #CCCCCC;
+
+	::placeholder{
+		font-family: Rubik, Arial, sans-serif;
+		color: #C1C1C1;
+		font-size: 15px;
+	}
+`;
+
+export const DescriptionInput = styled.textarea`
+	border-radius: 5px;
+	border-color: #333;
+	::placeholder{
+		font-family: Rubik, Arial, sans-serif;
+		color: #C1C1C1;
+		font-size: 15px;
+	}
+
+`;
+
+export const CreateLabel = styled.h3`
+   font-family: "Rubik", "Arial", "sans-serif";
+   font-weight: 300;
+   color: #333;
+   margin-top: 25px;
+   @media(min-width: 1440px) {
+				font-size: 30px;
+				
+		}
+`;
+

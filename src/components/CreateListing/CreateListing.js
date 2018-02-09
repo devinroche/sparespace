@@ -2,14 +2,12 @@ import React, { Component } from "react"
 import swal from "sweetalert2"
 import Cookies from "../../Cookies"
 import PlacesAutocomplete from 'react-places-autocomplete'
-import axios from 'axios';
 import { Redirect } from "react-router-dom"
 import moment from "moment"
 import { Formik } from "formik"
 import { Checkbox, CheckboxGroup } from 'react-checkbox-group';
 import { DateRange } from 'react-date-range';
-
-
+import {CreateLabel, FormStyle, WhiteButton, PriceInput, DescriptionInput} from "../Styles";
 
 let title = "";
 let description = "";
@@ -17,13 +15,10 @@ let price = "";
 let location = "";
 let features = [];
 
-
-
 class CreateListing extends Component {
 
     constructor(props) {
-        super(props)
-
+        super(props);
         this.state = {
             showAddPhotos: false,
             valid_addr: true,
@@ -37,7 +32,6 @@ class CreateListing extends Component {
 
         this.handleAddressChange = this.handleAddressChange.bind(this)
         this.checkLogin = this.checkLogin.bind(this)
-        // this.handleChange = this.handleChange.bind(this);
         this.handleCheckbox = this.handleCheckbox.bind(this);
     }
 
@@ -95,81 +89,18 @@ class CreateListing extends Component {
 
     render() {
 
-        const onError = (status, clearSuggestions) => {
-            console.log('Google Maps API returned error with status: ', status)
-            this.setState({ valid_addr: false });
-        }
-
-        this.checkLogin()
-        const titleStyle = {
-            fontFamily: "Rubik",
-            color: "#333",
-            fontWeight: "300",
-            fontSize: 20,
-        };
-        const calendarStyle = {
-            width: '100%'
-        }
-        const checkboxStyle = {
-            marginLeft: 25,
-            fontFamily: "Rubik",
-            color: "#333",
-            fontWeight: "300",
-            marginTop: 15
-        };
-        const labels = {
-            fontFamily: "Rubik",
-            color: "#333",
-            fontWeight: "300",
-            fontSize: 20,
-            marginTop: 40
-        };
-
-        const featuresStyles = {
-            fontFamily: "Rubik",
-            color: "#333",
-            fontWeight: "300",
-            fontSize: 20,
-            marginTop: 50
-        };
-
         const inputProps = {
             value: this.state.address,
             onChange: this.handleAddressChange,
             placeholder: "1317 N Astor St Spokane, WA",
         };
-        const descriptionStyle = {
-            borderRadius: 5,
-            borderColor: "#CCCCCC"
+
+        const onError = (status, clearSuggestions) => {
+            console.log('Google Maps API returned error with status: ', status)
+            this.setState({ valid_addr: false });
         };
 
-        const formStyle = {
-            marginTop: 25,
-            border: "none",
-            boxShadow: "none",
-            borderBottom: "1px solid #CCCCCC"
-        };
-
-        const autoCompleteStyle = {
-            input: {
-                border: "none",
-                boxShadow: "none",
-                borderBottom: "1px solid #CCCCCC"
-            },
-        };
-
-
-        const submitStyle = {
-            color: "#FC5B45",
-            backgroundColor: "#FFF",
-            borderRadius: 4,
-            fontFamily: 'Rubik',
-            fontWeight: "400",
-            width: 150,
-            marginTop: 200,
-            padding: 10,
-            borderColor: "#FC5B45"
-        };
+        this.checkLogin();
 
         if (this.state.redirectPhotos) {
             let dates = this.state.dates
@@ -185,8 +116,6 @@ class CreateListing extends Component {
             }} />
         }
         return (
-
-
             <div className="container text-center">
                 <div className="row">
                     <div className="col-sm-8 col-sm-offset-2">
@@ -227,10 +156,9 @@ class CreateListing extends Component {
                                 <form onSubmit={handleSubmit}>
                                     <div className="row">
                                         <div className="col-sm-10 col-sm-offset-1">
-                                            <label className="pull-left" style={titleStyle}>Title</label>
-                                            <input
+                                            <CreateLabel className="pull-left">Title</CreateLabel>
+                                            <FormStyle
                                                 id="title"
-                                                style={formStyle}
                                                 className="form-control"
                                                 type="text"
                                                 name="title"
@@ -241,15 +169,13 @@ class CreateListing extends Component {
                                             {touched.title && errors.title && <div>{errors.title}</div>}
                                         </div>
                                     </div>
-
                                     <div className="row">
                                         <div className="col-sm-10 col-sm-offset-1">
-                                            <label className="pull-left" style={labels}>Description</label>
-                                            <textarea
+                                            <CreateLabel className="pull-left">Description</CreateLabel>
+                                            <DescriptionInput
                                                 id="description"
                                                 className="form-control"
                                                 rows="6"
-                                                style={descriptionStyle}
                                                 name="description"
                                                 placeholder="Tell us why your basement is the best and why tons of people are gonna wanna start getting in contact with you about your space."
                                                 onChange={handleChange}
@@ -261,61 +187,52 @@ class CreateListing extends Component {
 
 
                                     <div className="row">
-                                        <div className="col-sm-4">
-                                            <label className="pull-left" style={labels}>Price</label>
-                                            <input
+                                        <div className="col-sm-4 col-sm-offset-1">
+                                            <CreateLabel className="pull-left">Price</CreateLabel>
+                                            <PriceInput
                                                 id="price"
                                                 className="form-control"
                                                 type="number"
                                                 name="price"
                                                 placeholder="Enter a price"
-                                                style={formStyle}
                                                 onChange={handleChange}
                                                 value={values.price}
                                             />
                                             {touched.price && errors.price && <div>{errors.price}</div>}
                                         </div>
-
-                                        <div className="col-sm-7 col-sm-offset-1">
-                                            <div className="row"><label className="pull-left" style={featuresStyles}>Features</label></div>
-                                            <div className="row">
-                                                <CheckboxGroup name="features" onChange={this.handleCheckbox} style={{ fontFamily: "Rubik" }}>
+                                        <div className="col-sm-7">
+                                            <div className="row"><CreateLabel className="pull-left">Features</CreateLabel></div>
+                                                <CheckboxGroup name="features" onChange={this.handleCheckbox} style={{ fontFamily: "Rubik"}}>
                                                     <Checkbox value="Heated" style={checkboxStyle} /> Heated
                                                     <Checkbox value="Covered" style={checkboxStyle} /> Covered
                                                     <Checkbox value="Access" style={checkboxStyle} /> Access
                                                     <Checkbox value="Power Outlet" style={checkboxStyle} /> Power Outlet
                                                 </CheckboxGroup>
+                                        </div>
+                                    </div>
+                                    <div className="row">
+                                        <div className="col-sm-10 col-sm-offset-1" style={calendarStyle}>
+                                            <CreateLabel className="pull-left">Dates of Availability</CreateLabel>
+                                            <div className="row">
+                                                <div className="col-sm-11">
+                                                    <DateRange onInit={this.handleSelect.bind(this)} onChange={this.handleSelect.bind(this)} />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-
                                     <div className="row">
-                                        <div className="col-sm-12" styles={calendarStyle}>
-                                        <div className="row"><label className="pull-left" style={featuresStyles}>Dates of Availability</label></div>
-                                        <div className="row">
-                                            <DateRange onInit={this.handleSelect.bind(this)} onChange={this.handleSelect.bind(this)} />
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="row">
-                                        <div className="col-sm-7">
-                                            <label className="pull-left" style={labels}>Address</label>
+                                        <div className="col-sm-10 col-sm-offset-1">
+                                            <CreateLabel className="pull-left">Address</CreateLabel>
                                             <PlacesAutocomplete styles={autoCompleteStyle} inputProps={inputProps} onError={onError} />
                                             {
                                                 this.state.valid_addr === true ? null :
                                                     <div className="alert alert-danger">Please input a valid address!</div>
                                             }
                                         </div>
-
                                     </div>
-                                    
-
-
-
                                     <div className="row">
-                                        <div className="col-sm-7">
-                                            <button className="btn text-center" type="submit" style={submitStyle}>Continue</button>
+                                        <div className="col-sm-10 col-sm-offset-1">
+                                            <WhiteButton className="btn text-center" type="submit">Continue</WhiteButton>
                                         </div>
                                     </div>
                                 </form>
@@ -329,3 +246,28 @@ class CreateListing extends Component {
 }
 
 export default CreateListing;
+
+
+const calendarStyle = {
+    width: '100%'
+};
+
+const checkboxStyle = {
+    marginLeft: 25,
+    fontFamily: "Rubik",
+    color: "#333",
+    fontWeight: "300",
+    marginTop: 15
+};
+
+
+const autoCompleteStyle = {
+    input: {
+        border: "none",
+        boxShadow: "none",
+        borderBottom: "1px solid #CCCCCC"
+    },
+};
+
+
+

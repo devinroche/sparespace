@@ -26,17 +26,6 @@ class DeleteListing extends Component {
 
 
     render() {
-        const messageStyle = {
-            fontFamily: "Rubik",
-            color: "#FFF",
-            fontWeight: "400",
-            width: '30%',
-            height: 30,
-            fontSize: 14,
-            background: "linear-gradient(to right, #FE947B, #FC5B45)",
-            border: "none"
-        };
-
         let alert = (
             swal({
                 title: 'Are you sure?',
