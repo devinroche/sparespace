@@ -90,7 +90,7 @@ class ImageUpload extends Component {
         //var index = array.indexOf(e.target.value)
         array.splice(indexDelete, 1);
         this.setState({filePaths: array });
-        console.log(this.state.filePaths)
+        
     }
     // upload posting details to db
     // once submit button is pressed
