@@ -59,7 +59,7 @@ class ImageUpload extends Component {
             return;
         }
 
-        const uploaders = this.state.filePaths.map((file) => {
+        const uploaders = this.state.filePaths.map((file,index) => {
             let upload = request.post(CLOUDINARY_UPLOAD_URL)
                 .field('upload_preset', CLOUDINARY_UPLOAD_PRESET)
                 .field('file', file); //changed
@@ -69,7 +69,9 @@ class ImageUpload extends Component {
                 newArray.push(response.body.secure_url);
                 this.setState({ fileUrls: newArray })
                 this.setState({ imageLock: true })
-
+                if (this.state.filePaths.length - 1 === index) {
+                    this.pushUpload();
+                }
             })
         });
 
@@ -249,11 +251,7 @@ class ImageUpload extends Component {
                 <div className="row">
                     <div className="col-sm-6 col-sm-offset-3" style={{ marginTop: 100 }}>
                         <button type="button" className="btn" style={lockImagesStyle} onClick={this.handleBack.bind(this)} >Back</button>
-                        <button type="button" className="btn" style={lockImagesStyle} onClick={this.handleImageUpload.bind(this)} >Lock in Images</button>
-                        {
-                            this.state.imageLock === false ? null :
-                                <button type="button" style={submitStyle} className="btn" onClick={this.pushUpload.bind(this)} >Finish</button>
-                        }
+                        <button type="button" className="btn" style={lockImagesStyle} onClick={this.handleImageUpload.bind(this)} >Submit</button>
                     </div>
                 </div>
 
