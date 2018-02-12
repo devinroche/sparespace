@@ -378,3 +378,36 @@ export const CreateLabel = styled.h3`
 		}
 `;
 
+//image upload
+export const ImageUploadText = styled.p`
+
+	font-family: "Rubik", "Arial", "sans-serif";
+	font-weight: 400;
+	margin-top: 100px;
+	font-size: 18px;
+	color: #5E85B2;
+
+`;
+
+export const BlackButton = styled.button`
+
+	font-family: "Rubik", "Arial", "sans-serif";
+	padding: 12px 35px;
+	border-radius: 5px;
+	background-color: #ffffff;
+	color: #333;
+	border-color: #333;
+	border-width: 2px;
+
+`;
+
+export const OrangeButton = styled.button`
+	padding: 12px 35px;
+	border-radius: 5px;
+	background-color: #ffffff;
+	border-color: #FC5B45;
+	border-width: 2px;
+	font-family: "Rubik", "Arial", "sans-serif";
+	color: #FC5B45;
+				
+`;
