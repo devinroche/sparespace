@@ -100,6 +100,9 @@ export const NavItem = styled.a`
 			color: #333333;
 			text-decoration: #333;
 		}
+	@media(max-width: 320px) {
+			font-size: 15px;
+		}
 `;
 
 
@@ -411,3 +414,36 @@ export const OrangeButton = styled.button`
 	color: #FC5B45;
 				
 `;
+
+//listings page
+export const ListingPrice= styled.h4`
+	font-family: "Rubik", "Arial", "sans-serif";
+	color: #FC5B45;
+	font-weight: 600;
+	`;
+
+//user chats page
+export const MessageCard = styled.div`
+	margin-top: 25px;
+	padding: 15px;
+	text-align: left;
+	border: 1px solid rgba(0, 0, 0, .2);
+	border-radius: 3px;
+	box-shadow: 0 0 3px rgba(0,0,0,0.15);
+	`;
+
+export const MessageName = styled.p`
+	font-weight: 600;
+	font-size: 18px;
+	color: #333;
+	
+	`;
+
+export const WelcomeText = styled.h1`
+	font-weight: 600;
+	font-size: 35px;
+	color: #333;
+	text-align: center;
+	margin-bottom: 50px;
+	margin-top: 50px;
+	`;

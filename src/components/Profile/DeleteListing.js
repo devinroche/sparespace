@@ -57,7 +57,7 @@ class DeleteListing extends Component {
         )
         return (
             <div>
-                
+                {alert}
             </div>
         );
     }
