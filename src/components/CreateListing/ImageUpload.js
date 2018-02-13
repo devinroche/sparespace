@@ -7,6 +7,7 @@ import Cookies from '../../Cookies';
 import swal from 'sweetalert2';
 import { postSpace } from '../../sock'
 import {Label, ImageUploadText, BlackButton, OrangeButton} from "../Styles";
+import { relative } from 'path';
 
 const CLOUDINARY_UPLOAD_PRESET = 'apqnswzs';
 const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/dopxmkhbr/image/upload';
@@ -27,20 +28,16 @@ class ImageUpload extends Component {
 
     // grab address once component loads convert into cordinates
     componentDidMount() {
-        console.log('ENTERING IMAGEUPLOAD')
-        console.log(this.props.location.query)
+        //error handling for user attempting to direct to /add_photos page 
+        if (this.props.location.query === undefined) {
+            window.location.href = "/create_listing"
+            return <Redirect to="/create_listing" />
+        }
+        // convert cordinates to address
         const _this = this;
         axios.post('http://localhost:3001/cordinates', { address: this.props.location.query.location.location })
             .then(function (response) {
-                //CHECK TO MAKE SURE VALID ADDRESS W/CORDS
-                if (response.data == "bad") {
-                    swal(
-                        'Invalid Address',
-                        'Please choose a valid address',
-                        'danger'
-                    )
-                    return;
-                }
+                //address checked in previous component
                 _this.setState({
                     latlng: response.data
                 });
@@ -63,7 +60,7 @@ class ImageUpload extends Component {
             return;
         }
 
-        const uploaders = this.state.filePaths.map((file) => {
+        const uploaders = this.state.filePaths.map((file,index) => {
             let upload = request.post(CLOUDINARY_UPLOAD_URL)
                 .field('upload_preset', CLOUDINARY_UPLOAD_PRESET)
                 .field('file', file); //changed
@@ -73,11 +70,28 @@ class ImageUpload extends Component {
                 newArray.push(response.body.secure_url);
                 this.setState({ fileUrls: newArray })
                 this.setState({ imageLock: true })
-
+                if (this.state.filePaths.length - 1 === index) {
+                    this.pushUpload();
+                }
             })
         });
 
 
+    }
+    //Function to handle back button for the user
+    //should send user back to create listing form with original inputs in place
+    handleBack() {
+        window.location.href = "/create_listing"
+        return <Redirect to="/create_listing" />
+    }
+    //Function to handle deleting of images when in upload process
+    handleImageDelete(indexDelete) {
+        //edit state array 
+        var array = this.state.filePaths;
+        //var index = array.indexOf(e.target.value)
+        array.splice(indexDelete, 1);
+        this.setState({filePaths: array });
+        
     }
     // upload posting details to db
     // once submit button is pressed
@@ -129,11 +143,20 @@ class ImageUpload extends Component {
     }
     // change state once images are dropped
     onImageDrop(files) {
-        this.setState({
+        if (this.state.fileDropped) { // if images were already dropped add new ones 
+            var old = this.state.filePaths.slice()
+            var old_new = old.concat(files)
+            this.setState({ filePaths: old_new })
+        } else { // else add add new set
+            this.setState({
             filePaths: files,
             fileDropped: true
-
-        });
+            });
+        }
+        
+        
+        
+        
     }
 
     render() {
@@ -146,8 +169,8 @@ class ImageUpload extends Component {
                     </div>
                 </div>
 
-                <div className="row">
-                    <div className="col-sm-6 col-sm-offset-2">
+                <div className="container">
+                    <div className="">
                         <Dropzone
                             multiple={true} // only allow one image
                             accept="image/*" // must be image
@@ -159,10 +182,16 @@ class ImageUpload extends Component {
                     </div>
                     {
                         this.state.fileDropped === false ? null :
-                            <div>
+                            <div className = "row">
                                 {
                                     this.state.filePaths.map((item, index) => (
-                                        <img width="400" src={item.preview} alt="responsive image" />
+                                        <div className="col-xs-3" style = {{position:relative}}>
+                                            <img className = "img-responsive" src={item.preview} style={{}} />
+                                            <button type="button" className="close text-center" aria-label="Close" onClick = {this.handleImageDelete.bind(this, index)}>
+                                                <span className = 'text-danger' aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        
                                     ))
                                 }
                             </div>
@@ -179,6 +208,11 @@ class ImageUpload extends Component {
                 </div>
             </div>
         )
+
+
+
+
+
     }
 }
 

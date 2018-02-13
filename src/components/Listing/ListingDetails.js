@@ -7,6 +7,7 @@ import SendMessage from './SendMessage'
 import Carousel from 'nuka-carousel'
 import moment from 'moment';
 import {CardStyle, CardHost, CardTitle, Description, Price, Features, ListingLabel, Label, Duration} from "../Styles";
+import { RingLoader, FadeLoader, ClimbingBoxLoader } from 'react-spinners'
 
 class ListingDetails extends React.Component {
     constructor() {
@@ -16,8 +17,9 @@ class ListingDetails extends React.Component {
             listingImages: [],
             listing: [],
             l: '',
-            features: []
-        };
+            features: [],
+            loading:true // loading icon state 
+        }
 
         this.canExpress = this.canExpress.bind(this)
         this.canClick = this.canClick.bind(this)
@@ -30,8 +32,9 @@ class ListingDetails extends React.Component {
                 this.setState({
                     listingImages: res.data.images,
                     listing: res.data,
-                    features: res.data.features
-                });
+                    features: res.data.features,
+                    loading:false // stop loading icon 
+                })
                 this.canExpress(res.data._host._id, res.data.interested)
             }).catch(err => console.log("some err occured", err))
     }
@@ -63,6 +66,17 @@ class ListingDetails extends React.Component {
         const startDate = moment(dates[0]).format("MM/DD/YYYY");
         const endDate = moment(dates[1]).format("MM/DD/YYYY");
 
+        const { loading } = this.state; // variable for loading icon 
+        if(loading) { // if component is loading add loader icon
+            return (
+                <div className = 'mx-auto' style={{width:'200px'}} >
+                        <ClimbingBoxLoader
+                        color={'#123abc'} 
+                        loading={this.state.loading} 
+                        />
+                    </div>
+            ); // render null when app is not ready
+        }
         return (
 
             <div className="container">
@@ -96,6 +110,7 @@ class ListingDetails extends React.Component {
                             <Description>{listing.description}</Description>
                         </div>
                     </div>
+                    
 
                     <div className="col-sm-4 col-lg-3">
                         <SubMap l={listing} />

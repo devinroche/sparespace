@@ -11,7 +11,7 @@ class SubMap extends React.Component {
             width: '100%',
             height: '40vh'
         };
-        console.log(this.props)
+        
         return (
             <Map
                 style="mapbox://styles/mapbox/light-v9"
