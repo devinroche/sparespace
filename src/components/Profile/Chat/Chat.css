@@ -15,6 +15,11 @@
     overflow-y: scroll;
 }
 
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
+
 .chatroom .chats .chat {
     background: rgba(255, 255, 255, 0.8);
     position: relative;

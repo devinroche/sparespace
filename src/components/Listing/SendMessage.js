@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Cookies from '../../Cookies';
 import swal from 'sweetalert2';
-import {Redirect } from 'react-router-dom'
 import openSocket from 'socket.io-client';
+import {Message} from "../Styles";
 
 const socket = openSocket('http://localhost:3001');
 
@@ -27,22 +26,8 @@ class SendMessage extends Component {
     }
 
     render() {
-
-
-        const messageStyle = {
-            fontFamily: "Rubik",
-            color: "#FFF",
-            fontWeight: "400",
-            width: 250,
-            height: 50,
-            fontSize: 20,
-            background: "linear-gradient(to right, #FE947B, #FC5B45)",
-            border: "none"
-        };
-
         return (
-            <div>
-                <button className="btn btn-success" style={messageStyle} onClick={() => {
+                <Message className="btn btn-success" onClick={() => {
                     swal({
                         title: 'Send a Message!',
                         input: 'text',
@@ -70,9 +55,9 @@ class SendMessage extends Component {
                             )
                           }
                     })
-                }}>Message</button>
+                }}>Message
+                </Message>
 
-            </div>
 
         );
     }

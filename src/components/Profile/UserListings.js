@@ -6,6 +6,7 @@ import { Image } from "cloudinary-react"
 import { Link, Redirect } from "react-router-dom"
 import EditListing from "./EditListing"
 import DeleteListing from './DeleteListing'
+import {MessageName, MessageCard} from "../Styles";
 
 class UserListings extends React.Component {
     constructor() {
@@ -53,49 +54,55 @@ class UserListings extends React.Component {
 
 
     render() {
-        const styles = {
-            msgCard: {
-                marginTop: 25,
-                marginBottom: 25,
-                paddingBottom: 15,
-                paddingTop: 15,
-                textAlign: 'left',
-                border: '1px solid rgba(0, 0, 0, .2)',
-                boxShadow: "0 0 3px rgba(0,0,0,0.15)",
-                borderRadius: 3
-            },
-            nameStyle: {
-                marginBottom: 0,
-                fontWeight: 'bold',
-                color: '#2f3542',
-                fontSize: 18,
-            },
-            imageSize: {
-                maxWidth: '100%',
-                height: 90
-            }
-        }
 
-        let activeListings = this.props.listings ? this.props.listings.map((listing) => {
+        const editStyle = {
+
+                color: "linear-gradient(to right, #FE947B, #FC5B45)",
+                width: 100,
+                height: 25,
+                background: "white",
+                border: "linear-gradient(to right, #FE947B, #FC5B45)",
+                borderRadius: 10
+        };
+
+        const deleteStyle =  {
+
+                color: "#FFF",
+                width: 100,
+                height: 25,
+                background: "linear-gradient(to right, #FE947B, #FC5B45)",
+                border: "none",
+                borderRadius: 10
+        };
+
+        let activeListings = this.props.listings && this.props.listings.length !== 0 ? this.props.listings.map((listing) => {
             return (
-                <div key={listing._id} style={styles.msgCard}>
-                    <Link to={`/listing/${listing._id}`}>
+                <MessageCard key={listing._id} className="row">
+                <Link to={`/listing/${listing._id}`}>
                         <div className='row'>
                             <div className="col-sm-4"><Image cloudName="dopxmkhbr" publicId={listing.images[0]} style={styles.imageSize} /></div>
-                            <div className="col-sm-8"><p style={styles.nameStyle}>{listing.title}</p></div>
+                            <div className="col-sm-8"><MessageName>{listing.title}</MessageName></div>
                         </div>
                     </Link>
-                    <button onClick={(e) => { this.toggleEdit(listing._id, e) }} >Edit</button>
-                    <button onClick={(e) => { this.toggleDelete(listing._id, e) }} >Delete</button>
-                </div>
+                    <div className="col-sm-6 col-sm-offset-4">
+                        <button onClick={(e) => { this.toggleEdit(listing._id, e) }} style={editStyle}>Edit</button>
+                        &nbsp; &nbsp; &nbsp;
+                        <button style={deleteStyle} onClick={(e) => { this.toggleDelete(listing._id, e) }} >Delete</button>
+                    </div>
+                </MessageCard>
             )
-        }) : ""
+        }) :
+            <MessageCard>
+                <MessageName>
+                    No Listings :(
+                </MessageName>
+            </MessageCard>
 
-        activeListings = activeListings.length != 0 ? activeListings : "no listings :(" 
+        activeListings = activeListings.length !== 0 ? activeListings : "no listings :("
         return (
             <div className='row'>
                 <div className='col-sm-6 col-sm-offset-3'>
-                    <h3>Your Listings</h3>
+                    <MessageName style={{fontSize: "24", fontWeight: "300", marginTop: "15"}}>Your Listings</MessageName>
                     {activeListings}
                 </div>
                 <div className='col-sm-3'>
@@ -108,3 +115,10 @@ class UserListings extends React.Component {
 }
 
 export default UserListings
+
+const styles = {
+
+    imageSize: {
+        maxWidth: '100%',
+    }
+};

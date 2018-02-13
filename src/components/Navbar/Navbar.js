@@ -25,7 +25,7 @@ export default class AppNavbar extends Component {
         if(Cookies.isLoggedIn()) {
 
             return (
-                <li className= "col-sm-2">
+                <li className= "col-lg-2">
                     <Link to={"/users/" + Cookies.getId()} activeClassName="none"><NavItem className="" href="#">Account</NavItem></Link>
                 </li>
             );
@@ -33,7 +33,7 @@ export default class AppNavbar extends Component {
 
         else{
             return (
-                <li className= "col-sm-2">
+                <li className= "col-lg-2">
                     <Link to="/login" activeClassName="none"><NavItem className="" href="#">Log In</NavItem></Link>
                 </li>
             )
@@ -44,7 +44,7 @@ export default class AppNavbar extends Component {
         if(!Cookies.isLoggedIn()) {
 
             return (
-                <li className= "col-sm-2">
+                <li className= "col-lg-2">
 					<Link to="/sign_up"><NavItem href="#">Sign Up</NavItem></Link>
                 </li>
             )
@@ -55,7 +55,7 @@ export default class AppNavbar extends Component {
     renderSignOut(){
     	if(Cookies.isLoggedIn()){
     		return (
-                <li className= "col-sm-2">
+                <li className= "col-lg-2">
                     <Link onClick={this.logout} to="/login" activeClassName="none"><NavItem href="#">Logout</NavItem></Link>
                 </li>
 			)
@@ -69,7 +69,7 @@ export default class AppNavbar extends Component {
     render() {
 
         return (
-        	<div className="container">
+        	<div className="container-fluid">
 				<div className="row">
 					<div className="col-sm-5">
 						<Logo className="navbar-brand" href="/home">sparespace</Logo>
