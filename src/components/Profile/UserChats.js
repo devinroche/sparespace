@@ -40,7 +40,12 @@ class UserChats extends React.Component {
                     <MessageName>{otherName}</MessageName>
                 </MessageCard>
             </Link>)
-        }) : "No Messages :("
+            }) :
+            <MessageCard>
+                <MessageName>
+                    No Messages :(
+                </MessageName>
+            </MessageCard>
         return (
             <div className='row'>
                 <div className='col-sm-6 col-sm-offset-3'>

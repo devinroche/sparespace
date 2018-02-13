@@ -55,20 +55,48 @@ class UserListings extends React.Component {
 
     render() {
 
-        let activeListings = this.props.listings ? this.props.listings.map((listing) => {
+        const editStyle = {
+
+                color: "linear-gradient(to right, #FE947B, #FC5B45)",
+                width: 100,
+                height: 25,
+                background: "white",
+                border: "linear-gradient(to right, #FE947B, #FC5B45)",
+                borderRadius: 10
+        };
+
+        const deleteStyle =  {
+
+                color: "#FFF",
+                width: 100,
+                height: 25,
+                background: "linear-gradient(to right, #FE947B, #FC5B45)",
+                border: "none",
+                borderRadius: 10
+        };
+
+        let activeListings = this.props.listings && this.props.listings.length !== 0 ? this.props.listings.map((listing) => {
             return (
-                <MessageCard key={listing._id}>
-                    <Link to={`/listing/${listing._id}`}>
+                <MessageCard key={listing._id} className="row">
+                <Link to={`/listing/${listing._id}`}>
                         <div className='row'>
                             <div className="col-sm-4"><Image cloudName="dopxmkhbr" publicId={listing.images[0]} style={styles.imageSize} /></div>
                             <div className="col-sm-8"><MessageName>{listing.title}</MessageName></div>
                         </div>
                     </Link>
-                    <button onClick={(e) => { this.toggleEdit(listing._id, e) }} >Edit</button>
-                    <button onClick={(e) => { this.toggleDelete(listing._id, e) }} >Delete</button>
+                    <div className="col-sm-6 col-sm-offset-4">
+                        <button onClick={(e) => { this.toggleEdit(listing._id, e) }} style={editStyle}>Edit</button>
+                        &nbsp; &nbsp; &nbsp;
+                        <button style={deleteStyle} onClick={(e) => { this.toggleDelete(listing._id, e) }} >Delete</button>
+                    </div>
                 </MessageCard>
             )
-        }) : "";
+        }) :
+            <MessageCard>
+                <MessageName>
+                    No Listings :(
+                </MessageName>
+            </MessageCard>
 
         activeListings = activeListings.length !== 0 ? activeListings : "no listings :("
         return (
