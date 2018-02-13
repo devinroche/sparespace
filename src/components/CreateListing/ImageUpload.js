@@ -153,10 +153,6 @@ class ImageUpload extends Component {
             fileDropped: true
             });
         }
-        
-        
-        
-        
     }
 
     render() {
@@ -170,15 +166,17 @@ class ImageUpload extends Component {
                 </div>
 
                 <div className="container">
-                    <div className="">
-                        <Dropzone
-                            multiple={true} // only allow one image
-                            accept="image/*" // must be image
-                            onDrop={this.onImageDrop.bind(this)}
-                            style={dropzoneStyle}
-                        >
-                            <ImageUploadText className="text-center">Drag and drop here</ImageUploadText>
+                    <div className="row">
+                        <div className="col-sm-6 col-sm-offset-2">
+                            <Dropzone
+                                multiple={true} // only allow one image
+                                accept="image/*" // must be image
+                                onDrop={this.onImageDrop.bind(this)}
+                                style={dropzoneStyle}
+                            >
+                                <ImageUploadText className="text-center">Drag and drop here</ImageUploadText>
                         </Dropzone>
+                        </div>
                     </div>
                     {
                         this.state.fileDropped === false ? null :
@@ -198,21 +196,12 @@ class ImageUpload extends Component {
                     }
                 </div>
                 <div className="row">
-                    <div className="col-sm-6 col-sm-offset-3" style={{ marginTop: 100 }}>
-                        <BlackButton onClick={this.handleImageUpload.bind(this)} >Lock in Images</BlackButton>
-                        {
-                            this.state.imageLock === false ? null :
-                                <OrangeButton onClick={this.pushUpload.bind(this)} >Finish</OrangeButton>
-                        }
+                    <div className="col-sm-6 col-sm-offset-5" style={{ marginTop: 100 }}>
+                        <OrangeButton onClick={this.handleImageUpload.bind(this)}>Finish</OrangeButton>
                     </div>
                 </div>
             </div>
         )
-
-
-
-
-
     }
 }
 

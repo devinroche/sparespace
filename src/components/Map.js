@@ -1,5 +1,4 @@
 import React from 'react'
-import mapboxgl from 'mapbox-gl'
 import axios from 'axios'
 import { Link } from "react-router-dom"
 import ReactMapboxGl, { Layer, Feature, Popup } from "react-mapbox-gl";
@@ -37,11 +36,8 @@ class Mapo extends React.Component {
 
     render() {
         const mapStyle = {
-            position: 'absolute',
-            top: 0,
-            bottom: 0,
             width: '100%',
-            height: '90vh'
+            height: '100vh',
         };
 
         return (
@@ -81,7 +77,7 @@ class Mapo extends React.Component {
                                 [22, 500]
                             ]
                         },
-                        'circle-color': "#34495e",
+                        'circle-color': "#FC5B45",
                         "circle-opacity": 0.2
                     }}>
                     {

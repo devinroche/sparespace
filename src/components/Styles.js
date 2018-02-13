@@ -246,6 +246,7 @@ export const Price = styled.h3`
    font-weight: 600;
    font-size: 30px;
    margin-top: -5px;
+   
 
 `;
 
@@ -419,8 +420,30 @@ export const OrangeButton = styled.button`
 export const ListingPrice= styled.h4`
 	font-family: "Rubik", "Arial", "sans-serif";
 	color: #FC5B45;
-	font-weight: 600;
+	font-weight: 500;
+	font-size: 30px;
 	`;
+
+export const FilterContainer = styled.div`
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+	margin-top: 25px;
+	padding: 10px;
+`;
+
+export const SearchInput = styled.input`
+	font-family: Rubik, Arial, sans-serif;
+	color: #666;
+	font-weight: 300;
+	font-size: 20px;
+	border: none;
+	box-shadow: none;
+	border-bottom: 1px solid;
+	::placeholder{
+		font-family: Rubik, Arial, sans-serif;
+		color: #C1C1C1;
+		font-size: 15px;
+	}
+`;
 
 //user chats page
 export const MessageCard = styled.div`
