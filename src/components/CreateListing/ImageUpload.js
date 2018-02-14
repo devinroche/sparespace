@@ -21,13 +21,21 @@ class ImageUpload extends Component {
             fileDropped: false,
             imageLock: false,
             filePaths: [],
-            fileUrls: []
+            fileUrls: [],
+            
         }
 
     }
 
+    //Function to call a listener of createlistingpage
+    //calls a page change 
+    handlePageChange() {
+        this.props.onPageChange(1)
+    }
+
     // grab address once component loads convert into cordinates
     componentDidMount() {
+        /*
         //error handling for user attempting to direct to /add_photos page 
         if (this.props.location.query === undefined) {
             window.location.href = "/create_listing"
@@ -46,6 +54,7 @@ class ImageUpload extends Component {
             .catch(function (response) {
 
             });
+        */
     }
     // upload images to cloudinary once image lock button pressed
     // pass image urls into state
@@ -58,24 +67,34 @@ class ImageUpload extends Component {
                 'warning'
             )
             return;
+        } else {
+            if (this.state.fileDropped === false) { // no pictures
+                swal(
+                    'No Pictures!',
+                    'Please add a picture',
+                    'warning'
+                )
+                return;
+            } else { // pictures
+                // upload to cloudinary
+                this.state.filePaths.map((file,index) => {
+                    let upload = request.post(CLOUDINARY_UPLOAD_URL)
+                        .field('upload_preset', CLOUDINARY_UPLOAD_PRESET)
+                        .field('file', file); //changed
+                    upload.end((err, response) => {
+
+                        var newArray = this.state.fileUrls.slice();
+                        newArray.push(response.body.secure_url);
+                        this.setState({ fileUrls: newArray })
+                        this.setState({ imageLock: true })
+                        if (this.state.filePaths.length - 1 === index) {
+                            this.props.onListingCreate(newArray)
+                        }
+                    })
+                });
+            }
+            
         }
-
-        const uploaders = this.state.filePaths.map((file,index) => {
-            let upload = request.post(CLOUDINARY_UPLOAD_URL)
-                .field('upload_preset', CLOUDINARY_UPLOAD_PRESET)
-                .field('file', file); //changed
-            upload.end((err, response) => {
-
-                var newArray = this.state.fileUrls.slice();
-                newArray.push(response.body.secure_url);
-                this.setState({ fileUrls: newArray })
-                this.setState({ imageLock: true })
-                if (this.state.filePaths.length - 1 === index) {
-                    this.pushUpload();
-                }
-            })
-        });
-
 
     }
     //Function to handle back button for the user
@@ -93,65 +112,22 @@ class ImageUpload extends Component {
         this.setState({filePaths: array });
         
     }
-    // upload posting details to db
-    // once submit button is pressed
-    pushUpload() {
+    
 
-        if (this.state.fileDropped === false) {
-            swal(
-                'No Pictures!',
-                'Please add a picture',
-                'warning'
-            )
-            return;
-        }
-        if (this.state.imageLock) {
-            let prevPage = this.props.location.query
-            let storageObj = {
-                _host: Cookies.getId(),
-                title: prevPage.title.title,
-                price: Number(prevPage.price.price),
-                description: prevPage.description.description,
-                dates: [prevPage.dates.dates.start, prevPage.dates.dates.end],
-                location: prevPage.location.location,
-                lat: this.state.latlng.lat,
-                lng: this.state.latlng.lng,
-                features: this.props.location.query.features.features,
-                images: this.state.fileUrls
-            };
-
-            axios.post('http://localhost:3001/listings', storageObj)
-            swal(
-                'Good job!',
-                'You clicked the button!',
-                'success'
-                  ).then((value) => {
-                    postSpace(storageObj)
-                    window.location.href = "/listings"
-                    return <Redirect to="/listings" />
-                });
-        } else {
-            swal({
-                type: 'error',
-                title: 'Oops...',
-                text: 'Something went wrong!',
-                footer: '<a href>Why do I have this issue?</a>',
-            })
-            return;
-        }
-
-    }
+    
     // change state once images are dropped
     onImageDrop(files) {
         if (this.state.fileDropped) { // if images were already dropped add new ones 
             var old = this.state.filePaths.slice()
             var old_new = old.concat(files)
             this.setState({ filePaths: old_new })
+            this.props.onImageChange(old_new)
         } else { // else add add new set
             this.setState({
             filePaths: files,
             fileDropped: true
             });
+            this.props.onImageChange(files)
         }
     }
 
@@ -197,7 +173,9 @@ class ImageUpload extends Component {
                 </div>
                 <div className="row">
                     <div className="col-sm-6 col-sm-offset-5" style={{ marginTop: 100 }}>
+                        <OrangeButton onClick={this.handlePageChange.bind(this)}>Back</OrangeButton>
                         <OrangeButton onClick={this.handleImageUpload.bind(this)}>Finish</OrangeButton>
+                        
                     </div>
                 </div>
             </div>
