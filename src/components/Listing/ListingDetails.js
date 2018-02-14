@@ -3,6 +3,8 @@ import axios from "axios"
 import { Image} from "cloudinary-react"
 import Cookies from "../../Cookies"
 import SubMap from '../ListingMap'
+import VerifiedAlert from "../Alerts/Verified"
+import LoginAlert from "../Alerts/LoggedIn"
 import SendMessage from './SendMessage'
 import Carousel from 'nuka-carousel'
 import moment from 'moment';
@@ -45,10 +47,10 @@ class ListingDetails extends React.Component {
     }
 
     canExpress(host, interested) {
-        if (Cookies.getId() === host)
+        if (Cookies.getId() === host || interested.includes(Cookies.getId()))
             this.setState({ expressInterest: false })
 
-        if (interested.includes(Cookies.getId()))
+        if (!Cookies.isLoggedIn() || !Cookies.isVerified() ) 
             this.setState({ expressInterest: false })
     }
 
