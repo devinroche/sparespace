@@ -32,9 +32,12 @@ class CreateListing extends Component {
         this.handleAddressChange = this.handleAddressChange.bind(this)
         this.checkLogin = this.checkLogin.bind(this)
         this.handleCheckbox = this.handleCheckbox.bind(this);
-    }
+        this.handleClick= this.handleClick.bind(this);
 
+    }
+    //changes address for react places autocomplete
     handleAddressChange(e) {
+        console.log(e)
         this.setState({
             address: e,
             valid_addr: true
@@ -83,6 +86,11 @@ class CreateListing extends Component {
               })   
         }
     }
+
+    handleClick(e) {
+        console.log(e)
+    }
+
     //Calendar change start
     handleSelect(date){
         this.setState({
@@ -98,6 +106,7 @@ class CreateListing extends Component {
         const inputProps = {
             value: this.state.address,
             onChange: this.handleAddressChange,
+            onClick: this.handleClick,
             placeholder: "1317 N Astor St Spokane, WA",
         };
 
@@ -241,14 +250,12 @@ class CreateListing extends Component {
                                                 this.state.valid_addr === true ? null :
                                                     <div className="alert alert-danger">Please input a valid address!</div>
                                             }
-                                        </div>
-                                    </div>
-                                    <div className="row">
-                                        <div className="col-sm-10 col-sm-offset-1">
                                             <WhiteButton className="btn text-center" type="submit">Continue</WhiteButton>
+
                                         </div>
                                         
                                     </div>
+                            
                                 </form>
                             )}
                         />
