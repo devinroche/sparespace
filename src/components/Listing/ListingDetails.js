@@ -69,8 +69,8 @@ class ListingDetails extends React.Component {
         const { loading } = this.state; // variable for loading icon 
         if(loading) { // if component is loading add loader icon
             return (
-                <div className = 'mx-auto' style={{width:'200px'}} >
-                        <ClimbingBoxLoader
+                <div className = 'mx-auto' style={{width:'400px', margin:'0 auto'}} >
+                        <RingLoader
                         color={'#123abc'} 
                         loading={this.state.loading} 
                         />

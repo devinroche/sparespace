@@ -6,6 +6,7 @@ import axios from 'axios';
 import swal from 'sweetalert2';
 import { postSpace } from '../../sock'
 import { Redirect } from "react-router-dom"
+import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
 
 
 class CreateListingPage extends Component {
@@ -82,33 +83,45 @@ class CreateListingPage extends Component {
     }
     //When finish button in image upload is pressed 
     handleListingCreate(urls) {
-            
-            let storageObj = {
-                _host: Cookies.getId(),
-                title: this.state.title,
-                price: Number(this.state.price),
-                description: this.state.description,
-                dates: [this.state.dates.start, this.state.dates.end],
-                location: this.state.location,
-                lat:"47.6576169",// this.state.latlng.lat,
-                lng: "-117.3725457",// this.state.latlng.lng,
-                features: this.state.features,
-                images: urls
-            };
+            // geocode address and put in object
+            // only when user is sure about their address
+            geocodeByAddress(this.state.location)
+                .then(results => getLatLng(results[0]))
+                .then(latLng => {
+                    
+                    let storageObj = {
+                        _host: Cookies.getId(),
+                        title: this.state.title,
+                        price: Number(this.state.price),
+                        description: this.state.description,
+                        dates: [this.state.dates.start, this.state.dates.end],
+                        location: this.state.location,
+                        lat:latLng.lat,// this.state.latlng.lat,
+                        lng: latLng.lng,// this.state.latlng.lng,
+                        features: this.state.features,
+                        images: urls
+                    };
+                    axios.post('http://localhost:3001/listings', storageObj)
+                                    .then(response => {
+                                        //console.log(response)
+                                    })
+                                swal(
+                                    'Good job!',
+                                    'You clicked the button!',
+                                    'success'
+                                    ).then((value) => {
+                                        postSpace(storageObj)
+                                        window.location.href = "/listings"
+                                        return <Redirect to="/listings" />
+                                    });
 
-            axios.post('http://localhost:3001/listings', storageObj)
-                .then(response => {
-                    //console.log(response)
                 })
-            swal(
-                'Good job!',
-                'You clicked the button!',
-                'success'
-                  ).then((value) => {
-                    postSpace(storageObj)
-                    window.location.href = "/listings"
-                    return <Redirect to="/listings" />
-                });
+                .catch(error => console.error('Error', error))
+
+            
+            
+
+            
     }
 
     

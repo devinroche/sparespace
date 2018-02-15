@@ -32,7 +32,6 @@ class CreateListing extends Component {
         this.handleAddressChange = this.handleAddressChange.bind(this)
         this.checkLogin = this.checkLogin.bind(this)
         this.handleCheckbox = this.handleCheckbox.bind(this);
-        this.handleClick= this.handleClick.bind(this);
 
     }
     //changes address for react places autocomplete
@@ -87,9 +86,6 @@ class CreateListing extends Component {
         }
     }
 
-    handleClick(e) {
-        console.log(e)
-    }
 
     //Calendar change start
     handleSelect(date){
@@ -255,7 +251,7 @@ class CreateListing extends Component {
                                         </div>
                                         
                                     </div>
-                            
+                                            
                                 </form>
                             )}
                         />
