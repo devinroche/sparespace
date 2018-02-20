@@ -23,6 +23,7 @@
     "react-modal": "^3.1.13",
     "react-native-dotenv": "^0.1.1",
     "react-places-autocomplete": "^5.4.3",
+    "react-radio-group": "^3.0.2",
     "react-rangeslider": "^2.2.0",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",

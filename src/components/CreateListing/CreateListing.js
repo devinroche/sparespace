@@ -10,6 +10,7 @@ import { Formik } from "formik"
 import { Checkbox, CheckboxGroup } from 'react-checkbox-group';
 import { DateRange } from 'react-date-range';
 import {CreateLabel, FormStyle, WhiteButton, PriceInput, DescriptionInput} from "../Styles";
+import {RadioGroup, Radio} from 'react-radio-group'
 
 let title = "";
 let description = "";
@@ -28,12 +29,14 @@ class CreateListing extends Component {
             address: this.props.address,
             redirectPhotos: false,
             dates: this.props.dates,
-            featurez: this.props.features
+            featurez: this.props.features,
+            selectedValue: "orange"
         };
 
         this.handleAddressChange = this.handleAddressChange.bind(this)
         this.checkLogin = this.checkLogin.bind(this)
         this.handleCheckbox = this.handleCheckbox.bind(this);
+        this.handleRadioGroup = this.handleRadioGroup.bind(this);
 
     }
     //changes address for react places autocomplete
@@ -80,6 +83,13 @@ class CreateListing extends Component {
         })
 	}
 
+	handleRadioGroup(value){
+        this.setState(
+            {
+                selectedValue: value
+            });
+    }
+
     render() {
 
         const inputProps = {
@@ -125,6 +135,7 @@ class CreateListing extends Component {
                             title: this.props.title,
                             price: this.props.price,
                             description: this.props.description,
+                            size: this.props.size,
                             location: this.props.address
                         }}
                             validate={values => {
@@ -149,7 +160,7 @@ class CreateListing extends Component {
                                     description = values.description
                                     price = values.price
                                     location = this.state.address
-                                    this.props.onFormChange(values.title,values.description,values.price,this.state.address,this.state.featurez,this.state.dates)
+                                    this.props.onFormChange(values.title,values.description,values.price,this.state.address,this.state.featurez,this.state.dates, this.state.selectedValue)
                                     this.props.onPageChange(0)
                                     this.setState({
                                         redirectPhotos: true,
@@ -214,6 +225,21 @@ class CreateListing extends Component {
                                                 </CheckboxGroup>
                                         </div>
                                     </div>
+
+
+                                    <div className="row">
+                                        <CreateLabel className="pull-left">Size</CreateLabel>
+                                    </div>
+                                    <RadioGroup
+                                        name="fruit"
+                                        selectedValue={this.state.selectedValue}
+                                        onChange={this.handleRadioGroup}>
+                                        <label><Radio value="apple"/>Apple</label>
+                                        <label><Radio value="orange"/>Orange</label>
+                                        <label><Radio value="watermelon"/>Watermelon</label>
+                                    </RadioGroup>
+
+
                                     <div className="row">
                                         <div className="col-sm-10 col-sm-offset-1" style={calendarStyle}>
                                             <CreateLabel className="pull-left">Dates of Availability</CreateLabel>
