@@ -13,21 +13,19 @@ class SendMessage extends Component {
 
         this.state = {
             show: false,
-            modalIsOpen: false
+            modalIsOpen: false,
+            value: ''
         }
 
         socket.on('peer-msg', () => {
             this.getMsg()
         });
 
-        this.toggleShow = this.toggleShow.bind(this)
         this.openModal = this.openModal.bind(this);
         this.afterOpenModal = this.afterOpenModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
-    }
-
-    toggleShow() {
-        this.setState({ show: !this.state.show })
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     openModal() {
@@ -35,7 +33,6 @@ class SendMessage extends Component {
     }
 
     afterOpenModal() {
-        // references are now sync'd and can be accessed.
         this.subtitle.style.color = '#f00';
     }
 
@@ -43,8 +40,37 @@ class SendMessage extends Component {
         this.setState({ modalIsOpen: false });
     }
 
-    buttonClick() {
-        console.log('fart')
+    buttonClick(btnNum) {
+        switch(btnNum){
+            case 1:
+                this.setState({value: 'is this still available'})
+                break
+            case 2:
+                this.setState({ value: 'is the start/end date strict?' })
+                break
+            case 3:
+                this.setState({ value: 'give me more info' })
+                break
+        }
+    }
+    handleChange(event) {
+        this.setState({ value: event.target.value });
+    }
+    handleSubmit(event) {
+        event.preventDefault();
+        axios.post('http://localhost:3001/message', {
+            host: this.props.host,
+            renter: this.props.renter,
+            author: this.props.renter,
+            text: this.state.value
+        })
+        swal(
+            'Message Sent',
+            'Your message has been sent',
+            'success'
+        ).then((value) => {
+            this.closeModal() 
+        });
     }
 
     render() {
@@ -60,48 +86,7 @@ class SendMessage extends Component {
         };
         return (
             <div>
-                <Message className="btn btn-success" onClick={
-                this.openModal
-                    // swal({
-                    //     title: 'Send a Message!',
-                    //     input: 'text',
-                    //     html:`
-                    //         <input type='button' id="swal-input1" class="swal2-input" />
-                    //     `, preConfirm: () => {
-                    //         return [
-                    //             // $('#swal-input1').val(),
-                    //             // $('#swal-input2').val()
-                    //         ]
-                    //     },
-                    //     inputPlaceholder: 'Questions, Comments, or Concerns',
-                    //     showCancelButton: true,
-                    //     inputValidator: (value) => {
-                    //         return !value && 'You need to write something!'
-                    //     }
-                    // }).then((value) => {
-                    //     if (value.value) {
-                    //         swal({ type: 'success', title: 'Your message has been sent!' }).then(() => {
-                    //             axios.post('http://localhost:3001/message', {
-                    //                 host: this.props.host,
-                    //                 renter: this.props.renter,
-                    //                 author: this.props.renter,
-                    //                 text: value.value
-                    //             })
-                    //             this.props.callback()
-                    //         })
-                    //     } else {
-                    //         swal(
-                    //           'Cancelled',
-                    //           "Your message wasn't sent",
-                    //           'error'
-                    //         )
-                    //       }
-                    // })
-
-
-                }>Message
-                </Message>
-
+                <Message className="btn btn-success" onClick={this.openModal}>Message</Message>
                 <Modal
                     isOpen={this.state.modalIsOpen}
                     onAfterOpen={this.afterOpenModal}
@@ -110,19 +95,20 @@ class SendMessage extends Component {
                     style={customStyles}
 
                 >
-
-                    <button onClick={this.closeModal}>close</button>
+                    <button onClick={this.closeModal}>x</button>
                     <h2 ref={subtitle => this.subtitle = subtitle}>Send a Message!</h2>
-                    <form>
-                        <button>message 1</button>
-                        <button>message 2</button>
-                        <button>message 3</button>
-                        <button>message 4</button>
-                        <input placeholder="Questions, Comments, or Concerns" />
+                    <form onSubmit={this.handleSubmit}>
+                        <button type="button" onClick={this.buttonClick.bind(this, 1)}>is this still available?</button>
+                        <button type="button" onClick={this.buttonClick.bind(this, 2)}>is the start/end date strict?</button>
+                        <button type="button" onClick={this.buttonClick.bind(this, 3)}>give me more info</button> 
+                        <br/>
+                        <input value={this.state.value} onChange={this.handleChange} placeholder="Questions, Comments, or Concerns" />
+                        <br/>
+                        <input type="submit" value="Submit" />
                     </form>
                 </Modal>
 
-                </div>
+            </div>
         );
     }
 }
