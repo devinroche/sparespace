@@ -1,6 +1,8 @@
 import React, { Component } from "react"
 import swal from "sweetalert2"
 import Cookies from "../../Cookies"
+import VerifiedAlert from "../Alerts/Verified"
+import LoginAlert from "../Alerts/LoggedIn"
 import PlacesAutocomplete from 'react-places-autocomplete'
 import { Redirect } from "react-router-dom"
 import moment from "moment"
@@ -59,31 +61,12 @@ class CreateListing extends Component {
     }
 
     checkLogin() {
-        if (Cookies.isLoggedIn() === false) {
-            swal({
-                title: 'Not logged in',
-                text: "You must be logged in to create a listing!",
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Login',
-                cancelButtonText: 'View Listings',
-                confirmButtonClass: 'btn btn-success',
-                cancelButtonClass: 'btn btn-danger',
-                buttonsStyling: false,
-                reverseButtons: true
-              }).then((result) => {
-                if (result.value) {
-                    window.location.href = "/login"
-					return <Redirect to="/login" />
-                    
-                } else if (result.dismiss === swal.DismissReason.cancel) {
-                    window.location.href = "/listings"
-					return <Redirect to="/listings" />
-                }
-              })   
+    if (!Cookies.isLoggedIn()) {
+            return 'log'
         }
+    if(!Cookies.isVerified()){
+        return 'ver'
+    }
     }
 
 
@@ -111,7 +94,13 @@ class CreateListing extends Component {
             this.setState({ valid_addr: false });
         };
 
-        this.checkLogin();
+        if(this.checkLogin() === 'ver'){
+            return <VerifiedAlert/>
+        }
+
+        if(this.checkLogin() === 'log'){
+            return <LoginAlert />
+        }
 
         if (this.state.redirectPhotos) {
             let dates = this.state.dates
