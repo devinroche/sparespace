@@ -111,3 +111,12 @@ export class Listings extends React.Component {
 }
 
 export default Listings;
+
+const styles = {
+
+    formStyle: {
+        border: "none",
+        boxShadow: "none",
+        borderBottom: "1px solid #CCCCCC",
+    },
+}
