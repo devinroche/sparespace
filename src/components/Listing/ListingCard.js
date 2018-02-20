@@ -15,18 +15,14 @@ export class ListingCard extends React.Component {
                         listing: l
                     }
                 }}>
-                <Image cloudName="dopxmkhbr" publicId={l.images[0]} style={styles.imageSize}/>
+                <Image cloudName="dopxmkhbr" publicId={l.images[0]} style={styles.imageSizev2}/>
                     <div className="row">
-                        <div className="col-sm-2">
-                            <ListingPrice className="">${l.price}</ListingPrice>
+                        <div className="col-sm-8">
+                            <CardTitle style={{fontSize: 20}}  className="">{l.title}</CardTitle>
+                            <CardHost className="">{l._host.first}</CardHost>
                         </div>
-                        <div className="col-sm-10">
-                            <CardTitle style={{fontSize: 17}}  className="">{l.title}</CardTitle>
-                            <div className="row">
-                                <div className="col-sm-3">
-                                    <CardHost className="">{l._host.first}</CardHost>
-                                </div>
-                            </div>
+                        <div className="col-sm-4">
+                            <ListingPrice className="">${l.price}</ListingPrice>
                         </div>
                     </div>
                 </Link>
@@ -43,5 +39,10 @@ const styles = {
     imageSize: {
         maxWidth: "100%",
         maxHeight: "100%",
+    },
+
+    imageSizev2 : {
+        width: 300,
+        height: 250
     }
 };

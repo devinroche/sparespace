@@ -1,10 +1,8 @@
 import React, { Component } from "react"
-import swal from "sweetalert2"
 import Cookies from "../../Cookies"
 import VerifiedAlert from "../Alerts/Verified"
 import LoginAlert from "../Alerts/LoggedIn"
 import PlacesAutocomplete from 'react-places-autocomplete'
-import { Redirect } from "react-router-dom"
 import moment from "moment"
 import { Formik } from "formik"
 import { Checkbox, CheckboxGroup } from 'react-checkbox-group';
@@ -114,7 +112,6 @@ class CreateListing extends Component {
         }
 
         if (this.state.redirectPhotos) {
-            let dates = this.state.dates
             /*
             return <Redirect to={{
                 pathname: "/add_photos", query: {
