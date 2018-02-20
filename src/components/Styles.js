@@ -225,8 +225,8 @@ export const CardHost = styled.h2`
   color: #7F7F7F;
   font-weight: 400;
   margin-left: 15px;
-  font-size: 17px;
-  padding-bottom: 15px;
+  font-size: 15px;
+  padding-bottom: 5px;
   margin-top: -5px;
 `;
 
@@ -420,8 +420,10 @@ export const OrangeButton = styled.button`
 export const ListingPrice= styled.h4`
 	font-family: "Rubik", "Arial", "sans-serif";
 	color: #FC5B45;
-	font-weight: 500;
-	font-size: 30px;
+	font-weight: 600;
+	font-size: 25px;
+	padding: 5px;
+	text-align: center;
 	`;
 
 export const FilterContainer = styled.div`

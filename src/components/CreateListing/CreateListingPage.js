@@ -19,6 +19,7 @@ class CreateListingPage extends Component {
             price: "",
             location: "",
             features: [],
+            size: "",
             dates: {
                 start: null,
                 end: null
@@ -45,7 +46,7 @@ class CreateListingPage extends Component {
             f - features
             datez - dates
     */
-    handleFormChange(t,d,p,l,f,datez) {
+    handleFormChange(t,d,p,l,f,s,datez) {
         
         console.log(datez.start)
         this.setState({
@@ -54,6 +55,7 @@ class CreateListingPage extends Component {
             price:p,
             location: l,
             features: f,
+            size: s,
             dates: datez
         })
     }
@@ -70,7 +72,7 @@ class CreateListingPage extends Component {
     // inputs - 1 - create listing page
     //            0 - image upload page
     handlePageChange(page) {        
-        if (page == 0) { // if continue button is pressed
+        if (page === 0) { // if continue button is pressed
             this.setState({pageChange:true})
         } else { // if back button is pressed
             this.setState({pageChange:false})
@@ -85,6 +87,7 @@ class CreateListingPage extends Component {
     handleListingCreate(urls) {
             // geocode address and put in object
             // only when user is sure about their address
+            console.log(this.state.size);
             geocodeByAddress(this.state.location)
                 .then(results => getLatLng(results[0]))
                 .then(latLng => {
@@ -99,6 +102,7 @@ class CreateListingPage extends Component {
                         lat:latLng.lat,// this.state.latlng.lat,
                         lng: latLng.lng,// this.state.latlng.lng,
                         features: this.state.features,
+                        size: this.state.size,
                         images: urls
                     };
                     axios.post('http://localhost:3001/listings', storageObj)
@@ -142,6 +146,7 @@ class CreateListingPage extends Component {
                         price = {this.state.price}
                         address = {this.state.location}
                         features = {this.state.features}
+                        size = {this.state.size}
                         dates = {this.state.dates}/>
                 }
                 { // if pagechange = true then show image upload page 

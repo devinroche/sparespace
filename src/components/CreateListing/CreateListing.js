@@ -1,15 +1,14 @@
 import React, { Component } from "react"
-import swal from "sweetalert2"
 import Cookies from "../../Cookies"
 import VerifiedAlert from "../Alerts/Verified"
 import LoginAlert from "../Alerts/LoggedIn"
 import PlacesAutocomplete from 'react-places-autocomplete'
-import { Redirect } from "react-router-dom"
 import moment from "moment"
 import { Formik } from "formik"
 import { Checkbox, CheckboxGroup } from 'react-checkbox-group';
 import { DateRange } from 'react-date-range';
 import {CreateLabel, FormStyle, WhiteButton, PriceInput, DescriptionInput} from "../Styles";
+import {RadioGroup, Radio} from 'react-radio-group'
 
 let title = "";
 let description = "";
@@ -28,12 +27,14 @@ class CreateListing extends Component {
             address: this.props.address,
             redirectPhotos: false,
             dates: this.props.dates,
-            featurez: this.props.features
+            featurez: this.props.features,
+            selectedValue: ""
         };
 
         this.handleAddressChange = this.handleAddressChange.bind(this)
         this.checkLogin = this.checkLogin.bind(this)
         this.handleCheckbox = this.handleCheckbox.bind(this);
+        this.handleRadioGroup = this.handleRadioGroup.bind(this);
 
     }
     //changes address for react places autocomplete
@@ -80,6 +81,14 @@ class CreateListing extends Component {
         })
 	}
 
+	//for size feature handling
+	handleRadioGroup(value){
+        this.setState(
+            {
+                selectedValue: value
+            });
+    }
+
     render() {
 
         const inputProps = {
@@ -103,7 +112,6 @@ class CreateListing extends Component {
         }
 
         if (this.state.redirectPhotos) {
-            let dates = this.state.dates
             /*
             return <Redirect to={{
                 pathname: "/add_photos", query: {
@@ -125,6 +133,7 @@ class CreateListing extends Component {
                             title: this.props.title,
                             price: this.props.price,
                             description: this.props.description,
+                            size: this.props.size,
                             location: this.props.address
                         }}
                             validate={values => {
@@ -149,7 +158,7 @@ class CreateListing extends Component {
                                     description = values.description
                                     price = values.price
                                     location = this.state.address
-                                    this.props.onFormChange(values.title,values.description,values.price,this.state.address,this.state.featurez,this.state.dates)
+                                    this.props.onFormChange(values.title,values.description,values.price,this.state.address,this.state.featurez, this.state.selectedValue, this.state.dates)
                                     this.props.onPageChange(0)
                                     this.setState({
                                         redirectPhotos: true,
@@ -214,6 +223,23 @@ class CreateListing extends Component {
                                                 </CheckboxGroup>
                                         </div>
                                     </div>
+
+
+                                    <div className="row">
+                                        <div className="col-sm-4 col-sm-offset-1">
+                                            <CreateLabel className="pull-left">Size</CreateLabel>
+                                        </div>
+                                    </div>
+                                    <RadioGroup
+                                        name="size"
+                                        selectedValue={this.state.selectedValue}
+                                        onChange={this.handleRadioGroup}>
+                                        <label style={radioButtonStyle}><Radio value="Small (5 x 5)" style={{marginRight: 10}}/>Small (5 x 5)</label>
+                                        <label style={radioButtonStyle}><Radio value="Medium (15 x 15)" style={{marginRight: 10}}/>Medium (15 x 15)</label>
+                                        <label style={radioButtonStyle}><Radio value="Large (25 x 25)" style={{marginRight: 10}} />Large (25 x 25) </label>
+                                    </RadioGroup>
+
+
                                     <div className="row">
                                         <div className="col-sm-10 col-sm-offset-1" style={calendarStyle}>
                                             <CreateLabel className="pull-left">Dates of Availability</CreateLabel>
@@ -273,6 +299,12 @@ const autoCompleteStyle = {
         boxShadow: "none",
         borderBottom: "1px solid #CCCCCC"
     },
+}
+const radioButtonStyle = {
+    marginLeft: 25,
+    fontFamily: "Rubik",
+    color: "#333",
+    fontWeight: "300",
 };
 
 

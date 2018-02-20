@@ -160,7 +160,7 @@ class ImageUpload extends Component {
                                 {
                                     this.state.filePaths.map((item, index) => (
                                         <div className="col-xs-3" style = {{position:relative}}>
-                                            <img className = "img-responsive" src={item.preview} style={{}} />
+                                            <img className = "img-responsive" src={item.preview}/>
                                             <button type="button" className="close text-center" aria-label="Close" onClick = {this.handleImageDelete.bind(this, index)}>
                                                 <span className = 'text-danger' aria-hidden="true">&times;</span>
                                             </button>
