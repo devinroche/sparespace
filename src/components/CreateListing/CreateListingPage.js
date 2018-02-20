@@ -102,7 +102,7 @@ class CreateListingPage extends Component {
                         lat:latLng.lat,// this.state.latlng.lat,
                         lng: latLng.lng,// this.state.latlng.lng,
                         features: this.state.features,
-                        // size: this.state.size,
+                        size: this.state.size,
                         images: urls
                     };
                     axios.post('http://localhost:3001/listings', storageObj)

@@ -30,7 +30,7 @@ class CreateListing extends Component {
             redirectPhotos: false,
             dates: this.props.dates,
             featurez: this.props.features,
-            selectedValue: "orange"
+            selectedValue: ""
         };
 
         this.handleAddressChange = this.handleAddressChange.bind(this)
@@ -83,6 +83,7 @@ class CreateListing extends Component {
         })
 	}
 
+	//for size feature handling
 	handleRadioGroup(value){
         this.setState(
             {
@@ -160,7 +161,7 @@ class CreateListing extends Component {
                                     description = values.description
                                     price = values.price
                                     location = this.state.address
-                                    this.props.onFormChange(values.title,values.description,values.price,this.state.address,this.state.featurez,this.state.dates, this.state.selectedValue)
+                                    this.props.onFormChange(values.title,values.description,values.price,this.state.address,this.state.featurez, this.state.selectedValue, this.state.dates)
                                     this.props.onPageChange(0)
                                     this.setState({
                                         redirectPhotos: true,
@@ -228,15 +229,17 @@ class CreateListing extends Component {
 
 
                                     <div className="row">
-                                        <CreateLabel className="pull-left">Size</CreateLabel>
+                                        <div className="col-sm-4 col-sm-offset-1">
+                                            <CreateLabel className="pull-left">Size</CreateLabel>
+                                        </div>
                                     </div>
                                     <RadioGroup
-                                        name="fruit"
+                                        name="size"
                                         selectedValue={this.state.selectedValue}
                                         onChange={this.handleRadioGroup}>
-                                        <label><Radio value="apple"/>Apple</label>
-                                        <label><Radio value="orange"/>Orange</label>
-                                        <label><Radio value="watermelon"/>Watermelon</label>
+                                        <label style={radioButtonStyle}><Radio value="Small (5 x 5)" style={{marginRight: 10}}/>Small (5 x 5)</label>
+                                        <label style={radioButtonStyle}><Radio value="Medium (15 x 15)" style={{marginRight: 10}}/>Medium (15 x 15)</label>
+                                        <label style={radioButtonStyle}><Radio value="Large (25 x 25)" style={{marginRight: 10}} />Large (25 x 25) </label>
                                     </RadioGroup>
 
 
@@ -299,6 +302,12 @@ const autoCompleteStyle = {
         boxShadow: "none",
         borderBottom: "1px solid #CCCCCC"
     },
+}
+const radioButtonStyle = {
+    marginLeft: 25,
+    fontFamily: "Rubik",
+    color: "#333",
+    fontWeight: "300",
 };
 
 
