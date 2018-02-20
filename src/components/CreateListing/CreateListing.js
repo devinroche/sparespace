@@ -19,34 +19,42 @@ class CreateListing extends Component {
 
     constructor(props) {
         super(props);
+        
         this.state = {
             showAddPhotos: false,
             valid_addr: true,
-            address: "",
+            address: this.props.address,
             redirectPhotos: false,
-            dates: {
-                start: null,
-                end: null
-            }
+            dates: this.props.dates,
+            featurez: this.props.features
         };
 
         this.handleAddressChange = this.handleAddressChange.bind(this)
         this.checkLogin = this.checkLogin.bind(this)
         this.handleCheckbox = this.handleCheckbox.bind(this);
-    }
 
+    }
+    //changes address for react places autocomplete
     handleAddressChange(e) {
+        console.log(e)
         this.setState({
             address: e,
             valid_addr: true
         })
     }
-
+    //change for checkbox
+    handleCheckbox = (e) => {
+        this.setState({
+          featurez: e
+        });
+    }
+    /*
     handleCheckbox(e) {
         features = e
     }
-
+    */
     componentDidMount() {
+        
         this.checkLogin()
     }
 
@@ -78,6 +86,8 @@ class CreateListing extends Component {
         }
     }
 
+
+    //Calendar change start
     handleSelect(date){
         this.setState({
             dates: {
@@ -92,6 +102,7 @@ class CreateListing extends Component {
         const inputProps = {
             value: this.state.address,
             onChange: this.handleAddressChange,
+            onClick: this.handleClick,
             placeholder: "1317 N Astor St Spokane, WA",
         };
 
@@ -104,6 +115,7 @@ class CreateListing extends Component {
 
         if (this.state.redirectPhotos) {
             let dates = this.state.dates
+            /*
             return <Redirect to={{
                 pathname: "/add_photos", query: {
                     title: { title },
@@ -114,16 +126,17 @@ class CreateListing extends Component {
                     features: { features },
                 }
             }} />
+            */
         }
         return (
             <div className="container text-center">
                 <div className="row">
                     <div className="col-sm-8 col-sm-offset-2">
                         <Formik initialValues={{
-                            title: '',
-                            price: '',
-                            description: '',
-                            location: ''
+                            title: this.props.title,
+                            price: this.props.price,
+                            description: this.props.description,
+                            location: this.props.address
                         }}
                             validate={values => {
                                 let errors = {}
@@ -147,6 +160,8 @@ class CreateListing extends Component {
                                     description = values.description
                                     price = values.price
                                     location = this.state.address
+                                    this.props.onFormChange(values.title,values.description,values.price,this.state.address,this.state.featurez,this.state.dates)
+                                    this.props.onPageChange(0)
                                     this.setState({
                                         redirectPhotos: true,
                                     });
@@ -201,8 +216,8 @@ class CreateListing extends Component {
                                             {touched.price && errors.price && <div>{errors.price}</div>}
                                         </div>
                                         <div className="col-sm-7">
-                                            <div className="row"><CreateLabel className="pull-left">Features</CreateLabel></div>
-                                                <CheckboxGroup name="features" onChange={this.handleCheckbox} style={{ fontFamily: "Rubik"}}>
+                                            <div className="row"><CreateLabel value={['Heated']} className="pull-left">Features</CreateLabel></div>
+                                                <CheckboxGroup name="features" value = {this.state.featurez} onChange={this.handleCheckbox} style={{ fontFamily: "Rubik"}}>
                                                     <Checkbox value="Heated" style={checkboxStyle} /> Heated
                                                     <Checkbox value="Covered" style={checkboxStyle} /> Covered
                                                     <Checkbox value="Access" style={checkboxStyle} /> Access
@@ -215,7 +230,10 @@ class CreateListing extends Component {
                                             <CreateLabel className="pull-left">Dates of Availability</CreateLabel>
                                             <div className="row">
                                                 <div className="col-sm-11">
-                                                    <DateRange onInit={this.handleSelect.bind(this)} onChange={this.handleSelect.bind(this)} />
+                                                    <DateRange
+                                                    
+                                                    onInit={this.handleSelect.bind(this)} 
+                                                    onChange={this.handleSelect.bind(this)} />
                                                 </div>
                                             </div>
                                         </div>
@@ -228,13 +246,12 @@ class CreateListing extends Component {
                                                 this.state.valid_addr === true ? null :
                                                     <div className="alert alert-danger">Please input a valid address!</div>
                                             }
-                                        </div>
-                                    </div>
-                                    <div className="row">
-                                        <div className="col-sm-10 col-sm-offset-1">
                                             <WhiteButton className="btn text-center" type="submit">Continue</WhiteButton>
+
                                         </div>
+                                        
                                     </div>
+                                            
                                 </form>
                             )}
                         />

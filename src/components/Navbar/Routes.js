@@ -4,7 +4,7 @@ import Login from "../Login"
 import Home from "../Home"
 import SignUp from "../SignUp"
 import ListingDetails from '../Listing/ListingDetails'
-import CreateListing from "../CreateListing/CreateListing"
+import CreateListingPage from "../CreateListing/CreateListingPage"
 import Chat from "../Profile/Chat/Chat"
 import { Listings } from "../Listing/Listings"
 import Profile from "../Profile/Profile"
@@ -17,8 +17,7 @@ const Routes = () => {
             <Route exact path="/" render={() => <Redirect to="/home" />} />
             <Route path="/login" component={Login} />
             <Route path="/home" component={Home} />
-            <Route path="/create_listing" component={CreateListing} />
-            <Route path="/add_photos" component={ImageUploadNew} />
+            <Route path="/create_listing" component={CreateListingPage} />
             <Route path="/listings" component={Listings}/>
             <Route path="/users/:id" component={Profile}/>
             <Route path="/listing/:id" component={ListingDetails} />
