@@ -104,16 +104,17 @@ class CreateListingPage extends Component {
                     axios.post('http://localhost:3001/listings', storageObj)
                                     .then(response => {
                                         //console.log(response)
+                                        swal(
+                                            'Good job!',
+                                            'Check out your listing!',
+                                            'success'
+                                            ).then((value) => {
+                                                postSpace(storageObj)
+                                                window.location.href = "/listing/" + response.data._id
+                                                return <Redirect to={"/listing" + response.data._id}/>
+                                            });
                                     })
-                                swal(
-                                    'Good job!',
-                                    'You clicked the button!',
-                                    'success'
-                                    ).then((value) => {
-                                        postSpace(storageObj)
-                                        window.location.href = "/listings"
-                                        return <Redirect to="/listings" />
-                                    });
+                                
 
                 })
                 .catch(error => console.error('Error', error))

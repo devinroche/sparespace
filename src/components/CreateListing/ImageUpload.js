@@ -8,6 +8,8 @@ import swal from 'sweetalert2';
 import { postSpace } from '../../sock'
 import {Label, ImageUploadText, BlackButton, OrangeButton} from "../Styles";
 import { relative } from 'path';
+import { RingLoader, FadeLoader, ClimbingBoxLoader } from 'react-spinners'
+
 
 const CLOUDINARY_UPLOAD_PRESET = 'apqnswzs';
 const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/dopxmkhbr/image/upload';
@@ -22,6 +24,7 @@ class ImageUpload extends Component {
             imageLock: false,
             filePaths: [],
             fileUrls: [],
+            loading:false // loading icon state 
             
         }
 
@@ -77,6 +80,7 @@ class ImageUpload extends Component {
                 return;
             } else { // pictures
                 // upload to cloudinary
+                this.setState({loading:true}) // loading icon state 
                 this.state.filePaths.map((file,index) => {
                     let upload = request.post(CLOUDINARY_UPLOAD_URL)
                         .field('upload_preset', CLOUDINARY_UPLOAD_PRESET)
@@ -89,6 +93,8 @@ class ImageUpload extends Component {
                         this.setState({ imageLock: true })
                         if (this.state.filePaths.length - 1 === index) {
                             this.props.onListingCreate(newArray)
+                            
+                            
                         }
                     })
                 });
@@ -117,12 +123,20 @@ class ImageUpload extends Component {
     
     // change state once images are dropped
     onImageDrop(files) {
+        
         if (this.state.fileDropped) { // if images were already dropped add new ones 
+            if (files.length + this.state.filePaths.length > 4) {
+                //tell person to only upload 4 
+                
+            }
             var old = this.state.filePaths.slice()
             var old_new = old.concat(files)
             this.setState({ filePaths: old_new })
             this.props.onImageChange(old_new)
         } else { // else add add new set
+            if (files.length > 4) { // if more than 4 photos
+                // tell person to upload only 4
+            }
             this.setState({
             filePaths: files,
             fileDropped: true
@@ -132,7 +146,17 @@ class ImageUpload extends Component {
     }
 
     render() {
-
+        const { loading } = this.state; // variable for loading icon 
+        if(loading) { // if component is loading add loader icon
+            return (
+                <div className = 'mx-auto' style={{width:'400px', margin:'0 auto'}} >
+                        <ClimbingBoxLoader
+                        color={'#123abc'} 
+                        loading={this.state.loading} 
+                        />
+                    </div>
+            ); // render null when app is not ready
+        }
         return (
             <div className='container'>
                 <div className="row">
@@ -145,7 +169,7 @@ class ImageUpload extends Component {
                     <div className="row">
                         <div className="col-sm-6 col-sm-offset-2">
                             <Dropzone
-                                multiple={true} // only allow one image
+                                multiple={true} // only multiple image
                                 accept="image/*" // must be image
                                 onDrop={this.onImageDrop.bind(this)}
                                 style={dropzoneStyle}
