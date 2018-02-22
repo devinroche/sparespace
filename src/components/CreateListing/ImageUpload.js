@@ -127,7 +127,12 @@ class ImageUpload extends Component {
         if (this.state.fileDropped) { // if images were already dropped add new ones 
             if (files.length + this.state.filePaths.length > 4) {
                 //tell person to only upload 4 
-                
+                swal(
+                    'Pleae only 4 images!',
+                    'Please add a picture',
+                    'warning'
+                )
+                return;
             }
             var old = this.state.filePaths.slice()
             var old_new = old.concat(files)
@@ -136,6 +141,12 @@ class ImageUpload extends Component {
         } else { // else add add new set
             if (files.length > 4) { // if more than 4 photos
                 // tell person to upload only 4
+                swal(
+                    'Pleae only 4 images!',
+                    'Please add a picture',
+                    'warning'
+                )
+                return;
             }
             this.setState({
             filePaths: files,
