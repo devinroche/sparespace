@@ -31,6 +31,7 @@ class ListingDetails extends React.Component {
     componentDidMount() {
         axios.get(`http://localhost:3001/listing/${this.props.match.params.id}`)
             .then(res => {
+                
                 this.setState({
                     listingImages: res.data.images,
                     listing: res.data,

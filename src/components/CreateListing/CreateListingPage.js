@@ -111,7 +111,7 @@ class CreateListingPage extends Component {
                                             ).then((value) => {
                                                 postSpace(storageObj)
                                                 window.location.href = "/listing/" + response.data._id
-                                                return <Redirect to={"/listing" + response.data._id}/>
+                                                return <Redirect to={"/listing/" + response.data._id}/>
                                             });
                                     })
                                 
