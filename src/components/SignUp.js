@@ -66,12 +66,11 @@ class SignUp extends Component {
 								password: values.password,
                                 email: values.email,
 							});
-
-							swal({
-								title: "Thanks for creating an account!",
-								content: "Let's Go!",
-								icon: "success"
-							}).then(() => {
+							swal(
+								"Email Verification Required",
+								"Please check your email to verify your account",
+								"warning"
+							).then(() => {
                                 axios
                                     .post("http://localhost:3001/login", {
                                         email: values.email,
