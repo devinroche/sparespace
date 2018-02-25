@@ -15,6 +15,7 @@
     "react-addons-update": "^15.6.2",
     "react-bootstrap": "^0.31.3",
     "react-checkbox-group": "3.3.4",
+    "react-collapsible": "^2.0.4",
     "react-date-range": "0.9.4",
     "react-dom": "^15.6.2",
     "react-dropzone": "^4.2.1",

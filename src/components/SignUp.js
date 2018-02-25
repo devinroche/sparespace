@@ -1,10 +1,11 @@
 import React, { Component } from "react"
-import { Formik } from "formik"
+import { Formik, Field } from "formik"
 import axios from "axios"
 import swal from "sweetalert2"
 import { Redirect } from "react-router-dom"
 import Cookies from "../Cookies"
-import {LoginHeader, SupportText, FormFormat, FormInput, FormLabel, SignUpButton} from "./Styles";
+import { LoginHeader, SupportText, FormFormat, FormInput, FormLabel, SignUpButton } from "./Styles";
+import './SignUp.css'
 
 
 class SignUp extends Component {
@@ -13,86 +14,87 @@ class SignUp extends Component {
 
 		return (
 			<div className="container text-center">
-                <div className="row">
+				<div className="row">
 					<LoginHeader className="text-center">Create Your Account</LoginHeader>
 					<SupportText className="text-center">First we need to know a little bit about you</SupportText>
 				</div>
+
 				<div className="row">
 					<div className="col-sm-4 col-sm-offset-4">
-					<Formik
-						initialValues={{
-							first: "",
-							last: "",
-							password: "",
-							confirm: "",
-							contact: {
-								email: "",
-								phone: "",
-								address: ""
-							}
-						}}
-						validate={values => {
-							let errors = {};
-							if (!values.email) {
-								errors.email = "Required"
-							} else if (!values.first) {
-								errors.first = "Required"
-							}
-                            else if (!values.last) {
-                                errors.last = "Required"
-                            }
-                            else if (!values.confirm) {
-                                errors.confirm = "Required"
-                            }
-                            else if (values.confirm !== values.password){
-								errors.confirm = "Passwords do not match!!"
-							}
-							else if (!values.password) {
-								errors.password = "Required"
-							} else if (
-								!/^[A-Z0-9._%+-]+@zagmail.gonzaga.edu$/i.test(values.email)
-							) {
-								//validate user has an email that ends with zagmail.gonzaga.edu
-								errors.email =
-									"Invalid email address (must end with zagmail.gonzaga.edu)"
-							}
-							return errors
-						}}
-						onSubmit={values => {
+						<Formik
+							initialValues={{
+								first: "",
+								last: "",
+								password: "",
+								confirm: "",
+								contact: {
+									email: "",
+									phone: "",
+									address: ""
+								}
+							}}
+							validate={values => {
+								console.log('ssssssssssssss', values);
+								let errors = {};
+								if (!values.first) {
+									errors.first = "Required"
+								} else if (!values.last) {
+									errors.last = "Required"
+								} else if (!values.email) {
+									errors.email = "Required"
+								} else if (
+									!/^[A-Z0-9._%+-]+@zagmail.gonzaga.edu$/i.test(values.email)
+								) {
+									//validate user has an email that ends with zagmail.gonzaga.edu
+									errors.email =
+										"Invalid email address (must end with zagmail.gonzaga.edu)"
+								} else if (!values.confirm) {
+									errors.confirm = "Required"
+								} else if (values.confirm !== values.password) {
+									errors.confirm = "Passwords do not match!!"
+								} else if (!values.password) {
+									errors.password = "Required"
+								} else if (!values.agreement) {
+									console.log('wwwwwwwwwwwwwww', values);
+									errors.agreement = "You must accept to Terms of Privacy and Privacy Policy"
+								}
+								return errors
+							}}
+							onSubmit={values => {
 
-							axios.post("http://localhost:3001/users", {
-                                first: values.first,
-                                last: values.last,
-								password: values.password,
-                                email: values.email,
-							});
+								axios.post("http://localhost:3001/users", {
+									first: values.first,
+									last: values.last,
+									password: values.password,
+									email: values.email,
+								});
 
-							swal({
-								title: "Thanks for creating an account!",
-								content: "Let's Go!",
-								icon: "success"
-							}).then(() => {
-                                axios
-                                    .post("http://localhost:3001/login", {
-                                        email: values.email,
-                                        password: values.password
-                                    })
-                                    .then(function(response) {
-                                        Cookies.loginUser(response.data.id, response.data.v)
-                                        window.location.href = "/users/" + response.data.id
-                                        return <Redirect to="/logged_in" />
-                                    })
+								swal({
+									title: "Thanks for creating an account!",
+									content: "Let's Go!",
+									icon: "success"
+								}).then(() => {
+									axios
+										.post("http://localhost:3001/login", {
+											email: values.email,
+											password: values.password
+										})
+										.then(function (response) {
+											Cookies.loginUser(response.data.id, response.data.v)
+											window.location.href = "/users/" + response.data.id
+											return <Redirect to="/logged_in" />
+										})
 								})
-						}}
-						//render is actually rendering the form for the user to see
-						render={({
-							values,
-							touched,
-							errors,
-							handleChange,
-							handleSubmit
-						}) => (
-							<FormFormat onSubmit={handleSubmit}>
+							}}
+							//render is actually rendering the form for the user to see
+							render={({
+								values,
+								touched,
+								errors,
+								handleChange,
+								handleSubmit
+							}) => (
+									<FormFormat onSubmit={handleSubmit}>
 										<FormLabel className="pull-left">First Name</FormLabel>
 										<FormInput
 											id="first"
@@ -143,10 +145,31 @@ class SignUp extends Component {
 											value={values.confirm}
 										/>
 										{touched.confirm && errors.confirm && <div>{errors.confirm}</div>}
-									<SignUpButton className="btn" type="submit">Confirm</SignUpButton>
-							</FormFormat>
-						)}
-					/>
+
+										<div className="row agreement">
+											<div className="col-sm-2 agreement-box">
+												<Field
+													id="agreement"
+													className="agreement-field"
+													type="checkbox"
+													name="agreement"
+													onChange={handleChange}
+													value={values.agreement}
+												/>
+											</div>
+											<div className=" agreement-text">
+												I have read and agree with the <a href="/tos" target="_blank">Terms of Service</a> and <a href="/privacy" target="_blank">Privacy Policy.</a>
+											</div>
+										</div>
+
+										<div className="checkbox-div">
+											<strong><p className="checkbox-prompt">{errors.agreement && <div>{errors.agreement}</div>}</p></strong>
+										</div>
+
+										<SignUpButton id="signup" name="signup" className="btn" type="submit">Confirm</SignUpButton>
+									</FormFormat>
+								)}
+						/>
 					</div>
 				</div>
 			</div>
