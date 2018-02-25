@@ -9,6 +9,7 @@ import { postSpace } from '../../sock'
 import {Label, ImageUploadText, BlackButton, OrangeButton} from "../Styles";
 import { relative } from 'path';
 import { RingLoader, FadeLoader, ClimbingBoxLoader } from 'react-spinners'
+import { INSPECT_MAX_BYTES } from 'buffer';
 
 
 const CLOUDINARY_UPLOAD_PRESET = 'apqnswzs';
@@ -91,11 +92,13 @@ class ImageUpload extends Component {
                         newArray.push(response.body.secure_url);
                         this.setState({ fileUrls: newArray })
                         this.setState({ imageLock: true })
-                        if (this.state.filePaths.length - 1 === index) {
+                        if (this.state.filePaths.length === this.state.fileUrls.length) {
                             this.props.onListingCreate(newArray)
-                            
-                            
+                            console.log(this.state.fileUrls);
+                            console.log("IN HERE");   
                         }
+                        console.log(this.state.fileUrls);
+                        console.log("OUT HERE");
                     })
                 });
             }

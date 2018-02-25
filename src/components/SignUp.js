@@ -65,24 +65,37 @@ class SignUp extends Component {
                                 last: values.last,
 								password: values.password,
                                 email: values.email,
+							}).then((response) => { // Check the response good/bad
+								if (response.data.errors) { // if account cant be created 
+									swal({
+										title: "That email is already in use!",
+										content: "Log in!",
+										icon: "success"
+									}).then(() => { // redirect to login page
+										window.location.href = "/login"
+                                        return <Redirect to="/login" />
+									});
+								} else { // if account can be created
+									swal({
+										title: "Thanks for creating an account!",
+										content: "Let's Go!",
+										icon: "success"
+									}).then(() => {
+										axios.post("http://localhost:3001/login", {
+											email: values.email,
+											password: values.password
+										})
+										.then(function(response) {
+											Cookies.loginUser(response.data.id, response.data.v)
+											window.location.href = "/users/" + response.data.id
+											return <Redirect to="/logged_in" />
+										})
+									})
+								}
+								
 							});
 
-							swal({
-								title: "Thanks for creating an account!",
-								content: "Let's Go!",
-								icon: "success"
-							}).then(() => {
-                                axios
-                                    .post("http://localhost:3001/login", {
-                                        email: values.email,
-                                        password: values.password
-                                    })
-                                    .then(function(response) {
-                                        Cookies.loginUser(response.data.id, response.data.v)
-                                        window.location.href = "/users/" + response.data.id
-                                        return <Redirect to="/logged_in" />
-                                    })
-								})
+							
 						}}
 						//render is actually rendering the form for the user to see
 						render={({

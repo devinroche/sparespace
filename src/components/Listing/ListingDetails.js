@@ -88,7 +88,7 @@ class ListingDetails extends React.Component {
                         <CardStyle>
                             <Carousel>
                                 {this.state.listingImages.map((l, index) => (
-                                    <Image cloudName="dopxmkhbr" publicId={l}/>
+                                    <Image className = "img-responsive"  cloudName="dopxmkhbr" publicId={l}/>
                                 ))
                                 }
                             </Carousel>

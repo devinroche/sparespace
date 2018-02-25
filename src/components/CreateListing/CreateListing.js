@@ -38,7 +38,7 @@ class CreateListing extends Component {
     }
     //changes address for react places autocomplete
     handleAddressChange(e) {
-        console.log(e)
+        
         this.setState({
             address: e,
             valid_addr: true

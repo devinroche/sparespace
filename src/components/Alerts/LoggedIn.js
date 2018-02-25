@@ -23,7 +23,7 @@ class LoginAlert extends Component {
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonText: 'Login',
-                cancelButtonText: 'View Listings',
+                cancelButtonText: 'Create Account',
                 confirmButtonClass: 'btn btn-success',
                 cancelButtonClass: 'btn btn-danger',
                 reverseButtons: true
@@ -32,8 +32,8 @@ class LoginAlert extends Component {
                     window.location.href = '/login'
                     return <Redirect to='login' />
                 } else {
-                    window.location.href = "/listings"
-                    return <Redirect to="/listings" />
+                    window.location.href = "/sign_up"
+                    return <Redirect to="/sign_up" />
                 }
             })
         )

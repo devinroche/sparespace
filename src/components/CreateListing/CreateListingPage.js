@@ -47,7 +47,7 @@ class CreateListingPage extends Component {
     */
     handleFormChange(t,d,p,l,f,datez) {
         
-        console.log(datez.start)
+        
         this.setState({
             title: t,
             description:d,
