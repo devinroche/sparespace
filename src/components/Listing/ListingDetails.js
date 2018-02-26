@@ -136,6 +136,12 @@ class ListingDetails extends React.Component {
                         </div>
                         <div className="row">
                             <div className="col-sm-11 col-sm-offset-1">
+                                <Label>Size</Label>
+                                <Duration>{listing.size}</Duration>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-sm-11 col-sm-offset-1">
                                 {this.state.expressInterest ? this.renderInterest(lid, hid) : ""}
                             </div>
                         </div>
