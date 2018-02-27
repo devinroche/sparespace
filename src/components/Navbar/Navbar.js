@@ -84,7 +84,7 @@ export default class AppNavbar extends Component {
 								</li>
                                 {this.renderLogout()}
 								{this.renderSignUp()}
-								{this.renderSignOut()}
+                                {this.renderSignOut()}
 							</ul>
 					</div>
 				</div>

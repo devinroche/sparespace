@@ -75,7 +75,7 @@ export class Listings extends React.Component {
         return (
             <div className="container-fluid">
                 <FilterContainer className="col-sm-7 col-sm-offset-1">
-                    <div className="row">
+                    <div>
                             <div className='col-sm-4'>
                                 <SearchInput className="searchBar" type='text' value={this.state.search} onChange={this.updateSearch.bind(this)} style={styles.formStyle} placeholder="Search Listings" />
                             </div>
@@ -93,7 +93,7 @@ export class Listings extends React.Component {
                     </div>
 
 
-                    <div className="row">
+                    <div>
                         {this.state.showCalendar ? <DateRange
                             onInit={this.handleSelect.bind(this)}
                             onChange={this.handleSelect.bind(this)}
@@ -101,7 +101,7 @@ export class Listings extends React.Component {
                     </div>
                 </FilterContainer>
 
-                    <div className="col-sm-8">
+                    <div className="col-sm-8" style={{height: '90vh', overflowY:'scroll'}}>
                         {filteredListings.map((l, index) => (<ListingCard key={index} listing={l} />))}
                     </div>
                 <div className="col-sm-4"><Mapo/></div>

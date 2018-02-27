@@ -1,6 +1,6 @@
 import React from "react"
 import axios from "axios"
-import { Image} from "cloudinary-react"
+import { Image } from "cloudinary-react"
 import Cookies from "../../Cookies"
 import SubMap from '../ListingMap'
 import VerifiedAlert from "../Alerts/Verified"
@@ -8,7 +8,7 @@ import LoginAlert from "../Alerts/LoggedIn"
 import SendMessage from './SendMessage'
 import Carousel from 'nuka-carousel'
 import moment from 'moment';
-import {CardStyle, CardHost, CardTitle, Description, Price, Features, ListingLabel, Label, Duration} from "../Styles";
+import { CardStyle, CardHost, CardTitle, Description, Price, Features, ListingLabel, Label, Duration } from "../Styles";
 import { RingLoader, FadeLoader, ClimbingBoxLoader } from 'react-spinners'
 
 class ListingDetails extends React.Component {
@@ -20,7 +20,7 @@ class ListingDetails extends React.Component {
             listing: [],
             l: '',
             features: [],
-            loading:true // loading icon state 
+            loading: true // loading icon state 
         }
 
         this.canExpress = this.canExpress.bind(this)
@@ -36,7 +36,7 @@ class ListingDetails extends React.Component {
                     listingImages: res.data.images,
                     listing: res.data,
                     features: res.data.features,
-                    loading:false // stop loading icon 
+                    loading: false // stop loading icon 
                 })
                 this.canExpress(res.data._host._id, res.data.interested)
             }).catch(err => console.log("some err occured", err))
@@ -68,25 +68,25 @@ class ListingDetails extends React.Component {
         const endDate = moment(dates[1]).format("MM/DD/YYYY");
 
         const { loading } = this.state; // variable for loading icon 
-        if(loading) { // if component is loading add loader icon
+        if (loading) { // if component is loading add loader icon
             return (
-                <div className = 'mx-auto' style={{width:'400px', margin:'0 auto'}} >
-                        <RingLoader
-                        color={'#123abc'} 
-                        loading={this.state.loading} 
-                        />
-                    </div>
+                <div className='mx-auto' style={{ width: '200px' }} >
+                    <ClimbingBoxLoader
+                        color={'#123abc'}
+                        loading={this.state.loading}
+                    />
+                </div>
             ); // render null when app is not ready
         }
         return (
 
             <div className="container">
-                <div className="row" style={{marginTop: 50}}>
+                <div className="row" style={{ marginTop: 50 }}>
                     <div className="col-sm-8 col-lg-9" >
                         <CardStyle>
                             <Carousel>
                                 {this.state.listingImages.map((l, index) => (
-                                    <Image className = "img-responsive"  cloudName="dopxmkhbr" publicId={l}/>
+                                    <Image cloudName="dopxmkhbr" publicId={l} />
                                 ))
                                 }
                             </Carousel>
@@ -97,21 +97,27 @@ class ListingDetails extends React.Component {
                         </CardStyle>
                         <div className="row">
                             <ListingLabel>Features</ListingLabel>
-                            <ul className="list-inline">
-                                {
-                                    this.state.features.map((l, index) => (
-                                        <Features>
-                                            <span style={{ color: "#FC5B45" }}>&bull; &nbsp;</span>{l}</Features>
-                                    ))
-                                }
-                            </ul>
+                            {
+                                this.state.features.length
+                                    ?
+                                    <ul className="list-inline">
+                                        {
+                                            this.state.features.map((l, index) => (
+                                                <Features>
+                                                    <span style={{ color: "#FC5B45" }}>&bull; &nbsp;</span>{l}</Features>
+                                            ))
+                                        }
+                                    </ul>
+                                    :
+                                    <h1>This space has no features</h1>
+                            }
                         </div>
                         <div className="row">
                             <ListingLabel>Description</ListingLabel>
                             <Description>{listing.description}</Description>
                         </div>
                     </div>
-                    
+
 
                     <div className="col-sm-4 col-lg-3">
                         <SubMap l={listing} />
