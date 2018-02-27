@@ -101,10 +101,10 @@ export class Listings extends React.Component {
                     </div>
                 </FilterContainer>
 
-                    <div className="col-sm-8" style={{height: '90vh', overflowY:'scroll'}}>
+                    <div className="col-sm-8" style={{height: '90vh', overflowY:'scroll', boxShadow: "inset 0 5px 15px 0 rgba(0,0,0,.04)"}}>
                         {filteredListings.map((l, index) => (<ListingCard key={index} listing={l} />))}
                     </div>
-                <div className="col-sm-4"><Mapo/></div>
+                <div className="col-md-4"><Mapo/></div>
             </div>
         )
     }

@@ -33,7 +33,7 @@ export const SubHeader = styled.h2`
     }
 `;
 
-export const Link = styled.a`
+export const HomeButton = styled.a`
     font-family: 'Rubik', 'Arial', 'sans-serif';
     background-color: #FC5B45;
     font-weight: 300;
@@ -103,6 +103,9 @@ export const NavItem = styled.a`
 	@media(max-width: 320px) {
 			font-size: 15px;
 		}
+		@media(max-width: 768px) {
+				font-size: 13px;
+  			}
 `;
 
 
@@ -123,7 +126,7 @@ export const PostSpace = styled.a`
 	
 	@media(max-width: 768px) {
 				padding: 4px 10px;
-				font-size: 11px;
+				font-size: 13px;
   			}
 `;
 
@@ -417,14 +420,21 @@ export const OrangeButton = styled.button`
 `;
 
 //listings page
-export const ListingPrice= styled.h4`
+export const ListingPrice= styled.h2`
 	font-family: "Rubik", "Arial", "sans-serif";
 	color: #FC5B45;
-	font-weight: 600;
-	font-size: 25px;
-	padding: 5px;
-	text-align: center;
+	font-weight: 500;
+	font-size: 18px;
 	`;
+
+
+export const ListingCardTitle = styled.h2`
+
+  font-family: "Rubik", "Arial", "sans-serif";
+  color: #333;
+  font-weight: 500;
+  font-size: 18px;
+`;
 
 export const FilterContainer = styled.div`
 	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
