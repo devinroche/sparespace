@@ -48,11 +48,9 @@ class ListingDetails extends React.Component {
     }
 
     canExpress(host, interested) {
-        if (Cookies.getId() === host || interested.includes(Cookies.getId()))
+        if (Cookies.getId() === host)
             this.setState({ expressInterest: false })
 
-        if (!Cookies.isLoggedIn() || !Cookies.isVerified() ) 
-            this.setState({ expressInterest: false })
     }
 
     canClick() {

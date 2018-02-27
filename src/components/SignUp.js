@@ -94,8 +94,22 @@ class SignUp extends Component {
 								}
 								
 							});
-
-							
+							swal(
+								"Email Verification Required",
+								"Please check your email to verify your account",
+								"warning"
+							).then(() => {
+                                axios
+                                    .post("http://localhost:3001/login", {
+                                        email: values.email,
+                                        password: values.password
+                                    })
+                                    .then(function(response) {
+                                        Cookies.loginUser(response.data.id, response.data.v)
+                                        window.location.href = "/users/" + response.data.id
+                                        return <Redirect to="/logged_in" />
+                                    })
+								})
 						}}
 						//render is actually rendering the form for the user to see
 						render={({

@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import swal from 'sweetalert2';
 import openSocket from 'socket.io-client';
+import Cookies from '../../Cookies'
 import Modal from 'react-modal';
 import {Message} from "../Styles";
+import ReactTooltip from 'react-tooltip'
+
 
 const socket = openSocket('http://localhost:3001');
 
@@ -86,7 +89,13 @@ class SendMessage extends Component {
         };
         return (
             <div>
-                <Message className="btn btn-success" onClick={this.openModal}>Message</Message>
+                <div data-tip data-for='message'>
+                    <Message disabled={!Cookies.isVerified()} className="btn btn-success" onClick={this.openModal}>Message</Message>
+                </div>
+                <ReactTooltip id='message' type='error'>
+                    <span>Please verify your account!</span>
+                </ReactTooltip>
+
                 <Modal
                     isOpen={this.state.modalIsOpen}
                     onAfterOpen={this.afterOpenModal}
