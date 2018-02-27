@@ -64,12 +64,7 @@ class Tos extends Component {
               voluntarily provide us.
             </p>
             <p>
-              2. Transaction information: We collect information related to your
-              transactions on the sparespace platform, including the date and
-              time, the amount charged, and other related details.
-            </p>
-            <p>
-              3. Usage and Preference Information: We collect information about
+              2. Usage and Preference Information: We collect information about
               how you and other site visitors interact with and use the
               sparespace platform, such as the pages or other content you view,
               your searches for listings, bookings that you have made, and other
@@ -80,7 +75,7 @@ class Tos extends Component {
               below
             </p>
             <p>
-              4. Log Data: When you interact with our Services, we collect log
+              3. Log Data: When you interact with our Services, we collect log
               information, even if you have not created a sparespace account.
               Log information may include detail about how you use the Services
               (including links to third party services), access dates and times,

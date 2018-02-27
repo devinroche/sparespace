@@ -60,6 +60,10 @@ class Tos extends Component {
               "win-win" scenario as parties from both sides benefit.
             </p>
             <p />
+            <p>
+              sparespace has received numerous recognition and support from businesses and entrepreneurship programs, including
+              Gonzaga's Hogan Entrepreneurial Leadership Program and Start-Up Spokane.
+            </p>
           </div>
         </div>
       </div>
