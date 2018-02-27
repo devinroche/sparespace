@@ -38,7 +38,7 @@ class DeleteListing extends Component {
                 if (result.value) {
                     swal(
                         'Deleted!',
-                        'Your imaginary file has been deleted.',
+                        'Your listing has been removed.',
                         'success'
                     ).then(() => {
                         this.handleSubmit()

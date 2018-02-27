@@ -5,6 +5,7 @@ import {Redirect} from 'react-router-dom'
 import UserChats from "./UserChats";
 import UserListings from "./UserListings";
 import {WelcomeText} from "../Styles";
+import EditUser from "./EditUser";
 
 class Profile extends React.Component {
     constructor() {
@@ -40,6 +41,7 @@ class Profile extends React.Component {
                         <WelcomeText>Welcome, {user.first}!</WelcomeText>
                     </div>
                 </div>
+                <EditUser/>
                 <UserChats user={this.props.match.params.id}/>
                 <UserListings listings={user.listings}/>
             </div>
