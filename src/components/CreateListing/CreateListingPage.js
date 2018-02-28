@@ -6,7 +6,7 @@ import axios from 'axios';
 import swal from 'sweetalert2';
 import { postSpace } from '../../sock'
 import { Redirect } from "react-router-dom"
-import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
+import { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
 
 
 class CreateListingPage extends Component {
@@ -87,7 +87,6 @@ class CreateListingPage extends Component {
     handleListingCreate(urls) {
             // geocode address and put in object
             // only when user is sure about their address
-            console.log(this.state.size);
             geocodeByAddress(this.state.location)
                 .then(results => getLatLng(results[0]))
                 .then(latLng => {
@@ -107,7 +106,6 @@ class CreateListingPage extends Component {
                     };
                     axios.post('http://localhost:3001/listings', storageObj)
                                     .then(response => {
-                                        //console.log(response)
                                         swal(
                                             'Good job!',
                                             'Check out your listing!',

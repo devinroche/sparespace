@@ -1,17 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import swal from 'sweetalert2';
-import openSocket from 'socket.io-client';
 import Cookies from '../../Cookies'
 import Modal from 'react-modal';
-import { Message } from "../Styles";
-import { LoginHeader, SupportText, FormFormat, FormInput, FormLabel, SignUpButton } from "../Styles";
+import {FormFormat, FormInput, FormLabel, SignUpButton, CloseBtn } from "../Styles";
 import { Formik } from "formik"
-import ReactTooltip from 'react-tooltip'
 import { Redirect } from "react-router-dom"
-
-
-const socket = openSocket('http://localhost:3001');
 
 class EditUser extends Component {
     constructor() {
@@ -23,15 +17,9 @@ class EditUser extends Component {
             value: ''
         }
 
-        socket.on('peer-msg', () => {
-            this.getMsg()
-        });
-
         this.openModal = this.openModal.bind(this);
         this.afterOpenModal = this.afterOpenModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
-        // this.handleChange = this.handleChange.bind(this);
-        // this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     openModal() {
@@ -39,32 +27,12 @@ class EditUser extends Component {
     }
 
     afterOpenModal() {
-        this.subtitle.style.color = '#f00';
+        this.subtitle.style.color = '#FC5B45';
     }
 
     closeModal() {
         this.setState({ modalIsOpen: false });
     }
-
-    // handleChange(event) {
-    //     this.setState({ value: event.target.value });
-    // }
-    // handleSubmit(e) {
-    //     e.preventDefault();
-    //     axios.post('http://localhost:3001/message', {
-    //         host: this.props.host,
-    //         renter: this.props.renter,
-    //         author: this.props.renter,
-    //         text: this.state.value
-    //     })
-    //     swal(
-    //         'Message Sent',
-    //         'Your message has been sent',
-    //         'success'
-    //     ).then((value) => {
-    //         this.closeModal()
-    //     });
-    // }
 
     render() {
         const customStyles = {
@@ -79,7 +47,10 @@ class EditUser extends Component {
         };
         return (
             <div>
-                <Message className="btn btn-success" onClick={this.openModal}>Edit Account</Message>
+                <div onClick={this.openModal}>
+                    <i style={{fontSize:'2em', marginTop: 50}} className="fas fa-cog"></i>
+                </div>
+                {/* <Message className="btn btn-success" onClick={this.openModal}>Edit Account</Message> */}
                 <Modal
                     isOpen={this.state.modalIsOpen}
                     onAfterOpen={this.afterOpenModal}
@@ -88,8 +59,14 @@ class EditUser extends Component {
                     style={customStyles}
 
                 >
-                    <button onClick={this.closeModal}>x</button>
-                    <h2 ref={subtitle => this.subtitle = subtitle}>Edit Account</h2>
+                    <div className="row">
+                        <div className="col-sm-10">
+                            <h2 ref={subtitle => this.subtitle = subtitle}>Edit Account</h2>
+                        </div>
+                        <div className="col-sm-2">
+                            <CloseBtn onClick={this.closeModal}>x</CloseBtn>
+                        </div>
+                    </div>
                     {/* <form onSubmit={this.handleSubmit}>
                         <input value={this.state.value} onChange={this.handleChange} placeholder="first name" />
                         <br />
@@ -123,10 +100,9 @@ class EditUser extends Component {
                             return errors
                         }}
                         onSubmit={values => {
-                            Object.keys(values).forEach((key) => (values[key] == '') && delete values[key]);
+                            Object.keys(values).forEach((key) => (values[key] === '') && delete values[key]);
                             delete values['confirm'];
 
-                            console.log(values)
                         axios.put(`http://localhost:3001/user/${Cookies.getId()}`, values);
                             swal(
                                 "Email Verification Required",

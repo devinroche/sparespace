@@ -2,10 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Cookies from '../../Cookies';
 import swal from 'sweetalert2';
-import openSocket from 'socket.io-client';
 import { Redirect } from 'react-router-dom'
-
-const socket = openSocket('http://localhost:3001');
 
 class CloseListing extends Component {
     constructor(props) {

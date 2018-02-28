@@ -67,16 +67,15 @@
     border: 1px solid #FC5B45;
 }
 
-.chatroom input[type="text"]:focus {
-    border-color: #fc5b45;
-    outline: 0 none;
+input[type=text]:focus {
+    outline: none;
 }
 
 .chatForm {
     margin: 20px 0px;
 }
 
-.chatroom button {
+/* .chatroom button {
     font-family: "Rubik";
     color: #FFF;
     font-weight: 400;
@@ -85,4 +84,4 @@
     font-size: 20;
     background: linear-gradient(to right, #FE947B, #FC5B45);
     border: none;
-}
+} */

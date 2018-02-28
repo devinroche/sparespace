@@ -4,7 +4,7 @@ import swal from 'sweetalert2';
 import openSocket from 'socket.io-client';
 import Cookies from '../../Cookies'
 import Modal from 'react-modal';
-import {Message} from "../Styles";
+import {Message, SmallMsg, CloseBtn, FormStyle} from "../Styles";
 import ReactTooltip from 'react-tooltip'
 
 
@@ -54,6 +54,8 @@ class SendMessage extends Component {
             case 3:
                 this.setState({ value: 'give me more info' })
                 break
+            default:
+                break
         }
     }
     handleChange(event) {
@@ -92,10 +94,11 @@ class SendMessage extends Component {
                 <div data-tip data-for='message'>
                     <Message disabled={!Cookies.isVerified()} className="btn btn-success" onClick={this.openModal}>Message</Message>
                 </div>
+                {!Cookies.isVerified() &&
                 <ReactTooltip id='message' type='error'>
                     <span>Please verify your account!</span>
                 </ReactTooltip>
-
+                }
                 <Modal
                     isOpen={this.state.modalIsOpen}
                     onAfterOpen={this.afterOpenModal}
@@ -104,22 +107,33 @@ class SendMessage extends Component {
                     style={customStyles}
 
                 >
-                    <button onClick={this.closeModal}>x</button>
-                    <h2 ref={subtitle => this.subtitle = subtitle}>Send a Message!</h2>
+                    <div className="row">
+                        <div className="col-sm-10">
+                            <h2 ref={subtitle => this.subtitle = subtitle}>Send a message!</h2>
+                        </div>
+                        <div className="col-sm-2">
+                            <CloseBtn onClick={this.closeModal}>x</CloseBtn>
+                        </div>
+                    </div>
                     <form onSubmit={this.handleSubmit}>
-                        <button type="button" onClick={this.buttonClick.bind(this, 1)}>is this still available?</button>
-                        <button type="button" onClick={this.buttonClick.bind(this, 2)}>is the start/end date strict?</button>
-                        <button type="button" onClick={this.buttonClick.bind(this, 3)}>give me more info</button> 
-                        <br/>
-                        <input value={this.state.value} onChange={this.handleChange} placeholder="Questions, Comments, or Concerns" />
-                        <br/>
-                        <input type="submit" value="Submit" />
+                        <SmallMsg type="button" onClick={this.buttonClick.bind(this, 1)}>is this still available?</SmallMsg>
+                        <SmallMsg type="button" onClick={this.buttonClick.bind(this, 2)}>is the start/end date strict?</SmallMsg>
+                        <SmallMsg type="button" onClick={this.buttonClick.bind(this, 3)}>give me more info</SmallMsg> 
+                        <div className="row">
+                            <div className="col-sm-9">
+                                <FormStyle style={{width: '100%'}}value={this.state.value} onChange={this.handleChange} placeholder="Questions, Comments, or Concerns" />
+                            </div>
+                            <div className="col-sm-3">
+                                <button style={btnStyle} type="submit">Send</button>
+                            </div>
+                        </div>
                     </form>
                 </Modal>
-
             </div>
         );
     }
 }
 
 export default SendMessage;
+
+const btnStyle = {marginTop: 40, backgroundColor: '#FC5B45', color: 'white', padding: '10px 20px', border: 'none', borderRadius: '6'}

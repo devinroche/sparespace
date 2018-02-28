@@ -1,16 +1,11 @@
 import React, { Component } from 'react';
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
-import axios from 'axios';
 import { Redirect } from "react-router-dom"
-import Cookies from '../../Cookies';
 import swal from 'sweetalert2';
-import { postSpace } from '../../sock'
-import {Label, ImageUploadText, BlackButton, OrangeButton} from "../Styles";
+import {Label, ImageUploadText, OrangeButton} from "../Styles";
 import { relative } from 'path';
-import { RingLoader, FadeLoader, ClimbingBoxLoader } from 'react-spinners'
-import { INSPECT_MAX_BYTES } from 'buffer';
-
+import { ClimbingBoxLoader } from 'react-spinners'
 
 const CLOUDINARY_UPLOAD_PRESET = 'apqnswzs';
 const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/dopxmkhbr/image/upload';
@@ -31,37 +26,10 @@ class ImageUpload extends Component {
 
     }
 
-    //Function to call a listener of createlistingpage
-    //calls a page change 
     handlePageChange() {
         this.props.onPageChange(1)
     }
 
-    // grab address once component loads convert into cordinates
-    componentDidMount() {
-        /*
-        //error handling for user attempting to direct to /add_photos page 
-        if (this.props.location.query === undefined) {
-            window.location.href = "/create_listing"
-            return <Redirect to="/create_listing" />
-        }
-        // convert cordinates to address
-        const _this = this;
-        axios.post('http://localhost:3001/cordinates', { address: this.props.location.query.location.location })
-            .then(function (response) {
-                //address checked in previous component
-                _this.setState({
-                    latlng: response.data
-                });
-
-            })
-            .catch(function (response) {
-
-            });
-        */
-    }
-    // upload images to cloudinary once image lock button pressed
-    // pass image urls into state
     handleImageUpload() {
 
         if (this.state.fileDropped === false) {
@@ -94,11 +62,7 @@ class ImageUpload extends Component {
                         this.setState({ imageLock: true })
                         if (this.state.filePaths.length === this.state.fileUrls.length) {
                             this.props.onListingCreate(newArray)
-                            console.log(this.state.fileUrls);
-                            console.log("IN HERE");   
                         }
-                        console.log(this.state.fileUrls);
-                        console.log("OUT HERE");
                     })
                 });
             }
@@ -121,8 +85,6 @@ class ImageUpload extends Component {
         this.setState({filePaths: array });
         
     }
-    
-
     
     // change state once images are dropped
     onImageDrop(files) {

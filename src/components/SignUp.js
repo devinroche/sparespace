@@ -34,7 +34,6 @@ class SignUp extends Component {
 								}
 							}}
 							validate={values => {
-								console.log('ssssssssssssss', values);
 								let errors = {};
 								if (!values.first) {
 									errors.first = "Required"
@@ -55,7 +54,6 @@ class SignUp extends Component {
 								} else if (!values.password) {
 									errors.password = "Required"
 								} else if (!values.agreement) {
-									console.log('wwwwwwwwwwwwwww', values);
 									errors.agreement = "You must accept to Terms of Privacy and Privacy Policy"
 								}
 								return errors

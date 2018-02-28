@@ -1,9 +1,6 @@
 import React from "react"
-import axios from "axios"
-import Cookies from '../../Cookies';
-import swal from 'sweetalert2';
 import { Image } from "cloudinary-react"
-import { Link, Redirect } from "react-router-dom"
+import { Link } from "react-router-dom"
 import EditListing from "./EditListing"
 import DeleteListing from './DeleteListing'
 import CloseListing from './CloseListing'
@@ -76,13 +73,13 @@ class UserListings extends React.Component {
     render() {
 
         const editStyle = {
-
-                color: "linear-gradient(to right, #FE947B, #FC5B45)",
+                color: '#fff',
                 width: 100,
                 height: 25,
-                background: "white",
+                marginBottom: 5,
+                background: "linear-gradient(to right, #FE947B, #FC5B45)",
                 border: "linear-gradient(to right, #FE947B, #FC5B45)",
-                borderRadius: 10
+                borderRadius: 5
         };
 
         const deleteStyle =  {
@@ -91,33 +88,45 @@ class UserListings extends React.Component {
                 height: 25,
                 background: "linear-gradient(to right, #FE947B, #FC5B45)",
                 border: "none",
-                borderRadius: 10
+                borderRadius: 5
         };
         const closeStyle = {
             color: "#FFF",
             width: 100,
             height: 25,
-            background: "linear-gradient(to right, #3a7bd5, #3a6073)",
+            marginBottom: 5,
+            background: "linear-gradient(to right, #FE947B, #FC5B45)",
             border: "none",
-            borderRadius: 10
+            borderRadius: 5
         };
 
         let activeListings = this.props.listings && this.props.listings.length !== 0 ? this.props.listings.map((listing) => {
             return (
                 <MessageCard key={listing._id} className="row">
-                <Link to={`/listing/${listing._id}`}>
                         <div className='row' style={{paddingBottom:10}}>
+                        <Link to={`/listing/${listing._id}`}>
                             <div className="col-sm-4"><Image cloudName="dopxmkhbr" publicId={listing.images[0]} style={styles.imageSize} /></div>
-                            <div className="col-sm-8">{listing.status === 0 ? 'Closed Listing' : 'Active Listing'}<MessageName>{listing.title}</MessageName></div>
-                        </div>
-                    </Link>
-                    <div className="row">
+                            <div className="col-sm-4">{listing.status === 0 ? 'Closed Listing' : 'Active Listing'}<MessageName>{listing.title}</MessageName></div>
+                            </Link>
+                            <div className="col-sm-4">
+                                <div className='row'>
+                                <button className='col-sm-12' style={closeStyle} onClick={(e) => { this.toggleClose(listing._id, e) }} >Close</button>
+                                </div>
+                                <div className='row'>
+                                <button className='col-sm-12'  onClick={(e) => { this.toggleEdit(listing._id, e) }} style={editStyle}>Edit</button>
+                                </div>
+                                <div className='row'>
+                                <button className='col-sm-12'  style={deleteStyle} onClick={(e) => { this.toggleDelete(listing._id, e) }} >Delete</button>
+                                </div>
+                            </div>
+                            </div>
+                    {/* <div className="row">
                         <button className='col-sm-2 col-sm-offset-2' style={closeStyle} onClick={(e) => { this.toggleClose(listing._id, e) }} >Close</button>
                         &nbsp; &nbsp; &nbsp;
                         <button className='col-sm-2 col-sm-offset-1' onClick={(e) => { this.toggleEdit(listing._id, e) }} style={editStyle}>Edit</button>
                         &nbsp; &nbsp; &nbsp;
                         <button className='col-sm-2 col-sm-offset-1' style={deleteStyle} onClick={(e) => { this.toggleDelete(listing._id, e) }} >Delete</button>
-                    </div>
+                    </div> */}
                 </MessageCard>
             )
         }) :

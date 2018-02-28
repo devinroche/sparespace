@@ -208,6 +208,22 @@ export const SignUpButton = styled.button`
 		}
 `;
 
+
+export const CloseBtn = styled.button`
+      color:#fff;
+      background-color: #FC5B45;
+      border: none;
+      border-radius: 6px;
+      font-family: "Rubik", "Arial", "sans-serif";
+      font-weight: 300;
+      margin-top: 20px;
+      :hover{
+		
+			color: #ffffff;
+			text-decoration: #ffffff;
+		}
+`;
+
 //listing details page
 export const CardStyle = styled.div`
    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
@@ -319,7 +335,22 @@ export const Message = styled.button`
 	border: none;
 `;
 
-
+export const SmallMsg = styled.button`
+	font-family: Rubik, Arial, sans-serif;
+	color: #ffffff;
+    margin: 5px;
+    cursor: pointer;
+    padding: 0.75rem 1rem;
+    border-radius: 0.317rem;
+    font-size: 16px;
+    background-color: #aaa;
+	color: #fff;
+	text-decoration: none;
+    border: none;
+    :hover {
+        opacity: 0.85;
+    }
+`;
 
 //create listing page
 export const FormStyle = styled.input`
@@ -438,7 +469,6 @@ export const ListingCardTitle = styled.h2`
 
 export const FilterContainer = styled.div`
 	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-	margin-top: 25px;
 	padding: 10px;
 `;
 

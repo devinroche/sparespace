@@ -13,8 +13,7 @@ class Chat extends React.Component {
     constructor() {
         super()
         this.state = {
-            messages: [],
-            isHost: false
+            messages: []
         }
 
         this.backToProfile = this.backToProfile.bind(this)
@@ -45,12 +44,10 @@ class Chat extends React.Component {
         return <Redirect to={"/users/" + Cookies.getId()} />
     }
     componentDidMount() {
-        let h_status = Cookies.getId() === this.props.match.params.host ? true : false;
         axios.get(`http://localhost:3001/message/${this.props.match.params.host}/${this.props.match.params.renter}`)
             .then(res => {
                 this.setState({
                     messages: res.data,
-                    isHost: h_status
                 })
             })
     }
@@ -59,7 +56,6 @@ class Chat extends React.Component {
         return (
             <div className="row">
                 <div className="col-sm-2 col-sm-offset-1">
-                    {this.state.isHost && <button style={btnStyle} >Close Listing</button> }
                     <button style={btnStyle} onClick={this.backToProfile}>Back</button>
                 </div>
                 <div className='chatroom col-sm-7'>

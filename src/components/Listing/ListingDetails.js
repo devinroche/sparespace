@@ -3,13 +3,11 @@ import axios from "axios"
 import { Image } from "cloudinary-react"
 import Cookies from "../../Cookies"
 import SubMap from '../ListingMap'
-import VerifiedAlert from "../Alerts/Verified"
-import LoginAlert from "../Alerts/LoggedIn"
 import SendMessage from './SendMessage'
 import Carousel from 'nuka-carousel'
 import moment from 'moment';
 import { CardStyle, CardHost, CardTitle, Description, Price, Features, ListingLabel, Label, Duration } from "../Styles";
-import { RingLoader, FadeLoader, ClimbingBoxLoader } from 'react-spinners'
+import {ClimbingBoxLoader } from 'react-spinners'
 
 class ListingDetails extends React.Component {
     constructor() {
@@ -39,7 +37,7 @@ class ListingDetails extends React.Component {
                     loading: false // stop loading icon 
                 })
                 this.canExpress(res.data._host._id, res.data.interested)
-            }).catch(err => console.log("some err occured", err))
+            })
     }
 
     renderInterest(l_id, h_id) {
@@ -86,7 +84,7 @@ class ListingDetails extends React.Component {
                         <CardStyle>
                             <Carousel>
                                 {this.state.listingImages.map((l, index) => (
-                                    <Image cloudName="dopxmkhbr" publicId={l} />
+                                    <Image key={index} cloudName="dopxmkhbr" publicId={l} />
                                 ))
                                 }
                             </Carousel>

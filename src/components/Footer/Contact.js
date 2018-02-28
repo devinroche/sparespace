@@ -1,19 +1,11 @@
 import React, { Component } from "react";
-import { Header, SubHeader, Link, Row } from "./Styles";
+import { Row,LoginHeader,
+    FormFormat,
+    FormInput,
+    SignUpButton } from "../Styles";
 import { Formik, Field } from "formik";
 import axios from "axios";
 import swal from "sweetalert2";
-import { Redirect } from "react-router-dom";
-import Cookies from "../Cookies";
-import {
-  LoginHeader,
-  SupportText,
-  FormFormat,
-  FormInput,
-  FormLabel,
-  SignUpButton,
-  DescriptionInput
-} from "./Styles";
 import "./Contact.css";
 
 class Tos extends Component {

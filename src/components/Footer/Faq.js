@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Header, SubHeader, Link, Row } from "./Styles";
+import { Header, SubHeader, Row } from "../Styles";
 import Collapsible from "react-collapsible";
 
 import "./Faq.css";

@@ -99,7 +99,6 @@ class CreateListing extends Component {
         };
 
         const onError = (status, clearSuggestions) => {
-            console.log('Google Maps API returned error with status: ', status)
             this.setState({ valid_addr: false });
         };
 
@@ -249,7 +248,7 @@ class CreateListing extends Component {
                                             <div className="row">
                                                 <div className="col-sm-11">
                                                     <DateRange
-                                                    
+                                                    minDate={moment()}
                                                     onInit={this.handleSelect.bind(this)} 
                                                     onChange={this.handleSelect.bind(this)} />
                                                 </div>

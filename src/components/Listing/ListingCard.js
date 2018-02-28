@@ -8,7 +8,7 @@ export class ListingCard extends React.Component {
         let l = this.props.listing;
         return (
 
-            <div className="col-sm-5 col-sm-offset-1" style={{boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)", marginBottom: 25, marginTop: 25}}>
+            <div className="col-sm-5" style={{boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)", margin: 30}}>
                 <Link to={{
                     pathname: `/listing/${l._id}`,
                     state: {

@@ -51,12 +51,14 @@ export class Listings extends React.Component {
         this.setState({ search: e.target.value })
     }
     handleSelect(range) {
-        this.setState({
-            range: {
-                start: range.startDate,
-                end: range.endDate._d
-            }
-        })
+        if(range.startDate.format('YYYY-MM-DD') !== range.endDate.format('YYYY-MM-DD')){
+            this.setState({
+                range: {
+                    start: range.startDate._d,
+                    end: range.endDate._d
+                }
+            })
+        }
     }
     toggleCalendar() {
         this.setState({
@@ -73,8 +75,10 @@ export class Listings extends React.Component {
             )
         });
         return (
-            <div className="container-fluid">
-                <FilterContainer className="col-sm-7 col-sm-offset-1">
+            <div className="container-fluid" style={{paddingTop: 20}}>
+                <div className='row'>
+                <div className="col-sm-7 col-sm-offset-1">
+                <FilterContainer className="row">
                     <div>
                             <div className='col-sm-4'>
                                 <SearchInput className="searchBar" type='text' value={this.state.search} onChange={this.updateSearch.bind(this)} style={styles.formStyle} placeholder="Search Listings" />
@@ -95,16 +99,19 @@ export class Listings extends React.Component {
 
                     <div>
                         {this.state.showCalendar ? <DateRange
+                            minDate={moment()}
                             onInit={this.handleSelect.bind(this)}
                             onChange={this.handleSelect.bind(this)}
                         /> : null}
                     </div>
                 </FilterContainer>
 
-                    <div className="col-sm-8" style={{height: '90vh', overflowY:'scroll', boxShadow: "inset 0 5px 15px 0 rgba(0,0,0,.04)"}}>
+                    <div className="row" style={{height: '90vh', overflowY:'scroll', boxShadow: "inset 0 5px 15px 0 rgba(0,0,0,.04)"}}>
                         {filteredListings.map((l, index) => (<ListingCard key={index} listing={l} />))}
                     </div>
-                <div className="col-md-4"><Mapo/></div>
+                    </div>
+                    <div className="col-md-4"><Mapo/></div>
+                </div>
             </div>
         )
     }

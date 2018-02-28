@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Header, SubHeader, Link, Row } from "./Styles";
+import { Header, Row } from "../Styles";
 
 class Tos extends Component {
   render() {

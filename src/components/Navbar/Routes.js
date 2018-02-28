@@ -6,14 +6,13 @@ import SignUp from "../SignUp"
 import ListingDetails from '../Listing/ListingDetails'
 import CreateListingPage from "../CreateListing/CreateListingPage"
 import Chat from "../Profile/Chat/Chat"
-import Faq from "../Faq"
-import Tos from "../Tos"
-import Contact from "../Contact"
-import About from "../About"
-import Privacy from "../Privacy"
+import Faq from "../Footer/Faq"
+import Tos from "../Footer/Tos"
+import Contact from "../Footer/Contact"
+import About from "../Footer/About"
+import Privacy from "../Footer/Privacy"
 import { Listings } from "../Listing/Listings"
 import Profile from "../Profile/Profile"
-import ImageUploadNew from "../CreateListing/ImageUpload"
 
 const Routes = () => {
 
