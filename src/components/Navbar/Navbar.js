@@ -25,7 +25,7 @@ export default class AppNavbar extends Component {
         if(Cookies.isLoggedIn()) {
 
             return (
-                <li className= "col-lg-2">
+                <li className= "col-lg-2 col-md-2 col-sm-2">
                     <Link to={"/users/" + Cookies.getId()} activeClassName="none"><NavItem className="" href="#">Account</NavItem></Link>
                 </li>
             );
@@ -33,7 +33,7 @@ export default class AppNavbar extends Component {
 
         else{
             return (
-                <li className= "col-lg-2">
+                <li className= "col-lg-2 col-md-2 col-sm-2">
                     <Link to="/login" activeClassName="none"><NavItem className="" href="#">Log In</NavItem></Link>
                 </li>
             )
@@ -44,7 +44,7 @@ export default class AppNavbar extends Component {
         if(!Cookies.isLoggedIn()) {
 
             return (
-                <li className= "col-lg-2">
+                <li className= "col-lg-2 col-md-2 col-sm-2">
 					<Link to="/sign_up"><NavItem href="#">Sign Up</NavItem></Link>
                 </li>
             )
@@ -55,7 +55,7 @@ export default class AppNavbar extends Component {
     renderSignOut(){
     	if(Cookies.isLoggedIn()){
     		return (
-                <li className= "col-lg-2">
+                <li className= "col-lg-2 col-md-2 col-sm-2">
                     <Link onClick={this.logout} to="/login" activeClassName="none"><NavItem href="#">Logout</NavItem></Link>
                 </li>
 			)
@@ -71,20 +71,20 @@ export default class AppNavbar extends Component {
         return (
         	<div className="container-fluid">
 				<div className="row">
-					<div className="col-sm-5">
+					<div className="col-lg-5">
 						<Logo className="navbar-brand" href="/home">sparespace</Logo>
 					</div>
-					<div className="col-sm-7">
+					<div className="col-lg-6 col-md-offset-1 col-md-7 col-sm-7">
 							<ul className="list-inline" style={{marginTop: "40"}}>
-								<li className="col-sm-4">
+								<li className="col-lg-4 col-md-4 col-sm-4">
 									<Link to ="/create_listing"><PostSpace className="" href="#">Post Your Space</PostSpace></Link>
 								</li>
-								<li className= "col-sm-2">
+								<li className= "col-lg-2 col-md-2 col-sm-2">
 									<Link to ="/listings"><NavItem className="" href="#">Browse</NavItem></Link>
 								</li>
                                 {this.renderLogout()}
 								{this.renderSignUp()}
-								{this.renderSignOut()}
+                                {this.renderSignOut()}
 							</ul>
 					</div>
 				</div>

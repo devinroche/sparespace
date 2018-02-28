@@ -1,0 +1,25 @@
+.agreement {
+  padding-top: 10px;
+}
+
+.agreement-box {
+  height: 20px;
+  width: 20px;
+}
+
+.agreement-field {
+  height: 20px;
+  width: 20px;
+}
+
+.agreement-text {  
+  padding-top: 2px;
+}
+
+.checkbox-div {
+  padding-top: 10px;
+}
+
+.checkbox-prompt {
+  color: #FC5B45;
+}

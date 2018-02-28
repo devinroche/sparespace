@@ -28,7 +28,6 @@ class Chat extends React.Component {
         });
     }
 
-
     handleNewMessage = (text) => {
         axios.post('http://localhost:3001/message', {
             host: this.props.match.params.host,
@@ -48,7 +47,7 @@ class Chat extends React.Component {
         axios.get(`http://localhost:3001/message/${this.props.match.params.host}/${this.props.match.params.renter}`)
             .then(res => {
                 this.setState({
-                    messages: res.data
+                    messages: res.data,
                 })
             })
     }
@@ -75,6 +74,7 @@ const btnStyle = {
     color: "#FFF",
     fontWeight: "400",
     width: 150,
+    marginBottom: 20,
     height: 50,
     fontSize: 20,
     background: "linear-gradient(to right, #FE947B, #FC5B45)",

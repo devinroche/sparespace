@@ -1,6 +1,5 @@
 import React from "react"
 import axios from "axios"
-import { Image } from "cloudinary-react"
 import { Link } from "react-router-dom"
 import Cookies from '../../Cookies'
 import {MessageCard, MessageName} from "../Styles";
@@ -23,17 +22,8 @@ class UserChats extends React.Component {
     }
 
     render() {
-
         const activeChat = this.state.msg.length !== 0 ? this.state.msg.map((chat) => {
-            let otherPart;
-            let otherName;
-            if (chat.renter_id === Cookies.getId()) {
-                otherPart = chat.host_id
-                otherName = chat.host
-            } else {
-                otherPart = chat.renter_id
-                otherName = chat.renter
-            }
+            let otherName = chat.renter_id === Cookies.getId() ? chat.host : chat.renter
             return (
             <Link to={`/chat/${chat.host_id}/${chat.renter_id}`}>
                 <MessageCard>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Cookies from '../../Cookies';
+import axios from 'axios'
 import swal from 'sweetalert2';
 import { Redirect } from 'react-router-dom'
 
@@ -30,8 +31,15 @@ class VerifiedAlert extends Component {
                 reverseButtons: true
             }).then((result) => {
                 if (result.value) {
-                    window.location.href = `/users/${Cookies.getId()}`
-                    return <Redirect to={`/users/${Cookies.getId()}`}/>
+                    swal(
+                        'Message Sent!',
+                        'Check your email for a verification message!',
+                        'success'
+                    ).then(() => {
+                        axios.post('http://localhost:3001/resendV', { u_id: Cookies.getId() })
+                        window.location.href = `/users/${Cookies.getId()}`
+                        return <Redirect to={`/users/${Cookies.getId()}`} />
+                    })
                 } else {
                     window.location.href = "/listings"
                     return <Redirect to="/listings" />

@@ -99,7 +99,6 @@ class CreateListing extends Component {
         };
 
         const onError = (status, clearSuggestions) => {
-            console.log('Google Maps API returned error with status: ', status)
             this.setState({ valid_addr: false });
         };
 
@@ -128,7 +127,7 @@ class CreateListing extends Component {
         return (
             <div className="container text-center">
                 <div className="row">
-                    <div className="col-sm-8 col-sm-offset-2">
+                    <div className="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12">
                         <Formik initialValues={{
                             title: this.props.title,
                             price: this.props.price,
@@ -176,6 +175,7 @@ class CreateListing extends Component {
                                                 type="text"
                                                 name="title"
                                                 placeholder="Spacious Basement"
+                                                maxLength={35}
                                                 onChange={handleChange}
                                                 value={values.title}
                                             />
@@ -210,11 +210,13 @@ class CreateListing extends Component {
                                                 placeholder="Enter a price"
                                                 onChange={handleChange}
                                                 value={values.price}
+                                                min={1}
+                                                max={999}
                                             />
                                             {touched.price && errors.price && <div>{errors.price}</div>}
                                         </div>
                                         <div className="col-sm-7">
-                                            <div className="row"><CreateLabel value={['Heated']} className="pull-left">Features</CreateLabel></div>
+                                            <div className="row"><CreateLabel className="pull-left">Features</CreateLabel></div>
                                                 <CheckboxGroup name="features" value = {this.state.featurez} onChange={this.handleCheckbox} style={{ fontFamily: "Rubik"}}>
                                                     <Checkbox value="Heated" style={checkboxStyle} /> Heated
                                                     <Checkbox value="Covered" style={checkboxStyle} /> Covered
@@ -246,7 +248,7 @@ class CreateListing extends Component {
                                             <div className="row">
                                                 <div className="col-sm-11">
                                                     <DateRange
-                                                    
+                                                    minDate={moment()}
                                                     onInit={this.handleSelect.bind(this)} 
                                                     onChange={this.handleSelect.bind(this)} />
                                                 </div>

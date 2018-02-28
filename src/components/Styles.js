@@ -33,7 +33,7 @@ export const SubHeader = styled.h2`
     }
 `;
 
-export const Link = styled.a`
+export const HomeButton = styled.a`
     font-family: 'Rubik', 'Arial', 'sans-serif';
     background-color: #FC5B45;
     font-weight: 300;
@@ -103,6 +103,9 @@ export const NavItem = styled.a`
 	@media(max-width: 320px) {
 			font-size: 15px;
 		}
+		@media(max-width: 768px) {
+				font-size: 13px;
+  			}
 `;
 
 
@@ -123,7 +126,7 @@ export const PostSpace = styled.a`
 	
 	@media(max-width: 768px) {
 				padding: 4px 10px;
-				font-size: 11px;
+				font-size: 13px;
   			}
 `;
 
@@ -198,6 +201,22 @@ export const SignUpButton = styled.button`
       font-weight: 300;
       margin-top: 25px;
       padding: 10px 45px;
+      :hover{
+		
+			color: #ffffff;
+			text-decoration: #ffffff;
+		}
+`;
+
+
+export const CloseBtn = styled.button`
+      color:#fff;
+      background-color: #FC5B45;
+      border: none;
+      border-radius: 6px;
+      font-family: "Rubik", "Arial", "sans-serif";
+      font-weight: 300;
+      margin-top: 20px;
       :hover{
 		
 			color: #ffffff;
@@ -316,7 +335,22 @@ export const Message = styled.button`
 	border: none;
 `;
 
-
+export const SmallMsg = styled.button`
+	font-family: Rubik, Arial, sans-serif;
+	color: #ffffff;
+    margin: 5px;
+    cursor: pointer;
+    padding: 0.75rem 1rem;
+    border-radius: 0.317rem;
+    font-size: 16px;
+    background-color: #aaa;
+	color: #fff;
+	text-decoration: none;
+    border: none;
+    :hover {
+        opacity: 0.85;
+    }
+`;
 
 //create listing page
 export const FormStyle = styled.input`
@@ -417,18 +451,24 @@ export const OrangeButton = styled.button`
 `;
 
 //listings page
-export const ListingPrice= styled.h4`
+export const ListingPrice= styled.h2`
 	font-family: "Rubik", "Arial", "sans-serif";
 	color: #FC5B45;
-	font-weight: 600;
-	font-size: 25px;
-	padding: 5px;
-	text-align: center;
+	font-weight: 500;
+	font-size: 18px;
 	`;
+
+
+export const ListingCardTitle = styled.h2`
+
+  font-family: "Rubik", "Arial", "sans-serif";
+  color: #333;
+  font-weight: 500;
+  font-size: 18px;
+`;
 
 export const FilterContainer = styled.div`
 	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-	margin-top: 25px;
 	padding: 10px;
 `;
 

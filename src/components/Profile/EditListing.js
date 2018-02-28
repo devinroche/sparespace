@@ -1,10 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Cookies from '../../Cookies';
-import swal from 'sweetalert2';
-import openSocket from 'socket.io-client';
-
-const socket = openSocket('http://localhost:3001');
 
 class EditListing extends Component {
     constructor(props) {
