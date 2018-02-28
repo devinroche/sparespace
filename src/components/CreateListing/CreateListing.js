@@ -201,7 +201,7 @@ class CreateListing extends Component {
 
                                     <div className="row">
                                         <div className="col-sm-4 col-sm-offset-1">
-                                            <CreateLabel className="pull-left">Price</CreateLabel>
+                                            <CreateLabel className="pull-left">Price (/mo)</CreateLabel>
                                             <PriceInput
                                                 id="price"
                                                 className="form-control"
