@@ -23,7 +23,6 @@ export class Listings extends React.Component {
             max: 100,
             showCalendar: false
         };
-
         this.getListings = this.getListings.bind(this) 
     }
 

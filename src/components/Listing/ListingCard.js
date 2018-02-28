@@ -6,8 +6,8 @@ import {ListingPrice, ListingCardTitle, CardHost} from "../Styles";
 export class ListingCard extends React.Component {
     render() {
         let l = this.props.listing;
-        return (
 
+        return (
             <div className="col-sm-5" style={{boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)", margin: 30}}>
                 <Link to={{
                     pathname: `/listing/${l._id}`,
