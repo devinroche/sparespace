@@ -1,0 +1,6 @@
+#input-range {
+    padding: 10px;
+}
+.searchBar:focus{
+    outline: none;
+}

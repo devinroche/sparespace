@@ -1,90 +1,104 @@
-/**
- * Creates SignUp page
- *
- * @author George Kunthara
- * @version v0.0.1 10/06/17
- *
- * @ChangeLog
- * Initial 10/06/17 George Kunthara
- */
-
 import React, { Component } from "react"
-import { Formik } from "formik"
+import { Formik, Field } from "formik"
 import axios from "axios"
-import swal from "sweetalert"
+import swal from "sweetalert2"
 import { Redirect } from "react-router-dom"
 import Cookies from "../Cookies"
+import { LoginHeader, SupportText, FormFormat, FormInput, FormLabel, SignUpButton } from "./Styles";
+import './SignUp.css'
+
 
 class SignUp extends Component {
-	render() {
-		//adjust login header to be more down the screen
-		const loginStyle = {
-			marginTop: 100
-		}
 
-		//adjust forms to have more space against login header
-		const formStyle = {
-			marginTop: 25
-		}
+	render() {
 
 		return (
-			<div>
-				<h1 style={loginStyle} className="text-center">
-					{" "}
-					Create Account{" "}
-				</h1>
-				<div className="container text-center">
+			<div className="container text-center">
 				<div className="row">
-				<div className="col-lg-6 col-lg-offset-3">
-					<Formik
-						initialValues={{
-							fullname: "",
-							password: "",
-							contact: {
-								email: "",
-								phone: "",
-								address: ""
-							},
-							usertype: ""
-						}}
-						//formik is handling our forms. It will check for valid
-						//input, and then send info on click "Create Account" to our backend
+					<LoginHeader className="text-center">Create Your Account</LoginHeader>
+					<SupportText className="text-center">First we need to know a little bit about you</SupportText>
+				</div>
 
-						//makes sure valid email is entered
-						validate={values => {
-							let errors = {}
-							if (!values.email) {
-								errors.email = "Required"
-							} else if (!values.fullname) {
-								errors.fullname = "Required"
-							} else if (!values.password) {
-								errors.password = "Required"
-							} else if (
-								!/^[A-Z0-9._%+-]+@zagmail.gonzaga.edu$/i.test(values.email)
-							) {
-								//validate user has an email that ends with zagmail.gonzaga.edu
-								errors.email =
-									"Invalid email address (must end with zagmail.gonzaga.edu)"
-							}
-							return errors
-						}}
-						onSubmit={values => {
-							//right now only way for accessing contact object
-							//for some reason getting errors when accessing within forms...
+				<div className="row">
+					<div className="col-sm-4 col-sm-offset-4">
+						<Formik
+							initialValues={{
+								first: "",
+								last: "",
+								password: "",
+								confirm: "",
+								contact: {
+									email: "",
+									phone: "",
+									address: ""
+								}
+							}}
+							validate={values => {
+								let errors = {};
+								if (!values.first) {
+									errors.first = "Required"
+								} else if (!values.last) {
+									errors.last = "Required"
+								} else if (!values.email) {
+									errors.email = "Required"
+								} else if (
+									!/^[A-Z0-9._%+-]+@zagmail.gonzaga.edu$/i.test(values.email)
+								) {
+									//validate user has an email that ends with zagmail.gonzaga.edu
+									errors.email =
+										"Invalid email address (must end with zagmail.gonzaga.edu)"
+								} else if (!values.confirm) {
+									errors.confirm = "Required"
+								} else if (values.confirm !== values.password) {
+									errors.confirm = "Passwords do not match!!"
+								} else if (!values.password) {
+									errors.password = "Required"
+								} else if (!values.agreement) {
+									errors.agreement = "You must accept to Terms of Privacy and Privacy Policy"
+								}
+								return errors
+							}}
+							onSubmit={values => {
 
-							// TODO: validate if user is already in database
 							axios.post("http://localhost:3001/users", {
-                                first: values.fullname,
-                                last: values.fullname,
+                                first: values.first,
+                                last: values.last,
 								password: values.password,
                                 email: values.email,
-							})
-
-							swal({
-								title: "Thanks for creating an account!",
-								content: "Let's Go!",
-								icon: "success"
-							}).then(() => {
+							}).then((response) => { // Check the response good/bad
+								if (response.data.errors) { // if account cant be created 
+									swal({
+										title: "That email is already in use!",
+										content: "Log in!",
+										icon: "success"
+									}).then(() => { // redirect to login page
+										window.location.href = "/login"
+                                        return <Redirect to="/login" />
+									});
+								} else { // if account can be created
+									swal({
+										title: "Thanks for creating an account!",
+										content: "Let's Go!",
+										icon: "success"
+									}).then(() => {
+										axios.post("http://localhost:3001/login", {
+											email: values.email,
+											password: values.password
+										})
+										.then(function(response) {
+											Cookies.loginUser(response.data.id, response.data.v)
+											window.location.href = "/users/" + response.data.id
+											return <Redirect to="/logged_in" />
+										})
+									})
+								}
+								
+							});
+							swal(
+								"Email Verification Required",
+								"Please check your email to verify your account",
+								"warning"
+							).then(() => {
                                 axios
                                     .post("http://localhost:3001/login", {
                                         email: values.email,
@@ -96,67 +110,93 @@ class SignUp extends Component {
                                         return <Redirect to="/logged_in" />
                                     })
 								})
-						}}
-						//render is actually rendering the form for the user to see
-						render={({
-							values,
-							touched,
-							errors,
-							handleChange,
-							handleSubmit,
-							isSubmitting
-						}) => (
-							<form style={formStyle} onSubmit={handleSubmit}>
-								<div className="form-group">
-									<label className="pull-left">Name</label>
-									<input
-										id="fullname"
-										className="form-control"
-										type="fullname"
-										name="fullname"
-										placeholder="Ex: Billy"
-										onChange={handleChange}
-										value={values.fullname}
-									/>
-									{touched.fullname &&
-										errors.fullname && <div>{errors.fullname}</div>}
-								</div>
-								<div className="form-group">
-									<label className="pull-left">Email</label>
-									<input
-										id="email"
-										className="form-control"
-										type="email"
-										name="email"
-										placeholder="Email"
-										onChange={handleChange}
-										value={values.email}
-									/>
-									{touched.email && errors.email && <div>{errors.email}</div>}
-								</div>
-								<div className="form-group">
-									<label className="pull-left">Password</label>
-									<input
-										id="password"
-										className="form-control"
-										type="password"
-										name="password"
-										placeholder="Password"
-										onChange={handleChange}
-										value={values.password}
-									/>
-									{touched.password &&
-										errors.password && <div>{errors.password}</div>}
-								</div>
-								<button className="btn btn-primary" type="submit">
-									Sign Up!
-								</button>
-							</form>
-						)}
-					/>
+							}}
+							//render is actually rendering the form for the user to see
+							render={({
+								values,
+								touched,
+								errors,
+								handleChange,
+								handleSubmit
+							}) => (
+									<FormFormat onSubmit={handleSubmit}>
+										<FormLabel className="pull-left">First Name</FormLabel>
+										<FormInput
+											id="first"
+											className="form-control"
+											type="text"
+											name="first"
+											onChange={handleChange}
+											value={values.first}
+										/>
+										{touched.first && errors.first && <div>{errors.first}</div>}
+										<FormLabel className="pull-left">Last Name</FormLabel>
+										<FormInput
+											id="last"
+											className="form-control"
+											type="text"
+											name="last"
+											onChange={handleChange}
+											value={values.last}
+										/>
+										{touched.last && errors.last && <div>{errors.last}</div>}
+										<FormLabel className="pull-left">Email</FormLabel>
+										<FormInput
+											id="email"
+											className="form-control"
+											type="email"
+											name="email"
+											onChange={handleChange}
+											value={values.email}
+										/>
+										{touched.email && errors.email && <div>{errors.email}</div>}
+										<FormLabel className="pull-left">Password</FormLabel>
+										<FormInput
+											id="password"
+											className="form-control"
+											type="password"
+											name="password"
+											onChange={handleChange}
+											value={values.password}
+										/>
+										{touched.password && errors.password && <div>{errors.password}</div>}
+										<FormLabel className="pull-left">Confirm Password</FormLabel>
+										<FormInput
+											id="confirm"
+											className="form-control"
+											type="password"
+											name="confirm"
+											onChange={handleChange}
+											value={values.confirm}
+										/>
+										{touched.confirm && errors.confirm && <div>{errors.confirm}</div>}
+
+										<div className="row agreement">
+											<div className="col-sm-2 agreement-box">
+												<Field
+													id="agreement"
+													className="agreement-field"
+													type="checkbox"
+													name="agreement"
+													onChange={handleChange}
+													value={values.agreement}
+												/>
+											</div>
+											<div className=" agreement-text">
+												I have read and agree with the <a href="/tos" target="_blank">Terms of Service</a> and <a href="/privacy" target="_blank">Privacy Policy.</a>
+											</div>
+										</div>
+
+										<div className="checkbox-div">
+											<strong><p className="checkbox-prompt">{errors.agreement && <div>{errors.agreement}</div>}</p></strong>
+										</div>
+
+										<SignUpButton id="signup" name="signup" className="btn" type="submit">Confirm</SignUpButton>
+									</FormFormat>
+								)}
+						/>
+					</div>
 				</div>
-			</div>
-			</div>
 			</div>
 		)
 	}

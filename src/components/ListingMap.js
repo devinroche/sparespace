@@ -1,45 +1,17 @@
 import React from 'react'
-import axios from 'axios'
-import { Link } from "react-router-dom"
-import ReactMapboxGl, { Layer, Feature, Popup } from "react-mapbox-gl";
+import ReactMapboxGl, { Layer, Feature } from "react-mapbox-gl";
 
 const Map = ReactMapboxGl({
     accessToken: 'pk.eyJ1IjoiZGV2aW5yb2NoZSIsImEiOiJjamJvNjc1aTYzbWg3MzJxeTJ2ejBkcGE4In0.jYTHkOOzGtxzn8VcaZnN6w'
 });
 
-class Mapo extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            geo: [],
-            l: ''
-        };
-    }
-
-    componentDidMount() {
-        this.getCordinates()
-    }
-    getCordinates = () => {
-        var self = this;
-        axios.get('http://localhost:3001/cordinates')
-            .then(function (response) {
-                self.setState({ geo: response.data });
-            })
-    }
-
-    handleClick = (id) => {
-        this.setState({
-            l: id
-        })
-    }
-
-
+class SubMap extends React.Component {
     render() {
         const mapStyle = {
             width: '100%',
-            height: '100vh',
+            height: '40vh'
         };
-
+        
         return (
             <Map
                 style="mapbox://styles/mapbox/light-v9"
@@ -78,26 +50,17 @@ class Mapo extends React.Component {
                             ]
                         },
                         'circle-color': "#FC5B45",
-                        "circle-opacity": 0.2
+                        "circle-opacity": 0.7
                     }}>
                     {
-                        this.state.geo.map((l, idx) => (
-                            <Feature
-                                key={idx}
-                                coordinates={[l.lng, l.lat]}
-                                onClick={this.handleClick.bind(this, l)}
-                            />
-                        ))
+                        <Feature
+                            coordinates={[this.props.l.lng, this.props.l.lat]}
+                        />
                     }
                 </Layer>
-                {this.state.l &&
-                    <Popup coordinates={[this.state.l.lng, this.state.l.lat]}>
-                        <Link to={`/listing/${this.state.l._id}`}><p>{this.state.l.title}</p></Link>
-                    </Popup>
-                }
             </Map>
         );
     }
 }
 
-export default Mapo
+export default SubMap

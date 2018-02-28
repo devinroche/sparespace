@@ -1,0 +1,87 @@
+.chatroom {
+    height: 83vh;
+    background-color: #ecf0f1;
+    border-radius: 5px;
+    font-family: "Rubik";
+    overflow: hidden;
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.3);
+}
+
+.chatroom .chats {
+    box-sizing: border-box;
+    padding: 0 20px;
+    margin: 10px 0 0;
+    height: 70vh;
+    overflow-y: scroll;
+}
+
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
+
+.chatroom .chats .chat {
+    background: rgba(255, 255, 255, 0.8);
+    position: relative;
+    padding: 5px 13px;
+    font-size: 24px;
+    border-radius: 10px;
+    list-style: none;
+    float: left;
+    clear: both;
+    margin: 10px 0;
+    max-width: 40%;
+    word-wrap: break-word
+}
+
+.chatroom .chats .chat.right {
+    float: right;
+    clear: both;
+    background-color: #FC5B45;
+    color: #ffffff;
+}
+
+.chatroom .chats .chat.left {
+    background-color: #ffffff;
+    border: 1px solid #FC5B45;
+    color: #FC5B45;
+}
+
+.chatroom .chats .chat a {
+    text-decoration: none;
+    color: #3498DB;
+}
+
+.chatroom input {
+    height: 40px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.chatroom .sendMsg {
+    width: 100%;
+    height: 40px;
+    background-color: #FC5B45;
+    border: 1px solid #FC5B45;
+}
+
+input[type=text]:focus {
+    outline: none;
+}
+
+.chatForm {
+    margin: 20px 0px;
+}
+
+/* .chatroom button {
+    font-family: "Rubik";
+    color: #FFF;
+    font-weight: 400;
+    width: 250;
+    height: 50;
+    font-size: 20;
+    background: linear-gradient(to right, #FE947B, #FC5B45);
+    border: none;
+} */

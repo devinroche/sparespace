@@ -1,67 +1,94 @@
 import React, { Component } from "react"
-import { Navbar, Nav, NavItem } from "react-bootstrap"
-import { LinkContainer } from "react-router-bootstrap"
 import Cookies from "../../Cookies"
+import {Link} from "react-router-dom"
+import  {Logo, NavItem, PostSpace} from "../Styles";
 
 
 export default class AppNavbar extends Component {
-	constructor(props){
-		super(props);
-	
-		this.renderLogout = this.renderLogout.bind(this);
-		this.logout = this.logout.bind(this);
+
+    constructor(){
+
+        super();
+        this.renderLogout = this.renderLogout.bind(this);
+        this.logout = this.logout.bind(this);
+        this.renderSignUp = this.renderSignUp.bind(this);
+        this.renderSignOut = this.renderSignOut.bind(this);
     }
-	
-	logout(){
-		Cookies.removeCookie();
-	}
-	
-	renderLogout(){
-		if(Cookies.isLoggedIn())
-			return (
-				<LinkContainer onClick={this.logout}  to="/login" activeClassName="none">
-					<NavItem eventKey={2}>Logout</NavItem>
-				</LinkContainer>
-			);
-		
-		else{
-			const notValid = (
-				<Nav>
-					<LinkContainer to="/login" activeClassName="none">
-						<NavItem eventKey={2}>Login</NavItem>
-					</LinkContainer>
-					<LinkContainer to="/sign_up">
-						<NavItem eventKey={3}>Sign Up</NavItem>
-					</LinkContainer>
-				</Nav>
+
+    logout(){
+
+        Cookies.removeCookie();
+    }
+
+
+    renderLogout(){
+        if(Cookies.isLoggedIn()) {
+
+            return (
+                <li className= "col-lg-2 col-md-2 col-sm-2">
+                    <Link to={"/users/" + Cookies.getId()} activeClassName="none"><NavItem className="" href="#">Account</NavItem></Link>
+                </li>
+            );
+        }
+
+        else{
+            return (
+                <li className= "col-lg-2 col-md-2 col-sm-2">
+                    <Link to="/login" activeClassName="none"><NavItem className="" href="#">Log In</NavItem></Link>
+                </li>
+            )
+        }
+    }
+
+    renderSignUp(){
+        if(!Cookies.isLoggedIn()) {
+
+            return (
+                <li className= "col-lg-2 col-md-2 col-sm-2">
+					<Link to="/sign_up"><NavItem href="#">Sign Up</NavItem></Link>
+                </li>
+            )
+        }
+
+    }
+
+    renderSignOut(){
+    	if(Cookies.isLoggedIn()){
+    		return (
+                <li className= "col-lg-2 col-md-2 col-sm-2">
+                    <Link onClick={this.logout} to="/login" activeClassName="none"><NavItem href="#">Logout</NavItem></Link>
+                </li>
 			)
-			return (notValid);
 		}
 	}
-	componentDidMount(){
-		this.renderLogout();
-	}
 
-	render() {
-		return (
-      <div>
-		    <Navbar>
-				<Navbar.Header>
-					<Navbar.Brand>
-                        <a href="/home">sparespace</a>
-					</Navbar.Brand>
-				</Navbar.Header>
-				<Nav pullRight>
-					{this.renderLogout()}
-					<LinkContainer to="/create_listing">
-						<NavItem eventKey={3}>Create a Listing!</NavItem>
-					</LinkContainer>
-					<LinkContainer to="/listings">
-						<NavItem eventKey={3}>View Listings</NavItem>
-					</LinkContainer>
-				</Nav>
-            </Navbar>
-        </div>
-		)
-	}
+    componentDidMount(){
+        this.renderLogout();
+    }
+
+    render() {
+
+        return (
+        	<div className="container-fluid">
+				<div className="row">
+					<div className="col-lg-5">
+						<Logo className="navbar-brand" href="/home">sparespace</Logo>
+					</div>
+					<div className="col-lg-6 col-md-offset-1 col-md-7 col-sm-7">
+							<ul className="list-inline" style={{marginTop: "40"}}>
+								<li className="col-lg-4 col-md-4 col-sm-4">
+									<Link to ="/create_listing"><PostSpace className="" href="#">Post Your Space</PostSpace></Link>
+								</li>
+								<li className= "col-lg-2 col-md-2 col-sm-2">
+									<Link to ="/listings"><NavItem className="" href="#">Browse</NavItem></Link>
+								</li>
+                                {this.renderLogout()}
+								{this.renderSignUp()}
+                                {this.renderSignOut()}
+							</ul>
+					</div>
+				</div>
+			</div>
+        )
+    }
 }
