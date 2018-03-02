@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+//home page
 export const Header = styled.h1`
         	font-family: 'Rubik', 'Arial', 'sans-serif';
         	font-size: 55px;
@@ -68,6 +69,27 @@ export const HomeButton = styled.a`
     }
 
 `;
+
+
+export const Boxes = styled.img`
+
+	margin-top: 125px;
+
+	@media(max-width: 425px){
+		display: none;
+	}
+`;
+
+export const FooterLink = styled.a`
+	font-family: 'Rubik', 'Arial', 'sans-serif';
+    color: #FC5B45;
+    font-weight: 600;
+    :hover{
+        text-decoration: none;
+        color: #FC5B45;
+    }
+`;
+
 
 export const Row = styled.div`
     margin-top: 50px;
