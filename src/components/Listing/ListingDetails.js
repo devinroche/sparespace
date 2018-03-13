@@ -1,13 +1,13 @@
 import React from "react"
 import axios from "axios"
-import { Image } from "cloudinary-react"
+import { Image,Transformation } from "cloudinary-react"
 import Cookies from "../../Cookies"
 import SubMap from '../ListingMap'
 import SendMessage from './SendMessage'
-import Carousel from 'nuka-carousel'
 import moment from 'moment';
 import { CardStyle, CardHost, CardTitle, Description, Price, Features, ListingLabel, Label, Duration } from "../Styles";
 import {ClimbingBoxLoader } from 'react-spinners'
+import { Carousel } from 'react-bootstrap';
 
 class ListingDetails extends React.Component {
     constructor() {
@@ -81,13 +81,19 @@ class ListingDetails extends React.Component {
             <div className="container">
                 <div className="row" style={{ marginTop: 50 }}>
                     <div className="col-sm-8 col-lg-9" >
+                
+                    <Carousel>
+                        {this.state.listingImages.map((l, index) => (
+
+                            <Carousel.Item>
+                                <img width={900} height={500} alt="900x500" key={index} src={this.state.listingImages[index]}/>
+                            </Carousel.Item>
+                        ))}
+                        
+                        
+                            
+                    </Carousel>
                         <CardStyle>
-                            <Carousel>
-                                {this.state.listingImages.map((l, index) => (
-                                    <Image key={index} cloudName="dopxmkhbr" publicId={l} />
-                                ))
-                                }
-                            </Carousel>
                             <div>
                                 <CardTitle>{listing.title}</CardTitle>
                                 <CardHost>{host.first}</CardHost>
