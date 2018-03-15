@@ -150,8 +150,9 @@ class ImageUpload extends Component {
                                 onDrop={this.onImageDrop.bind(this)}
                                 style={dropzoneStyle}
                             >
-                                <ImageUploadText className="text-center">Drag and drop here</ImageUploadText>
-                        </Dropzone>
+                                <ImageUploadText className="text-center">Click here to add up to 4 photos.</ImageUploadText>
+                                <ImageUploadText className="text-center">Your images will appear below!</ImageUploadText>
+                            </Dropzone>
                         </div>
                     </div>
                     {

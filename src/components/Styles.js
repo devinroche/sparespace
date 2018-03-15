@@ -1,6 +1,21 @@
 import styled from "styled-components";
 
 //home page
+
+export const MainHeader = styled.div`
+@media(max-width: 425px) {
+  				padding: 0;
+  			}
+`;
+
+export const NavBarDiv = styled.div`
+@media(max-width: 425px) {
+  				padding: 15px;
+  			}
+`;
+
+
+
 export const Header = styled.h1`
         	font-family: 'Rubik', 'Arial', 'sans-serif';
         	font-size: 55px;
@@ -9,6 +24,10 @@ export const Header = styled.h1`
         	
         	@media(min-width: 1440px) {
 				font-size: 65px;
+  			}
+  			@media(max-width: 375px) {
+  				padding: 0;
+				font-size: 45px;
   			}
   			@media(max-width: 320px) {
 				font-size: 45px;
@@ -28,6 +47,12 @@ export const SubHeader = styled.h2`
     @media(min-width: 1440px) {
         font-size: 30px;
         margin-bottom: 50px;
+    }
+     @media(max-width: 425px) {
+        font-size: 20px;
+    }
+    @media(max-width: 375px) {
+        font-size: 18px;
     }
     @media(max-width: 320px) {
         font-size: 18px;
@@ -122,6 +147,7 @@ export const NavItem = styled.a`
 			color: #333333;
 			text-decoration: #333;
 		}
+	
 	@media(max-width: 320px) {
 			font-size: 15px;
 		}
@@ -389,6 +415,7 @@ export const FormStyle = styled.input`
 		color: #C1C1C1;
 		font-size: 15px;
 	}
+	
 `;
 
 export const WhiteButton = styled.button`
@@ -428,14 +455,42 @@ export const DescriptionInput = styled.textarea`
 `;
 
 export const CreateLabel = styled.h3`
+  		
    font-family: "Rubik", "Arial", "sans-serif";
    font-weight: 300;
    color: #333;
    margin-top: 25px;
+   ::after{
+		content: "*";
+    	color: red;
+    	  margin-left:2px
+
+	}
    @media(min-width: 1440px) {
 				font-size: 30px;
 				
 		}
+`;
+
+export const CreateLabelFeatures = styled.h3`
+  		
+   font-family: "Rubik", "Arial", "sans-serif";
+   font-weight: 300;
+   color: #333;
+   margin-top: 25px;
+   
+   @media(min-width: 1440px) {
+				font-size: 30px;
+				
+		}
+`;
+
+export const SectionDivider = styled.hr`
+    clear:both;
+    display:block;
+    border: #FC5B45;
+    background-color: #FC5B45;
+    height: 1px;
 `;
 
 //image upload
@@ -443,7 +498,7 @@ export const ImageUploadText = styled.p`
 
 	font-family: "Rubik", "Arial", "sans-serif";
 	font-weight: 400;
-	margin-top: 100px;
+	margin-top: 45px;
 	font-size: 18px;
 	color: #5E85B2;
 

@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import Cookies from "../../Cookies"
 import {Link} from "react-router-dom"
-import  {Logo, NavItem, PostSpace} from "../Styles";
+import  {Logo, NavItem, PostSpace, NavBarDiv} from "../Styles";
 
 
 export default class AppNavbar extends Component {
@@ -71,10 +71,10 @@ export default class AppNavbar extends Component {
         return (
         	<div className="container-fluid">
 				<div className="row">
-					<div className="col-lg-5">
+					<NavBarDiv className="col-lg-5 col-md-5 col-sm-3 col-xs-11">
 						<Logo className="navbar-brand" href="/home">sparespace</Logo>
-					</div>
-					<div className="col-lg-6 col-md-offset-1 col-md-7 col-sm-7">
+					</NavBarDiv>
+					<NavBarDiv className="col-lg-6 col-lg-offset-1 col-md-offset-1 col-md-6 col-sm-7 col-sm-offset-2">
 							<ul className="list-inline" style={{marginTop: "40"}}>
 								<li className="col-lg-4 col-md-4 col-sm-4">
 									<Link to ="/create_listing"><PostSpace className="" href="#">Post Your Space</PostSpace></Link>
@@ -86,7 +86,7 @@ export default class AppNavbar extends Component {
 								{this.renderSignUp()}
                                 {this.renderSignOut()}
 							</ul>
-					</div>
+					</NavBarDiv>
 				</div>
 			</div>
         )
