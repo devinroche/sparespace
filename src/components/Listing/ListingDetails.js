@@ -8,6 +8,8 @@ import moment from 'moment';
 import { CardStyle, CardHost, CardTitle, Description, Price, Features, ListingLabel, Label, Duration } from "../Styles";
 import {ClimbingBoxLoader } from 'react-spinners'
 import { Carousel } from 'react-bootstrap';
+import './Listing.css';
+
 
 class ListingDetails extends React.Component {
     constructor() {
@@ -57,6 +59,8 @@ class ListingDetails extends React.Component {
 
     render() {
 
+    
+        
         const listing = this.state.listing ? this.state.listing : "";
         const lid = listing._id ? listing._id : "";
         const hid = listing._host ? listing._host._id : "";
@@ -82,11 +86,11 @@ class ListingDetails extends React.Component {
                 <div className="row" style={{ marginTop: 50 }}>
                     <div className="col-sm-8 col-lg-9" >
                 
-                    <Carousel>
+                    <Carousel className ="carousel">
                         {this.state.listingImages.map((l, index) => (
 
-                            <Carousel.Item>
-                                <img width={900} height={500} alt="900x500" key={index} src={this.state.listingImages[index]}/>
+                            <Carousel.Item className = "peopleCarouselImg" >
+                                <img alt="900x500" key={index} src={this.state.listingImages[index]}/>
                             </Carousel.Item>
                         ))}
                         

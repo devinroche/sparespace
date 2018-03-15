@@ -4,3 +4,9 @@
 .searchBar:focus{
     outline: none;
 }
+
+.peopleCarouselImg img {
+    width: 100%;
+    height: 500px;
+    max-height: 500px;
+  }
