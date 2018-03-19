@@ -69,6 +69,7 @@ class ListingDetails extends React.Component {
         const startDate = moment(dates[0]).format("MM/DD/YYYY");
         const endDate = moment(dates[1]).format("MM/DD/YYYY");
 
+
         const { loading } = this.state; // variable for loading icon 
         if (loading) { // if component is loading add loader icon
             return (

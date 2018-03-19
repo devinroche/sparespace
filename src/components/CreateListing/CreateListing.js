@@ -7,7 +7,7 @@ import moment from "moment"
 import { Formik } from "formik"
 import { Checkbox, CheckboxGroup } from 'react-checkbox-group';
 import { DateRange } from 'react-date-range';
-import {CreateLabel, FormStyle, WhiteButton, PriceInput, DescriptionInput} from "../Styles";
+import {CreateLabel, FormStyle, WhiteButton, PriceInput, DescriptionInput, CreateLabelFeatures, SectionDivider} from "../Styles";
 import {RadioGroup, Radio} from 'react-radio-group'
 
 let title = "";
@@ -28,7 +28,7 @@ class CreateListing extends Component {
             redirectPhotos: false,
             dates: this.props.dates,
             featurez: this.props.features,
-            selectedValue: ""
+            selectedValue: "Small (5 x 5)"
         };
 
         this.handleAddressChange = this.handleAddressChange.bind(this)
@@ -146,6 +146,9 @@ class CreateListing extends Component {
                                 else if (!values.description) {
                                     errors.description = 'Required'
                                 }
+                                else if (!this.state.address) {
+                                    errors.address = 'Required'
+                                }
                                 return errors
                             }}
                             onSubmit={
@@ -174,7 +177,7 @@ class CreateListing extends Component {
                                                 className="form-control"
                                                 type="text"
                                                 name="title"
-                                                placeholder="Spacious Basement"
+                                                placeholder="What would you call your space? A large basement?"
                                                 maxLength={35}
                                                 onChange={handleChange}
                                                 value={values.title}
@@ -190,7 +193,7 @@ class CreateListing extends Component {
                                                 className="form-control"
                                                 rows="6"
                                                 name="description"
-                                                placeholder="Tell us why your basement is the best and why tons of people are gonna wanna start getting in contact with you about your space."
+                                                placeholder="Why should people rent out your space? Any special features? Is it being shared with anyone else? What could fit in this space?"
                                                 onChange={handleChange}
                                                 value={values.description}
                                             />
@@ -200,8 +203,8 @@ class CreateListing extends Component {
 
 
                                     <div className="row">
-                                        <div className="col-sm-4 col-sm-offset-1">
-                                            <CreateLabel className="pull-left">Price</CreateLabel>
+                                        <div className="col-sm-3 col-sm-offset-1">
+                                            <CreateLabel className="pull-left">Price (/mo)</CreateLabel>
                                             <PriceInput
                                                 id="price"
                                                 className="form-control"
@@ -215,31 +218,38 @@ class CreateListing extends Component {
                                             />
                                             {touched.price && errors.price && <div>{errors.price}</div>}
                                         </div>
-                                        <div className="col-sm-7">
-                                            <div className="row"><CreateLabel className="pull-left">Features</CreateLabel></div>
-                                                <CheckboxGroup name="features" value = {this.state.featurez} onChange={this.handleCheckbox} style={{ fontFamily: "Rubik"}}>
-                                                    <Checkbox value="Heated" style={checkboxStyle} /> Heated
-                                                    <Checkbox value="Covered" style={checkboxStyle} /> Covered
-                                                    <Checkbox value="Access" style={checkboxStyle} /> Access
-                                                    <Checkbox value="Power Outlet" style={checkboxStyle} /> Power Outlet
-                                                </CheckboxGroup>
+                                        <div className="col-sm-8">
+
+                                                <div className="row" >
+                                                    <CreateLabel className="pull-left">Size</CreateLabel>
+                                                </div>
+
+                                            <div className="col-sm-12">
+                                            <RadioGroup
+                                                        name="size"
+                                                        selectedValue={this.state.selectedValue}
+                                                        onChange={this.handleRadioGroup}>
+                                                        <label  style={radioButtonStyle}><Radio value="Small (5 x 5)" style={{marginRight: 10}}/>Small (5 x 5)</label>
+                                                        <label style={radioButtonStyle}><Radio value="Medium (15 x 15)" style={{marginRight: 10}} />Medium (15 x 15)</label>
+                                                        <label style={radioButtonStyle}><Radio value="Large (25 x 25)" style={{marginRight: 10}}/>Large (25 x 25) </label>
+                                                    </RadioGroup>
+                                            </div>
                                         </div>
                                     </div>
-
-
+                                    <SectionDivider/>
                                     <div className="row">
                                         <div className="col-sm-4 col-sm-offset-1">
-                                            <CreateLabel className="pull-left">Size</CreateLabel>
+                                            <CreateLabelFeatures className="pull-left">Features</CreateLabelFeatures>
                                         </div>
                                     </div>
-                                    <RadioGroup
-                                        name="size"
-                                        selectedValue={this.state.selectedValue}
-                                        onChange={this.handleRadioGroup}>
-                                        <label style={radioButtonStyle}><Radio value="Small (5 x 5)" style={{marginRight: 10}}/>Small (5 x 5)</label>
-                                        <label style={radioButtonStyle}><Radio value="Medium (15 x 15)" style={{marginRight: 10}}/>Medium (15 x 15)</label>
-                                        <label style={radioButtonStyle}><Radio value="Large (25 x 25)" style={{marginRight: 10}} />Large (25 x 25) </label>
-                                    </RadioGroup>
+                                            <CheckboxGroup name="features" value = {this.state.featurez} onChange={this.handleCheckbox} style={{ fontFamily: "Rubik"}}>
+                                                <Checkbox value="Heated" style={checkboxStyle} /> Heated
+                                                <Checkbox value="Covered" style={checkboxStyle} /> Covered
+                                                <Checkbox value="Access" style={checkboxStyle} /> Access
+                                                <Checkbox value="Power Outlet" style={checkboxStyle} /> Power Outlet
+                                                <Checkbox value="Lock" style={checkboxStyle} /> Lock
+
+                                            </CheckboxGroup>
 
 
                                     <div className="row">
@@ -259,6 +269,7 @@ class CreateListing extends Component {
                                         <div className="col-sm-10 col-sm-offset-1">
                                             <CreateLabel className="pull-left">Address</CreateLabel>
                                             <PlacesAutocomplete styles={autoCompleteStyle} inputProps={inputProps} onError={onError} />
+                                            {<div>{errors.address}</div>}
                                             {
                                                 this.state.valid_addr === true ? null :
                                                     <div className="alert alert-danger">Please input a valid address!</div>
@@ -266,9 +277,9 @@ class CreateListing extends Component {
                                             <WhiteButton className="btn text-center" type="submit">Continue</WhiteButton>
 
                                         </div>
-                                        
+
                                     </div>
-                                            
+
                                 </form>
                             )}
                         />
