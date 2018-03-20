@@ -6,6 +6,7 @@ import swal from 'sweetalert2';
 import {Label, ImageUploadText, OrangeButton} from "../Styles";
 import { relative } from 'path';
 import { ClimbingBoxLoader } from 'react-spinners'
+import './create_listing.css';
 
 const CLOUDINARY_UPLOAD_PRESET = 'apqnswzs';
 const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/dopxmkhbr/image/upload';
@@ -125,7 +126,7 @@ class ImageUpload extends Component {
         const { loading } = this.state; // variable for loading icon 
         if(loading) { // if component is loading add loader icon
             return (
-                <div className = 'mx-auto' style={{width:'400px', margin:'0 auto'}} >
+                <div className = 'loading' >
                         <ClimbingBoxLoader
                         color={'#123abc'} 
                         loading={this.state.loading} 
