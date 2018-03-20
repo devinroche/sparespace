@@ -15,7 +15,7 @@ export class ListingCard extends React.Component {
                         listing: l
                     }
                 }}>
-                <Image cloudName="dopxmkhbr" publicId={l.images[0]} style={styles.imageSize}/>
+                    <Image cloudName="dopxmkhbr" publicId={l.images[0]} style={styles.imageSize}/>
                     <div className="row">
                         <div className="col-sm-2" style={{paddingRight: 0}}>
                             <ListingPrice>${l.price}</ListingPrice>

@@ -1,13 +1,15 @@
 import React from "react"
 import axios from "axios"
-import { Image } from "cloudinary-react"
+import { Image,Transformation } from "cloudinary-react"
 import Cookies from "../../Cookies"
 import SubMap from '../ListingMap'
 import SendMessage from './SendMessage'
-import Carousel from 'nuka-carousel'
 import moment from 'moment';
 import { CardStyle, CardHost, CardTitle, Description, Price, Features, ListingLabel, Label, Duration } from "../Styles";
 import {ClimbingBoxLoader } from 'react-spinners'
+import { Carousel } from 'react-bootstrap';
+import './Listing.css';
+
 
 class ListingDetails extends React.Component {
     constructor() {
@@ -57,6 +59,8 @@ class ListingDetails extends React.Component {
 
     render() {
 
+    
+        
         const listing = this.state.listing ? this.state.listing : "";
         const lid = listing._id ? listing._id : "";
         const hid = listing._host ? listing._host._id : "";
@@ -64,6 +68,7 @@ class ListingDetails extends React.Component {
         const dates = listing.dates ? listing.dates : "";
         const startDate = moment(dates[0]).format("MM/DD/YYYY");
         const endDate = moment(dates[1]).format("MM/DD/YYYY");
+
 
         const { loading } = this.state; // variable for loading icon 
         if (loading) { // if component is loading add loader icon
@@ -81,13 +86,19 @@ class ListingDetails extends React.Component {
             <div className="container">
                 <div className="row" style={{ marginTop: 50 }}>
                     <div className="col-sm-8 col-lg-9" >
+                
+                    <Carousel className ="carousel">
+                        {this.state.listingImages.map((l, index) => (
+
+                            <Carousel.Item className = "peopleCarouselImg" >
+                                <img alt="900x500" key={index} src={this.state.listingImages[index]}/>
+                            </Carousel.Item>
+                        ))}
+                        
+                        
+                            
+                    </Carousel>
                         <CardStyle>
-                            <Carousel>
-                                {this.state.listingImages.map((l, index) => (
-                                    <Image key={index} cloudName="dopxmkhbr" publicId={l} />
-                                ))
-                                }
-                            </Carousel>
                             <div>
                                 <CardTitle>{listing.title}</CardTitle>
                                 <CardHost>{host.first}</CardHost>

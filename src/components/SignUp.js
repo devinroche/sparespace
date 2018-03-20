@@ -77,8 +77,8 @@ class SignUp extends Component {
 									});
 								} else { // if account can be created
 									swal({
-										title: "Thanks for creating an account!",
-										content: "Let's Go!",
+										title: "Thanks! Check your email to verify your account!",
+										content: "Thanks! Check your email to verify your account!",
 										icon: "success"
 									}).then(() => {
 										axios.post("http://localhost:3001/login", {
@@ -93,23 +93,7 @@ class SignUp extends Component {
 									})
 								}
 								
-							});
-							swal(
-								"Email Verification Required",
-								"Please check your email to verify your account",
-								"warning"
-							).then(() => {
-                                axios
-                                    .post("http://localhost:3001/login", {
-                                        email: values.email,
-                                        password: values.password
-                                    })
-                                    .then(function(response) {
-                                        Cookies.loginUser(response.data.id, response.data.v)
-                                        window.location.href = "/users/" + response.data.id
-                                        return <Redirect to="/logged_in" />
-                                    })
-								})
+							})
 							}}
 							//render is actually rendering the form for the user to see
 							render={({
@@ -140,7 +124,7 @@ class SignUp extends Component {
 											value={values.last}
 										/>
 										{touched.last && errors.last && <div>{errors.last}</div>}
-										<FormLabel className="pull-left">Email</FormLabel>
+										<FormLabel className="pull-left">Email (only zagmail is accepted)</FormLabel>
 										<FormInput
 											id="email"
 											className="form-control"
