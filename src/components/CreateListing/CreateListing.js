@@ -54,8 +54,11 @@ class CreateListing extends Component {
     }
     //handles changes on start calendar
     StartDateChange(value,f) {
+        
         this.setState({
-            date_start: value, // ISO String, ex: "2016-11-19T12:00:00.000Z" 
+            
+            //moment(date.startDate._d).toISOString(),
+            date_start: moment(value)._d.toISOString(), // ISO String, ex: "2016-11-19T12:00:00.000Z" 
             d_f_start:f
         });
     }
@@ -63,7 +66,7 @@ class CreateListing extends Component {
     //handles changes on end calendar
     EndDateChange(value, formattedValue) {
         this.setState({
-            date_end: value, // ISO String, ex: "2016-11-19T12:00:00.000Z" 
+            date_end: moment(value)._d.toISOString(), // ISO String, ex: "2016-11-19T12:00:00.000Z" 
             d_f_end:formattedValue
         });
     }
@@ -91,6 +94,7 @@ class CreateListing extends Component {
 
 
     //Calendar change start
+    /*
     handleSelect(date){
         this.setState({
             dates: {
@@ -98,7 +102,8 @@ class CreateListing extends Component {
                 end: moment(date.endDate._d).toISOString()
             }
         })
-	}
+    }
+    */
 
 	//for size feature handling
 	handleRadioGroup(value){
