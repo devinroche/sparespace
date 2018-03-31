@@ -9,6 +9,8 @@ import { Checkbox, CheckboxGroup } from 'react-checkbox-group';
 import { DateRange } from 'react-date-range';
 import {CreateLabel, FormStyle, WhiteButton, PriceInput, DescriptionInput, CreateLabelFeatures, SectionDivider} from "../Styles";
 import {RadioGroup, Radio} from 'react-radio-group'
+import ReactTooltip from 'react-tooltip';
+
 
 let title = "";
 let description = "";
@@ -203,7 +205,7 @@ class CreateListing extends Component {
 
 
                                     <div className="row">
-                                        <div className="col-sm-3 col-sm-offset-1">
+                                        <div className="col-sm-3">
                                             <CreateLabel className="pull-left">Price (/mo)</CreateLabel>
                                             <PriceInput
                                                 id="price"
@@ -218,10 +220,13 @@ class CreateListing extends Component {
                                             />
                                             {touched.price && errors.price && <div>{errors.price}</div>}
                                         </div>
-                                        <div className="col-sm-8">
+                                        <div className="col-sm-9">
 
                                                 <div className="row" >
-                                                    <CreateLabel className="pull-left">Size</CreateLabel>
+                                                    <CreateLabel className="pull-left">Size (ft.) <a data-tip data-for='sizes'><img src={require('../../images/info.svg')}/></a></CreateLabel>
+                                                    <ReactTooltip id='sizes' place="top" type="dark" effect="float">
+                                                <span>If no sizes match, select "Other" and be sure to write in the size in the description!</span>
+                                            </ReactTooltip>
                                                 </div>
 
                                             <div className="col-sm-12">
@@ -229,9 +234,10 @@ class CreateListing extends Component {
                                                         name="size"
                                                         selectedValue={this.state.selectedValue}
                                                         onChange={this.handleRadioGroup}>
-                                                        <label  style={radioButtonStyle}><Radio value="Small (5 x 5)" style={{marginRight: 10}}/>Small (5 x 5)</label>
-                                                        <label style={radioButtonStyle}><Radio value="Medium (15 x 15)" style={{marginRight: 10}} />Medium (15 x 15)</label>
-                                                        <label style={radioButtonStyle}><Radio value="Large (25 x 25)" style={{marginRight: 10}}/>Large (25 x 25) </label>
+                                                        <label  style={radioButtonStyle}><Radio value="Small (5 x 5)" style={{marginRight: 5}}/>Small (5 x 5)</label>
+                                                        <label style={radioButtonStyle}><Radio value="Medium (15 x 15)" style={{marginRight: 5}} />Medium (15 x 15)</label>
+                                                        <label style={radioButtonStyle}><Radio value="Large (25 x 25)" style={{marginRight: 5}}/>Large (25 x 25) </label>
+                                                        <label style={radioButtonStyle}><Radio value="Other" style={{marginRight: 5}}/>Other</label>
                                                     </RadioGroup>
                                             </div>
                                         </div>
@@ -239,7 +245,11 @@ class CreateListing extends Component {
                                     <SectionDivider/>
                                     <div className="row">
                                         <div className="col-sm-4 col-sm-offset-1">
-                                            <CreateLabelFeatures className="pull-left">Features</CreateLabelFeatures>
+                                            <CreateLabelFeatures className="pull-left">Features <a data-tip="React-tooltip">                                            <img src={require('../../images/info.svg')}/>
+</a></CreateLabelFeatures>
+                                            <ReactTooltip place="top" type="dark" effect="float">
+                                                <span>These are features that your space has to offer. If none match, be sure to add your own in the description!</span>
+                                            </ReactTooltip>
                                         </div>
                                     </div>
                                             <CheckboxGroup name="features" value = {this.state.featurez} onChange={this.handleCheckbox} style={{ fontFamily: "Rubik"}}>
