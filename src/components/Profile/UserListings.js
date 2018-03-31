@@ -78,7 +78,7 @@ class UserListings extends React.Component {
                 height: 25,
                 marginBottom: 5,
                 background: "linear-gradient(to right, #FE947B, #FC5B45)",
-                border: "linear-gradient(to right, #FE947B, #FC5B45)",
+                border: "none",
                 borderRadius: 5
         };
 
