@@ -6,9 +6,9 @@ import PlacesAutocomplete from 'react-places-autocomplete'
 import moment from "moment"
 import { Formik } from "formik"
 import { Checkbox, CheckboxGroup } from 'react-checkbox-group';
-import { DateRange } from 'react-date-range';
 import {CreateLabel, FormStyle, WhiteButton, PriceInput, DescriptionInput, CreateLabelFeatures, SectionDivider} from "../Styles";
 import {RadioGroup, Radio} from 'react-radio-group'
+var DatePicker = require("react-bootstrap-date-picker");
 
 let title = "";
 let description = "";
@@ -67,7 +67,7 @@ class CreateListing extends Component {
         }
     }
 
-
+    /*
     //Calendar change start
     handleSelect(date){
         this.setState({
@@ -76,7 +76,9 @@ class CreateListing extends Component {
                 end: moment(date.endDate._d).toISOString()
             }
         })
-	}
+    }
+    */
+   
 
 	//for size feature handling
 	handleRadioGroup(value){
@@ -250,10 +252,15 @@ class CreateListing extends Component {
                                             <CreateLabel className="pull-left">Dates of Availability</CreateLabel>
                                             <div className="row">
                                                 <div className="col-sm-11">
-                                                    <DateRange
-                                                    minDate={moment()}
-                                                    onInit={this.handleSelect.bind(this)} 
-                                                    onChange={this.handleSelect.bind(this)} />
+                                                    <div> 
+                                                        <span>Start</span>
+                                                        <DatePicker value = {this.state.dates.start} onChange={ e => this.setState({ dates:{start:moment(e)._d.toISOString(),end:this.state.dates.end} }) }  />   
+                                                    </div>
+                                                    
+                                                    <div> 
+                                                        <span>End</span>
+                                                        <DatePicker value = {this.state.dates.end} onChange={ e => this.setState({ dates:{start:this.state.dates.start,end:moment(e)._d.toISOString()} }) }/>   
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

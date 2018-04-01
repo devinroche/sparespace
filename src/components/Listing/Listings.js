@@ -50,11 +50,12 @@ export class Listings extends React.Component {
         this.setState({ search: e.target.value })
     }
     handleSelect(range) {
+        
         if(range.startDate.format('YYYY-MM-DD') !== range.endDate.format('YYYY-MM-DD')){
             this.setState({
                 range: {
-                    start: range.startDate._d,
-                    end: range.endDate._d
+                    start: range.startDate,
+                    end: range.endDate
                 }
             })
         }
@@ -70,7 +71,7 @@ export class Listings extends React.Component {
                 (listing.title.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
                     || listing.description.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1)
                 && (listing.price >= this.state.value.min && listing.price <= this.state.value.max)
-                && (moment(listing.dates[0]).isSameOrBefore(this.state.range.start))
+                && (moment(listing.dates[0]).format('YYYY-MM-DD') <= this.state.range.start.format('YYYY-MM-DD'))
             )
         });
         return (

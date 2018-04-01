@@ -21,8 +21,8 @@ class CreateListingPage extends Component {
             features: [],
             size: "",
             dates: {
-                start: null,
-                end: null
+                start: "",
+                end: ""
             },
             pageChange: false,
             filePaths: []
@@ -58,6 +58,7 @@ class CreateListingPage extends Component {
             size: s,
             dates: datez
         })
+        
     }
     //form to manage photos being added to 
     //image upload lineup 
