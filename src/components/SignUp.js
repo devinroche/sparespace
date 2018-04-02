@@ -85,15 +85,8 @@ class SignUp extends Component {
 										content: "Thanks! Check your email to verify your account!",
 										icon: "success"
 									}).then(() => {
-										axios.post("http://localhost:3001/login", {
-											email: values.email,
-											password: values.password
-										})
-										.then(function(response) {
-											Cookies.loginUser(response.data.id, response.data.v)
-											window.location.href = "/users/" + response.data.id
-											return <Redirect to="/logged_in" />
-										})
+											window.location.href = "/"
+											return <Redirect to="/home" />
 									})
 								}
 								
