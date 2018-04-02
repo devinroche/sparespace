@@ -13,27 +13,13 @@ function getId(){
     return Cookies.get('id')
 }
 
-function isVerified(){
-    if(Cookies.get('v') === 'true')
-        return true
-
-    return false
-}
-
-function isExpress(){
-    return Boolean(Cookies.get('id') && isVerified())
-}
-
 function removeCookie(){
     Cookies.remove('id', { path: '/'})
-    Cookies.remove('v', { path: '/'})
 }
 
 export default {
     loginUser,
     isLoggedIn,
     getId,
-    isVerified,
     removeCookie,
-    isExpress
 };

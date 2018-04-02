@@ -84,12 +84,9 @@ class CreateListing extends Component {
     }
 
     checkLogin() {
-    if (!Cookies.isLoggedIn()) {
+        if (!Cookies.isLoggedIn()) {
             return 'log'
         }
-    if(!Cookies.isVerified()){
-        return 'ver'
-    }
     }
 
 
@@ -125,10 +122,6 @@ class CreateListing extends Component {
         const onError = (status, clearSuggestions) => {
             this.setState({ valid_addr: false });
         };
-
-        if(this.checkLogin() === 'ver'){
-            return <VerifiedAlert/>
-        }
 
         if(this.checkLogin() === 'log'){
             return <LoginAlert />
