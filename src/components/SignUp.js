@@ -53,7 +53,11 @@ class SignUp extends Component {
 									errors.confirm = "Passwords do not match!!"
 								} else if (!values.password) {
 									errors.password = "Required"
-								} else if (!values.agreement) {
+								}
+								else if (values.password.length < 8) {
+									errors.password = "Password must be longer!"
+								}
+								else if (!values.agreement) {
 									errors.agreement = "You must accept to Terms of Privacy and Privacy Policy"
 								}
 								return errors
