@@ -9,6 +9,8 @@ import { Checkbox, CheckboxGroup } from 'react-checkbox-group';
 import { DateRange } from 'react-date-range';
 import {CreateLabel, FormStyle, WhiteButton, PriceInput, DescriptionInput, CreateLabelFeatures, SectionDivider} from "../Styles";
 import {RadioGroup, Radio} from 'react-radio-group'
+import { Label } from "react-bootstrap";
+var DatePicker = require("react-bootstrap-date-picker");
 
 let title = "";
 let description = "";
@@ -26,7 +28,10 @@ class CreateListing extends Component {
             valid_addr: true,
             address: this.props.address,
             redirectPhotos: false,
-            dates: this.props.dates,
+            date_start: this.props.dates.start, // non formated
+            date_end:this.props.dates.end, // non formated
+            d_f_start:"", //formated value
+            d_f_end:"", //formated value
             featurez: this.props.features,
             selectedValue: "Small (5 x 5)"
         };
@@ -35,6 +40,8 @@ class CreateListing extends Component {
         this.checkLogin = this.checkLogin.bind(this)
         this.handleCheckbox = this.handleCheckbox.bind(this);
         this.handleRadioGroup = this.handleRadioGroup.bind(this);
+        this.StartDateChange = this.StartDateChange.bind(this);
+        this.EndDateChange = this.EndDateChange.bind(this);
 
     }
     //changes address for react places autocomplete
@@ -45,17 +52,32 @@ class CreateListing extends Component {
             valid_addr: true
         })
     }
+    //handles changes on start calendar
+    StartDateChange(value,f) {
+        
+        this.setState({
+            
+            //moment(date.startDate._d).toISOString(),
+            date_start: moment(value)._d.toISOString(), // ISO String, ex: "2016-11-19T12:00:00.000Z" 
+            d_f_start:f
+        });
+    }
+
+    //handles changes on end calendar
+    EndDateChange(value, formattedValue) {
+        this.setState({
+            date_end: moment(value)._d.toISOString(), // ISO String, ex: "2016-11-19T12:00:00.000Z" 
+            d_f_end:formattedValue
+        });
+    }
+
     //change for checkbox
     handleCheckbox = (e) => {
         this.setState({
           featurez: e
         });
     }
-    /*
-    handleCheckbox(e) {
-        features = e
-    }
-    */
+    
     componentDidMount() {
         
         this.checkLogin()
@@ -69,6 +91,7 @@ class CreateListing extends Component {
 
 
     //Calendar change start
+    /*
     handleSelect(date){
         this.setState({
             dates: {
@@ -76,7 +99,8 @@ class CreateListing extends Component {
                 end: moment(date.endDate._d).toISOString()
             }
         })
-	}
+    }
+    */
 
 	//for size feature handling
 	handleRadioGroup(value){
@@ -153,7 +177,7 @@ class CreateListing extends Component {
                                     description = values.description
                                     price = values.price
                                     location = this.state.address
-                                    this.props.onFormChange(values.title,values.description,values.price,this.state.address,this.state.featurez, this.state.selectedValue, this.state.dates)
+                                    this.props.onFormChange(values.title,values.description,values.price,this.state.address,this.state.featurez, this.state.selectedValue, this.state.date_start,this.state.date_end)
                                     this.props.onPageChange(0)
                                     this.setState({
                                         redirectPhotos: true,
@@ -250,10 +274,15 @@ class CreateListing extends Component {
                                             <CreateLabel className="pull-left">Dates of Availability</CreateLabel>
                                             <div className="row">
                                                 <div className="col-sm-11">
-                                                    <DateRange
-                                                    minDate={moment()}
-                                                    onInit={this.handleSelect.bind(this)} 
-                                                    onChange={this.handleSelect.bind(this)} />
+                                                    <div> 
+                                                        <span>Start</span>
+                                                        <DatePicker value = {this.state.date_start} onChange = {this.StartDateChange}/>   
+                                                    </div>
+                                                        <span>End</span>
+                                                        <DatePicker value = {this.state.date_end} onChange = {this.EndDateChange}/> 
+                                                    <div>
+                                                    </div>
+                                                 
                                                 </div>
                                             </div>
                                         </div>

@@ -21,8 +21,8 @@ class CreateListingPage extends Component {
             features: [],
             size: "",
             dates: {
-                start: null,
-                end: null
+                start: "",
+                end: ""
             },
             pageChange: false,
             filePaths: []
@@ -44,9 +44,10 @@ class CreateListingPage extends Component {
             p - price
             l - location
             f - features
-            datez - dates
+            d_s - date start
+            d_e - date end
     */
-    handleFormChange(t,d,p,l,f,s,datez) {
+    handleFormChange(t,d,p,l,f,s,d_s,d_e) {
         
         
         this.setState({
@@ -56,7 +57,7 @@ class CreateListingPage extends Component {
             location: l,
             features: f,
             size: s,
-            dates: datez
+            dates: {start:d_s,end:d_e}
         })
     }
     //form to manage photos being added to 
