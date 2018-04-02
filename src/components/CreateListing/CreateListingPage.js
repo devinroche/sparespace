@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import CreateListing from "../CreateListing/CreateListing"
+import CreateListingSlide from "../CreateListing/CreateListingSlide"
 import ImageUpload from "./ImageUpload";
 import Cookies from '../../Cookies';
 import axios from 'axios';
@@ -136,7 +137,9 @@ class CreateListingPage extends Component {
         return (
             <div className="container">
                 {
+                    
                     // if pageChange = false then show create listing page
+                    
                     this.state.pageChange === true ? null :
                         <CreateListing 
                         onPageChange = {this.handlePageChange} 
@@ -148,6 +151,7 @@ class CreateListingPage extends Component {
                         features = {this.state.features}
                         size = {this.state.size}
                         dates = {this.state.dates}/>
+                    
                 }
                 { // if pagechange = true then show image upload page 
                     this.state.pageChange === false ? null :

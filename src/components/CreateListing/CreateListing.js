@@ -28,13 +28,17 @@ class CreateListing extends Component {
             redirectPhotos: false,
             dates: this.props.dates,
             featurez: this.props.features,
-            selectedValue: "Small (5 x 5)"
+            selectedValue: "Small (5 x 5)",
+            pageChange:false
         };
 
         this.handleAddressChange = this.handleAddressChange.bind(this)
         this.checkLogin = this.checkLogin.bind(this)
         this.handleCheckbox = this.handleCheckbox.bind(this);
         this.handleRadioGroup = this.handleRadioGroup.bind(this);
+        this.onPageChange = this.onPageChange.bind(this)
+
+
 
     }
     //changes address for react places autocomplete
@@ -61,6 +65,7 @@ class CreateListing extends Component {
         this.checkLogin()
     }
 
+
     checkLogin() {
         if (!Cookies.isLoggedIn()) {
             return 'log'
@@ -78,7 +83,21 @@ class CreateListing extends Component {
         })
     }
     */
-   
+
+   //Handles the middle button to choose between pages 
+   // forms are split between two pages
+    onPageChange() {
+        
+        if (this.state.pageChange == true) {
+            this.setState({
+                pageChange:false
+            })
+        } else {
+            this.setState({
+                pageChange:true
+            })
+        }
+    }
 
 	//for size feature handling
 	handleRadioGroup(value){
@@ -164,8 +183,13 @@ class CreateListing extends Component {
                             //render part of formik
                             render={({ values, touched, errors, handleChange, handleSubmit }) => (
                                 <form onSubmit={handleSubmit}>
+
+                                
                                     <div className="row">
+                                    { // if pagechange = true then show image upload page 
+                                            this.state.pageChange === true ? null :
                                         <div className="col-sm-10 col-sm-offset-1">
+                                        
                                             <CreateLabel className="pull-left">Title</CreateLabel>
                                             <FormStyle
                                                 id="title"
@@ -179,8 +203,11 @@ class CreateListing extends Component {
                                             />
                                             {touched.title && errors.title && <div>{errors.title}</div>}
                                         </div>
+                                    }
                                     </div>
                                     <div className="row">
+                                    { // if pagechange = true then show image upload page               
+                                            this.state.pageChange === true ? null :
                                         <div className="col-sm-10 col-sm-offset-1">
                                             <CreateLabel className="pull-left">Description</CreateLabel>
                                             <DescriptionInput
@@ -194,10 +221,13 @@ class CreateListing extends Component {
                                             />
                                             {touched.description && errors.description && <div>{errors.description}</div>}
                                         </div>
+                                    }
                                     </div>
 
-
-                                    <div className="row">
+                                    
+                                    <div className="container">
+                                    { // if pagechange = true then show image upload page 
+                                            this.state.pageChange === true ? null :
                                         <div className="col-sm-3 col-sm-offset-1">
                                             <CreateLabel className="pull-left">Price (/mo)</CreateLabel>
                                             <PriceInput
@@ -212,14 +242,26 @@ class CreateListing extends Component {
                                                 max={999}
                                             />
                                             {touched.price && errors.price && <div>{errors.price}</div>}
-                                        </div>
-                                        <div className="col-sm-8">
 
+                                        </div>
+                                    }
+                                    </div>   
+                                    { // if pagechange = true then show image upload page 
+                                            this.state.pageChange === true ? null :
+                                         <WhiteButton className="btn text-center" onClick = {this.onPageChange} type="submit">Continue</WhiteButton>
+                                    }
+                                        <div className="col-sm-8">
+                                        { // if pagechange = true then show image upload page 
+                                            this.state.pageChange === false ? null :
                                                 <div className="row" >
                                                     <CreateLabel className="pull-left">Size</CreateLabel>
                                                 </div>
+                                        }
+                                                
 
-                                            <div className="col-sm-12">
+                                        <div className="col-sm-12">
+                                        { // if pagechange = true then show image upload page 
+                                            this.state.pageChange === false ? null :
                                             <RadioGroup
                                                         name="size"
                                                         selectedValue={this.state.selectedValue}
@@ -228,15 +270,23 @@ class CreateListing extends Component {
                                                         <label style={radioButtonStyle}><Radio value="Medium (15 x 15)" style={{marginRight: 10}} />Medium (15 x 15)</label>
                                                         <label style={radioButtonStyle}><Radio value="Large (25 x 25)" style={{marginRight: 10}}/>Large (25 x 25) </label>
                                                     </RadioGroup>
+                                        }
                                             </div>
                                         </div>
-                                    </div>
-                                    <SectionDivider/>
+                                        { // if pagechange = true then show image upload page 
+                                            this.state.pageChange === false ? null :
+                                                <SectionDivider/>
+                                        }
                                     <div className="row">
                                         <div className="col-sm-4 col-sm-offset-1">
+                                        { // if pagechange = true then show image upload page 
+                                            this.state.pageChange === false ? null :
                                             <CreateLabelFeatures className="pull-left">Features</CreateLabelFeatures>
+                                        }
                                         </div>
                                     </div>
+                                    { // if pagechange = true then show image upload page 
+                                            this.state.pageChange === false ? null :
                                             <CheckboxGroup name="features" value = {this.state.featurez} onChange={this.handleCheckbox} style={{ fontFamily: "Rubik"}}>
                                                 <Checkbox value="Heated" style={checkboxStyle} /> Heated
                                                 <Checkbox value="Covered" style={checkboxStyle} /> Covered
@@ -245,12 +295,17 @@ class CreateListing extends Component {
                                                 <Checkbox value="Lock" style={checkboxStyle} /> Lock
 
                                             </CheckboxGroup>
-
+                                    }
 
                                     <div className="row">
                                         <div className="col-sm-10 col-sm-offset-1" style={calendarStyle}>
+                                        { // if pagechange = true then show image upload page 
+                                            this.state.pageChange === false ? null :
                                             <CreateLabel className="pull-left">Dates of Availability</CreateLabel>
+                                        }
                                             <div className="row">
+                                            { // if pagechange = true then show image upload page 
+                                            this.state.pageChange === false ? null :
                                                 <div className="col-sm-11">
                                                     <div> 
                                                         <span>Start</span>
@@ -262,10 +317,13 @@ class CreateListing extends Component {
                                                         <DatePicker value = {this.state.dates.end} onChange={ e => this.setState({ dates:{start:this.state.dates.start,end:moment(e)._d.toISOString()} }) }/>   
                                                     </div>
                                                 </div>
+                                            }
                                             </div>
                                         </div>
                                     </div>
                                     <div className="row">
+                                    { // if pagechange = true then show image upload page 
+                                            this.state.pageChange === false ? null :
                                         <div className="col-sm-10 col-sm-offset-1">
                                             <CreateLabel className="pull-left">Address</CreateLabel>
                                             <PlacesAutocomplete styles={autoCompleteStyle} inputProps={inputProps} onError={onError} />
@@ -274,10 +332,14 @@ class CreateListing extends Component {
                                                 this.state.valid_addr === true ? null :
                                                     <div className="alert alert-danger">Please input a valid address!</div>
                                             }
+                                            { // if pagechange = true then show image upload page 
+                                            this.state.pageChange === false ? null :
+                                                <WhiteButton className="btn text-center" onClick = {this.onPageChange} type="submit">Back</WhiteButton>
+                                            }
                                             <WhiteButton className="btn text-center" type="submit">Continue</WhiteButton>
 
                                         </div>
-
+                                    }
                                     </div>
 
                                 </form>
