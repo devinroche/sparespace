@@ -10,8 +10,10 @@ import { DateRange } from 'react-date-range';
 import {CreateLabel, FormStyle, WhiteButton, PriceInput, DescriptionInput, CreateLabelFeatures, SectionDivider} from "../Styles";
 import {RadioGroup, Radio} from 'react-radio-group'
 import { Label } from "react-bootstrap";
-var DatePicker = require("react-bootstrap-date-picker");
 import ReactTooltip from 'react-tooltip';
+
+var DatePicker = require("react-bootstrap-date-picker");
+
 
 
 let title = "";
