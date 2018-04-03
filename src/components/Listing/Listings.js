@@ -62,7 +62,14 @@ export class Listings extends React.Component {
     }
     toggleCalendar() {
         this.setState({
-            showCalendar: !this.state.showCalendar
+            showCalendar: !this.state.showCalendar,
+            showPrice: false
+        })
+    }
+    togglePrice(){
+        this.setState({
+            showPrice: !this.state.showPrice,
+            showCalendar: false
         })
     }
     render() {
@@ -81,23 +88,28 @@ export class Listings extends React.Component {
                 <div className="col-sm-7 col-sm-offset-1">
                 <FilterContainer className="row">
                     <div>
-                            <div className='col-sm-4'>
+                            <div className='col-sm-6'>
                                 <SearchInput className="searchBar" type='text' value={this.state.search} onChange={this.updateSearch.bind(this)} style={styles.formStyle} placeholder="Search Listings" />
                             </div>
-                            <div className='col-sm-4'>
-                                <InputRange
-                                    maxValue={this.state.max}
-                                    minValue={0}
-                                    value={this.state.value}
-                                    onChange={value => {this.setState({ value })}}
-                                    />
+                            <div className='col-sm-3'>
+                                <OrangeButton style={{padding: 8}} onClick={this.togglePrice.bind(this)}>Price</OrangeButton>
                             </div>
-                            <div className="col-sm-4">
-                                <OrangeButton style={{padding: 7}} onClick={this.toggleCalendar.bind(this)}>Date Range</OrangeButton>
+                            <div className="col-sm-3">
+                                <OrangeButton style={{padding: 8}} onClick={this.toggleCalendar.bind(this)}>Dates</OrangeButton>
                             </div>
                     </div>
 
-
+                    <div className="col-sm-4 col-sm-offset-4">
+                        {
+                            this.state.showPrice ? <InputRange
+                                maxValue={this.state.max}
+                                minValue={0}
+                                formatLabel={value => `$${value}`}
+                                value={this.state.value}
+                                onChange={value => { this.setState({ value }) }}
+                            /> : null
+                        }
+                    </div>
                     <div>
                         {this.state.showCalendar ? <DateRange
                             minDate={moment()}
@@ -121,7 +133,6 @@ export class Listings extends React.Component {
 export default Listings;
 
 const styles = {
-
     formStyle: {
         border: "none",
         boxShadow: "none",
