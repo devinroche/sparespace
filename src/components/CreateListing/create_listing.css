@@ -25,15 +25,30 @@
 
   .allSides
 		{
-      border-radius: 25px;
-      padding: 20px; 
-			border: solid 1px #555;
-			box-shadow:  0 0 10px  rgba(0,0,0,0.6);
+      box-shadow:  0 0 10px  rgba(0,0,0,0.6);
 			-moz-box-shadow: 0 0 10px  rgba(0,0,0,0.6);
 			-webkit-box-shadow: 0 0 10px  rgba(0,0,0,0.6);
 			-o-box-shadow: 0 0 10px  rgba(0,0,0,0.6);
+      padding: 20px;  
+			
      }
      
 .redLabel {
   text-decoration: red underline;
+}
+
+
+.child-div {
+  
+  float: left;
+  margin-right: 5px;
+}
+
+.parent-div {
+  
+  
+  border: 1px solid red;
+  margin-right: 10px;
+  float: left;
+  
 }

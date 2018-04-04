@@ -24,12 +24,10 @@ class ImageUpload extends Component {
             loading:false // loading icon state 
             
         }
-
+            this.handleImageUpload = this.handleImageUpload.bind(this);
     }
 
-    handlePageChange() {
-        this.props.onPageChange(1)
-    }
+    
 
     handleImageUpload() {
 
@@ -41,14 +39,7 @@ class ImageUpload extends Component {
             )
             return;
         } else {
-            if (this.state.fileDropped === false) { // no pictures
-                swal(
-                    'No Pictures!',
-                    'Please add a picture',
-                    'warning'
-                )
-                return;
-            } else { // pictures
+                
                 // upload to cloudinary
                 this.setState({loading:true}) // loading icon state 
                 this.state.filePaths.map((file,index) => {
@@ -62,11 +53,11 @@ class ImageUpload extends Component {
                         this.setState({ fileUrls: newArray })
                         this.setState({ imageLock: true })
                         if (this.state.filePaths.length === this.state.fileUrls.length) {
-                            this.props.onListingCreate(newArray)
+                            this.props.handleSubmit(newArray)
                         }
                     })
                 });
-            }
+            
             
         }
 
@@ -103,7 +94,7 @@ class ImageUpload extends Component {
             var old = this.state.filePaths.slice()
             var old_new = old.concat(files)
             this.setState({ filePaths: old_new })
-            this.props.onImageChange(old_new)
+            //this.props.onImageChange(old_new)
         } else { // else add add new set
             if (files.length > 4) { // if more than 4 photos
                 // tell person to upload only 4
@@ -118,7 +109,7 @@ class ImageUpload extends Component {
             filePaths: files,
             fileDropped: true
             });
-            this.props.onImageChange(files)
+            
         }
     }
 
@@ -175,8 +166,8 @@ class ImageUpload extends Component {
                 </div>
                 <div className="row">
                     <div className="col-sm-6 col-sm-offset-5" style={{ marginTop: 100 }}>
-                        <OrangeButton onClick={this.handlePageChange.bind(this)}>Back</OrangeButton>
-                        <OrangeButton onClick={this.handleImageUpload.bind(this)}>Finish</OrangeButton>
+                        <OrangeButton onClick={this.props.handleBack}>Back</OrangeButton>
+                        <OrangeButton onClick={this.handleImageUpload}>Finish</OrangeButton>
                         
                     </div>
                 </div>

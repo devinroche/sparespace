@@ -50,7 +50,7 @@ export class Listings extends React.Component {
         this.setState({ search: e.target.value })
     }
     handleSelect(range) {
-        console.log()
+        
         if(range.startDate.format('YYYY-MM-DD') !== range.endDate.format('YYYY-MM-DD')){
             this.setState({
                 range: {

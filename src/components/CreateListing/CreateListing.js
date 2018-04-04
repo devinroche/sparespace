@@ -92,10 +92,12 @@ class CreateListing extends Component {
             this.setState({
                 pageChange:false
             })
+            this.props.onLabelChange(0)
         } else {
             this.setState({
                 pageChange:true
             })
+            this.props.onLabelChange(0)
         }
     }
 
@@ -241,15 +243,13 @@ class CreateListing extends Component {
                                                 min={1}
                                                 max={999}
                                             />
-                                            {touched.price && errors.price && <div>{errors.price}</div>}
+                                           <WhiteButton className="btn text-center" onClick = {this.onPageChange} type="submit">Continue</WhiteButton>
 
+                                            {touched.price && errors.price && <div>{errors.price}</div>}
                                         </div>
                                     }
                                     </div>   
-                                    { // if pagechange = true then show image upload page 
-                                            this.state.pageChange === true ? null :
-                                         <WhiteButton className="btn text-center" onClick = {this.onPageChange} type="submit">Continue</WhiteButton>
-                                    }
+                                    
                                         <div className="col-sm-8">
                                         { // if pagechange = true then show image upload page 
                                             this.state.pageChange === false ? null :
