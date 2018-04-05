@@ -44,7 +44,7 @@ class CreateListingDetails1 extends Component {
     render() {
         const inputProps = {
             value: this.props.address,
-            onChange: this.props.handleAddressChange,
+            onChange: this.props.handleAddressChange
           }
         return (
             <div className="container">
@@ -54,11 +54,11 @@ class CreateListingDetails1 extends Component {
                         <div className="input-group mb-3">
                             <div className="input-group-prepend">
                             <CheckboxGroup name="features" value = {this.props.features } onChange={this.props.handleFeatureChange} >
-                                                <Checkbox value="Heated"  /> Heated
-                                                <Checkbox value="Covered"  /> Covered
-                                                <Checkbox value="Access"  /> Access
-                                                <Checkbox value="Power Outlet"  /> Power Outlet
-                                                <Checkbox value="Lock"  /> Lock
+                                <Checkbox className = "check-box-input" value="Heated"  /> Heated
+                                <Checkbox className = "check-box-input" value="Covered"  /> Covered
+                                <Checkbox className = "check-box-input" value="Access"  /> Access
+                                <Checkbox className = "check-box-input" value="Power Outlet"  /> Power Outlet
+                                <Checkbox className = "check-box-input" value="Lock"  /> Lock
                             </CheckboxGroup>
                             </div>
                         </div>
@@ -67,12 +67,13 @@ class CreateListingDetails1 extends Component {
                         <label >Size</label>
                         <div className="input-group mb-3">
                         <RadioGroup
-                                                        name = "size"
-                                                        selectedValue = {this.props.size} onChange={this.props.handleSizeChange}>
-                                                        <label  ><Radio value="Small (5 x 5)" style={{marginRight: 10}}/>Small (5 x 5)</label>
-                                                        <label ><Radio value="Medium (15 x 15)" style={{marginRight: 10}} />Medium (15 x 15)</label>
-                                                        <label ><Radio value="Large (25 x 25)" style={{marginRight: 10}}/>Large (25 x 25) </label>
-                                                    </RadioGroup>
+
+                            name = "size"
+                            selectedValue = {this.props.size} onChange={this.props.handleSizeChange}>
+                            <label  ><Radio value="Small (5 x 5)" className = "radio-but-input"/>Small (5 x 5)</label>
+                            <label ><Radio value="Medium (15 x 15)" className = "radio-but-input" />Medium (15 x 15)</label>
+                            <label ><Radio value="Large (25 x 25)" className = "radio-but-input"/>Large (25 x 25) </label>
+                        </RadioGroup>
                         </div>
                     </div>
                     <div className="form-group">
@@ -90,10 +91,13 @@ class CreateListingDetails1 extends Component {
                     <div className = "form-group">
                         <label >Address</label>
                         <PlacesAutocomplete 
+                        styles = {autoCompleteStyles}
                         inputProps={inputProps}/>
                     </div>
-                    <button type="submit" onClick = {this.props.handleBack} className="btn btn-primary">Back</button>
-                    <button type="submit" onClick = {this.props.handleContinue} className="btn btn-primary">Continue</button>
+                    <div className = "button-div">
+                        <button type="submit" onClick = {this.props.handleBack} className = "button-back">Back</button>
+                        <button type="submit" onClick = {this.props.handleContinue} className = "button-continue">Continue</button>
+                    </div>
                 </form>
             
             </div>
@@ -103,6 +107,14 @@ class CreateListingDetails1 extends Component {
 
 export default CreateListingDetails1;
 
+
+const autoCompleteStyles = {
+    border:0,
+    outline: 0,
+    background:"transparent",
+    borderBottom: "1px solid darkgray",
+    width: "100%"
+}
 
 
 

@@ -35,17 +35,21 @@ class CreateListingDetails extends Component {
                 <form>
                     <div className="form-group">
                         <label >Title</label>
-                        <input type="text" value = {this.props.title} onChange = {this.props.handleTitleChange} className="form-control" placeholder="Big Basement"/>
+                        <div>
+                            <input  autoComplete="off" type="text" value = {this.props.title} onChange = {this.props.handleTitleChange} className="title-input" placeholder="Big Basement"/>
+                        </div>
                     </div>
                     <div className="form-group">
                         <label >Description</label>
-                        <input type="text" value = {this.props.description} onChange = {this.props.handleDescriptionChange} className="form-control" placeholder="ITS HUGE!"/>
+                        <textarea rows = {6} type="text" value = {this.props.description} onChange = {this.props.handleDescriptionChange} className="descrip-input" placeholder="ITS HUGE!"/>
                     </div>
                     <div className="form-group">
-                        <label>Price</label>
-                        <input type="text" value = {this.props.price} onChange = {this.props.handlePriceChange} className="form-control" />
+                        <label>Price $</label>
+                        <input type="text" value = {this.props.price} onChange = {this.props.handlePriceChange} className="title-input" />
                     </div>
-                    <button type="submit" onClick = {this.props.handleContinue} className="btn btn-primary">Continue</button>
+                    <div className = "button-div">
+                        <button type="submit" onClick = {this.props.handleContinue} className = "button-continue"> Continue</button>
+                    </div>
                 </form>
             
             </div>

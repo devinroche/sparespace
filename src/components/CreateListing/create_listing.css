@@ -52,3 +52,68 @@
   float: left;
   
 }
+
+.div-space {
+  
+  padding: 100px;
+}
+
+.title-input {
+  border: 0;
+  outline: 0;
+  background: transparent;
+  border-bottom: 1px solid darkgray;
+  width: 100%;
+}
+
+.descrip-input {
+  border: 0;
+  outline: 0;
+  background: transparent;
+  border: 1px solid darkgray;
+  width: 100%;
+  border-radius: 5px;
+}
+
+.button-div {
+  text-align: center;
+}
+
+.button-continue {
+  margin-top: 50px;
+  border: 1px solid red;
+  border-radius: 3px;
+  width: 15%;
+  height: 50px;
+  min-width: 75px;
+  color: red;
+  margin: 10px;
+}
+
+.button-back {
+  margin-top: 50px;
+  border: 1px solid green;
+  border-radius: 3px;
+  width: 15%;
+  height: 50px;
+  min-width: 75px;
+  color: green;
+  margin: 10px;
+}
+
+.check-box-input {
+  margin-left: 25px;
+    font-family: "Rubik";
+    color: "#333";
+    font-weight: "300";
+    margin-top: 15px;
+
+}
+
+.radio-but-input {
+
+  margin-left: 25px;
+    font-family: "Rubik";
+    color: "#333";
+    font-weight: "300";
+}

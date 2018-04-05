@@ -155,13 +155,8 @@ class CreateListingPage extends Component {
 
     render() {
         return (
-            <div className="container">
-                <CreateListingLabel
-                    page_basics = {this.state.page_basics}
-                    page_details = {this.state.page_details}
-                    page_photos = {this.state.page_photos}
-                   
-                />
+            <div className="container" className = "div-space">
+                
                 {
                     this.state.page_basics === false ? null  : // determine current page
                         <CreateListingDetails 

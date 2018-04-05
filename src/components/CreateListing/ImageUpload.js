@@ -165,9 +165,12 @@ class ImageUpload extends Component {
                     }
                 </div>
                 <div className="row">
-                    <div className="col-sm-6 col-sm-offset-5" style={{ marginTop: 100 }}>
-                        <OrangeButton onClick={this.props.handleBack}>Back</OrangeButton>
-                        <OrangeButton onClick={this.handleImageUpload}>Finish</OrangeButton>
+                    <div className="col-sm-6 col-sm-offset-5" style={{ marginTop: 25 }}>
+                    <div className = "button-div">
+                        <button type="submit" onClick = {this.props.handleBack} className = "button-back">Back</button>
+                        <button type="submit" onClick={this.handleImageUpload} className = "button-continue">Continue</button>
+                    </div>
+                   
                         
                     </div>
                 </div>
