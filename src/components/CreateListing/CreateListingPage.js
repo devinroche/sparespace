@@ -32,7 +32,11 @@ class CreateListingPage extends Component {
            duration: {
                start: new Date().toISOString(),
                end: new Date().toISOString()
-           }
+           },
+           titleE: false, // if no input title field
+           descriptionE:false,
+           priceE:false,
+           addressE:false,
            
         };
         this.handleContinue = this.handleContinue.bind(this)
@@ -40,6 +44,8 @@ class CreateListingPage extends Component {
         this.handleSubmit = this.handleSubmit.bind(this)   
         this.handleAddressChange = this.handleAddressChange.bind(this)     
         this.handleSubmit = this.handleSubmit.bind(this)
+
+        this.handleTitleChange = this.handleTitleChange.bind(this);
         
 
     }   
@@ -60,8 +66,8 @@ class CreateListingPage extends Component {
         this.setState({address:e});
         geocodeByAddress(e)
         .then(results => getLatLng(results[0]))
-        .then(latLng => this.setState({Lat_Lng:latLng}))
-        .catch(error => console.error('Error', error))
+        .then(latLng => this.setState({Lat_Lng:latLng,addressE:false}))
+        .catch(error => this.setState({addressE:true}))
     } 
 
 
@@ -85,10 +91,28 @@ class CreateListingPage extends Component {
     */
 
     handleContinue() {
+        if (this.state.title == "") {
+            this.setState({titleE:true})
+            return;
+        }
+        if (this.state.description == "") {
+            this.setState({descriptionE:true})
+            return;
+        }
+        if (this.state.price == "") {
+            this.setState({priceE:true})
+            return;
+        }
+        if (this.state.addressE == true) {
+            return;
+        }
         if (this.state.page_basics == true) { // on property basics page
             this.setState({
                 page_basics:false,
-                page_details:true
+                page_details:true,
+                titleE:false,
+                descriptionE:false,
+                priceE:false
             });
         } else { // going to property details page
             
@@ -126,6 +150,7 @@ class CreateListingPage extends Component {
     */
 
    handleSubmit(arr) {
+
        
         let storageObj = {
             _host: Cookies.getId(),
@@ -173,7 +198,10 @@ class CreateListingPage extends Component {
                 
                 {
                     this.state.page_basics === false ? null  : // determine current page
-                        <CreateListingDetails 
+                        <CreateListingDetails
+                        titleE = {this.state.titleE} 
+                        descriptionE = {this.state.descriptionE}
+                        priceE = {this.state.priceE}
                         title = {this.state.title}
                         description = {this.state.description}
                         price = {this.state.price}
@@ -187,6 +215,7 @@ class CreateListingPage extends Component {
                 {
                     this.state.page_details === false ? null  : // determine current page
                         <CreateListingDetails1 
+                        addressE = {this.state.addressE}
                         features = {this.state.features}
                         size = {this.state.size}
                         duration = {this.state.duration}

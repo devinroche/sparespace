@@ -66,11 +66,28 @@
   width: 100%;
 }
 
+.title-incomplete-input {
+  border: 0;
+  outline: 0;
+  background: transparent;
+  border-bottom: 1px solid red;
+  width: 100%;
+}
+
 .descrip-input {
   border: 0;
   outline: 0;
   background: transparent;
   border: 1px solid darkgray;
+  width: 100%;
+  border-radius: 5px;
+}
+
+.descrip-input-incomplete {
+  border: 0;
+  outline: 0;
+  background: transparent;
+  border: 1px solid red;
   width: 100%;
   border-radius: 5px;
 }

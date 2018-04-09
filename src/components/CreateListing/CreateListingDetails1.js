@@ -93,6 +93,10 @@ class CreateListingDetails1 extends Component {
                         <PlacesAutocomplete 
                         styles = {autoCompleteStyles}
                         inputProps={inputProps}/>
+                        {
+                            this.props.addressE === false ? null:
+                                <h1 className = "text-danger">Invalid Address</h1>
+                        }
                     </div>
                     <div className = "button-div">
                         <button type="submit" onClick = {this.props.handleBack} className = "button-back">Back</button>
