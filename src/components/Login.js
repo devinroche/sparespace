@@ -45,8 +45,8 @@ class Login extends Component {
 								})
 								.catch(function() {
 									swal({
-										title: "Login Failed!",
-										text: "Your email or password is incorrect!",
+										title: "Your email or password is incorrect!",
+										text: "Have you verified your email yet?",
 										icon: "warning",
 										dangerMode: true
 									})
