@@ -37,6 +37,7 @@ class CreateListingPage extends Component {
            descriptionE:false,
            priceE:false,
            addressE:false,
+           sizeE:false,
            
         };
         this.handleContinue = this.handleContinue.bind(this)
@@ -91,22 +92,22 @@ class CreateListingPage extends Component {
     */
 
     handleContinue() {
-        if (this.state.title == "") {
+        
+        
+        if (this.state.page_basics == true) { // on property basics page
+            if (this.state.title == "") {
             this.setState({titleE:true})
             return;
-        }
-        if (this.state.description == "") {
+            }
+            if (this.state.description == "") {
             this.setState({descriptionE:true})
             return;
-        }
-        if (this.state.price == "") {
+            }
+            if (this.state.price == "") {
             this.setState({priceE:true})
             return;
-        }
-        if (this.state.addressE == true) {
-            return;
-        }
-        if (this.state.page_basics == true) { // on property basics page
+            }
+            
             this.setState({
                 page_basics:false,
                 page_details:true,
@@ -115,10 +116,17 @@ class CreateListingPage extends Component {
                 priceE:false
             });
         } else { // going to property details page
-            
+            if (this.state.addressE == true) {
+                return;
+            }
+            if (this.state.size == "") {
+                this.setState({sizeE:true})
+                return;
+            }
                 this.setState({
                     page_details:false,
-                    page_photos:true
+                    page_photos:true,
+                    sizeE:false
                 });
             }  
     }
@@ -215,6 +223,7 @@ class CreateListingPage extends Component {
                 {
                     this.state.page_details === false ? null  : // determine current page
                         <CreateListingDetails1 
+                        sizeE = {this.state.sizeE}
                         addressE = {this.state.addressE}
                         features = {this.state.features}
                         size = {this.state.size}

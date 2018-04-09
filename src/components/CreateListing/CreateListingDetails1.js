@@ -48,7 +48,7 @@ class CreateListingDetails1 extends Component {
           }
         return (
             <div className="container">
-                <form>
+                
                     <div className="form-group">
                         <label >Features</label>
                         <div className="input-group mb-3">
@@ -67,13 +67,16 @@ class CreateListingDetails1 extends Component {
                         <label >Size</label>
                         <div className="input-group mb-3">
                         <RadioGroup
-
                             name = "size"
                             selectedValue = {this.props.size} onChange={this.props.handleSizeChange}>
                             <label  ><Radio value="Small (5 x 5)" className = "radio-but-input"/>Small (5 x 5)</label>
                             <label ><Radio value="Medium (15 x 15)" className = "radio-but-input" />Medium (15 x 15)</label>
                             <label ><Radio value="Large (25 x 25)" className = "radio-but-input"/>Large (25 x 25) </label>
                         </RadioGroup>
+                        {
+                            this.props.sizeE === false ? null:
+                                <hr className = "incomplete-line"/>
+                        }
                         </div>
                     </div>
                     <div className="form-group">
@@ -102,7 +105,7 @@ class CreateListingDetails1 extends Component {
                         <button type="submit" onClick = {this.props.handleBack} className = "button-back">Back</button>
                         <button type="submit" onClick = {this.props.handleContinue} className = "button-continue">Continue</button>
                     </div>
-                </form>
+                        
             
             </div>
         );

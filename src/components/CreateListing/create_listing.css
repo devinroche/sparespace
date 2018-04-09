@@ -74,6 +74,11 @@
   width: 100%;
 }
 
+.incomplete-line {
+  width: 100%;
+  border-bottom: 1px solid red;
+}
+
 .descrip-input {
   border: 0;
   outline: 0;
