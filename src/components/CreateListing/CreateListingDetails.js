@@ -19,9 +19,8 @@ class CreateListingDetails extends Component {
             description:this.props.description,
             price:this.props.price
         };
-     
-
-
+        
+        
     }   
 
     

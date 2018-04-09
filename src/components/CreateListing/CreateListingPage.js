@@ -10,6 +10,7 @@ import { postSpace } from '../../sock'
 import { Redirect } from "react-router-dom"
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
 import './create_listing.css';
+import LoginAlert from "../Alerts/LoggedIn"
 import moment from "moment"
 
 
@@ -62,8 +63,19 @@ class CreateListingPage extends Component {
         .then(latLng => this.setState({Lat_Lng:latLng}))
         .catch(error => console.error('Error', error))
     } 
-    
 
+
+    componentDidMount() {
+        
+        this.checkLogin()
+    }
+
+    checkLogin() {
+        if (!Cookies.isLoggedIn()) {
+            return 'log'
+        }
+    }
+    
     
 
     /*
@@ -152,6 +164,10 @@ class CreateListingPage extends Component {
     
 
     render() {
+        if (this.checkLogin() === 'log'){
+            return <LoginAlert />
+        }
+
         return (
             <div className="container" className = "div-space">
                 
