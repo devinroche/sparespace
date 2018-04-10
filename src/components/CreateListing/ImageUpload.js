@@ -3,10 +3,11 @@ import Dropzone from 'react-dropzone';
 import request from 'superagent';
 import { Redirect } from "react-router-dom"
 import swal from 'sweetalert2';
-import {Label, ImageUploadText, OrangeButton} from "../Styles";
 import { relative } from 'path';
 import { ClimbingBoxLoader } from 'react-spinners'
+import {CreateLabel, FormStyle, WhiteButton, OrangeButton, ImageUploadText, Label} from "../Styles";
 import './create_listing.css';
+
 
 const CLOUDINARY_UPLOAD_PRESET = 'apqnswzs';
 const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/dopxmkhbr/image/upload';
@@ -127,9 +128,9 @@ class ImageUpload extends Component {
         }
         return (
             <div className='container'>
-                <div className="row">
-                    <div className="col-sm-6 col-sm-offset-2">
-                        <Label>Photos</Label>
+               <div className="row">
+                    <div className="col-sm-10 col-sm-offset-2">
+                        <Label header className="pull-left" style={{marginTop: "50"}}>Photos</Label>
                     </div>
                 </div>
 
@@ -164,15 +165,13 @@ class ImageUpload extends Component {
                             </div>
                     }
                 </div>
-                <div className="row">
-                    <div className="col-sm-6 col-sm-offset-5" style={{ marginTop: 25 }}>
-                    <div className = "button-div">
-                        <button type="submit" onClick = {this.props.handleBack} className = "button-back">Back</button>
-                        <button type="submit" onClick={this.handleImageUpload} className = "button-continue">Continue</button>
-                    </div>
-                   
-                        
-                    </div>
+                <div className="row text-center">
+
+                    
+                    <button type="submit" onClick = {this.props.handleBack} className = "button-back">Back</button>
+                    <WhiteButton type="submit" onClick={this.handleImageUpload} className = "button-continue">Continue</WhiteButton>
+            
+        
                 </div>
             </div>
         )

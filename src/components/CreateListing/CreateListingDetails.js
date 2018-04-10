@@ -7,6 +7,8 @@ import swal from 'sweetalert2';
 import { postSpace } from '../../sock'
 import { Redirect } from "react-router-dom"
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
+import {CreateLabel, FormStyle, WhiteButton, PriceInput, DescriptionInput, Label} from "../Styles";
+
 
 
 
@@ -27,55 +29,67 @@ class CreateListingDetails extends Component {
     }   
     
 
-
-    
-
     render() {
         return (
             <div className="container">
-                
-                    <div className="form-group">
-                        <label >Title</label>
-                        <div>
-                        {
-                            this.props.titleE === true ? null:
-                                <input  autoComplete="off" type="text" value = {this.props.title} onChange = {this.props.handleTitleChange} className="title-input" placeholder="Big Basement"/>
-
-                        }
-                        </div>
-                        {
-                            this.props.titleE === false ? null:
-                                <input  autoComplete="off" type="text" value = {this.props.title} onChange = {this.props.handleTitleChange} className="title-incomplete-input" placeholder="Big Basement"/>
-
-                        }
+                <div className="row">
+                    <div className="col-sm-10 col-sm-offset-2">
+                        <Label header className="pull-left" style={{marginTop: "50"}}>Space Basics</Label>
                     </div>
-                    <div className="form-group">
-                        <label >Description</label>
+                </div>
+                
+                    <div className="row" style={{marginTop: "20"}}>
+                        <div className="col-sm-6 col-sm-offset-2">
+
+                            <CreateLabel className="pull-left">Title</CreateLabel>
+                                {
+                                    this.props.titleE === true ? null:
+                                        <FormStyle  autoComplete="off" type="text" value = {this.props.title} onChange = {this.props.handleTitleChange} className="form-control"
+                                        placeholder="Spacious Basement"/>
+
+                                }
+                           
+                                {
+                                    this.props.titleE === false ? null:
+                                        <FormStyle  autoComplete="off" type="text" value = {this.props.title} onChange = {this.props.handleTitleChange} className="form-control title-incomplete-input" placeholder="Spacious Basement"/>
+
+                                }
+                        </div>
+                    </div>
+
+
+                    <div className="row" style={{marginTop: "5"}}>
+                        <div className="col-sm-6 col-sm-offset-2" style={{marginTop: "5"}}>
+                        <CreateLabel >Description</CreateLabel>
                         {
                             this.props.descriptionE === true ? undefined:
-                                <textarea rows = {6} type="text" value = {this.props.description} onChange = {this.props.handleDescriptionChange} className="descrip-input" placeholder="ITS HUGE!"/>
+                                <DescriptionInput rows = {6} type="text" value = {this.props.description} onChange = {this.props.handleDescriptionChange} className="form-control"  placeholder="What would you call your space? A large basement?"/>
                         }
                         {
                             this.props.descriptionE === false ? undefined:
-                                <textarea rows = {6} type="text" value = {this.props.description} onChange = {this.props.handleDescriptionChange} className="descrip-input-incomplete" placeholder="ITS HUGE!"/>
+                                <DescriptionInput rows = {6} type="text" value = {this.props.description} onChange = {this.props.handleDescriptionChange} className="form-control descrip-input-incomplete" placeholder="What would you call your space? A large basement?"/>
                         }
+                        </div>
                         
                     </div>
-                    <div className="form-group">
-                        <label>Price $</label>
+
+                    <div className="row" style={{marginTop: "5"}}>
+                        <div className="col-sm-3 col-sm-offset-2">
+
+                        <CreateLabel>Price</CreateLabel>
                         {
                             this.props.priceE === true ? null:
-                                <input type="text" value = {this.props.price} onChange = {this.props.handlePriceChange} className="title-input" />
+                                <PriceInput type="number" value = {this.props.price} onChange = {this.props.handlePriceChange} className="form-control"  placeholder="Enter a price" min={1} max={999} />
                         }
                         {
                             this.props.priceE === false ? null:
-                                <input type="text" value = {this.props.price} onChange = {this.props.handlePriceChange} className="title-incomplete-input" />
+                                <PriceInput type="number" value = {this.props.price} onChange = {this.props.handlePriceChange} className="incomplete-line" placeholder="Enter a price" min={1} max={999} />
                         }
-                        
-                        
+                        </div>
+                    
                     </div>
-                    <div className = "button-div">
-                        <button type="submit" onClick = {this.props.handleContinue} className = "button-continue"> Continue</button>
+                    <div className="row text-center">
+                        <WhiteButton type="submit" onClick = {this.props.handleContinue}> Continue</WhiteButton>
                     </div>
                 
             

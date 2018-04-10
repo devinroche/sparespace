@@ -1,5 +1,4 @@
 import React, { Component } from "react"
-import CreateListingLabel from "../CreateListing/CreateListingLabel"
 import CreateListingDetails from "../CreateListing/CreateListingDetails"
 import CreateListingDetails1 from "../CreateListing/CreateListingDetails1"
 import ImageUpload from "./ImageUpload";
@@ -202,8 +201,7 @@ class CreateListingPage extends Component {
         }
 
         return (
-            <div className="container" className = "div-space">
-                
+            <div className="container">
                 {
                     this.state.page_basics === false ? null  : // determine current page
                         <CreateListingDetails

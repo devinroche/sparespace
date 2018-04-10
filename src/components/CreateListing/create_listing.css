@@ -71,11 +71,12 @@
   outline: 0;
   background: transparent;
   border-bottom: 1px solid red;
-  width: 100%;
 }
 
+
+
 .incomplete-line {
-  width: 100%;
+
   border-bottom: 1px solid red;
 }
 
@@ -84,7 +85,6 @@
   outline: 0;
   background: transparent;
   border: 1px solid darkgray;
-  width: 100%;
   border-radius: 5px;
 }
 
@@ -114,12 +114,12 @@
 
 .button-back {
   margin-top: 50px;
-  border: 1px solid green;
+  border: 1px solid #333;
   border-radius: 3px;
   width: 15%;
   height: 50px;
   min-width: 75px;
-  color: green;
+  color: #333;
   margin: 10px;
 }
 
