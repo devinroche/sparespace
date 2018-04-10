@@ -54,7 +54,7 @@ export class Listings extends React.Component {
         if(range.startDate.format('YYYY-MM-DD') !== range.endDate.format('YYYY-MM-DD')){
             this.setState({
                 range: {
-                    start: range.startDate, // deleted ._d
+                    start: range.startDate,
                     end: range.endDate
                 }
             })
@@ -80,7 +80,7 @@ export class Listings extends React.Component {
                     || listing.description.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1)
                 && (listing.price >= this.state.value.min && listing.price <= this.state.value.max)
                 && (moment(listing.dates[0]).format('YYYY-MM-DD') <= this.state.range.start.format('YYYY-MM-DD'))
-            )       // changed last comparison in above return statement 
+            )
         });
         return (
             <div className="container-fluid" style={{paddingTop: 20}}>

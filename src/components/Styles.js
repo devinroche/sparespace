@@ -301,11 +301,12 @@ export const CardHost = styled.h2`
 
 export const Label = styled.h3`
    font-family: "Rubik", "Arial", "sans-serif";
-   font-weight: 300;
-   color: #666;
+   font-weight: ${props => props.header ? '500' : '300'};
+   font-size: ${props => props.header ? '25px' : '20px'};
+   color: ${props => props.header ? '#333' : '#666'};
+
    @media(min-width: 1440px) {
-				font-size: 30px;
-				
+				font-size: 30px;		
 		}
 `;
 
@@ -408,7 +409,6 @@ export const FormStyle = styled.input`
 	color: #333;
 	font-weight: 300;
 	font-size: 20px;
-	margin-top: 50px;
 	border: none;
 	box-shadow: none;
 	border-bottom: 1px solid #CCCCCC;
@@ -426,14 +426,13 @@ export const WhiteButton = styled.button`
 	background-color: #ffffff;
 	font-family: Rubik, Arial, sans-serif;
 	font-weight: 400;
-	margin-top: 200px;
+	margin-top: 50px;
 	padding: 10px 35px;
 	border-color: #FC5B45;	
 `;
 
 export const PriceInput = styled.input`
 
-	margin-top: 25px;
 	border: none;
 	box-shadow: none;
 	border-bottom: 1px solid #CCCCCC;
@@ -453,21 +452,18 @@ export const DescriptionInput = styled.textarea`
 		color: #C1C1C1;
 		font-size: 15px;
 	}
+	resize: none;
+
 
 `;
 
 export const CreateLabel = styled.h3`
   		
    font-family: "Rubik", "Arial", "sans-serif";
-   font-weight: 300;
+   font-size: 20px;
+   font-weight: 400;
    color: #333;
    margin-top: 25px;
-   ::after{
-		content: "*";
-    	color: red;
-    	  margin-left:2px
-
-	}
    @media(min-width: 1440px) {
 				font-size: 30px;
 				

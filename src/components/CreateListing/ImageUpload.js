@@ -3,10 +3,13 @@ import Dropzone from 'react-dropzone';
 import request from 'superagent';
 import { Redirect } from "react-router-dom"
 import swal from 'sweetalert2';
-import {Label, ImageUploadText, OrangeButton} from "../Styles";
 import { relative } from 'path';
 import { ClimbingBoxLoader } from 'react-spinners'
+import {CreateLabel, FormStyle, WhiteButton, OrangeButton, ImageUploadText, Label} from "../Styles";
 import './create_listing.css';
+import Outline from "../CreateListing/Outline";
+
+
 
 const CLOUDINARY_UPLOAD_PRESET = 'apqnswzs';
 const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/dopxmkhbr/image/upload';
@@ -24,12 +27,10 @@ class ImageUpload extends Component {
             loading:false // loading icon state 
             
         }
-
+            this.handleImageUpload = this.handleImageUpload.bind(this);
     }
 
-    handlePageChange() {
-        this.props.onPageChange(1)
-    }
+    
 
     handleImageUpload() {
 
@@ -41,14 +42,7 @@ class ImageUpload extends Component {
             )
             return;
         } else {
-            if (this.state.fileDropped === false) { // no pictures
-                swal(
-                    'No Pictures!',
-                    'Please add a picture',
-                    'warning'
-                )
-                return;
-            } else { // pictures
+                
                 // upload to cloudinary
                 this.setState({loading:true}) // loading icon state 
                 this.state.filePaths.map((file,index) => {
@@ -62,11 +56,11 @@ class ImageUpload extends Component {
                         this.setState({ fileUrls: newArray })
                         this.setState({ imageLock: true })
                         if (this.state.filePaths.length === this.state.fileUrls.length) {
-                            this.props.onListingCreate(newArray)
+                            this.props.handleSubmit(newArray)
                         }
                     })
                 });
-            }
+            
             
         }
 
@@ -103,7 +97,7 @@ class ImageUpload extends Component {
             var old = this.state.filePaths.slice()
             var old_new = old.concat(files)
             this.setState({ filePaths: old_new })
-            this.props.onImageChange(old_new)
+            //this.props.onImageChange(old_new)
         } else { // else add add new set
             if (files.length > 4) { // if more than 4 photos
                 // tell person to upload only 4
@@ -118,7 +112,7 @@ class ImageUpload extends Component {
             filePaths: files,
             fileDropped: true
             });
-            this.props.onImageChange(files)
+            
         }
     }
 
@@ -136,15 +130,18 @@ class ImageUpload extends Component {
         }
         return (
             <div className='container'>
-                <div className="row">
-                    <div className="col-sm-6 col-sm-offset-2">
-                        <Label>Photos</Label>
+
+                <div className="col-sm-8 col-sm-offset-1">
+
+               <div className="row">
+                    <div className="col-sm-10 col-sm-offset-2">
+                        <Label header className="pull-left" style={{marginTop: "50"}}>Photos</Label>
                     </div>
                 </div>
 
                 <div className="container">
                     <div className="row">
-                        <div className="col-sm-6 col-sm-offset-2">
+                        <div className="col-sm-6 col-sm-offset-1">
                             <Dropzone
                                 multiple={true} // only multiple image
                                 accept="image/*" // must be image
@@ -173,13 +170,19 @@ class ImageUpload extends Component {
                             </div>
                     }
                 </div>
-                <div className="row">
-                    <div className="col-sm-6 col-sm-offset-5" style={{ marginTop: 100 }}>
-                        <OrangeButton onClick={this.handlePageChange.bind(this)}>Back</OrangeButton>
-                        <OrangeButton onClick={this.handleImageUpload.bind(this)}>Finish</OrangeButton>
-                        
+                <div className="row text-center">
+
+                    
+                    <button type="submit" onClick = {this.props.handleBack} className = "button-back">Back</button>
+                    <WhiteButton type="submit" onClick={this.handleImageUpload} className = "text-center">Continue</WhiteButton>
+            
+        
                     </div>
-                </div>
+                </div> 
+
+                <div className="col-sm-2" style={container}>
+                        <Outline/>
+                    </div>
             </div>
         )
     }
@@ -197,3 +200,8 @@ const dropzoneStyle = {
     boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
     marginBottom: 25
 };
+
+const container = {
+    marginTop: "100px"
+}
+
