@@ -26,17 +26,17 @@ class Outline extends Component {
             <div className="row" style={box}>
                 <div className="row">
                     
-                    <Label style={{color: "#333"}}>Space Basics</Label>
+                    <Label style={{color: "#333", fontSize: "17"}}>Space Basics</Label>
                 
                 </div>
                 <div className="row">
                     
-                    <Label style={{color: "#333"}}>Space Details</Label>
+                    <Label style={{color: "#333", fontSize: "17"}}>Space Details</Label>
                 
                 </div>
                 <div className="row">
                     
-                    <Label style={{color: "#333"}}>Photos</Label>
+                    <Label style={{color: "#333", fontSize: "17"}}>Photos</Label>
                 
                 </div>
             
