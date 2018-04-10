@@ -77,24 +77,21 @@ class ListingDetails extends React.Component {
             <div className="container">
                 <div className="row" style={{ marginTop: 50 }}>
                     <div className="col-sm-8 col-lg-9" >
-                
-                    <Carousel className ="carousel">
-                        {this.state.listingImages.map((l, index) => (
+                    <CardStyle>
+                        <Carousel className ="carousel">
+                            {this.state.listingImages.map((l, index) => (
 
-                            <Carousel.Item className = "peopleCarouselImg" >
-                                <img alt="900x500" key={index} src={this.state.listingImages[index]}/>
-                            </Carousel.Item>
-                        ))}
-                        
-                        
+                                <Carousel.Item className = "peopleCarouselImg" >
+                                    <img alt="900x500" key={index} src={this.state.listingImages[index]}/>
+                                </Carousel.Item>
+                            ))}        
+                        </Carousel>
                             
-                    </Carousel>
-                        <CardStyle>
-                            <div>
-                                <CardTitle>{listing.title}</CardTitle>
-                                <CardHost>{host.first}</CardHost>
-                            </div>
-                        </CardStyle>
+                                <div>
+                                    <CardTitle>{listing.title}</CardTitle>
+                                    <CardHost>{host.first}</CardHost>
+                                </div>
+                    </CardStyle>
                         <div className="row">
                             <ListingLabel>Features</ListingLabel>
                             {
@@ -114,7 +111,7 @@ class ListingDetails extends React.Component {
                         </div>
                         <div className="row">
                             <ListingLabel>Description</ListingLabel>
-                            <Description>{listing.description}</Description>
+                            <Description style={{whiteSpace: 'pre-line'}} >{listing.description}</Description> 
                         </div>
                     </div>
 
@@ -140,7 +137,7 @@ class ListingDetails extends React.Component {
                         </div>
                         <div className="row">
                             <div className="col-sm-11 col-sm-offset-1">
-                                <Label>Size</Label>
+                                <Label>Size (ft.)</Label>
                                 <Duration>{listing.size}</Duration>
                             </div>
                         </div>
