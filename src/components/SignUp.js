@@ -55,11 +55,9 @@ class SignUp extends Component {
 									errors.password = "Required"
 								}
 								else if (values.password.length < 8) {
-									errors.password = "Password must be longer!"
+									errors.password = "Password must be at least 8 characters!"
 								}
-								else if (!values.agreement) {
-									errors.agreement = "You must accept to Terms of Privacy and Privacy Policy"
-								}
+								
 								return errors
 							}}
 							onSubmit={values => {
@@ -73,7 +71,7 @@ class SignUp extends Component {
 								if (response.data.errors) { // if account cant be created 
 									swal({
 										title: "That email is already in use!",
-										content: "Log in!",
+										text: "Log in!",
 										icon: "success"
 									}).then(() => { // redirect to login page
 										window.location.href = "/login"
@@ -81,8 +79,8 @@ class SignUp extends Component {
 									});
 								} else { // if account can be created
 									swal({
-										title: "Thanks! Check your email to verify your account!",
-										content: "Thanks! Check your email to verify your account!",
+										title: "Check your email to verify your account! ",
+										text: "You can only login after verification!",
 										icon: "success"
 									}).then(() => {
 											window.location.href = "/"
@@ -153,24 +151,12 @@ class SignUp extends Component {
 										{touched.confirm && errors.confirm && <div>{errors.confirm}</div>}
 
 										<div className="row agreement">
-											<div className="col-sm-2 agreement-box">
-												<Field
-													id="agreement"
-													className="agreement-field"
-													type="checkbox"
-													name="agreement"
-													onChange={handleChange}
-													value={values.agreement}
-												/>
-											</div>
 											<div className=" agreement-text">
-												I have read and agree with the <a href="/tos" target="_blank">Terms of Service</a> and <a href="/privacy" target="_blank">Privacy Policy.</a>
+												By signing up, I have read and agree with the <a href="/tos" target="_blank">Terms of Service</a> and <a href="/privacy" target="_blank">Privacy Policy.</a>
 											</div>
 										</div>
 
-										<div className="checkbox-div">
-											<strong><p className="checkbox-prompt">{errors.agreement && <div>{errors.agreement}</div>}</p></strong>
-										</div>
+						
 
 										<SignUpButton id="signup" name="signup" className="btn" type="submit">Confirm</SignUpButton>
 									</FormFormat>

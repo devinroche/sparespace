@@ -71,7 +71,7 @@ class SendMessage extends Component {
         })
         swal(
             'Message Sent',
-            'Your message has been sent',
+            'You will receive an email if the host messages you back!',
             'success'
         ).then((value) => {
             this.closeModal() 
