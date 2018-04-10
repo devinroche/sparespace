@@ -166,16 +166,18 @@ export const PostSpace = styled.a`
 	padding: 7px 15px;
 	text-decoration: none;
 	border-radius: 3px;
+	transition: background-color 0.5s ease;
 	:hover{
 			background-color: #FC5B45;
 			color: #FFF;
-			text-decoration: #FC5B45;
+			text-decoration: none;
+			box-shadow: 0 10px 28px 0 rgba(0,0,0,0.2);
 		}
 	
 	@media(max-width: 768px) {
-				padding: 4px 10px;
-				font-size: 13px;
-  			}
+			padding: 4px 10px;
+			font-size: 13px;
+		}
 `;
 
 

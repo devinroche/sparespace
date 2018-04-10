@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="15px" height="15px" viewBox="0 0 15 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 47.1 (45422) - http://www.bohemiancoding.com/sketch -->
+    <title>info</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="New-Create-Listing-(Details)" transform="translate(-608.000000, -253.000000)">
+            <g id="info" transform="translate(609.000000, 254.000000)">
+                <circle id="Oval" stroke="#333333" fill="#333333" cx="6.5" cy="6.5" r="6.5"></circle>
+                <text id="i" font-family="AmericanTypewriter, American Typewriter" font-size="10" font-weight="normal" fill="#FFFFFF">
+                    <tspan x="5" y="10">i</tspan>
+                </text>
+            </g>
+        </g>
+    </g>
+</svg>
