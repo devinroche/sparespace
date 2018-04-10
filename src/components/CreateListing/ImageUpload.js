@@ -7,6 +7,8 @@ import { relative } from 'path';
 import { ClimbingBoxLoader } from 'react-spinners'
 import {CreateLabel, FormStyle, WhiteButton, OrangeButton, ImageUploadText, Label} from "../Styles";
 import './create_listing.css';
+import Outline from "../CreateListing/Outline";
+
 
 
 const CLOUDINARY_UPLOAD_PRESET = 'apqnswzs';
@@ -128,6 +130,9 @@ class ImageUpload extends Component {
         }
         return (
             <div className='container'>
+
+                <div className="col-sm-8 col-sm-offset-1">
+
                <div className="row">
                     <div className="col-sm-10 col-sm-offset-2">
                         <Label header className="pull-left" style={{marginTop: "50"}}>Photos</Label>
@@ -136,7 +141,7 @@ class ImageUpload extends Component {
 
                 <div className="container">
                     <div className="row">
-                        <div className="col-sm-6 col-sm-offset-2">
+                        <div className="col-sm-6 col-sm-offset-1">
                             <Dropzone
                                 multiple={true} // only multiple image
                                 accept="image/*" // must be image
@@ -169,10 +174,15 @@ class ImageUpload extends Component {
 
                     
                     <button type="submit" onClick = {this.props.handleBack} className = "button-back">Back</button>
-                    <WhiteButton type="submit" onClick={this.handleImageUpload} className = "button-continue">Continue</WhiteButton>
+                    <WhiteButton type="submit" onClick={this.handleImageUpload} className = "text-center">Continue</WhiteButton>
             
         
-                </div>
+                    </div>
+                </div> 
+
+                <div className="col-sm-2" style={container}>
+                        <Outline/>
+                    </div>
             </div>
         )
     }
@@ -190,3 +200,8 @@ const dropzoneStyle = {
     boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
     marginBottom: 25
 };
+
+const container = {
+    marginTop: "100px"
+}
+

@@ -302,6 +302,7 @@ export const Label = styled.h3`
    font-weight: ${props => props.header ? '500' : '300'};
    font-size: ${props => props.header ? '25px' : '20px'};
    color: ${props => props.header ? '#333' : '#666'};
+
    @media(min-width: 1440px) {
 				font-size: 30px;		
 		}

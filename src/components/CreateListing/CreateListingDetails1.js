@@ -12,10 +12,7 @@ import { Checkbox, CheckboxGroup } from 'react-checkbox-group';
 import {RadioGroup, Radio} from 'react-radio-group'
 import moment from "moment";
 import {CreateLabel, FormStyle, WhiteButton, PriceInput, DescriptionInput, Label} from "../Styles";
-
-
-
-
+import Outline from "../CreateListing/Outline";
 
 
 
@@ -42,6 +39,9 @@ class CreateListingDetails1 extends Component {
           }
         return (
             <div className="container">
+
+                <div className="col-sm-8 col-sm-offset-1">
+
                 <div className="row">
                     <div className="col-sm-10 col-sm-offset-2">
                         <Label header className="pull-left" style={{marginTop: "50"}}>Space Details</Label>
@@ -71,7 +71,7 @@ class CreateListingDetails1 extends Component {
                             <CreateLabel className="pull-left">Size</CreateLabel>
                         </div>
                             <div className="row" style={{marginTop: 10}}>
-                                <div className="col-sm-10 col-sm-offset-2">
+                                <div className="col-sm-11 col-sm-offset-2">
 
                                     <RadioGroup
                                         name = "size"
@@ -94,7 +94,7 @@ class CreateListingDetails1 extends Component {
                             <CreateLabel className="pull-left">Duration</CreateLabel>
                         </div>
                         <div className="row" style={{marginTop: 10}}> 
-                            <div className="col-sm-5 col-sm-offset-2"> 
+                            <div className="col-sm-7 col-sm-offset-2"> 
                                <div className="col-sm-2" style={{marginTop: 5}}>
                                     <h5 style={dateLabel}>Start</h5>
                                </div>
@@ -105,7 +105,7 @@ class CreateListingDetails1 extends Component {
                         </div>
                                                     
                         <div className="row"> 
-                            <div className="col-sm-5 col-sm-offset-2"> 
+                            <div className="col-sm-7 col-sm-offset-2"> 
                             <div className="col-sm-2" style={{marginTop: 5}}>
                             <h5 style={dateLabel}>End</h5>
                                </div>
@@ -123,7 +123,7 @@ class CreateListingDetails1 extends Component {
                             <CreateLabel className="pull-left">Address</CreateLabel>
                         </div>
                             <div className="row">
-                                <div className="col-sm-6 col-sm-offset-2">
+                                <div className="col-sm-9 col-sm-offset-2">
                                     <PlacesAutocomplete 
                                     styles = {autoCompleteStyles}
                                     inputProps={inputProps}/>
@@ -137,7 +137,13 @@ class CreateListingDetails1 extends Component {
                 
                     <div className="row text-center" style={{marginTop: 35}}>
                         <button type="submit" onClick = {this.props.handleBack} className = "button-back">Back</button>
-                        <WhiteButton type="submit" onClick = {this.props.handleContinue} className = "button-continue">Continue</WhiteButton>
+                        <WhiteButton type="submit" onClick = {this.props.handleContinue}>Continue</WhiteButton>
+                    </div>
+
+                </div>
+
+                <div className="col-sm-2" style={container}>
+                        <Outline/>
                     </div>
                         
             
@@ -176,6 +182,11 @@ const dateLabel = {
     color: "#333",
     fontWeight: "300",
 }
+
+const container = {
+    marginTop: "100px"
+}
+
 
 
 

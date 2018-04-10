@@ -8,6 +8,7 @@ import { postSpace } from '../../sock'
 import { Redirect } from "react-router-dom"
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
 import {CreateLabel, FormStyle, WhiteButton, PriceInput, DescriptionInput, Label} from "../Styles";
+import Outline from "../CreateListing/Outline";
 
 
 
@@ -32,14 +33,17 @@ class CreateListingDetails extends Component {
     render() {
         return (
             <div className="container">
+
+            <div className="col-sm-8 col-sm-offset-1">
+
                 <div className="row">
-                    <div className="col-sm-10 col-sm-offset-2">
+                    <div className="col-sm-6 col-sm-offset-2">
                         <Label header className="pull-left" style={{marginTop: "50"}}>Space Basics</Label>
                     </div>
                 </div>
                 
                     <div className="row" style={{marginTop: "20"}}>
-                        <div className="col-sm-6 col-sm-offset-2">
+                        <div className="col-sm-8 col-sm-offset-2">
 
                             <CreateLabel className="pull-left">Title</CreateLabel>
                                 {
@@ -59,7 +63,7 @@ class CreateListingDetails extends Component {
 
 
                     <div className="row" style={{marginTop: "5"}}>
-                        <div className="col-sm-6 col-sm-offset-2" style={{marginTop: "5"}}>
+                        <div className="col-sm-8 col-sm-offset-2" style={{marginTop: "5"}}>
                         <CreateLabel >Description</CreateLabel>
                         {
                             this.props.descriptionE === true ? undefined:
@@ -74,7 +78,7 @@ class CreateListingDetails extends Component {
                     </div>
 
                     <div className="row" style={{marginTop: "5"}}>
-                        <div className="col-sm-3 col-sm-offset-2">
+                        <div className="col-sm-5 col-sm-offset-2">
 
                         <CreateLabel>Price</CreateLabel>
                         {
@@ -91,6 +95,15 @@ class CreateListingDetails extends Component {
                     <div className="row text-center">
                         <WhiteButton type="submit" onClick = {this.props.handleContinue}> Continue</WhiteButton>
                     </div>
+
+
+                </div>
+                
+                    
+
+                    <div className="col-sm-2" style={container}>
+                        <Outline/>
+                    </div>
                 
             
             </div>
@@ -99,6 +112,10 @@ class CreateListingDetails extends Component {
 }
 
 export default CreateListingDetails;
+
+const container = {
+    marginTop: "100px"
+}
 
 
 
