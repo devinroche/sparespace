@@ -113,6 +113,7 @@ export class Listings extends React.Component {
                     <div>
                         {this.state.showCalendar ? <DateRange
                             minDate={moment()}
+                            linkedCalendars={true}
                             onInit={this.handleSelect.bind(this)}
                             onChange={this.handleSelect.bind(this)}
                         /> : null}
