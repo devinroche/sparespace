@@ -8,7 +8,9 @@ import moment from 'moment';
 import { CardStyle, CardHost, CardTitle, Description, Price, Features, ListingLabel, Label, Duration } from "../Styles";
 import {ClimbingBoxLoader } from 'react-spinners'
 import { Carousel } from 'react-bootstrap';
+import swal from 'sweetalert2'
 import './Listing.css';
+
 
 
 class ListingDetails extends React.Component {
@@ -20,11 +22,13 @@ class ListingDetails extends React.Component {
             listing: [],
             l: '',
             features: [],
-            loading: true // loading icon state 
+            loading: true, // loading icon state,
+            reportMessage:"" 
         }
 
         this.canExpress = this.canExpress.bind(this)
         this.renderInterest = this.renderInterest.bind(this)
+        this.CreateReport = this.CreateReport.bind(this)
     }
 
     componentDidMount() {
@@ -39,6 +43,33 @@ class ListingDetails extends React.Component {
                 })
                 this.canExpress(res.data._host._id)
             })
+    }
+    // pops up a "sweet alert" 
+    /*
+    Tells the user input a phrase as to why the listing
+    should be flagged as innapropriate
+    */
+    CreateReport() {
+        swal({
+            title: 'Why are you reporting this Post?',
+            input: 'text',
+            showCancelButton: true,
+            confirmButtonText: 'Submit',
+            
+            allowOutsideClick: () => !swal.isLoading()
+          }).then((result) => {
+            if (result.value) {
+              swal({
+                type: 'success',
+                title: 'Thank you for your input!',
+              })
+              //console.log(result.value)
+              axios.post("http://localhost:3001/report",{
+                  message: result.value,
+                  id:this.props.match.params.id
+              })
+            }
+          })
     }
 
     renderInterest(l_id, h_id) {
@@ -145,6 +176,12 @@ class ListingDetails extends React.Component {
                             <div className="col-sm-11 col-sm-offset-1">
                                 {this.state.expressInterest ? <SendMessage host={hid} renter={Cookies.getId()} /> : ""}
                             </div>
+                            <a 
+                            className = "col-sm-11 col-sm-offset-1"
+                            onClick = {this.CreateReport}
+                            >
+                            Report Listing
+                            </a>
                         </div>
                     </div>
                 </div>
