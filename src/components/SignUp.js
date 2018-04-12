@@ -41,13 +41,12 @@ class SignUp extends Component {
 									errors.last = "Required"
 								} else if (!values.email) {
 									errors.email = "Required"
-								} else if (
-									!/^[A-Z0-9._%+-]+@zagmail.gonzaga.edu$/i.test(values.email)
-								) {
+								} else if ((!/^([a-z0-9])+@([A-Za-z.]*)+gonzaga.edu$/i.test(values.email))) {
 									//validate user has an email that ends with zagmail.gonzaga.edu
 									errors.email =
-										"Invalid email address (must end with zagmail.gonzaga.edu)"
-								} else if (!values.confirm) {
+										"Invalid email address (must end with zagmail.gonzaga.edu or gonzaga.edu)"
+								}
+								else if (!values.confirm) {
 									errors.confirm = "Required"
 								} else if (values.confirm !== values.password) {
 									errors.confirm = "Passwords do not match!!"
@@ -79,7 +78,7 @@ class SignUp extends Component {
 									});
 								} else { // if account can be created
 									swal({
-										title: "Check your email to verify your account! ",
+										title: "Check your email to verify your account! It might be in your junk folder",
 										text: "You can only login after verification!",
 										icon: "success"
 									}).then(() => {
@@ -119,7 +118,7 @@ class SignUp extends Component {
 											value={values.last}
 										/>
 										{touched.last && errors.last && <div>{errors.last}</div>}
-										<FormLabel className="pull-left">Email (only zagmail is accepted)</FormLabel>
+										<FormLabel className="pull-left">Email (only Gonzaga emails are accepted)</FormLabel>
 										<FormInput
 											id="email"
 											className="form-control"
