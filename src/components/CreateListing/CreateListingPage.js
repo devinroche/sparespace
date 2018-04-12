@@ -23,7 +23,7 @@ class CreateListingPage extends Component {
            page_details: false,
            page_photos: false,
            title: "",
-           description:"",
+           description:"Why should people rent out your space? Any special features? Is it being shared with anyone else? What could fit in this space?",
            price:"",
            features: [],
            address: "Gonzaga University, East Boone Avenue, Spokane, WA, USA",

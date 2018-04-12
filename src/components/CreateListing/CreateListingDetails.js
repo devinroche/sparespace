@@ -9,7 +9,7 @@ import { Redirect } from "react-router-dom"
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
 import {CreateLabel, FormStyle, WhiteButton, PriceInput, DescriptionInput, Label} from "../Styles";
 import Outline from "../CreateListing/Outline";
-
+import ReactTooltip from "react-tooltip";
 
 
 
@@ -67,11 +67,11 @@ class CreateListingDetails extends Component {
                         <CreateLabel >Description</CreateLabel>
                         {
                             this.props.descriptionE === true ? undefined:
-                                <DescriptionInput rows = {6} type="text" value = {this.props.description} onChange = {this.props.handleDescriptionChange} className="form-control"  placeholder="What would you call your space? A large basement?"/>
+                                <DescriptionInput rows = {6} type="text" value = {this.props.description} onChange = {this.props.handleDescriptionChange} className="form-control"/>
                         }
                         {
                             this.props.descriptionE === false ? undefined:
-                                <DescriptionInput rows = {6} type="text" value = {this.props.description} onChange = {this.props.handleDescriptionChange} className="form-control descrip-input-incomplete" placeholder="What would you call your space? A large basement?"/>
+                                <DescriptionInput rows = {6} type="text" value = {this.props.description} onChange = {this.props.handleDescriptionChange} className="form-control descrip-input-incomplete"/>
                         }
                         </div>
                         
@@ -80,14 +80,18 @@ class CreateListingDetails extends Component {
                     <div className="row" style={{marginTop: "5"}}>
                         <div className="col-sm-5 col-sm-offset-2">
 
-                        <CreateLabel>Price</CreateLabel>
+                        <CreateLabel>Price (/mo) <a data-tip="React-tooltip"><img src={require('../../images/info.svg')}/></a> </CreateLabel>  
+
+                             <ReactTooltip place="top" type="dark" effect="float">
+                                <span>We think anywhere from $25-$75 is a good price range!</span>
+                            </ReactTooltip>
                         {
                             this.props.priceE === true ? null:
-                                <PriceInput type="number" value = {this.props.price} onChange = {this.props.handlePriceChange} className="form-control"  placeholder="Enter a price" min={1} max={999} />
+                                <PriceInput type="number" value = {this.props.price} onChange = {this.props.handlePriceChange} className="form-control"  placeholder="Enter a price ($)" min={1} max={999} />
                         }
                         {
                             this.props.priceE === false ? null:
-                                <PriceInput type="number" value = {this.props.price} onChange = {this.props.handlePriceChange} className="incomplete-line" placeholder="Enter a price" min={1} max={999} />
+                                <PriceInput type="number" value = {this.props.price} onChange = {this.props.handlePriceChange} className="form-control title-incomplete-input" placeholder="Enter a price ($)" min={1} max={999} />
                         }
                         </div>
                     
