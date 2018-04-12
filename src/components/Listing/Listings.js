@@ -77,7 +77,8 @@ export class Listings extends React.Component {
         let filteredListings = this.state.listings.filter((listing) => {
             return (
                 (listing.title.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
-                    || listing.description.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1)
+                    || listing.description.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
+                    || listing.location.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1)
                 && (listing.price >= this.state.value.min && listing.price <= this.state.value.max)
                 && (moment(listing.dates[0]).format('YYYY-MM-DD') <= this.state.range.start.format('YYYY-MM-DD'))
             )
@@ -89,7 +90,7 @@ export class Listings extends React.Component {
                 <FilterContainer className="row">
                     <div>
                             <div className='col-sm-6'>
-                                <SearchInput className="searchBar" type='text' value={this.state.search} onChange={this.updateSearch.bind(this)} style={styles.formStyle} placeholder="Search Listings" />
+                                <SearchInput className="searchBar" type='text' value={this.state.search} onChange={this.updateSearch.bind(this)} style={styles.formStyle} placeholder="Search Listings or Street" />
                             </div>
                             <div className='col-sm-3'>
                                 <OrangeButton style={{padding: 8}} onClick={this.togglePrice.bind(this)}>Price</OrangeButton>
