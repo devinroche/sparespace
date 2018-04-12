@@ -13,7 +13,9 @@ class Home extends Component {
 				<Row className="row">
 					<MainHeader className="col-md-5 col-sm-6">
 						<Header>More Affordable Storage</Header>
-						<SubHeader>sparespace is a new storage system that gets you cheaper and secure storage</SubHeader>
+						<SubHeader>
+							Store your stuff in a fellow Zag's house or list your own space.
+						</SubHeader>
 						<Link to="/listings"><HomeButton href="#">View Nearby Storage Options</HomeButton></Link>
 					</MainHeader>
 					<div className="col-md-6 col-md-offset-1 col-sm-6">
