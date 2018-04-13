@@ -11,6 +11,8 @@ import { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
 import './create_listing.css';
 import LoginAlert from "../Alerts/LoggedIn"
 import moment from "moment"
+var F = require('bad-words');
+var Filter = new F();
 
 
 class CreateListingPage extends Component {
@@ -94,6 +96,10 @@ class CreateListingPage extends Component {
         
         
         if (this.state.page_basics == true) { // on property basics page
+            if (Filter.list.indexOf(this.state.title) != -1) {
+                this.setState({titleE:true})
+                return; 
+            }
             if (this.state.title == "") {
             this.setState({titleE:true})
             return;
