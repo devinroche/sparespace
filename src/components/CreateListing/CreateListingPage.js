@@ -95,11 +95,6 @@ class CreateListingPage extends Component {
         
         
         if (this.state.page_basics == true) { // on property basics page
-            var filtE = filter.clean(this.state.title);
-            if (filtE.includes("*")) {
-                this.setState({titleE:true})
-                return;
-            } 
             if (this.state.title == "") {
             this.setState({titleE:true})
             return;
