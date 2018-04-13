@@ -56,7 +56,7 @@ class CreateListingPage extends Component {
     handleFeatureChange = e => this.setState({features: e});
     handleSizeChange = e  => this.setState({size:e});
     handleStartChange = e => this.setState({
-        duration: {start: moment(e)._d.toISOString(),end:this.state.duration.end}
+        duration: {start: moment(e)._d.toISOString(),end:moment(e)._d.toISOString()}
     })
     handleEndChange = e => this.setState({
         duration: {start: this.state.duration.start,end:moment(e)._d.toISOString()}
