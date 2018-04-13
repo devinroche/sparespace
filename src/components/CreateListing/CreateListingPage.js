@@ -11,7 +11,8 @@ import { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
 import './create_listing.css';
 import LoginAlert from "../Alerts/LoggedIn"
 import moment from "moment"
-
+var Filter = require('bad-words');
+var filter = new Filter();
 
 class CreateListingPage extends Component {
 
@@ -22,7 +23,7 @@ class CreateListingPage extends Component {
            page_details: false,
            page_photos: false,
            title: "",
-           description:"",
+           description:"Why should people rent out your space? Any special features? Is it being shared with anyone else? What could fit in this space?",
            price:"",
            features: [],
            address: "Gonzaga University, East Boone Avenue, Spokane, WA, USA",
@@ -50,7 +51,7 @@ class CreateListingPage extends Component {
 
     }   
     //form change functions
-    handleTitleChange = e => this.setState({title: e.target.value});
+    handleTitleChange = e => this.setState({title:e.target.value});   
     handleDescriptionChange = e => this.setState({description: e.target.value});
     handlePriceChange = e => this.setState({price: e.target.value});
     handleFeatureChange = e => this.setState({features: e});
@@ -94,6 +95,11 @@ class CreateListingPage extends Component {
         
         
         if (this.state.page_basics == true) { // on property basics page
+            var filtE = filter.clean(this.state.title);
+            if (filtE.includes("*")) {
+                this.setState({titleE:true})
+                return;
+            } 
             if (this.state.title == "") {
             this.setState({titleE:true})
             return;
