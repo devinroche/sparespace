@@ -33,8 +33,9 @@ class Tos extends Component {
               websites or persons.
             </p>
             <p>
-              The terms “we”, “us”, and “our” herein shall refer to sparespace,
-              LLC. Any undefined term in this Privacy Policy shall have the same
+              The terms "we", "us", and "our" herein shall refer to sparespace and its founders:  
+              Evan Arends, Devin Roche, George Kunthara and David Hanany.
+              Any undefined term in this Privacy Policy shall have the same
               meaning as that defined in the Terms of Service.
             </p>
             <p>
@@ -107,8 +108,6 @@ class Tos extends Component {
               <li>Enable you to use the sparespace Services</li>
               <li>Enable you to communicate with other members</li>
               <li>Provide customer service</li>
-              <li>To facilitate payments</li>
-              <li>Send receipts/invoices</li>
               <li>
                 Perform analytics to provide and optimize your sparespace
                 experience

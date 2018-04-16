@@ -33,10 +33,12 @@ class Tos extends Component {
               provides an online platform that connect Hosts who rent Space to
               Renters (collectively, the “Services”). In this document, the
               terms sparespace, “we”, “our”, “us” refer to the sparespace site
-              which are products of sparespace, LLC. The terms "Service" or
+              and its founders: George Kunthara, Evan Arends, Devin Roche and David Hanany.  
+              The terms "Service" or
               "Services" refer to any services we offer, including all
               sparespace web applications and other software, and the web site
-              accessible at www.sparespace.com and associated content
+              accessible at www.usesparespace.com and associated content 
+ and associated content
               (collectively, the "Website") as well as any and all marketing
               channels where Collective Content may be disseminated in
               sparespace’s sole discretion. The terms "You" or "Your" refer to
