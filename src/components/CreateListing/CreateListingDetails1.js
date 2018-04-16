@@ -13,6 +13,8 @@ import {RadioGroup, Radio} from 'react-radio-group'
 import moment from "moment";
 import {CreateLabel, FormStyle, WhiteButton, PriceInput, DescriptionInput, Label} from "../Styles";
 import Outline from "../CreateListing/Outline";
+import ReactTooltip from "react-tooltip";
+
 
 
 
@@ -50,17 +52,21 @@ class CreateListingDetails1 extends Component {
                 
                     <div className="row">
                         <div className="col-sm-10 col-sm-offset-2">
-                            <CreateLabel className="pull-left">Features</CreateLabel>
+                            <CreateLabel className="pull-left">Features <a data-tip="React-tooltip"><img src={require('../../images/info.svg')}/></a></CreateLabel>
+                            <ReactTooltip place="top" type="dark" effect="float">
+                                <span>These are features that your space has to offer.
+                                     If none match, be sure to add your own in the description!</span>
+                            </ReactTooltip>
                         </div>
                         
                             <div className="row" style={{marginTop: 10}}>
                                 <div className="col-sm-10 col-sm-offset-2">
                                     <CheckboxGroup name="features" value = {this.props.features } onChange={this.props.handleFeatureChange} >
-                                        <Checkbox style={checkboxStyle} value="Heated"  /> Heated
-                                        <Checkbox style={checkboxStyle} value="Covered"  /> Covered
-                                        <Checkbox style={checkboxStyle} value="Access"  /> Access
-                                        <Checkbox style={checkboxStyle} value="Power Outlet"  /> Power Outlet
-                                        <Checkbox style={checkboxStyle} value="Lock"  /> Lock
+                                        <Checkbox style={checkboxStyle} value="Day Access"  /> Day Access
+                                        <Checkbox style={checkboxStyle} value="Security Camera"  /> Security Camera
+                                        <Checkbox style={checkboxStyle} value="Pet-Free"  /> Pet-Free
+                                        <Checkbox style={checkboxStyle} value="Smoke-Free"  /> Smoke-Free
+                                        <Checkbox style={checkboxStyle} value="Lock Area"  /> Locked Area
                                     </CheckboxGroup>
                                 </div>
                             </div>
@@ -68,7 +74,12 @@ class CreateListingDetails1 extends Component {
                     
                     <div className="row">
                         <div className="col-sm-10 col-sm-offset-2">
-                            <CreateLabel className="pull-left">Size</CreateLabel>
+                            <CreateLabel className="pull-left">Size (ft.) <a data-tip data-for='sizes'><img src={require('../../images/info.svg')}/></a>
+                            </CreateLabel>
+                            <ReactTooltip id='sizes' place="top" type="dark" effect="float">
+                                    <span>Give your best guess for the size of your space.
+                                        If no sizes match, select "Other" and be sure to write the size in the description!</span>
+                            </ReactTooltip>
                         </div>
                             <div className="row" style={{marginTop: 10}}>
                                 <div className="col-sm-11 col-sm-offset-2">
@@ -120,7 +131,12 @@ class CreateListingDetails1 extends Component {
 
                     <div className= "row">
                         <div className="col-sm-10 col-sm-offset-2">
-                            <CreateLabel className="pull-left">Address</CreateLabel>
+                            <CreateLabel className="pull-left">Address <a data-tip data-for='address'><img src={require('../../images/info.svg')}/></a></CreateLabel>
+                            <ReactTooltip id='address' place="top" type="dark" effect="float">
+                                    <span>Don't worry, your actual address will never be displayed, just the
+                                        general location!
+                                    </span>
+                            </ReactTooltip>
                         </div>
                             <div className="row">
                                 <div className="col-sm-9 col-sm-offset-2">

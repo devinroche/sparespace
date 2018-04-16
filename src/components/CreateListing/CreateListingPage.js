@@ -14,7 +14,6 @@ import moment from "moment"
 var F = require('bad-words');
 var Filter = new F();
 
-
 class CreateListingPage extends Component {
 
     constructor(props) {
@@ -24,7 +23,7 @@ class CreateListingPage extends Component {
            page_details: false,
            page_photos: false,
            title: "",
-           description:"",
+           description:"Why should people rent out your space? Any special features? Is it being shared with anyone else? What could fit in this space?",
            price:"",
            features: [],
            address: "Gonzaga University, East Boone Avenue, Spokane, WA, USA",
@@ -52,7 +51,7 @@ class CreateListingPage extends Component {
 
     }   
     //form change functions
-    handleTitleChange = e => this.setState({title: e.target.value});
+    handleTitleChange = e => this.setState({title:e.target.value});   
     handleDescriptionChange = e => this.setState({description: e.target.value});
     handlePriceChange = e => this.setState({price: e.target.value});
     handleFeatureChange = e => this.setState({features: e});

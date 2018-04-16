@@ -11,7 +11,7 @@ class Footer extends Component {
               <li><FooterLink href="/about">About<span style={{ color: "#FC5B45" }}>&nbsp; &bull; </span></FooterLink></li>
               <li><FooterLink href="/faq">FAQ<span style={{ color: "#FC5B45" }}>&nbsp; &bull; </span></FooterLink></li>
               <li><FooterLink href="/tos">Terms of Service<span style={{ color: "#FC5B45" }}>&nbsp; &bull; </span></FooterLink></li>
-              <li><FooterLink href="/contact">Contact Us<span style={{ color: "#FC5B45" }}>&nbsp; &bull; </span></FooterLink></li>
+              <li><FooterLink href="mailto:usesparespace@gmail.com">Contact Us<span style={{ color: "#FC5B45" }}>&nbsp; &bull; </span></FooterLink></li>
               <li><FooterLink href="/privacy">Privacy Policy</FooterLink></li>
           </ul>
         </div>
