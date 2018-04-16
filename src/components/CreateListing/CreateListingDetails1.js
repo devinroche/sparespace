@@ -121,7 +121,7 @@ class CreateListingDetails1 extends Component {
                             <h5 style={dateLabel}>End</h5>
                                </div>
                                <div className="col-sm-10" style={{marginTop: 5}}>
-                                    <DatePicker value = {this.props.duration.end} showClearButton={false} minDate = {new Date().toISOString()} onChange = {this.props.handleEndChange}/>
+                                    <DatePicker value = {this.props.duration.end} showClearButton={false} minDate = {this.props.duration.start} onChange = {this.props.handleEndChange}/>
                                 </div>   
                             </div>
                         </div>

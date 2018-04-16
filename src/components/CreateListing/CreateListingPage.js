@@ -11,8 +11,8 @@ import { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
 import './create_listing.css';
 import LoginAlert from "../Alerts/LoggedIn"
 import moment from "moment"
-var Filter = require('bad-words');
-var filter = new Filter();
+var F = require('bad-words');
+var Filter = new F();
 
 class CreateListingPage extends Component {
 
@@ -57,7 +57,7 @@ class CreateListingPage extends Component {
     handleFeatureChange = e => this.setState({features: e});
     handleSizeChange = e  => this.setState({size:e});
     handleStartChange = e => this.setState({
-        duration: {start: moment(e)._d.toISOString(),end:this.state.duration.end}
+        duration: {start: moment(e)._d.toISOString(),end:moment(e)._d.toISOString()}
     })
     handleEndChange = e => this.setState({
         duration: {start: this.state.duration.start,end:moment(e)._d.toISOString()}
@@ -95,6 +95,10 @@ class CreateListingPage extends Component {
         
         
         if (this.state.page_basics == true) { // on property basics page
+            if (Filter.list.indexOf(this.state.title) != -1) {
+                this.setState({titleE:true})
+                return; 
+            }
             if (this.state.title == "") {
             this.setState({titleE:true})
             return;
