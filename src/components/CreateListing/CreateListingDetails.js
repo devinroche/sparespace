@@ -48,14 +48,14 @@ class CreateListingDetails extends Component {
                             <CreateLabel className="pull-left">Title</CreateLabel>
                                 {
                                     this.props.titleE === true ? null:
-                                        <FormStyle  autoComplete="off" type="text" value = {this.props.title} onChange = {this.props.handleTitleChange} className="form-control"
+                                        <FormStyle maxLength="35"  autoComplete="off" type="text" value = {this.props.title} onChange = {this.props.handleTitleChange} className="form-control"
                                         placeholder="Spacious Basement"/>
 
                                 }
                            
                                 {
                                     this.props.titleE === false ? null:
-                                        <FormStyle  autoComplete="off" type="text" value = {this.props.title} onChange = {this.props.handleTitleChange} className="form-control title-incomplete-input" placeholder="Spacious Basement"/>
+                                        <FormStyle  maxLength="35"  autoComplete="off" type="text" value = {this.props.title} onChange = {this.props.handleTitleChange} className="form-control title-incomplete-input" placeholder="Spacious Basement"/>
 
                                 }
                         </div>
