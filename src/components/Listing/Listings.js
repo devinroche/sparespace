@@ -89,13 +89,13 @@ export class Listings extends React.Component {
                 <div className="col-sm-7 col-sm-offset-1">
                 <FilterContainer className="row">
                     <div>
-                            <div className='col-sm-6'>
+                            <div className='col-md-6 col-sm-6 col-xs-6'>
                                 <SearchInput className="searchBar" type='text' value={this.state.search} onChange={this.updateSearch.bind(this)} style={styles.formStyle} placeholder="Search Listings or Street" />
                             </div>
-                            <div className='col-sm-3'>
+                            <div className='col-sm-3 col-xs-3'>
                                 <OrangeButton style={{padding: 8}} onClick={this.togglePrice.bind(this)}>Price</OrangeButton>
                             </div>
-                            <div className="col-sm-3">
+                            <div className="col-sm-3  col-xs-3">
                                 <OrangeButton style={{padding: 8}} onClick={this.toggleCalendar.bind(this)}>Dates</OrangeButton>
                             </div>
                     </div>

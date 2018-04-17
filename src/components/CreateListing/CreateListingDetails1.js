@@ -51,7 +51,7 @@ class CreateListingDetails1 extends Component {
                 </div>
                 
                     <div className="row">
-                        <div className="col-sm-10 col-sm-offset-2">
+                        <div className="col-sm-10 col-sm-offset-2 col-xs-12">
                             <CreateLabel className="pull-left">Features <a data-tip="React-tooltip"><img src={require('../../images/info.svg')}/></a></CreateLabel>
                             <ReactTooltip place="top" type="dark" effect="float">
                                 <span>These are features that your space has to offer.
@@ -60,13 +60,27 @@ class CreateListingDetails1 extends Component {
                         </div>
                         
                             <div className="row" style={{marginTop: 10}}>
-                                <div className="col-sm-10 col-sm-offset-2">
-                                    <CheckboxGroup name="features" value = {this.props.features } onChange={this.props.handleFeatureChange} >
+                                <div className="col-sm-10 col-sm-offset-2 col-xs-12">
+                                    <CheckboxGroup name="features" value = {this.props.features } onChange={this.props.handleFeatureChange}>
+                                    <div className="col-xl-2">
                                         <Checkbox style={checkboxStyle} value="Day Access"  /> Day Access
+                                    </div>
+                                    <div className="col-xl-2">
+
                                         <Checkbox style={checkboxStyle} value="Security Camera"  /> Security Camera
+                                        </div>
+                                        <div className="col-xl-2">
+
                                         <Checkbox style={checkboxStyle} value="Pet-Free"  /> Pet-Free
+                                        </div>
+                                        <div className="col-xl-2">
+
                                         <Checkbox style={checkboxStyle} value="Smoke-Free"  /> Smoke-Free
+                                        </div>
+                                        <div className="col-xl-2">
+
                                         <Checkbox style={checkboxStyle} value="Lock Area"  /> Locked Area
+                                        </div>
                                     </CheckboxGroup>
                                 </div>
                             </div>
@@ -82,14 +96,16 @@ class CreateListingDetails1 extends Component {
                             </ReactTooltip>
                         </div>
                             <div className="row" style={{marginTop: 10}}>
-                                <div className="col-sm-11 col-sm-offset-2">
+                                <div className="col-sm-11 col-sm-offset-2 col-xs-12">
 
                                     <RadioGroup
                                         name = "size"
                                         selectedValue = {this.props.size} onChange={this.props.handleSizeChange}>
-                                        <label style={radioButtonStyle}  ><Radio value="Small (5 x 5)" style={{marginRight: 10}} />Small (5 x 5)</label>
+                                      
+                                            <label style={radioButtonStyle}  ><Radio value="Small (5 x 5)" style={{marginRight: 10}} />Small (5 x 5)</label>
                                         <label style={radioButtonStyle} ><Radio value="Medium (15 x 15)" style={{marginRight: 10}} />Medium (15 x 15)</label>
                                         <label style={radioButtonStyle} ><Radio value="Large (25 x 25)" style={{marginRight: 10}}/>Large (25 x 25) </label>
+                                        
                                     </RadioGroup>
                                     {
                                         this.props.sizeE === false ? null:
@@ -101,7 +117,7 @@ class CreateListingDetails1 extends Component {
 
 
                     <div className="row">
-                        <div className="col-sm-10 col-sm-offset-2">
+                        <div className="col-sm-10 col-sm-offset-2 col-xs-12">
                             <CreateLabel className="pull-left">Duration</CreateLabel>
                         </div>
                         <div className="row" style={{marginTop: 10}}> 
@@ -183,7 +199,8 @@ const checkboxStyle = {
     fontFamily: "Rubik",
     color: "#333",
     fontWeight: "300",
-    marginTop: 15
+    marginTop: 15,
+    
 };
 
 const radioButtonStyle = {

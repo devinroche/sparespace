@@ -69,13 +69,13 @@ export default class AppNavbar extends Component {
     render() {
 
         return (
-        	<div className="container-fluid">
+        	<div className="container">
 				<div className="row">
-					<NavBarDiv className="col-lg-5 col-md-5 col-sm-3 col-xs-11">
-						<Logo className="navbar-brand" href="/home">sparespace</Logo>
+					<NavBarDiv style={{marginTop: "20"}} className="col-lg-5 col-md-5 col-sm-3 col-xs-12">
+						<Logo href="/home">sparespace</Logo>
 					</NavBarDiv>
 					<NavBarDiv className="col-lg-6 col-lg-offset-1 col-md-offset-1 col-md-6 col-sm-7 col-sm-offset-2">
-							<ul className="list-inline" style={{marginTop: "40"}}>
+							<ul className="list-inline" style={{marginTop: "30"}} >
 								<li className="col-lg-4 col-md-4 col-sm-4">
 									<Link to ="/create_listing"><PostSpace className="" href="#">Post Your Space</PostSpace></Link>
 								</li>

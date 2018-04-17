@@ -17,10 +17,10 @@ export class ListingCard extends React.Component {
                 }}>
                     <Image cloudName="dopxmkhbr" publicId={l.images[0]} style={styles.imageSize}/>
                     <div className="row">
-                        <div className="col-sm-2" style={{paddingRight: 0}}>
+                        <div className="col-sm-2 col-xs-2" style={{paddingRight: 0}}>
                             <ListingPrice>${l.price}</ListingPrice>
                         </div>
-                        <div className="col-sm-10" style={{paddingRight: 0, paddingLeft: 10}}>
+                        <div className="col-sm-10 col-xs-10" style={{paddingRight: 0, paddingLeft: 10}}>
                             <ListingCardTitle>{l.title}</ListingCardTitle>
                         </div>
                     </div>

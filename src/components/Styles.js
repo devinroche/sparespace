@@ -9,10 +9,15 @@ export const MainHeader = styled.div`
 `;
 
 export const NavBarDiv = styled.div`
+
+
+
 @media(max-width: 425px) {
-  				padding: 15px;
+				  padding: 15px;
+				  text-align: center;
   			}
-`;
+;`
+
 
 
 
@@ -126,13 +131,12 @@ export const Logo = styled.a`
 	color: #FC5B45;
 	font-weight: bold;
 	font-size: 30px;
-	margin-left: 40px;
-	margin-top: 25px;
 	text-decoration: none;	
 	:hover{
 			color: #FC5B45;
 			text-decoration: #FC5B45;
 		}
+	
 
 `;
 
@@ -207,7 +211,7 @@ export const FormLabel = styled.label`
 	font-weight: 400;
 	margin-top: 10px;
 	@media(min-width: 1440px) {
-				font-size: 20px;
+				font-size: 18px;
 		}
 
 `;
@@ -522,6 +526,12 @@ export const OrangeButton = styled.button`
 	border-width: 2px;
 	font-family: "Rubik", "Arial", "sans-serif";
 	color: #FC5B45;
+	@media(max-width: 425px) {
+		padding: 7px 25px;
+		font-size: 12px;
+		
+}
+	
 				
 `;
 
@@ -586,4 +596,27 @@ export const WelcomeText = styled.h1`
 	text-align: center;
 	margin-bottom: 50px;
 	margin-top: 50px;
+	@media(max-width: 375px) {
+		font-size: 30px;
+		
+}
 	`;
+
+export const BackButton = styled.button`
+	font-family: "Rubik";
+	color: #FFF;
+	font-weight: 400;
+	width: 150,
+    margin-bottom: 20,
+    height: 50,
+	fontSize: 20,
+	background: linear-gradient(to right, #FE947B, #FC5B45);
+	border: "none";
+	@media(max-width: 425px){
+		display: none;
+	}
+`;
+
+export const Paragraph = styled.p`
+	line-height: 1.6
+`;
