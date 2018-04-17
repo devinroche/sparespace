@@ -6,7 +6,8 @@ import Messages from './Messages'
 import Input from './Input'
 import Cookies from "../../../Cookies";
 import openSocket from 'socket.io-client';
-import './Chat.css'
+import './Chat.css';
+import {BackButton} from '../../Styles';
 const socket = openSocket('http://localhost:3001');
 
 class Chat extends React.Component {
@@ -56,7 +57,7 @@ class Chat extends React.Component {
         return (
             <div className="row">
                 <div className="col-sm-2 col-sm-offset-1">
-                    <button style={btnStyle} onClick={this.backToProfile}>Back</button>
+                    <BackButton style={btnStyle} onClick={this.backToProfile}>Back</BackButton>
                 </div>
                 <div className='chatroom col-sm-7'>
                     <Messages messages={this.state.messages} />
