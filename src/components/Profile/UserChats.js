@@ -19,15 +19,18 @@ class UserChats extends React.Component {
                 msg: r.data
             })
         })
+       
     }
 
     render() {
         const activeChat = this.state.msg.length !== 0 ? this.state.msg.map((chat) => {
             let otherName = chat.renter_id === Cookies.getId() ? chat.host : chat.renter
+            let firstName = otherName.replace(/ .*/,'');
+            console.log(this.state.msg)
             return (
             <Link to={`/chat/${chat.host_id}/${chat.renter_id}`}>
                 <MessageCard>
-                    <MessageName>{otherName}</MessageName>
+                    <MessageName>{firstName}</MessageName>
                 </MessageCard>
             </Link>)
             }) :

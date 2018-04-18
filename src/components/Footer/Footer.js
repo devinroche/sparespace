@@ -1,5 +1,7 @@
 import React, { Component } from "react"
 import {FooterLink} from "../Styles";
+import {Link} from "react-router-dom";
+
 
 
 class Footer extends Component {
@@ -8,11 +10,11 @@ class Footer extends Component {
       <div className="container">
         <div className="row footer-section" style={{textAlign: "center"}}>
           <ul className="list-inline">
-              <li><FooterLink href="/about">About<span style={{ color: "#FC5B45" }}>&nbsp; &bull; </span></FooterLink></li>
-              <li><FooterLink href="/faq">FAQ<span style={{ color: "#FC5B45" }}>&nbsp; &bull; </span></FooterLink></li>
-              <li><FooterLink href="/tos">Terms of Service<span style={{ color: "#FC5B45" }}>&nbsp; &bull; </span></FooterLink></li>
-              <li><FooterLink href="mailto:usesparespace@gmail.com">Contact Us<span style={{ color: "#FC5B45" }}>&nbsp; &bull; </span></FooterLink></li>
-              <li><FooterLink href="/privacy">Privacy Policy</FooterLink></li>
+            <li><Link to="/about"><FooterLink href="#">About<span style={{ color: "#FC5B45" }}>&nbsp; &bull; </span></FooterLink></Link></li> 
+              <li><Link to="/faq"><FooterLink href="#">FAQ<span style={{ color: "#FC5B45" }}>&nbsp; &bull; </span></FooterLink></Link></li> 
+              <li><Link to="/tos"><FooterLink href="#">Terms of Service<span style={{ color: "#FC5B45" }}>&nbsp; &bull; </span></FooterLink></Link></li>
+              <li><FooterLink href="mailto:usesparespace@gmail.com">Contact Us<span style={{ color: "#FC5B45" }}>&nbsp; &bull; </span></FooterLink></li> 
+              <li><Link to="/privacy"><FooterLink href="#">Privacy Policy</FooterLink></Link></li> 
           </ul>
         </div>
       </div>

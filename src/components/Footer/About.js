@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { LoginHeader, Paragraph } from "../Styles";
+import Footer from "../Footer/Footer";
 
 
 class Tos extends Component {
@@ -50,6 +51,9 @@ class Tos extends Component {
             </Paragraph>
             <p/>
           </div>
+        </div>
+        <div className="row">
+          <Footer/>
         </div>
       </div>
     );
