@@ -103,7 +103,7 @@ class EditUser extends Component {
                             Object.keys(values).forEach((key) => (values[key] === '') && delete values[key]);
                             delete values['confirm'];
 
-                        axios.put(`http://localhost:3001/user/${Cookies.getId()}`, values);
+                        axios.put(`https://testfart420.herokuapp.com/user/${Cookies.getId()}`, values);
                             swal(
                                 "Email Verification Required",
                                 "Please check your email to verify your account",

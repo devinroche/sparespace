@@ -1,6 +1,6 @@
 import openSocket from 'socket.io-client';
 
-const socket = openSocket('http://localhost:3001');
+const socket = openSocket('https://testfart420.herokuapp.com');
 
 function testCall () {
     socket.emit('join')

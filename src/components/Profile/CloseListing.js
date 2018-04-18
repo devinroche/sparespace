@@ -18,7 +18,7 @@ class CloseListing extends Component {
 
 
     handleSubmit(event) {
-        axios.get(`http://localhost:3001/close/${this.state.listing_id}`)
+        axios.get(`https://testfart420.herokuapp.com/close/${this.state.listing_id}`)
     }
 
 

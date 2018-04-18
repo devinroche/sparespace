@@ -4,7 +4,7 @@ import actionTypes from "./actionTypes"
 export function fetchUser(values) {
 	return dispatch => {
 		return axios
-			.post("http://localhost:3001/login", values)
+			.post("https://testfart420.herokuapp.com/login", values)
 			.then(function(response) {
 				const user = response.data[0]
 				window.localStorage.setItem("loggedIn", true)

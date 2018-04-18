@@ -21,7 +21,7 @@ class Mapo extends React.Component {
     }
     getCordinates = () => {
         var self = this;
-        axios.get('http://localhost:3001/cordinates')
+        axios.get('https://testfart420.herokuapp.com/cordinates')
             .then(function (response) {
                 self.setState({ geo: response.data });
             })
