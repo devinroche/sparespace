@@ -41,8 +41,22 @@ class Faq extends Component {
                   </p> 
             </Collapsible>
             <Collapsible trigger="How does it work?"> 
-              <p>If you're 
-              </p>
+              <p>You can sign up on our site using your @zagmail.gonzaga.edu address. After signing up, an email verification
+                link will be sent to your inbox (check your junk mail as it sometimes goes there!!). After signing up, you can either
+                browse through listings you find on the site or post your own space. </p>
+                <p>
+                If you are looking for other listings, and find one you
+                are interested in, you can click the "message" button on the listing's page and send a message! After sending a message,
+                our system will notify the host via email. In fact, all messages sent will notify the other party via email!
+                You can find your messages and message history on your Account page. </p>
+                <p>
+                    If you want to post your own space, you will be asked a couple of questions about your space like
+                    price, size, features, and photos. Your space's address will NOT be shown to anyone. There will be a "message"
+                    button on your listing's page. If someone messages you
+                    about your space, your first name will be shown to the other user. You can communicate with the other user
+                    via our in-app messaging that you can find on your Account page.
+                </p>
+            
             </Collapsible>
             <Collapsible trigger="I think I found a bug on the site..."> 
               <p>If you think you found a bug, that's great, we are actively trying to improve our site, so please let us know by contacting us at
