@@ -4,10 +4,19 @@ import axios from "axios"
 import swal from "sweetalert2"
 import Cookies from "../Cookies"
 import {LoginHeader, SupportText, FormFormat, FormInput, FormLabel, LoginButton} from "./Styles";
+import {Link, Redirect} from "react-router-dom";
 
 class Login extends Component {
 
+	constructor() {
+        super();
+        this.state = {
+            toAccount: false
+        };
+    }
+
 	render() {
+
 		return (
 			<div className="container text-center">
 				<div className="row">
@@ -38,10 +47,10 @@ class Login extends Component {
 
 							setSubmitting(false);
 							axios
-								.post("http://localhost:3001/login", values)
+								.post("https://s-services.herokuapp.com/login", values)
 								.then(function(response) {
 									Cookies.loginUser(response.data.id, response.data.v);
-									window.location.href = "/users/" + response.data.id; //maybe use react router instead
+									window.location.href = "/users/" + Cookies.getId(); //maybe use react router instead
 								})
 								.catch(function() {
 									swal({

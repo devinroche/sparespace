@@ -8,7 +8,7 @@ import {Message, SmallMsg, CloseBtn, FormStyle} from "../Styles";
 import ReactTooltip from 'react-tooltip'
 
 
-const socket = openSocket('http://localhost:3001');
+const socket = openSocket('https://s-services.herokuapp.com');
 
 class SendMessage extends Component {
     constructor() {
@@ -63,7 +63,7 @@ class SendMessage extends Component {
     }
     handleSubmit(event) {
         event.preventDefault();
-        axios.post('http://localhost:3001/message', {
+        axios.post('https://s-services.herokuapp.com/message', {
             host: this.props.host,
             renter: this.props.renter,
             author: this.props.renter,

@@ -16,7 +16,6 @@ export default class AppNavbar extends Component {
     }
 
     logout(){
-
         Cookies.removeCookie();
     }
 
