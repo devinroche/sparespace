@@ -5,6 +5,7 @@ import UserChats from "./UserChats";
 import UserListings from "./UserListings";
 import {WelcomeText} from "../Styles";
 import EditUser from "./EditUser";
+import Footer from "../Footer/Footer";
 
 class Profile extends React.Component {
     constructor() {
@@ -49,6 +50,7 @@ class Profile extends React.Component {
                 </div>
                 <UserChats user={this.props.match.params.id}/>
                 <UserListings listings={user.listings}/>
+                <Footer/>
             </div>
         )
     }

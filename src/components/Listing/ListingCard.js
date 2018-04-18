@@ -25,7 +25,7 @@ export class ListingCard extends React.Component {
                         </div>
                     </div>
                     <div className="row">
-                        <CardHost>{l.size}</CardHost>
+                        <CardHost>Size: {l.size}</CardHost>
                     </div>
                 </Link>
             </div>

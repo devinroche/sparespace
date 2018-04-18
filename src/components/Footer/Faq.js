@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Header, SubHeader, Row } from "../Styles";
 import Collapsible from "react-collapsible";
+import Footer from "../Footer/Footer";
+
 
 import "./Faq.css";
 
@@ -9,17 +11,16 @@ class Faq extends Component {
     return (
       <div className="container">
         <Row className="row">
-          <div className="col-sm-6 col-sm-offset-3">
-            <Header>Frequently Asked Questions</Header>
+          <div className="text-center" style={{marginBottom: "25"}}>
+            <Header style={{fontSize: "45"}}>Frequently Asked Questions</Header>
           </div>
         </Row>
-
         <div className="row">
-          <div className="col-sm-5 col-sm-offset-1">
-            <div className="title">
-              <p>I'm a renter looking for storage:</p>
-            </div>
-            <Collapsible trigger="What is sparespace?"> 
+            <div className="col-sm-4">
+              <div className="title">
+                <p>General Questions</p>
+              </div>
+              <Collapsible trigger="What is sparespace?"> 
               <p>Sparespace is a web-application that serves as a peer-to-peer marketplace  
                 for storage. Our goal is to provide a more affordable and alternative  
                 storage solution, in comparison to traditional "big-box" commercial storage  
@@ -30,6 +31,41 @@ class Faq extends Component {
                 search for nearby storage spaces, and message each other to discuss terms and  
                 pricing</p> 
             </Collapsible>
+            <Collapsible trigger="Why should I use sparespace?"> 
+              <p>Well if you're looking for storage, we think that you can find cheaper, closer storage
+                using our platform. Or if you are looking for storage for odd periods of time (such as a couple of days only, one day each week, etc.)
+                </p>  
+                <p>If you're living in an off-campus house, by renting out extra space in your house,
+                  we think that you can make pretty good money this summer doing close to no work. 
+                  Tons of students need summer storage space, help another Zag out by listing your space!.  
+                  </p> 
+            </Collapsible>
+            <Collapsible trigger="How does it work?"> 
+              <p>If you're 
+              </p>
+            </Collapsible>
+            <Collapsible trigger="I think I found a bug on the site..."> 
+              <p>If you think you found a bug, that's great, we are actively trying to improve our site, so please let us know by contacting us at
+              <a href="mailto:usesparespace@gmail.com"> usesparespace@gmail.com </a>.
+              </p>
+              <p>
+               We've noticed that our site works best when using Google Chrome, and some things may not work properly
+               when using Firefox, Internet Explorer, or other browsers.
+                </p>
+            </Collapsible>
+            <Collapsible trigger="Who made sparespace?"> 
+              <p>Sparespace was made by four Gonzaga seniors for our Senior Design project.
+                When using the site, just remember that this site was made by a couple of students, 
+                and not a large corporation. We tried our best to model the site after similar platforms
+                like Airbnb, but things like bugs will be present. We'd appreciate any feedback/criticism/suggestions
+                that you have!  <a href="mailto:usesparespace@gmail.com"> usesparespace@gmail.com </a>.
+              </p>
+            </Collapsible>
+            </div>
+          <div className="col-sm-4">
+            <div className="title">
+              <p>I'm a renter looking for storage:</p>
+            </div>
             <Collapsible trigger="Where does sparespace offer storage?">
             <p>Sparespace is a storage platform that serves the community of  
                 Gonzaga University and Spokane. 
@@ -66,7 +102,7 @@ class Faq extends Component {
               </p> 
             </Collapsible> 
           </div>
-          <div className="col-sm-5">
+          <div className="col-sm-4">
             <div className="title">
               <p>I'm a host with unused space:</p>
             </div>
@@ -103,6 +139,9 @@ class Faq extends Component {
               </p> 
             </Collapsible> 
           </div>
+        </div>
+        <div className="row">
+          <Footer/>
         </div>
       </div>
     );

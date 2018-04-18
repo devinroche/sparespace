@@ -64,7 +64,10 @@ class CreateListingDetails extends Component {
 
                     <div className="row" style={{marginTop: "5"}}>
                         <div className="col-sm-8 col-sm-offset-2" style={{marginTop: "5"}}>
-                        <CreateLabel >Description</CreateLabel>
+                        <CreateLabel >Description <a data-tip data-for='description'><img src={require('../../images/info.svg')}/></a></CreateLabel>
+                        <ReactTooltip id='description' place="top" type="dark" effect="float">
+                                    <span>Why should people rent out your space? Any special features? Is it being shared with anyone else? What could fit in this space?</span>
+                            </ReactTooltip>
                         {
                             this.props.descriptionE === true ? undefined:
                                 <DescriptionInput rows = {6} type="text" value = {this.props.description} onChange = {this.props.handleDescriptionChange} className="form-control"/>

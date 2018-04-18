@@ -120,7 +120,7 @@ class ListingDetails extends React.Component {
                             
                                 <div>
                                     <CardTitle>{listing.title}</CardTitle>
-                                    <CardHost>{host.first}</CardHost>
+                                    <CardHost>Size: {listing.size}</CardHost>
                                 </div>
                     </CardStyle>
                         <div className="row">
@@ -164,12 +164,6 @@ class ListingDetails extends React.Component {
                             <div className="col-sm-11 col-sm-offset-1">
                                 <Label>Available</Label>
                                 <Duration>{startDate}  &nbsp; -> &nbsp; {endDate}</Duration>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-sm-11 col-sm-offset-1">
-                                <Label>Size (ft.)</Label>
-                                <Duration>{listing.size}</Duration>
                             </div>
                         </div>
                         <div className="row">

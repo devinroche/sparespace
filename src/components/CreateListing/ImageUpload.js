@@ -174,7 +174,7 @@ class ImageUpload extends Component {
 
                     
                     <button type="submit" onClick = {this.props.handleBack} className = "button-back">Back</button>
-                    <WhiteButton type="submit" onClick={this.handleImageUpload} className = "text-center">Continue</WhiteButton>
+                    <WhiteButton type="submit" onClick={this.handleImageUpload} className = "text-center">Finish</WhiteButton>
             
         
                     </div>
