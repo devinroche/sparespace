@@ -50,7 +50,7 @@ class Login extends Component {
 								.post("https://s-services.herokuapp.com/login", values)
 								.then(function(response) {
 									Cookies.loginUser(response.data.id, response.data.v);
-									window.location.href = "/users/" + response.data.id; //maybe use react router instead
+									window.location.href = "/users/" + Cookies.getId(); //maybe use react router instead
 								})
 								.catch(function() {
 									swal({
