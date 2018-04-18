@@ -9,7 +9,7 @@ import { ListingCard } from "./ListingCard";
 import {FilterContainer, OrangeButton, SearchInput} from "../Styles";
 import openSocket from 'socket.io-client';
 
-const socket = openSocket('http://localhost:3001');
+const socket = openSocket('https://s-services.herokuapp.com');
 
 
 export class Listings extends React.Component {
@@ -32,7 +32,7 @@ export class Listings extends React.Component {
     }
 
     getListings() {
-        axios.get("http://localhost:3001/listings")
+        axios.get("https://s-services.herokuapp.com/listings")
             .then(response => {
                 let datesArr = response.data.map(l => moment(l.dates[0])).sort((a, b) => {return b - a});
                 let findMax = Math.max.apply(Math, response.data.map(o => { return o.price }));

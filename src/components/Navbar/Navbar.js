@@ -16,7 +16,6 @@ export default class AppNavbar extends Component {
     }
 
     logout(){
-
         Cookies.removeCookie();
     }
 
@@ -72,7 +71,7 @@ export default class AppNavbar extends Component {
         	<div className="container">
 				<div className="row">
 					<NavBarDiv style={{marginTop: "20"}} className="col-lg-5 col-md-5 col-sm-3 col-xs-12">
-						<Logo href="/home">sparespace</Logo>
+						<Link to="/home"><Logo href="#">sparespace</Logo></Link>
 					</NavBarDiv>
 					<NavBarDiv className="col-lg-6 col-lg-offset-1 col-md-offset-1 col-md-6 col-sm-7 col-sm-offset-2">
 							<ul className="list-inline" style={{marginTop: "30"}} >
