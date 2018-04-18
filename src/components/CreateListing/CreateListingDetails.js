@@ -102,14 +102,10 @@ class CreateListingDetails extends Component {
                     <div className="row text-center">
                         <WhiteButton type="submit" onClick = {this.props.handleContinue}> Continue</WhiteButton>
                     </div>
-
-
                 </div>
                 
-                    
-
                     <div className="col-sm-2" style={container}>
-                        <Outline/>
+                        <Outline pageBasics = {true} pageD = {false} pageI={false} />
                     </div>
                 
             

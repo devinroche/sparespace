@@ -176,8 +176,8 @@ class CreateListingDetails1 extends Component {
                 </div>
 
                 <div className="col-sm-2" style={container}>
-                        <Outline/>
-                    </div>
+                    <Outline pageBasics = {false} pageD = {true} pageI={false} />                    
+                </div>
                         
             
             </div>
