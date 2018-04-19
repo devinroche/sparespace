@@ -41,7 +41,7 @@ class SignUp extends Component {
 									errors.last = "Required"
 								} else if (!values.email) {
 									errors.email = "Required"
-								} else if ((!/^([a-z0-9])+@([A-Za-z.]*)+gonzaga.edu$/i.test(values.email))) {
+								} else if ((!/^([a-z0-9-]*)+@([A-Za-z.]*)+gonzaga.edu$/i.test(values.email))) {
 									//validate user has an email that ends with zagmail.gonzaga.edu
 									errors.email =
 										"Invalid email address (must end with zagmail.gonzaga.edu or gonzaga.edu)"
