@@ -35,8 +35,9 @@ class EditListing extends Component {
         this.state.title === '' ? '' : editedObj.title = this.state.title
         this.state.description === '' ? '' : editedObj.description = this.state.description
         this.state.price === '' ? '' : editedObj.price = Number(this.state.price)
-
-        axios.put(`https://testfart420.herokuapp.com/listing/${this.state.listing_id}`,  editedObj)
+        editedObj._id = this.state.listing_id
+        console.log(editedObj)
+        axios.post(`http://localhost:3001/updateListing`,  editedObj)
     }
     
 

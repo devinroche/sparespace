@@ -120,13 +120,6 @@ class UserListings extends React.Component {
                                 </div>
                             </div>
                             </div>
-                    {/* <div className="row">
-                        <button className='col-sm-2 col-sm-offset-2' style={closeStyle} onClick={(e) => { this.toggleClose(listing._id, e) }} >Close</button>
-                        &nbsp; &nbsp; &nbsp;
-                        <button className='col-sm-2 col-sm-offset-1' onClick={(e) => { this.toggleEdit(listing._id, e) }} style={editStyle}>Edit</button>
-                        &nbsp; &nbsp; &nbsp;
-                        <button className='col-sm-2 col-sm-offset-1' style={deleteStyle} onClick={(e) => { this.toggleDelete(listing._id, e) }} >Delete</button>
-                    </div> */}
                 </MessageCard>
             )
         }) :

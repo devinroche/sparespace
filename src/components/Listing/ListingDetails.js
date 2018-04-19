@@ -32,7 +32,7 @@ class ListingDetails extends React.Component {
     }
 
     componentDidMount() {
-        axios.get(`https://testfart420.herokuapp.com/listing/${this.props.match.params.id}`)
+        axios.get(`http://localhost:3001/listing/${this.props.match.params.id}`)
             .then(res => {
                 
                 this.setState({
@@ -64,7 +64,7 @@ class ListingDetails extends React.Component {
                 title: 'Thank you for your input!',
               })
               //console.log(result.value)
-              axios.post("https://testfart420.herokuapp.com/report",{
+              axios.post("http://localhost:3001/report",{
                   message: result.value,
                   id:this.props.match.params.id
               })

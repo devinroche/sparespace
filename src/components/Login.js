@@ -38,7 +38,7 @@ class Login extends Component {
 
 							setSubmitting(false);
 							axios
-								.post("https://testfart420.herokuapp.com/login", values)
+								.post("http://localhost:3001/login", values)
 								.then(function(response) {
 									Cookies.loginUser(response.data.id, response.data.v);
 									window.location.href = "/users/" + response.data.id; //maybe use react router instead

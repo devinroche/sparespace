@@ -14,7 +14,7 @@ class UserChats extends React.Component {
     }
 
     componentDidMount() {
-        axios.get(`https://testfart420.herokuapp.com/messages/${this.props.user}`).then(r => {
+        axios.get(`http://localhost:3001/messages/${this.props.user}`).then(r => {
             this.setState({
                 msg: r.data
             })

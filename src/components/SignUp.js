@@ -61,7 +61,7 @@ class SignUp extends Component {
 							}}
 							onSubmit={values => {
 
-							axios.post("https://testfart420.herokuapp.com/users", {
+							axios.post("http://localhost:3001/users", {
                                 first: values.first,
                                 last: values.last,
 								password: values.password,
