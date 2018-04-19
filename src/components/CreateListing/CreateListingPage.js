@@ -181,7 +181,7 @@ class CreateListingPage extends Component {
         axios.post('https://s-services.herokuapp.com/listings', storageObj)
             .then(response => {
                 swal(
-                    'Check our your listing!',
+                    'Check out your listing!',
                     'You will receive an email if someone messages you about your space!',
                     'success'
                     ).then((value) => {

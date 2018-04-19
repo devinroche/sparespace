@@ -67,6 +67,12 @@ class Faq extends Component {
                when using Firefox, Internet Explorer, or other browsers.
                 </p>
             </Collapsible>
+            <Collapsible trigger="Help! I keep seeing a 404 page not found!"> 
+              <p> If you run into a "404 Page Not Found", don't panic. Try refreshing the page or go back to the homepage usesparespace.com. We are working on eliminating
+                all 404 Page Not Found links but reach out to us at 
+              <a href="mailto:usesparespace@gmail.com"> usesparespace@gmail.com </a> if you keep running into them!
+              </p>
+            </Collapsible>
             <Collapsible trigger="Who made sparespace?"> 
               <p>Sparespace was made by four Gonzaga seniors for our Senior Design project.
                 When using the site, just remember that this site was made by a couple of students, 

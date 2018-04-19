@@ -12,10 +12,7 @@ export const MainHeader = styled.div`
 
 export const NavBarDiv = styled.div`
 
-
-
 @media(max-width: 425px) {
-				  padding: 15px;
 				  text-align: center;
   			}
 ;`
@@ -630,8 +627,7 @@ export const Paragraph = styled.p`
 `;
 
 export const StyledLink = styled(Link)`
-    text-decoration: none;
-
+	text-decoration: none;
     &:focus, &:hover, &:visited, &:link, &:active {
         text-decoration: none;
     }
