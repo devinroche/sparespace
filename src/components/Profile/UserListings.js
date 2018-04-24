@@ -1,7 +1,7 @@
 import React from "react"
 import { Image } from "cloudinary-react"
 import { Link } from "react-router-dom"
-import EditListing from "./EditListing"
+import EditListing from "./EditListing1"
 import DeleteListing from './DeleteListing'
 import CloseListing from './CloseListing'
 import {MessageName, MessageCard} from "../Styles";
@@ -113,7 +113,8 @@ class UserListings extends React.Component {
                                 <button className='col-sm-12' style={closeStyle} onClick={(e) => { this.toggleClose(listing._id, e) }} >Close</button>
                                 </div>
                                 <div className='row'>
-                                <button className='col-sm-12'  onClick={(e) => { this.toggleEdit(listing._id, e) }} style={editStyle}>Edit</button>
+                                {/* <button className='col-sm-12'  onClick={(e) => { this.toggleEdit(listing._id, e) }} style={editStyle}>Edit</button> */}
+                                <EditListing listing={listing}/>
                                 </div>
                                 <div className='row'>
                                 <button className='col-sm-12'  style={deleteStyle} onClick={(e) => { this.toggleDelete(listing._id, e) }} >Delete</button>

@@ -7,7 +7,7 @@ import { FormFormat, FormInput, FormLabel, SignUpButton, CloseBtn } from "../Sty
 import { Formik } from "formik"
 import { Redirect } from "react-router-dom"
 
-class EditUser extends Component {
+class EditListing extends Component {
     constructor() {
         super()
 
@@ -45,10 +45,11 @@ class EditUser extends Component {
                 transform: 'translate(-50%, -50%)'
             }
         };
+        console.log(this.props.listing._id)
         return (
             <div>
                 <div onClick={this.openModal}>
-                    <i style={{ fontSize: '2em', marginTop: 50 }} className="fas fa-cog"></i>
+                    <button className='col-sm-12'>Edit</button>
                 </div>
                 <Modal
                     isOpen={this.state.modalIsOpen}
@@ -68,44 +69,17 @@ class EditUser extends Component {
                     </div>
                     <Formik
                         initialValues={{
-                            first: "",
-                            last: "",
-                            password: "",
-                            confirm: "",
-                            email: "",
-                            oldpass: ''
-                        }}
-                        validate={values => {
-                            let errors = {};
-                            if (values.confirm !== '' && values.password !== '' && values.oldpass !== '') {
-                                if (values.confirm !== values.password) {
-                                    errors.confirm = "Passwords do not match!!"
-                                }
-                                else if (values.password === values.oldpass) {
-                                    errors.confirm = "Same Passwords!"
-                                }
-                            }
-                            else if (values.email !== '') {
-                                if (!/^[A-Z0-9._%+-]+@zagmail.gonzaga.edu$/i.test(values.email)) {
-                                    errors.email =
-                                        "Invalid email address (must end with zagmail.gonzaga.edu)"
-                                }
-                            }
-                            return errors
+                            title: "",
+                            description: "",
+                            price: ""
                         }}
                         onSubmit={values => {
                             Object.keys(values).forEach((key) => (values[key] === '') && delete values[key]);
                             delete values['confirm'];
-
-                            axios.put(`http://localhost:3001/user/${Cookies.getId()}`, values);
-                            swal(
-                                "Email Verification Required",
-                                "Please check your email to verify your account",
-                                "warning"
-                            ).then(() => {
-                                window.location.href = "/login"
-                                return <Redirect to="/login" />
-                            })
+                            values._id = this.props.listing._id
+                            axios.post(`http://localhost:3001/updateListing`, values)         
+                            window.location.href = `/users/${Cookies.getId()}`
+                            return <Redirect to={`/users/${Cookies.getId()}`} />                   
                         }}
                         //render is actually rendering the form for the user to see
                         render={({
@@ -116,67 +90,33 @@ class EditUser extends Component {
                             handleSubmit
                         }) => (
                                 <FormFormat onSubmit={handleSubmit}>
-                                    <FormLabel className="pull-left">First Name</FormLabel>
+                                    <FormLabel className="pull-left">Title</FormLabel>
                                     <FormInput
                                         id="first"
                                         className="form-control"
                                         type="text"
-                                        name="first"
+                                        name="title"
                                         onChange={handleChange}
-                                        value={values.first}
+                                        value={values.title}
                                     />
-                                    {touched.first && errors.first && <div>{errors.first}</div>}
-                                    <FormLabel className="pull-left">Last Name</FormLabel>
+                                    <FormLabel className="pull-left">Description</FormLabel>
                                     <FormInput
-                                        id="last"
+                                        id="description"
                                         className="form-control"
                                         type="text"
-                                        name="last"
+                                        name="description"
                                         onChange={handleChange}
-                                        value={values.last}
+                                        value={values.description}
                                     />
-                                    {touched.last && errors.last && <div>{errors.last}</div>}
-                                    <FormLabel className="pull-left">Email</FormLabel>
+                                    <FormLabel className="pull-left">Price</FormLabel>
                                     <FormInput
-                                        id="email"
+                                        id="price"
                                         className="form-control"
-                                        type="email"
-                                        name="email"
+                                        type="text"
+                                        name="price"
                                         onChange={handleChange}
-                                        value={values.email}
+                                        value={values.price}
                                     />
-                                    {touched.email && errors.email && <div>{errors.email}</div>}
-                                    <FormLabel className="pull-left">Old Password</FormLabel>
-                                    <FormInput
-                                        id="oldpass"
-                                        className="form-control"
-                                        type="password"
-                                        name="oldpass"
-                                        onChange={handleChange}
-                                        value={values.oldpass}
-                                    />
-                                    {touched.oldpass && errors.oldpass && <div>{errors.oldpass}</div>}
-
-                                    <FormLabel className="pull-left">New Password</FormLabel>
-                                    <FormInput
-                                        id="password"
-                                        className="form-control"
-                                        type="password"
-                                        name="password"
-                                        onChange={handleChange}
-                                        value={values.password}
-                                    />
-                                    {touched.password && errors.password && <div>{errors.password}</div>}
-                                    <FormLabel className="pull-left">Confirm New Password</FormLabel>
-                                    <FormInput
-                                        id="confirm"
-                                        className="form-control"
-                                        type="password"
-                                        name="confirm"
-                                        onChange={handleChange}
-                                        value={values.confirm}
-                                    />
-                                    {touched.confirm && errors.confirm && <div>{errors.confirm}</div>}
                                     <SignUpButton className="btn" type="submit">Confirm</SignUpButton>
                                 </FormFormat>
                             )}
@@ -188,4 +128,4 @@ class EditUser extends Component {
     }
 }
 
-export default EditUser;
+export default EditListing;
