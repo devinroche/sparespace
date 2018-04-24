@@ -75,8 +75,7 @@ export class Listings extends React.Component {
         })
     }
     resetFilters(listings){
-        listings = this.state.listings
-        let datesArr = listings.map(l => moment(l.dates[0])).sort((a, b) => { return b - a });
+        let datesArr = this.state.listings.map(l => moment(l.dates[0])).sort((a, b) => { return b - a });
         this.setState({
             showPrice: false,
             showCalendar: false,
@@ -133,7 +132,7 @@ export class Listings extends React.Component {
                     <div>
                         {this.state.showCalendar ? <DateRange
                             minDate={moment()}
-                            linkedCalendars={true}
+                            calendars={1}
                             onInit={this.handleSelect.bind(this)}
                             onChange={this.handleSelect.bind(this)}
                         /> : null}
