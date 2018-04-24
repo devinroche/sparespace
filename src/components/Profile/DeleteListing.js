@@ -20,7 +20,7 @@ class DeleteListing extends Component {
         this.renderDelete();
     }
     handleSubmit(event) {
-        axios.post(`http://localhost:3001/deleteListing`, {
+        axios.post(`https://s-services.herokuapp.com/deleteListing`, {
             id: this.state.listing_id
         })
     }

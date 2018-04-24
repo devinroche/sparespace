@@ -89,7 +89,7 @@ class EditListing extends Component {
                             Object.keys(values).forEach((key) => (values[key] === '') && delete values[key]);
                             delete values['confirm'];
                             values._id = this.props.listing._id
-                            axios.post(`http://localhost:3001/updateListing`, values)         
+                            axios.post(`https://s-services.herokuapp.com/updateListing`, values)         
                             window.location.href = `/users/${Cookies.getId()}`
                             return <Redirect to={`/users/${Cookies.getId()}`} />                   
                         }}
