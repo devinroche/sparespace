@@ -1,55 +1,129 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import swal from 'sweetalert2';
+import Cookies from '../../Cookies'
+import Modal from 'react-modal';
+import { FormFormat, FormInput, FormLabel, SignUpButton, CloseBtn } from "../Styles";
+import { Formik } from "formik"
+import { Redirect } from "react-router-dom"
 
 class EditListing extends Component {
-    constructor(props) {
-        super(props)
+    constructor() {
+        super()
+
         this.state = {
-            title: '',
-            description: '',
-            price: '',
-            listing_id: this.props.list_id
+            show: false,
+            modalIsOpen: false,
+            value: ''
         }
+
+        this.openModal = this.openModal.bind(this);
+        this.afterOpenModal = this.afterOpenModal.bind(this);
+        this.closeModal = this.closeModal.bind(this);
     }
 
-    handleTitleChange(e) {
-        this.setState({
-            title: e.target.value
-        })
+    openModal() {
+        this.setState({ modalIsOpen: true });
     }
 
-    handleDescChange(e) {
-        this.setState({
-            description: e.target.value
-        })
+    afterOpenModal() {
+        this.subtitle.style.color = '#FC5B45';
     }
 
-    handlePriceChange(e) {
-        this.setState({
-            price: e.target.value
-        })
+    closeModal() {
+        this.setState({ modalIsOpen: false });
     }
-
-    handleSubmit(event) {
-        let editedObj = {}
-        this.state.title === '' ? '' : editedObj.title = this.state.title
-        this.state.description === '' ? '' : editedObj.description = this.state.description
-        this.state.price === '' ? '' : editedObj.price = Number(this.state.price)
-        editedObj._id = this.state.listing_id
-        axios.post(`http://localhost:3001/updateListing`,  editedObj)
-    }
-    
 
     render() {
-
+        const customStyles = {
+            content: {
+                top: '50%',
+                left: '50%',
+                right: 'auto',
+                bottom: 'auto',
+                marginRight: '-50%',
+                transform: 'translate(-50%, -50%)'
+            }
+        };
+        console.log(this.props.listing._id)
         return (
-            <form onSubmit={this.handleSubmit.bind(this)}>
-                <input type="text" value={this.state.title} onChange={this.handleTitleChange.bind(this)} placeholder="title"/>
-                <input type="text" value={this.state.description} onChange={this.handleDescChange.bind(this)} placeholder="description"/>
-                <input type="text" value={this.state.price} onChange={this.handlePriceChange.bind(this)} placeholder="price"/>
-                <input type="submit" value="Submit" />
-            </form>
+            <div>
+                <div onClick={this.openModal}>
+                    <button className='col-sm-12'>Edit</button>
+                </div>
+                <Modal
+                    isOpen={this.state.modalIsOpen}
+                    onAfterOpen={this.afterOpenModal}
+                    onRequestClose={this.closeModal}
+                    contentLabel="Example Modal"
+                    style={customStyles}
 
+                >
+                    <div className="row">
+                        <div className="col-sm-10">
+                            <h2 ref={subtitle => this.subtitle = subtitle}>Edit Listing</h2>
+                        </div>
+                        <div className="col-sm-2">
+                            <CloseBtn onClick={this.closeModal}>x</CloseBtn>
+                        </div>
+                    </div>
+                    <Formik
+                        initialValues={{
+                            title: "",
+                            description: "",
+                            price: ""
+                        }}
+                        onSubmit={values => {
+                            Object.keys(values).forEach((key) => (values[key] === '') && delete values[key]);
+                            delete values['confirm'];
+                            values._id = this.props.listing._id
+                            axios.post(`http://localhost:3001/updateListing`, values)         
+                            window.location.href = `/users/${Cookies.getId()}`
+                            return <Redirect to={`/users/${Cookies.getId()}`} />                   
+                        }}
+                        //render is actually rendering the form for the user to see
+                        render={({
+                            values,
+                            touched,
+                            errors,
+                            handleChange,
+                            handleSubmit
+                        }) => (
+                                <FormFormat onSubmit={handleSubmit}>
+                                    <FormLabel className="pull-left">Title</FormLabel>
+                                    <FormInput
+                                        id="first"
+                                        className="form-control"
+                                        type="text"
+                                        name="title"
+                                        onChange={handleChange}
+                                        value={values.title}
+                                    />
+                                    <FormLabel className="pull-left">Description</FormLabel>
+                                    <FormInput
+                                        id="description"
+                                        className="form-control"
+                                        type="text"
+                                        name="description"
+                                        onChange={handleChange}
+                                        value={values.description}
+                                    />
+                                    <FormLabel className="pull-left">Price</FormLabel>
+                                    <FormInput
+                                        id="price"
+                                        className="form-control"
+                                        type="text"
+                                        name="price"
+                                        onChange={handleChange}
+                                        value={values.price}
+                                    />
+                                    <SignUpButton className="btn" type="submit">Confirm</SignUpButton>
+                                </FormFormat>
+                            )}
+                    />
+                </Modal>
+
+            </div>
         );
     }
 }

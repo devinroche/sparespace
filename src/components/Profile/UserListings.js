@@ -1,7 +1,7 @@
 import React from "react"
 import { Image } from "cloudinary-react"
 import { Link } from "react-router-dom"
-import EditListing from "./EditListing1"
+import EditListing from "./EditListing"
 import DeleteListing from './DeleteListing'
 import CloseListing from './CloseListing'
 import {MessageName, MessageCard} from "../Styles";
