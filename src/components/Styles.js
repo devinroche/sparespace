@@ -12,10 +12,7 @@ export const MainHeader = styled.div`
 
 export const NavBarDiv = styled.div`
 
-
-
 @media(max-width: 425px) {
-				  padding: 15px;
 				  text-align: center;
   			}
 ;`
@@ -253,6 +250,10 @@ export const FormInput = styled.input`
 		}
 
 `;
+
+export const Feedback= styled.div`
+color: red;
+`
 
 export const SignUpButton = styled.button`
       color:#fff;
@@ -544,6 +545,16 @@ export const OrangeButton = styled.button`
 `;
 
 //listings page
+
+export const Box = styled.div`
+	transition: box-shadow .3s;
+	border-radius: 5px;
+	border: 1.5px solid #E4E4E4;
+	:hover {
+		box-shadow: 0 0 11px #FC5B45; 
+	  }
+`
+
 export const ListingPrice= styled.h2`
 	font-family: "Rubik", "Arial", "sans-serif";
 	color: #FC5B45;
@@ -630,8 +641,7 @@ export const Paragraph = styled.p`
 `;
 
 export const StyledLink = styled(Link)`
-    text-decoration: none;
-
+	text-decoration: none;
     &:focus, &:hover, &:visited, &:link, &:active {
         text-decoration: none;
     }

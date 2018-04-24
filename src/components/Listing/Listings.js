@@ -37,11 +37,14 @@ export class Listings extends React.Component {
             .then(response => {
                 let datesArr = response.data.map(l => moment(l.dates[0])).sort((a, b) => {return b - a});
                 let findMax = Math.max.apply(Math, response.data.map(o => { return o.price }));
+                let findMin = Math.min.apply(Math, response.data.map(o => { return o.price }));
+                let calcMin = findMin === Number.POSITIVE_INFINITY ? 0 : findMin;
                 let calcMax = findMax === Number.NEGATIVE_INFINITY ? 100 : findMax;
                 this.setState({
                     listings: response.data,
-                    value: { max: calcMax, min: 0 },
+                    value: { max: calcMax, min: calcMin },
                     max: calcMax,
+                    min: calcMin,
                     range: {start: datesArr[0]}
                 })
             })
@@ -51,7 +54,6 @@ export class Listings extends React.Component {
         this.setState({ search: e.target.value })
     }
     handleSelect(range) {
-        
         if(range.startDate.format('YYYY-MM-DD') !== range.endDate.format('YYYY-MM-DD')){
             this.setState({
                 range: {
@@ -73,15 +75,27 @@ export class Listings extends React.Component {
             showCalendar: false
         })
     }
-    render() {
-        
+    resetFilters(listings){
+        let datesArr = this.state.listings.map(l => moment(l.dates[0])).sort((a, b) => { return b - a });
+        this.setState({
+            showPrice: false,
+            showCalendar: false,
+            search: '',
+            range: { start: datesArr[0] },
+            value: {
+                min: this.state.min,
+                max: this.state.max
+            }
+        })
+    }
+    render() { 
         let filteredListings = this.state.listings.filter((listing) => {
             return (
                 (listing.title.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
                     || listing.description.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
                     || listing.location.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1)
-                && (listing.price >= this.state.value.min && listing.price <= this.state.value.max)
-                && (moment(listing.dates[0]).format('YYYY-MM-DD') <= this.state.range.start.format('YYYY-MM-DD'))
+                    && (listing.price >= this.state.value.min && listing.price <= this.state.value.max)
+                    && (moment(listing.dates[0]).format('YYYY-MM-DD') <= this.state.range.start.format('YYYY-MM-DD'))
             )
         });
         return (
@@ -93,11 +107,15 @@ export class Listings extends React.Component {
                             <div className='col-md-6 col-sm-6 col-xs-6'>
                                 <SearchInput className="searchBar" type='text' value={this.state.search} onChange={this.updateSearch.bind(this)} style={styles.formStyle} placeholder="Search Listings or Street" />
                             </div>
-                            <div className='col-sm-3 col-xs-3'>
+                            <div className='col-sm-2 col-xs-2'>
                                 <OrangeButton style={{padding: 8}} onClick={this.togglePrice.bind(this)}>Price</OrangeButton>
                             </div>
-                            <div className="col-sm-3  col-xs-3">
+                            <div className="col-sm-2  col-xs-2">
                                 <OrangeButton style={{padding: 8}} onClick={this.toggleCalendar.bind(this)}>Dates</OrangeButton>
+                            </div>
+
+                            <div className="col-sm-2  col-xs-2">
+                                <OrangeButton style={{ padding: 8 }} onClick={this.resetFilters.bind(this)}>Reset</OrangeButton>
                             </div>
                     </div>
 
@@ -105,7 +123,7 @@ export class Listings extends React.Component {
                         {
                             this.state.showPrice ? <InputRange
                                 maxValue={this.state.max}
-                                minValue={0}
+                                minValue={this.state.min}
                                 formatLabel={value => `$${value}`}
                                 value={this.state.value}
                                 onChange={value => { this.setState({ value }) }}
@@ -115,7 +133,7 @@ export class Listings extends React.Component {
                     <div>
                         {this.state.showCalendar ? <DateRange
                             minDate={moment()}
-                            linkedCalendars={true}
+                            calendars={1}
                             onInit={this.handleSelect.bind(this)}
                             onChange={this.handleSelect.bind(this)}
                         /> : null}

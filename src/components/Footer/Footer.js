@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React, { Component } from "react";
 import {FooterLink} from "../Styles";
 import {Link} from "react-router-dom";
 
