@@ -74,8 +74,21 @@ export class Listings extends React.Component {
             showCalendar: false
         })
     }
-    render() {
-        
+    resetFilters(listings){
+        listings = this.state.listings
+        let datesArr = listings.map(l => moment(l.dates[0])).sort((a, b) => { return b - a });
+        this.setState({
+            showPrice: false,
+            showCalendar: false,
+            search: '',
+            range: { start: datesArr[0] },
+            value: {
+                min: this.state.min,
+                max: this.state.max
+            }
+        })
+    }
+    render() { 
         let filteredListings = this.state.listings.filter((listing) => {
             return (
                 (listing.title.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
@@ -94,11 +107,15 @@ export class Listings extends React.Component {
                             <div className='col-md-6 col-sm-6 col-xs-6'>
                                 <SearchInput className="searchBar" type='text' value={this.state.search} onChange={this.updateSearch.bind(this)} style={styles.formStyle} placeholder="Search Listings or Street" />
                             </div>
-                            <div className='col-sm-3 col-xs-3'>
+                            <div className='col-sm-2 col-xs-2'>
                                 <OrangeButton style={{padding: 8}} onClick={this.togglePrice.bind(this)}>Price</OrangeButton>
                             </div>
-                            <div className="col-sm-3  col-xs-3">
+                            <div className="col-sm-2  col-xs-2">
                                 <OrangeButton style={{padding: 8}} onClick={this.toggleCalendar.bind(this)}>Dates</OrangeButton>
+                            </div>
+
+                            <div className="col-sm-2  col-xs-2">
+                                <OrangeButton style={{ padding: 8 }} onClick={this.resetFilters.bind(this)}>Reset</OrangeButton>
                             </div>
                     </div>
 
