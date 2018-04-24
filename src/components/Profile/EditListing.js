@@ -35,6 +35,16 @@ class EditListing extends Component {
     }
 
     render() {
+
+        const editStyle = {
+            color: '#fff',
+            width: 100,
+            height: 25,
+            marginBottom: 5,
+            background: "linear-gradient(to right, #FE947B, #FC5B45)",
+            border: "none",
+            borderRadius: 5
+    };
         const customStyles = {
             content: {
                 top: '50%',
@@ -44,12 +54,14 @@ class EditListing extends Component {
                 marginRight: '-50%',
                 transform: 'translate(-50%, -50%)'
             }
+
+        
         };
         console.log(this.props.listing._id)
         return (
             <div>
                 <div onClick={this.openModal}>
-                    <button className='col-sm-12'>Edit</button>
+                    <button style={editStyle} className='col-sm-12'>Edit</button>
                 </div>
                 <Modal
                     isOpen={this.state.modalIsOpen}
