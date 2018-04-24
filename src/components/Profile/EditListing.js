@@ -36,7 +36,6 @@ class EditListing extends Component {
         this.state.description === '' ? '' : editedObj.description = this.state.description
         this.state.price === '' ? '' : editedObj.price = Number(this.state.price)
         editedObj._id = this.state.listing_id
-        console.log(editedObj)
         axios.post(`http://localhost:3001/updateListing`,  editedObj)
     }
     

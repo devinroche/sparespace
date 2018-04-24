@@ -36,11 +36,14 @@ export class Listings extends React.Component {
             .then(response => {
                 let datesArr = response.data.map(l => moment(l.dates[0])).sort((a, b) => {return b - a});
                 let findMax = Math.max.apply(Math, response.data.map(o => { return o.price }));
+                let findMin = Math.min.apply(Math, response.data.map(o => { return o.price }));
+                let calcMin = findMin === Number.POSITIVE_INFINITY ? 0 : findMin;
                 let calcMax = findMax === Number.NEGATIVE_INFINITY ? 100 : findMax;
                 this.setState({
                     listings: response.data,
-                    value: { max: calcMax, min: 0 },
+                    value: { max: calcMax, min: calcMin },
                     max: calcMax,
+                    min: calcMin,
                     range: {start: datesArr[0]}
                 })
             })
@@ -50,7 +53,6 @@ export class Listings extends React.Component {
         this.setState({ search: e.target.value })
     }
     handleSelect(range) {
-        
         if(range.startDate.format('YYYY-MM-DD') !== range.endDate.format('YYYY-MM-DD')){
             this.setState({
                 range: {
@@ -79,8 +81,8 @@ export class Listings extends React.Component {
                 (listing.title.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
                     || listing.description.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
                     || listing.location.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1)
-                && (listing.price >= this.state.value.min && listing.price <= this.state.value.max)
-                && (moment(listing.dates[0]).format('YYYY-MM-DD') <= this.state.range.start.format('YYYY-MM-DD'))
+                    && (listing.price >= this.state.value.min && listing.price <= this.state.value.max)
+                    && (moment(listing.dates[0]).format('YYYY-MM-DD') <= this.state.range.start.format('YYYY-MM-DD'))
             )
         });
         return (
@@ -104,7 +106,7 @@ export class Listings extends React.Component {
                         {
                             this.state.showPrice ? <InputRange
                                 maxValue={this.state.max}
-                                minValue={0}
+                                minValue={this.state.min}
                                 formatLabel={value => `$${value}`}
                                 value={this.state.value}
                                 onChange={value => { this.setState({ value }) }}
