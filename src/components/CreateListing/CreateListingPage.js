@@ -178,7 +178,7 @@ class CreateListingPage extends Component {
             images: arr
         };
 
-        axios.post('https://s-services.herokuapp.com/listings', storageObj)
+        axios.post('http://localhost:3001/listings', storageObj)
             .then(response => {
                 swal(
                     'Check out your listing!',

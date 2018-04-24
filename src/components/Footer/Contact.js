@@ -44,7 +44,7 @@ class Tos extends Component {
             }}
             onSubmit={values => {
               axios
-                .post("https://s-services.herokuapp.com/send-enquiry-mail", {
+                .post("http://localhost:3001/send-enquiry-mail", {
                   first: values.first,
                   last: values.last,
                   email: values.email,

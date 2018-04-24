@@ -21,7 +21,7 @@ class Profile extends React.Component {
         if (this.props.match.params.id !== Cookies.getId()) {
             window.location.href = "/users/" + Cookies.getId(); 
         } else{
-            axios.get(`https://s-services.herokuapp.com/user/${this.props.match.params.id}`)
+            axios.get(`http://localhost:3001/user/${this.props.match.params.id}`)
                 .then(res => {
                     this.setState({
                         user: res.data,

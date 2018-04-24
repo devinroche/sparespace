@@ -36,7 +36,7 @@ class VerifiedAlert extends Component {
                         'Check your email for a verification message!',
                         'success'
                     ).then(() => {
-                        axios.post('https://s-services.herokuapp.com/resendV', { u_id: Cookies.getId() })
+                        axios.post('http://localhost:3001/resendV', { u_id: Cookies.getId() })
                         window.location.href = `/users/${Cookies.getId()}`
                         return <Redirect to={`/users/${Cookies.getId()}`} />
                     })

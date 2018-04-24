@@ -8,7 +8,7 @@ import Cookies from "../../../Cookies";
 import openSocket from 'socket.io-client';
 import './Chat.css';
 import {BackButton} from '../../Styles';
-const socket = openSocket('https://s-services.herokuapp.com');
+const socket = openSocket('http://localhost:3001');
 
 class Chat extends React.Component {
     constructor() {
@@ -20,7 +20,7 @@ class Chat extends React.Component {
         this.backToProfile = this.backToProfile.bind(this)
 
         socket.on('update msg', () => {
-            axios.get(`https://s-services.herokuapp.com/message/${this.props.match.params.host}/${this.props.match.params.renter}`)
+            axios.get(`http://localhost:3001/message/${this.props.match.params.host}/${this.props.match.params.renter}`)
                 .then(response => {
                     this.setState({
                         messages: response.data
@@ -30,7 +30,7 @@ class Chat extends React.Component {
     }
 
     handleNewMessage = (text) => {
-        axios.post('https://s-services.herokuapp.com/message', {
+        axios.post('http://localhost:3001/message', {
             host: this.props.match.params.host,
             renter: this.props.match.params.renter,
             author: Cookies.getId(),
@@ -45,7 +45,7 @@ class Chat extends React.Component {
         return <Redirect to={"/users/" + Cookies.getId()} />
     }
     componentDidMount() {
-        axios.get(`https://s-services.herokuapp.com/message/${this.props.match.params.host}/${this.props.match.params.renter}`)
+        axios.get(`http://localhost:3001/message/${this.props.match.params.host}/${this.props.match.params.renter}`)
             .then(res => {
                 this.setState({
                     messages: res.data,
