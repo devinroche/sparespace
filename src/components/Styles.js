@@ -251,6 +251,10 @@ export const FormInput = styled.input`
 
 `;
 
+export const Feedback= styled.div`
+color: red;
+`
+
 export const SignUpButton = styled.button`
       color:#fff;
       background-color: #FC5B45;
@@ -541,6 +545,16 @@ export const OrangeButton = styled.button`
 `;
 
 //listings page
+
+export const Box = styled.div`
+	transition: box-shadow .3s;
+	border-radius: 5px;
+	border: 1.5px solid #E4E4E4;
+	:hover {
+		box-shadow: 0 0 11px #FC5B45; 
+	  }
+`
+
 export const ListingPrice= styled.h2`
 	font-family: "Rubik", "Arial", "sans-serif";
 	color: #FC5B45;
