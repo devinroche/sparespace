@@ -88,7 +88,7 @@ class CreateListingDetails1 extends Component {
                     
                     <div className="row">
                         <div className="col-sm-10 col-sm-offset-2">
-                            <CreateLabel className="pull-left">Size (ft.) <a data-tip data-for='sizes'><img src={require('../../images/info.svg')}/></a>
+                            <CreateLabel className="pull-left">Size <a data-tip data-for='sizes'><img src={require('../../images/info.svg')}/></a>
                             </CreateLabel>
                             <ReactTooltip id='sizes' place="top" type="dark" effect="float">
                                     <span>Give your best guess for the size of your space.
@@ -102,9 +102,10 @@ class CreateListingDetails1 extends Component {
                                         name = "size"
                                         selectedValue = {this.props.size} onChange={this.props.handleSizeChange}>
                                       
-                                            <label style={radioButtonStyle}  ><Radio value="Small (5 x 5)" style={{marginRight: 10}} />Small (5 x 5)</label>
-                                        <label style={radioButtonStyle} ><Radio value="Medium (15 x 15)" style={{marginRight: 10}} />Medium (15 x 15)</label>
-                                        <label style={radioButtonStyle} ><Radio value="Large (25 x 25)" style={{marginRight: 10}}/>Large (25 x 25) </label>
+                                            <label style={radioButtonStyle}  ><Radio value="Small (5ft. x 5ft.)" style={{marginRight: 10}} />Small (5ft. x 5ft.)</label>
+                                        <label style={radioButtonStyle} ><Radio value="Medium (15ft. x 15ft.)" style={{marginRight: 10}} />Medium (15ft. x 15ft.)</label>
+                                        <label style={radioButtonStyle} ><Radio value="Large (25ft. x 25ft.)" style={{marginRight: 10}}/>Large (25ft. x 25ft.) </label>
+                                        <label style={radioButtonStyle} ><Radio value="Other" style={{marginRight: 10}}/>Other</label>
                                         
                                     </RadioGroup>
                                     {
@@ -175,8 +176,8 @@ class CreateListingDetails1 extends Component {
                 </div>
 
                 <div className="col-sm-2" style={container}>
-                        <Outline/>
-                    </div>
+                    <Outline pageBasics = {false} pageD = {true} pageI={false} />                    
+                </div>
                         
             
             </div>

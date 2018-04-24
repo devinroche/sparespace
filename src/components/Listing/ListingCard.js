@@ -1,14 +1,14 @@
 import React from "react"
 import { Image } from "cloudinary-react"
 import { Link } from "react-router-dom"
-import {ListingPrice, ListingCardTitle, CardHost} from "../Styles";
+import {ListingPrice, ListingCardTitle, CardHost, Box} from "../Styles";
 
 export class ListingCard extends React.Component {
     render() {
         let l = this.props.listing;
 
         return (
-            <div className="col-sm-5" style={{boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)", margin: 30}}>
+            <Box className="col-sm-5" style={{margin: 30}}>
                 <Link to={{
                     pathname: `/listing/${l._id}`,
                     state: {
@@ -25,10 +25,10 @@ export class ListingCard extends React.Component {
                         </div>
                     </div>
                     <div className="row">
-                        <CardHost>{l.size}</CardHost>
+                        <CardHost>Size: {l.size}</CardHost>
                     </div>
                 </Link>
-            </div>
+            </Box>
 
         )
     }

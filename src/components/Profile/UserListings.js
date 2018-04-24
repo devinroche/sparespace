@@ -106,7 +106,7 @@ class UserListings extends React.Component {
                         <div className='row' style={{paddingBottom:10}}>
                         <Link to={`/listing/${listing._id}`}>
                             <div className="col-sm-4 col-xs-4"><Image cloudName="dopxmkhbr" publicId={listing.images[0]} style={styles.imageSize} /></div>
-                            <div className="col-sm-4 col-xs-4">{listing.status === 0 ? 'Closed Listing' : 'Active Listing'}<MessageName>{listing.title}</MessageName></div>
+                            <div className="col-sm-4 col-xs-4">{listing.status === 0 ? 'Closed Listing' : 'This Listing is Active'}<MessageName>{listing.title}</MessageName></div>
                             </Link>
                             <div className="col-sm-4 col-xs-4">
                                 <div className='row'>

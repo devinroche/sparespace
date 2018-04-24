@@ -32,7 +32,7 @@ class ListingDetails extends React.Component {
     }
 
     componentDidMount() {
-        axios.get(`http://localhost:3001/listing/${this.props.match.params.id}`)
+        axios.get(`https://s-services.herokuapp.com/listing/${this.props.match.params.id}`)
             .then(res => {
                 
                 this.setState({
@@ -64,7 +64,7 @@ class ListingDetails extends React.Component {
                 title: 'Thank you for your input!',
               })
               //console.log(result.value)
-              axios.post("http://localhost:3001/report",{
+              axios.post("https://s-services.herokuapp.com/report",{
                   message: result.value,
                   id:this.props.match.params.id
               })
@@ -120,7 +120,7 @@ class ListingDetails extends React.Component {
                             
                                 <div>
                                     <CardTitle>{listing.title}</CardTitle>
-                                    <CardHost>{host.first}</CardHost>
+                                    <CardHost>Size: {listing.size}</CardHost>
                                 </div>
                     </CardStyle>
                         <div className="row">
@@ -164,12 +164,6 @@ class ListingDetails extends React.Component {
                             <div className="col-sm-11 col-sm-offset-1">
                                 <Label>Available</Label>
                                 <Duration>{startDate}  &nbsp; -> &nbsp; {endDate}</Duration>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-sm-11 col-sm-offset-1">
-                                <Label>Size (ft.)</Label>
-                                <Duration>{listing.size}</Duration>
                             </div>
                         </div>
                         <div className="row">

@@ -23,7 +23,7 @@ class CreateListingPage extends Component {
            page_details: false,
            page_photos: false,
            title: "",
-           description:"Why should people rent out your space? Any special features? Is it being shared with anyone else? What could fit in this space?",
+           description:"",
            price:"",
            features: [],
            address: "Gonzaga University, East Boone Avenue, Spokane, WA, USA",
@@ -178,10 +178,10 @@ class CreateListingPage extends Component {
             images: arr
         };
 
-        axios.post('http://localhost:3001/listings', storageObj)
+        axios.post('https://s-services.herokuapp.com/listings', storageObj)
             .then(response => {
                 swal(
-                    'Check our your listing!',
+                    'Check out your listing!',
                     'You will receive an email if someone messages you about your space!',
                     'success'
                     ).then((value) => {

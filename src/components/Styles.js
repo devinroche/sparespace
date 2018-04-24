@@ -1,3 +1,5 @@
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import styled from "styled-components";
 
 //home page
@@ -10,10 +12,7 @@ export const MainHeader = styled.div`
 
 export const NavBarDiv = styled.div`
 
-
-
 @media(max-width: 425px) {
-				  padding: 15px;
 				  text-align: center;
   			}
 ;`
@@ -28,7 +27,7 @@ export const Header = styled.h1`
         	color: #333333;
         	
         	@media(min-width: 1440px) {
-				font-size: 65px;
+				font-size: 55px;
   			}
   			@media(max-width: 375px) {
   				padding: 0;
@@ -50,7 +49,7 @@ export const SubHeader = styled.h2`
     margin-bottom: 30px;
     
     @media(min-width: 1440px) {
-        font-size: 30px;
+        font-size: 25px;
         margin-bottom: 50px;
     }
      @media(max-width: 425px) {
@@ -80,7 +79,7 @@ export const HomeButton = styled.a`
     }
     
     @media(min-width: 1440px) {
-        font-size: 27px;
+        font-size: 24px;
     }
     @media(max-width: 991px) {
         font-size: 16px;
@@ -136,6 +135,12 @@ export const Logo = styled.a`
 			color: #FC5B45;
 			text-decoration: #FC5B45;
 		}
+	:visited{
+		color: #FC5B45;
+		text-decoration: none;
+	}
+
+	
 	
 
 `;
@@ -246,6 +251,10 @@ export const FormInput = styled.input`
 
 `;
 
+export const Feedback= styled.div`
+color: red;
+`
+
 export const SignUpButton = styled.button`
       color:#fff;
       background-color: #FC5B45;
@@ -342,7 +351,7 @@ export const Duration = styled.h3`
 
 export const ListingLabel = styled.h4`
    font-family: "Rubik", "Arial", "sans-serif";
-   font-weight: 400;
+   font-weight: 500;
    color: #333;
    margin-top: 25px;
    margin-left: 15px;
@@ -359,9 +368,9 @@ export const Features = styled.li`
    color: #666666;
    margin-top: 10px;
    margin-left: 15px;
-   font-size: 18px;
+   font-size: 15px;
    @media(min-width: 1440px) {
-				font-size: 22px;
+				font-size: 20px;
 				
 		}
 `;
@@ -374,7 +383,7 @@ export const Description = styled.p`
    font-size: 15px;
    line-height: 2;
    @media(min-width: 1440px) {
-				font-size: 22px;
+				font-size: 20px;
 				
 		}
 `;
@@ -536,6 +545,16 @@ export const OrangeButton = styled.button`
 `;
 
 //listings page
+
+export const Box = styled.div`
+	transition: box-shadow .3s;
+	border-radius: 5px;
+	border: 1.5px solid #E4E4E4;
+	:hover {
+		box-shadow: 0 0 11px #FC5B45; 
+	  }
+`
+
 export const ListingPrice= styled.h2`
 	font-family: "Rubik", "Arial", "sans-serif";
 	color: #FC5B45;
@@ -620,3 +639,12 @@ export const BackButton = styled.button`
 export const Paragraph = styled.p`
 	line-height: 1.6
 `;
+
+export const StyledLink = styled(Link)`
+	text-decoration: none;
+    &:focus, &:hover, &:visited, &:link, &:active {
+        text-decoration: none;
+    }
+`;
+
+// export default (props) => <StyledLink {...props} />;

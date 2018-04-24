@@ -8,8 +8,9 @@ import { DateRange } from 'react-date-range';
 import { ListingCard } from "./ListingCard";
 import {FilterContainer, OrangeButton, SearchInput} from "../Styles";
 import openSocket from 'socket.io-client';
+import Footer from "../Footer/Footer";
 
-const socket = openSocket('http://localhost:3001');
+const socket = openSocket('https://s-services.herokuapp.com');
 
 
 export class Listings extends React.Component {
@@ -32,7 +33,7 @@ export class Listings extends React.Component {
     }
 
     getListings() {
-        axios.get("http://localhost:3001/listings")
+        axios.get("https://s-services.herokuapp.com/listings")
             .then(response => {
                 let datesArr = response.data.map(l => moment(l.dates[0])).sort((a, b) => {return b - a});
                 let findMax = Math.max.apply(Math, response.data.map(o => { return o.price }));
@@ -138,12 +139,14 @@ export class Listings extends React.Component {
                         /> : null}
                     </div>
                 </FilterContainer>
-
                     <div className="row" style={{height: '90vh', overflowY:'scroll', boxShadow: "inset 0 5px 15px 0 rgba(0,0,0,.04)"}}>
                         {filteredListings.map((l, index) => (<ListingCard key={index} listing={l} />))}
                     </div>
                     </div>
                     <div className="col-md-4"><Mapo/></div>
+                </div>
+                <div className ="row">
+                    <Footer/>
                 </div>
             </div>
         )

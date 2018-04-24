@@ -4,7 +4,7 @@ import axios from "axios"
 import swal from "sweetalert2"
 import { Redirect } from "react-router-dom"
 import Cookies from "../Cookies"
-import { LoginHeader, SupportText, FormFormat, FormInput, FormLabel, SignUpButton } from "./Styles";
+import { LoginHeader, SupportText, FormFormat, FormInput, FormLabel, SignUpButton, Feedback } from "./Styles";
 import './SignUp.css'
 
 
@@ -41,7 +41,7 @@ class SignUp extends Component {
 									errors.last = "Required"
 								} else if (!values.email) {
 									errors.email = "Required"
-								} else if ((!/^([a-z0-9])+@([A-Za-z.]*)+gonzaga.edu$/i.test(values.email))) {
+								} else if ((!/^([a-z0-9-]*)+@([A-Za-z.]*)+gonzaga.edu$/i.test(values.email))) {
 									//validate user has an email that ends with zagmail.gonzaga.edu
 									errors.email =
 										"Invalid email address (must end with zagmail.gonzaga.edu or gonzaga.edu)"
@@ -61,7 +61,7 @@ class SignUp extends Component {
 							}}
 							onSubmit={values => {
 
-							axios.post("http://localhost:3001/users", {
+							axios.post("https://s-services.herokuapp.com/users", {
                                 first: values.first,
                                 last: values.last,
 								password: values.password,
@@ -107,7 +107,7 @@ class SignUp extends Component {
 											onChange={handleChange}
 											value={values.first}
 										/>
-										{touched.first && errors.first && <div>{errors.first}</div>}
+										{touched.first && errors.first && (<Feedback>{errors.first}</Feedback>)}
 										<FormLabel className="pull-left">Last Name</FormLabel>
 										<FormInput
 											id="last"
@@ -117,7 +117,7 @@ class SignUp extends Component {
 											onChange={handleChange}
 											value={values.last}
 										/>
-										{touched.last && errors.last && <div>{errors.last}</div>}
+										{touched.last && errors.last && <Feedback>{errors.last}</Feedback>}
 										<FormLabel className="pull-left">Email (only Gonzaga emails are accepted)</FormLabel>
 										<FormInput
 											id="email"
@@ -127,7 +127,7 @@ class SignUp extends Component {
 											onChange={handleChange}
 											value={values.email}
 										/>
-										{touched.email && errors.email && <div>{errors.email}</div>}
+										{touched.email && errors.email && <Feedback>{errors.email}</Feedback>}
 										<FormLabel className="pull-left">Password</FormLabel>
 										<FormInput
 											id="password"
@@ -137,7 +137,7 @@ class SignUp extends Component {
 											onChange={handleChange}
 											value={values.password}
 										/>
-										{touched.password && errors.password && <div>{errors.password}</div>}
+										{touched.password && errors.password && <Feedback>{errors.password}</Feedback>}
 										<FormLabel className="pull-left">Confirm Password</FormLabel>
 										<FormInput
 											id="confirm"
@@ -147,7 +147,7 @@ class SignUp extends Component {
 											onChange={handleChange}
 											value={values.confirm}
 										/>
-										{touched.confirm && errors.confirm && <div>{errors.confirm}</div>}
+										{touched.confirm && errors.confirm && <Feedback>{errors.confirm}</Feedback>}
 
 										<div className="row agreement">
 											<div className=" agreement-text">

@@ -5,6 +5,7 @@ import UserChats from "./UserChats";
 import UserListings from "./UserListings";
 import {WelcomeText} from "../Styles";
 import EditUser from "./EditUser";
+import Footer from "../Footer/Footer";
 
 class Profile extends React.Component {
     constructor() {
@@ -20,7 +21,7 @@ class Profile extends React.Component {
         if (this.props.match.params.id !== Cookies.getId()) {
             window.location.href = "/users/" + Cookies.getId(); 
         } else{
-            axios.get(`http://localhost:3001/user/${this.props.match.params.id}`)
+            axios.get(`https://s-services.herokuapp.com/user/${this.props.match.params.id}`)
                 .then(res => {
                     this.setState({
                         user: res.data,
@@ -49,6 +50,7 @@ class Profile extends React.Component {
                 </div>
                 <UserChats user={this.props.match.params.id}/>
                 <UserListings listings={user.listings}/>
+                <Footer/>
             </div>
         )
     }
