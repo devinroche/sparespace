@@ -79,7 +79,7 @@ class CreateListingDetails1 extends Component {
                                         </div>
                                         <div className="col-xl-2">
 
-                                        <Checkbox style={checkboxStyle} value="Lock Area"  /> Locked Area
+                                        <Checkbox style={checkboxStyle} value="Locked Area"  /> Locked Area
                                         </div>
                                     </CheckboxGroup>
                                 </div>
