@@ -8,6 +8,7 @@ import { DateRange } from 'react-date-range';
 import { ListingCard } from "./ListingCard";
 import {FilterContainer, OrangeButton, SearchInput} from "../Styles";
 import openSocket from 'socket.io-client';
+import Footer from "../Footer/Footer";
 
 const socket = openSocket('http://localhost:3001');
 
@@ -36,11 +37,14 @@ export class Listings extends React.Component {
             .then(response => {
                 let datesArr = response.data.map(l => moment(l.dates[0])).sort((a, b) => {return b - a});
                 let findMax = Math.max.apply(Math, response.data.map(o => { return o.price }));
+                let findMin = Math.min.apply(Math, response.data.map(o => { return o.price }));
+                let calcMin = findMin === Number.POSITIVE_INFINITY ? 0 : findMin;
                 let calcMax = findMax === Number.NEGATIVE_INFINITY ? 100 : findMax;
                 this.setState({
                     listings: response.data,
-                    value: { max: calcMax, min: 0 },
+                    value: { max: calcMax, min: calcMin },
                     max: calcMax,
+                    min: calcMin,
                     range: {start: datesArr[0]}
                 })
             })
@@ -53,24 +57,45 @@ export class Listings extends React.Component {
         if(range.startDate.format('YYYY-MM-DD') !== range.endDate.format('YYYY-MM-DD')){
             this.setState({
                 range: {
-                    start: range.startDate._d,
-                    end: range.endDate._d
+                    start: range.startDate,
+                    end: range.endDate
                 }
             })
         }
     }
     toggleCalendar() {
         this.setState({
-            showCalendar: !this.state.showCalendar
+            showCalendar: !this.state.showCalendar,
+            showPrice: false
         })
     }
-    render() {
+    togglePrice(){
+        this.setState({
+            showPrice: !this.state.showPrice,
+            showCalendar: false
+        })
+    }
+    resetFilters(listings){
+        let datesArr = this.state.listings.map(l => moment(l.dates[0])).sort((a, b) => { return b - a });
+        this.setState({
+            showPrice: false,
+            showCalendar: false,
+            search: '',
+            range: { start: datesArr[0] },
+            value: {
+                min: this.state.min,
+                max: this.state.max
+            }
+        })
+    }
+    render() { 
         let filteredListings = this.state.listings.filter((listing) => {
             return (
                 (listing.title.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
-                    || listing.description.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1)
-                && (listing.price >= this.state.value.min && listing.price <= this.state.value.max)
-                && (moment(listing.dates[0]).isSameOrBefore(this.state.range.start))
+                    || listing.description.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
+                    || listing.location.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1)
+                    && (listing.price >= this.state.value.min && listing.price <= this.state.value.max)
+                    && (moment(listing.dates[0]).format('YYYY-MM-DD') <= this.state.range.start.format('YYYY-MM-DD'))
             )
         });
         return (
@@ -79,37 +104,49 @@ export class Listings extends React.Component {
                 <div className="col-sm-7 col-sm-offset-1">
                 <FilterContainer className="row">
                     <div>
-                            <div className='col-sm-4'>
-                                <SearchInput className="searchBar" type='text' value={this.state.search} onChange={this.updateSearch.bind(this)} style={styles.formStyle} placeholder="Search Listings" />
+                            <div className='col-md-6 col-sm-6 col-xs-6'>
+                                <SearchInput className="searchBar" type='text' value={this.state.search} onChange={this.updateSearch.bind(this)} style={styles.formStyle} placeholder="Search Listings or Street" />
                             </div>
-                            <div className='col-sm-4'>
-                                <InputRange
-                                    maxValue={this.state.max}
-                                    minValue={0}
-                                    value={this.state.value}
-                                    onChange={value => {this.setState({ value })}}
-                                    />
+                            <div className='col-sm-2 col-xs-2'>
+                                <OrangeButton style={{padding: 8}} onClick={this.togglePrice.bind(this)}>Price</OrangeButton>
                             </div>
-                            <div className="col-sm-4">
-                                <OrangeButton style={{padding: 7}} onClick={this.toggleCalendar.bind(this)}>Date Range</OrangeButton>
+                            <div className="col-sm-2  col-xs-2">
+                                <OrangeButton style={{padding: 8}} onClick={this.toggleCalendar.bind(this)}>Dates</OrangeButton>
+                            </div>
+
+                            <div className="col-sm-2  col-xs-2">
+                                <OrangeButton style={{ padding: 8 }} onClick={this.resetFilters.bind(this)}>Reset</OrangeButton>
                             </div>
                     </div>
 
-
+                    <div className="col-sm-4 col-sm-offset-4">
+                        {
+                            this.state.showPrice ? <InputRange
+                                maxValue={this.state.max}
+                                minValue={this.state.min}
+                                formatLabel={value => `$${value}`}
+                                value={this.state.value}
+                                onChange={value => { this.setState({ value }) }}
+                            /> : null
+                        }
+                    </div>
                     <div>
                         {this.state.showCalendar ? <DateRange
                             minDate={moment()}
+                            calendars={1}
                             onInit={this.handleSelect.bind(this)}
                             onChange={this.handleSelect.bind(this)}
                         /> : null}
                     </div>
                 </FilterContainer>
-
                     <div className="row" style={{height: '90vh', overflowY:'scroll', boxShadow: "inset 0 5px 15px 0 rgba(0,0,0,.04)"}}>
                         {filteredListings.map((l, index) => (<ListingCard key={index} listing={l} />))}
                     </div>
                     </div>
                     <div className="col-md-4"><Mapo/></div>
+                </div>
+                <div className ="row">
+                    <Footer/>
                 </div>
             </div>
         )
@@ -119,7 +156,6 @@ export class Listings extends React.Component {
 export default Listings;
 
 const styles = {
-
     formStyle: {
         border: "none",
         boxShadow: "none",

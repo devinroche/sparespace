@@ -78,7 +78,7 @@ class UserListings extends React.Component {
                 height: 25,
                 marginBottom: 5,
                 background: "linear-gradient(to right, #FE947B, #FC5B45)",
-                border: "linear-gradient(to right, #FE947B, #FC5B45)",
+                border: "none",
                 borderRadius: 5
         };
 
@@ -105,28 +105,22 @@ class UserListings extends React.Component {
                 <MessageCard key={listing._id} className="row">
                         <div className='row' style={{paddingBottom:10}}>
                         <Link to={`/listing/${listing._id}`}>
-                            <div className="col-sm-4"><Image cloudName="dopxmkhbr" publicId={listing.images[0]} style={styles.imageSize} /></div>
-                            <div className="col-sm-4">{listing.status === 0 ? 'Closed Listing' : 'Active Listing'}<MessageName>{listing.title}</MessageName></div>
+                            <div className="col-sm-4 col-xs-4"><Image cloudName="dopxmkhbr" publicId={listing.images[0]} style={styles.imageSize} /></div>
+                            <div className="col-sm-4 col-xs-4">{listing.status === 0 ? 'Closed Listing' : 'This Listing is Active'}<MessageName>{listing.title}</MessageName></div>
                             </Link>
-                            <div className="col-sm-4">
+                            <div className="col-sm-4 col-xs-4">
                                 <div className='row'>
                                 <button className='col-sm-12' style={closeStyle} onClick={(e) => { this.toggleClose(listing._id, e) }} >Close</button>
                                 </div>
                                 <div className='row'>
-                                <button className='col-sm-12'  onClick={(e) => { this.toggleEdit(listing._id, e) }} style={editStyle}>Edit</button>
+                                {/* <button className='col-sm-12'  onClick={(e) => { this.toggleEdit(listing._id, e) }} style={editStyle}>Edit</button> */}
+                                <EditListing listing={listing}/>
                                 </div>
                                 <div className='row'>
                                 <button className='col-sm-12'  style={deleteStyle} onClick={(e) => { this.toggleDelete(listing._id, e) }} >Delete</button>
                                 </div>
                             </div>
                             </div>
-                    {/* <div className="row">
-                        <button className='col-sm-2 col-sm-offset-2' style={closeStyle} onClick={(e) => { this.toggleClose(listing._id, e) }} >Close</button>
-                        &nbsp; &nbsp; &nbsp;
-                        <button className='col-sm-2 col-sm-offset-1' onClick={(e) => { this.toggleEdit(listing._id, e) }} style={editStyle}>Edit</button>
-                        &nbsp; &nbsp; &nbsp;
-                        <button className='col-sm-2 col-sm-offset-1' style={deleteStyle} onClick={(e) => { this.toggleDelete(listing._id, e) }} >Delete</button>
-                    </div> */}
                 </MessageCard>
             )
         }) :

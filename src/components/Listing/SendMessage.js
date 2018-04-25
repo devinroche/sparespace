@@ -71,7 +71,7 @@ class SendMessage extends Component {
         })
         swal(
             'Message Sent',
-            'Your message has been sent',
+            'You will receive an email if the host messages you back!',
             'success'
         ).then((value) => {
             this.closeModal() 
@@ -91,14 +91,9 @@ class SendMessage extends Component {
         };
         return (
             <div>
-                <div data-tip data-for='message'>
-                    <Message disabled={!Cookies.isVerified()} className="btn btn-success" onClick={this.openModal}>Message</Message>
+                <div>
+                    <Message className="btn btn-success" onClick={this.openModal}>Message</Message>
                 </div>
-                {!Cookies.isVerified() &&
-                <ReactTooltip id='message' type='error'>
-                    <span>Please verify your account!</span>
-                </ReactTooltip>
-                }
                 <Modal
                     isOpen={this.state.modalIsOpen}
                     onAfterOpen={this.afterOpenModal}

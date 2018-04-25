@@ -1,4 +1,24 @@
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import styled from "styled-components";
+
+//home page
+
+export const MainHeader = styled.div`
+@media(max-width: 425px) {
+  				padding: 0;
+  			}
+`;
+
+export const NavBarDiv = styled.div`
+
+@media(max-width: 425px) {
+				  text-align: center;
+  			}
+;`
+
+
+
 
 export const Header = styled.h1`
         	font-family: 'Rubik', 'Arial', 'sans-serif';
@@ -7,7 +27,11 @@ export const Header = styled.h1`
         	color: #333333;
         	
         	@media(min-width: 1440px) {
-				font-size: 65px;
+				font-size: 55px;
+  			}
+  			@media(max-width: 375px) {
+  				padding: 0;
+				font-size: 45px;
   			}
   			@media(max-width: 320px) {
 				font-size: 45px;
@@ -25,8 +49,14 @@ export const SubHeader = styled.h2`
     margin-bottom: 30px;
     
     @media(min-width: 1440px) {
-        font-size: 30px;
+        font-size: 25px;
         margin-bottom: 50px;
+    }
+     @media(max-width: 425px) {
+        font-size: 20px;
+    }
+    @media(max-width: 375px) {
+        font-size: 18px;
     }
     @media(max-width: 320px) {
         font-size: 18px;
@@ -49,7 +79,7 @@ export const HomeButton = styled.a`
     }
     
     @media(min-width: 1440px) {
-        font-size: 27px;
+        font-size: 24px;
     }
     @media(max-width: 991px) {
         font-size: 16px;
@@ -69,6 +99,27 @@ export const HomeButton = styled.a`
 
 `;
 
+
+export const Boxes = styled.img`
+
+	margin-top: 125px;
+
+	@media(max-width: 425px){
+		display: none;
+	}
+`;
+
+export const FooterLink = styled.a`
+	font-family: 'Rubik', 'Arial', 'sans-serif';
+    color: #FC5B45;
+    font-weight: 600;
+    :hover{
+        text-decoration: none;
+        color: #FC5B45;
+    }
+`;
+
+
 export const Row = styled.div`
     margin-top: 50px;
     margin-left: 50px;
@@ -79,13 +130,18 @@ export const Logo = styled.a`
 	color: #FC5B45;
 	font-weight: bold;
 	font-size: 30px;
-	margin-left: 40px;
-	margin-top: 25px;
 	text-decoration: none;	
 	:hover{
 			color: #FC5B45;
 			text-decoration: #FC5B45;
 		}
+	:visited{
+		color: #FC5B45;
+		text-decoration: none;
+	}
+
+	
+	
 
 `;
 
@@ -100,6 +156,7 @@ export const NavItem = styled.a`
 			color: #333333;
 			text-decoration: #333;
 		}
+	
 	@media(max-width: 320px) {
 			font-size: 15px;
 		}
@@ -118,16 +175,18 @@ export const PostSpace = styled.a`
 	padding: 7px 15px;
 	text-decoration: none;
 	border-radius: 3px;
+	transition: background-color 0.5s ease;
 	:hover{
 			background-color: #FC5B45;
 			color: #FFF;
-			text-decoration: #FC5B45;
+			text-decoration: none;
+			box-shadow: 0 10px 28px 0 rgba(0,0,0,0.2);
 		}
 	
 	@media(max-width: 768px) {
-				padding: 4px 10px;
-				font-size: 13px;
-  			}
+			padding: 4px 10px;
+			font-size: 13px;
+		}
 `;
 
 
@@ -157,7 +216,7 @@ export const FormLabel = styled.label`
 	font-weight: 400;
 	margin-top: 10px;
 	@media(min-width: 1440px) {
-				font-size: 20px;
+				font-size: 18px;
 		}
 
 `;
@@ -191,6 +250,10 @@ export const FormInput = styled.input`
 		}
 
 `;
+
+export const Feedback= styled.div`
+color: red;
+`
 
 export const SignUpButton = styled.button`
       color:#fff;
@@ -251,11 +314,12 @@ export const CardHost = styled.h2`
 
 export const Label = styled.h3`
    font-family: "Rubik", "Arial", "sans-serif";
-   font-weight: 300;
-   color: #666;
+   font-weight: ${props => props.header ? '500' : '300'};
+   font-size: ${props => props.header ? '25px' : '20px'};
+   color: ${props => props.header ? '#333' : '#666'};
+
    @media(min-width: 1440px) {
-				font-size: 30px;
-				
+				font-size: 30px;		
 		}
 `;
 
@@ -287,7 +351,7 @@ export const Duration = styled.h3`
 
 export const ListingLabel = styled.h4`
    font-family: "Rubik", "Arial", "sans-serif";
-   font-weight: 400;
+   font-weight: 500;
    color: #333;
    margin-top: 25px;
    margin-left: 15px;
@@ -304,9 +368,9 @@ export const Features = styled.li`
    color: #666666;
    margin-top: 10px;
    margin-left: 15px;
-   font-size: 18px;
+   font-size: 15px;
    @media(min-width: 1440px) {
-				font-size: 22px;
+				font-size: 20px;
 				
 		}
 `;
@@ -319,7 +383,7 @@ export const Description = styled.p`
    font-size: 15px;
    line-height: 2;
    @media(min-width: 1440px) {
-				font-size: 22px;
+				font-size: 20px;
 				
 		}
 `;
@@ -358,7 +422,6 @@ export const FormStyle = styled.input`
 	color: #333;
 	font-weight: 300;
 	font-size: 20px;
-	margin-top: 50px;
 	border: none;
 	box-shadow: none;
 	border-bottom: 1px solid #CCCCCC;
@@ -367,6 +430,7 @@ export const FormStyle = styled.input`
 		color: #C1C1C1;
 		font-size: 15px;
 	}
+	
 `;
 
 export const WhiteButton = styled.button`
@@ -375,14 +439,13 @@ export const WhiteButton = styled.button`
 	background-color: #ffffff;
 	font-family: Rubik, Arial, sans-serif;
 	font-weight: 400;
-	margin-top: 200px;
+	margin-top: 50px;
 	padding: 10px 35px;
 	border-color: #FC5B45;	
 `;
 
 export const PriceInput = styled.input`
 
-	margin-top: 25px;
 	border: none;
 	box-shadow: none;
 	border-bottom: 1px solid #CCCCCC;
@@ -402,12 +465,16 @@ export const DescriptionInput = styled.textarea`
 		color: #C1C1C1;
 		font-size: 15px;
 	}
+	resize: none;
+
 
 `;
 
 export const CreateLabel = styled.h3`
+  		
    font-family: "Rubik", "Arial", "sans-serif";
-   font-weight: 300;
+   font-size: 20px;
+   font-weight: 400;
    color: #333;
    margin-top: 25px;
    @media(min-width: 1440px) {
@@ -416,12 +483,33 @@ export const CreateLabel = styled.h3`
 		}
 `;
 
+export const CreateLabelFeatures = styled.h3`
+  		
+   font-family: "Rubik", "Arial", "sans-serif";
+   font-weight: 300;
+   color: #333;
+   margin-top: 25px;
+   
+   @media(min-width: 1440px) {
+				font-size: 30px;
+				
+		}
+`;
+
+export const SectionDivider = styled.hr`
+    clear:both;
+    display:block;
+    border: #FC5B45;
+    background-color: #FC5B45;
+    height: 1px;
+`;
+
 //image upload
 export const ImageUploadText = styled.p`
 
 	font-family: "Rubik", "Arial", "sans-serif";
 	font-weight: 400;
-	margin-top: 100px;
+	margin-top: 45px;
 	font-size: 18px;
 	color: #5E85B2;
 
@@ -447,10 +535,26 @@ export const OrangeButton = styled.button`
 	border-width: 2px;
 	font-family: "Rubik", "Arial", "sans-serif";
 	color: #FC5B45;
+	@media(max-width: 425px) {
+		padding: 7px 25px;
+		font-size: 12px;
+		
+}
+	
 				
 `;
 
 //listings page
+
+export const Box = styled.div`
+	transition: box-shadow .3s;
+	border-radius: 5px;
+	border: 1.5px solid #E4E4E4;
+	:hover {
+		box-shadow: 0 0 11px #FC5B45; 
+	  }
+`
+
 export const ListingPrice= styled.h2`
 	font-family: "Rubik", "Arial", "sans-serif";
 	color: #FC5B45;
@@ -511,4 +615,36 @@ export const WelcomeText = styled.h1`
 	text-align: center;
 	margin-bottom: 50px;
 	margin-top: 50px;
+	@media(max-width: 375px) {
+		font-size: 30px;
+		
+}
 	`;
+
+export const BackButton = styled.button`
+	font-family: "Rubik";
+	color: #FFF;
+	font-weight: 400;
+	width: 150,
+    margin-bottom: 20,
+    height: 50,
+	fontSize: 20,
+	background: linear-gradient(to right, #FE947B, #FC5B45);
+	border: "none";
+	@media(max-width: 425px){
+		display: none;
+	}
+`;
+
+export const Paragraph = styled.p`
+	line-height: 1.6
+`;
+
+export const StyledLink = styled(Link)`
+	text-decoration: none;
+    &:focus, &:hover, &:visited, &:link, &:active {
+        text-decoration: none;
+    }
+`;
+
+// export default (props) => <StyledLink {...props} />;

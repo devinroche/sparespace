@@ -4,7 +4,7 @@ import axios from "axios"
 import swal from "sweetalert2"
 import { Redirect } from "react-router-dom"
 import Cookies from "../Cookies"
-import { LoginHeader, SupportText, FormFormat, FormInput, FormLabel, SignUpButton } from "./Styles";
+import { LoginHeader, SupportText, FormFormat, FormInput, FormLabel, SignUpButton, Feedback } from "./Styles";
 import './SignUp.css'
 
 
@@ -41,21 +41,22 @@ class SignUp extends Component {
 									errors.last = "Required"
 								} else if (!values.email) {
 									errors.email = "Required"
-								} else if (
-									!/^[A-Z0-9._%+-]+@zagmail.gonzaga.edu$/i.test(values.email)
-								) {
+								} else if ((!/^([a-z0-9-]*)+@([A-Za-z.]*)+gonzaga.edu$/i.test(values.email))) {
 									//validate user has an email that ends with zagmail.gonzaga.edu
 									errors.email =
-										"Invalid email address (must end with zagmail.gonzaga.edu)"
-								} else if (!values.confirm) {
+										"Invalid email address (must end with zagmail.gonzaga.edu or gonzaga.edu)"
+								}
+								else if (!values.confirm) {
 									errors.confirm = "Required"
 								} else if (values.confirm !== values.password) {
 									errors.confirm = "Passwords do not match!!"
 								} else if (!values.password) {
 									errors.password = "Required"
-								} else if (!values.agreement) {
-									errors.agreement = "You must accept to Terms of Privacy and Privacy Policy"
 								}
+								else if (values.password.length < 8) {
+									errors.password = "Password must be at least 8 characters!"
+								}
+								
 								return errors
 							}}
 							onSubmit={values => {
@@ -69,7 +70,7 @@ class SignUp extends Component {
 								if (response.data.errors) { // if account cant be created 
 									swal({
 										title: "That email is already in use!",
-										content: "Log in!",
+										text: "Log in!",
 										icon: "success"
 									}).then(() => { // redirect to login page
 										window.location.href = "/login"
@@ -77,39 +78,16 @@ class SignUp extends Component {
 									});
 								} else { // if account can be created
 									swal({
-										title: "Thanks for creating an account!",
-										content: "Let's Go!",
+										title: "Check your email to verify your account! It might be in your junk folder",
+										text: "You can only login after verification!",
 										icon: "success"
 									}).then(() => {
-										axios.post("http://localhost:3001/login", {
-											email: values.email,
-											password: values.password
-										})
-										.then(function(response) {
-											Cookies.loginUser(response.data.id, response.data.v)
-											window.location.href = "/users/" + response.data.id
-											return <Redirect to="/logged_in" />
-										})
+											window.location.href = "/"
+											return <Redirect to="/home" />
 									})
 								}
 								
-							});
-							swal(
-								"Email Verification Required",
-								"Please check your email to verify your account",
-								"warning"
-							).then(() => {
-                                axios
-                                    .post("http://localhost:3001/login", {
-                                        email: values.email,
-                                        password: values.password
-                                    })
-                                    .then(function(response) {
-                                        Cookies.loginUser(response.data.id, response.data.v)
-                                        window.location.href = "/users/" + response.data.id
-                                        return <Redirect to="/logged_in" />
-                                    })
-								})
+							})
 							}}
 							//render is actually rendering the form for the user to see
 							render={({
@@ -129,7 +107,7 @@ class SignUp extends Component {
 											onChange={handleChange}
 											value={values.first}
 										/>
-										{touched.first && errors.first && <div>{errors.first}</div>}
+										{touched.first && errors.first && (<Feedback>{errors.first}</Feedback>)}
 										<FormLabel className="pull-left">Last Name</FormLabel>
 										<FormInput
 											id="last"
@@ -139,8 +117,8 @@ class SignUp extends Component {
 											onChange={handleChange}
 											value={values.last}
 										/>
-										{touched.last && errors.last && <div>{errors.last}</div>}
-										<FormLabel className="pull-left">Email</FormLabel>
+										{touched.last && errors.last && <Feedback>{errors.last}</Feedback>}
+										<FormLabel className="pull-left">Email (only Gonzaga emails are accepted)</FormLabel>
 										<FormInput
 											id="email"
 											className="form-control"
@@ -149,7 +127,7 @@ class SignUp extends Component {
 											onChange={handleChange}
 											value={values.email}
 										/>
-										{touched.email && errors.email && <div>{errors.email}</div>}
+										{touched.email && errors.email && <Feedback>{errors.email}</Feedback>}
 										<FormLabel className="pull-left">Password</FormLabel>
 										<FormInput
 											id="password"
@@ -159,7 +137,7 @@ class SignUp extends Component {
 											onChange={handleChange}
 											value={values.password}
 										/>
-										{touched.password && errors.password && <div>{errors.password}</div>}
+										{touched.password && errors.password && <Feedback>{errors.password}</Feedback>}
 										<FormLabel className="pull-left">Confirm Password</FormLabel>
 										<FormInput
 											id="confirm"
@@ -169,27 +147,15 @@ class SignUp extends Component {
 											onChange={handleChange}
 											value={values.confirm}
 										/>
-										{touched.confirm && errors.confirm && <div>{errors.confirm}</div>}
+										{touched.confirm && errors.confirm && <Feedback>{errors.confirm}</Feedback>}
 
 										<div className="row agreement">
-											<div className="col-sm-2 agreement-box">
-												<Field
-													id="agreement"
-													className="agreement-field"
-													type="checkbox"
-													name="agreement"
-													onChange={handleChange}
-													value={values.agreement}
-												/>
-											</div>
 											<div className=" agreement-text">
-												I have read and agree with the <a href="/tos" target="_blank">Terms of Service</a> and <a href="/privacy" target="_blank">Privacy Policy.</a>
+												By signing up, I have read and agree with the <a href="/tos" target="_blank">Terms of Service</a> and <a href="/privacy" target="_blank">Privacy Policy.</a>
 											</div>
 										</div>
 
-										<div className="checkbox-div">
-											<strong><p className="checkbox-prompt">{errors.agreement && <div>{errors.agreement}</div>}</p></strong>
-										</div>
+						
 
 										<SignUpButton id="signup" name="signup" className="btn" type="submit">Confirm</SignUpButton>
 									</FormFormat>

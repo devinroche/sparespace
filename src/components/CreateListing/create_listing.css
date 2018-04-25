@@ -1,0 +1,142 @@
+.loading {
+    position: fixed;
+    z-index: 999;
+    height: 2em;
+    width: 2em;
+    overflow: show;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
+
+  .slides {
+    width: 10px;
+    height: 100px;
+    background-color: red;
+  }
+
+  .menu {
+    border-radius: 25px;
+    border: .5px solid black;
+    padding: 20px; 
+  }
+
+  .allSides
+		{
+      box-shadow:  0 0 10px  rgba(0,0,0,0.6);
+			-moz-box-shadow: 0 0 10px  rgba(0,0,0,0.6);
+			-webkit-box-shadow: 0 0 10px  rgba(0,0,0,0.6);
+			-o-box-shadow: 0 0 10px  rgba(0,0,0,0.6);
+      padding: 20px;  
+			
+     }
+     
+.redLabel {
+  text-decoration: red underline;
+}
+
+
+.child-div {
+  
+  float: left;
+  margin-right: 5px;
+}
+
+.parent-div {
+  
+  
+  border: 1px solid red;
+  margin-right: 10px;
+  float: left;
+  
+}
+
+.div-space {
+  
+  padding: 100px;
+}
+
+.title-input {
+  border: 0;
+  outline: 0;
+  background: transparent;
+  border-bottom: 1px solid darkgray;
+  width: 100%;
+}
+
+.title-incomplete-input {
+  border: 0;
+  outline: 0;
+  background: transparent;
+  border-bottom: 1px solid red;
+}
+
+
+
+.incomplete-line {
+
+  border-bottom: 1px solid red;
+  width: 30vw;
+}
+
+.descrip-input {
+  border: 0;
+  outline: 0;
+  background: transparent;
+  border: 1px solid darkgray;
+  border-radius: 5px;
+}
+
+.descrip-input-incomplete {
+  border: 0;
+  outline: 0;
+  background: transparent;
+  border: 1px solid red;
+  width: 100%;
+  border-radius: 5px;
+}
+
+.button-div {
+  text-align: center;
+}
+
+.button-continue {
+  margin-top: 50px;
+  border: 1px solid red;
+  border-radius: 3px;
+  width: 15%;
+  height: 50px;
+  min-width: 75px;
+  color: red;
+  margin: 10px;
+}
+
+.button-back {
+  margin-top: 50px;
+  border: 1px solid #333;
+  border-radius: 3px;
+  width: 15%;
+  height: 50px;
+  min-width: 75px;
+  color: #333;
+  margin: 10px;
+}
+
+.check-box-input {
+  margin-left: 25px;
+    font-family: "Rubik";
+    color: "#333";
+    font-weight: "300";
+    margin-top: 15px;
+
+}
+
+.radio-but-input {
+
+  margin-left: 25px;
+    font-family: "Rubik";
+    color: "#333";
+    font-weight: "300";
+}

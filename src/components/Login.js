@@ -3,11 +3,20 @@ import { Formik } from "formik"
 import axios from "axios"
 import swal from "sweetalert2"
 import Cookies from "../Cookies"
-import {LoginHeader, SupportText, FormFormat, FormInput, FormLabel, LoginButton} from "./Styles";
+import {LoginHeader, SupportText, FormFormat, FormInput, FormLabel, LoginButton, Feedback} from "./Styles";
+import {Link, Redirect} from "react-router-dom";
 
 class Login extends Component {
 
+	constructor() {
+        super();
+        this.state = {
+            toAccount: false
+        };
+    }
+
 	render() {
+
 		return (
 			<div className="container text-center">
 				<div className="row">
@@ -41,12 +50,12 @@ class Login extends Component {
 								.post("http://localhost:3001/login", values)
 								.then(function(response) {
 									Cookies.loginUser(response.data.id, response.data.v);
-									window.location.href = "/users/" + response.data.id; //maybe use react router instead
+									window.location.href = "/users/" + Cookies.getId(); //maybe use react router instead
 								})
 								.catch(function() {
 									swal({
-										title: "Login Failed!",
-										text: "Your email or password is incorrect!",
+										title: "Your email or password is incorrect!",
+										text: "Have you verified your email yet?",
 										icon: "warning",
 										dangerMode: true
 									})
@@ -71,7 +80,7 @@ class Login extends Component {
 										onChange={handleChange}
 										value={values.email}
 									/>
-									{touched.email && errors.email && <div>{errors.email}</div>}
+									{touched.email && errors.email && <Feedback>{errors.email}</Feedback>}
 									<FormLabel className="pull-left">Password</FormLabel>
 									<FormInput
 										id="password"
@@ -82,7 +91,7 @@ class Login extends Component {
 										onChange={handleChange}
 										value={values.password}
 									/>
-									{touched.password && errors.password && <div>{errors.password}</div>}
+									{touched.password && errors.password && <Feedback>{errors.password}</Feedback>}
 								<LoginButton className="btn" type="submit">Log In</LoginButton>
 							</FormFormat>
 						)}

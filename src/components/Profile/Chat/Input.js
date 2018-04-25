@@ -20,14 +20,14 @@ class Input extends Component {
         return (
             <div className='row chatForm'>
                 <form onSubmit={this.handleFormSubmit}>
-                    <div className='col-sm-10'>
+                    <div className='col-sm-10 col-xs-8'>
                         <input
                             type="text"
                             ref={(node) => (this.input = node)}
                             placeholder="Enter your message…"
                             />
                     </div>
-                    <div className="col-sm-2">
+                    <div className="col-sm-2 col-xs-3">
                         <button type="submit" style={btnStyle} className="btn btn-primary">Send</button>
                     </div>
                 </form>

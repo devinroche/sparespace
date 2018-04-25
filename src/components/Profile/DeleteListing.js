@@ -20,7 +20,9 @@ class DeleteListing extends Component {
         this.renderDelete();
     }
     handleSubmit(event) {
-        axios.delete(`http://localhost:3001/listing/${this.state.listing_id}`)
+        axios.post(`http://localhost:3001/deleteListing`, {
+            id: this.state.listing_id
+        })
     }
     renderDelete() {
         return (

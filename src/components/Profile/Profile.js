@@ -5,6 +5,7 @@ import UserChats from "./UserChats";
 import UserListings from "./UserListings";
 import {WelcomeText} from "../Styles";
 import EditUser from "./EditUser";
+import Footer from "../Footer/Footer";
 
 class Profile extends React.Component {
     constructor() {
@@ -38,10 +39,10 @@ class Profile extends React.Component {
                 <div className="row">
                     <div className="col-sm-8 col-sm-offset-2" >
                         <div style={{textAlign: 'center'}}className="row">
-                            <div className="col-sm-8 col-sm-offset-2">
+                            <div className="col-sm-8 col-sm-offset-2 col-xs-10">
                             <WelcomeText>Welcome, {user.first}!</WelcomeText>
                             </div>
-                            <div className="col-sm-2">
+                            <div className="col-sm-2 col-xs-1">
                             <EditUser />
                             </div>
                         </div>
@@ -49,6 +50,7 @@ class Profile extends React.Component {
                 </div>
                 <UserChats user={this.props.match.params.id}/>
                 <UserListings listings={user.listings}/>
+                <Footer/>
             </div>
         )
     }
